@@ -46,7 +46,7 @@ describe('analyzeTransfers', () => {
     expect(result.suggestions[0]?.reasonCodes).toContain('poor_form');
     expect(result.suggestions[0]?.inCandidates.map((p) => p.id)).toEqual([2]);
     expect(result.suggestions[0]?.expectedPointsGain).toBe(7);
-    // A free transfer with a positive gain is always worth using — no hit needed.
+    // a free transfer on a positive gain costs nothing
     expect(result.recommendedCount).toBe(1);
     expect(result.pointsHitCost).toBe(0);
     expect(result.projectedNetGain).toBe(7);
@@ -87,7 +87,7 @@ describe('analyzeTransfers', () => {
     const smallUpgrade = makePlayer({
       id: 2,
       form: 8,
-      epNext: 7, // only +2 gain — not worth a 4-point hit
+      epNext: 7, // only +2, not worth a 4-point hit
       nowCost: 50,
       position: 'MID',
     });
@@ -97,7 +97,7 @@ describe('analyzeTransfers', () => {
     expect(result.recommendedCount).toBe(0);
     expect(result.pointsHitCost).toBe(0);
     expect(result.projectedNetGain).toBe(0);
-    // Still surfaced as a weak link to watch, just not actioned this week.
+    // still surfaced as a weak link, just not actioned this week
     expect(result.suggestions[0]?.outPlayer.id).toBe(1);
   });
 
@@ -108,7 +108,7 @@ describe('analyzeTransfers', () => {
     const bigUpgrade = makePlayer({
       id: 2,
       form: 9,
-      epNext: 10, // +8 gain — clears the 4-point hit
+      epNext: 10, // +8 clears the 4-point hit
       nowCost: 50,
       position: 'MID',
     });
@@ -127,7 +127,7 @@ describe('analyzeTransfers', () => {
     const bigUpgrade = makePlayer({
       id: 2,
       form: 9,
-      epNext: 10, // +8 gain — would normally clear the 4-point hit
+      epNext: 10, // +8 would normally clear the hit
       nowCost: 50,
       position: 'MID',
     });
@@ -158,10 +158,8 @@ describe('analyzeTransfers', () => {
   });
 
   it('never stacks more than one hit, even when the raw math looks net-positive', () => {
-    // Five flagged weak links, zero free transfers, each with a modest
-    // +5 gain — cumulatively that's +25 for a -16 hit (4 hits), net +9.
-    // Real FPL wisdom says never gamble on that many hits in one week;
-    // at most one hit-funded transfer should ever be recommended.
+    // five +5 swaps is +25 for -16, net +9 on paper, but stacking hits is a
+    // gamble, so at most one hit is ever recommended
     const weakLinks = [1, 2, 3, 4, 5].map((id) =>
       makePlayer({ id, form: 1, epNext: 2, nowCost: 50, position: 'MID' }),
     );
@@ -178,8 +176,7 @@ describe('analyzeTransfers', () => {
   });
 
   it('skips a hit-funded transfer whose gain only barely clears the -4 cost', () => {
-    // +5 gain for a -4 hit is technically net-positive, but too thin a
-    // margin given ep_next is just a single-gameweek estimate.
+    // +5 for -4 is net positive, but too thin for a one-week estimate
     const weak = makePlayer({ id: 1, form: 1, epNext: 2, nowCost: 50, position: 'MID' });
     const squad = makeSquadContext({ squad: [weak], bank: 50, freeTransfers: 0 });
     const thinUpgrade = makePlayer({

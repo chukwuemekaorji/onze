@@ -9,16 +9,13 @@ export interface CaptaincyCandidate {
 export interface CaptaincyAnalysis {
   captain: CaptaincyCandidate | null;
   viceCaptain: CaptaincyCandidate | null;
-  /** Ranked best-first. */
+  /** best first */
   candidates: CaptaincyCandidate[];
 }
 
 /**
- * Ranks captaincy candidates for one event. Takes the eligible player
- * list directly (the caller passes the recommended starting XI, from
- * lib/analysis/lineup.ts) rather than reading "currently starting" off
- * historical FPL picks — those reflect whichever gameweek's deadline
- * last passed, which isn't necessarily the one being planned for.
+ * takes the recommended xi, not fpl's picks, which reflect the last passed
+ * deadline rather than the gameweek being planned
  */
 export function analyzeCaptaincy(
   eligiblePlayers: AnalysisPlayer[],

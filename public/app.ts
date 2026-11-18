@@ -28,14 +28,12 @@ function storeManagerId(managerId: number): void {
   try {
     localStorage.setItem(MANAGER_ID_STORAGE_KEY, String(managerId));
   } catch {
-    // Private browsing / storage disabled. Nothing to fall back to, just skip.
+    // private browsing or storage disabled; nothing to fall back to
   }
 }
 
-// Caching the report avoids re-running the whole pipeline (FPL fetch +
-// LLM call) on every page refresh. Keyed per manager ID, invalidated
-// automatically once the cached gameweek's deadline has passed (that
-// advice is stale by then anyway) or manually via the Refresh button.
+// skips the fpl fetch and llm call on reload. dropped once the deadline passes,
+// since the advice is stale by then
 const REPORT_CACHE_PREFIX = 'sensei:report:';
 
 interface CachedReport {
@@ -62,7 +60,7 @@ function storeCachedReport(
     const entry: CachedReport = { ...data, cachedAt: Date.now() };
     localStorage.setItem(REPORT_CACHE_PREFIX + managerId, JSON.stringify(entry));
   } catch {
-    // Storage unavailable, skip caching.
+    // storage unavailable, skip caching
   }
 }
 

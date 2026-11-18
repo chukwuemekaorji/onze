@@ -51,8 +51,7 @@ export default async function handler(
     return;
   }
 
-  // No fallback for chat by design (MASTER.md §7a) — an ungrounded
-  // generic chatbot reply would defeat the point of the feature.
+  // no chat fallback by design: an ungrounded reply defeats the point
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
     res.status(503).json({

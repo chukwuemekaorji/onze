@@ -61,7 +61,7 @@ export function detectDoubleGameweeks(
   return result.sort((a, b) => a.event - b.event);
 }
 
-/** A team "blanks" in an event if it has zero fixtures while others play. */
+/** a blank is zero fixtures while other teams play */
 export function detectBlankGameweeks(
   fixtures: FplFixture[],
   allTeamIds: number[],
@@ -101,7 +101,7 @@ function hasUpcomingDisruption(
 }
 
 export interface AnalyzeChipsOptions {
-  /** How many gameweeks ahead (inclusive of the current one) to scan. Default 5. */
+  /** gameweeks to scan, including the current one. default 5 */
   lookaheadEvents?: number;
 }
 

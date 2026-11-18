@@ -52,8 +52,7 @@ describe('analyzeLineup', () => {
 
   it('prioritizes a double-gameweek player over a single-fixture bench-quality player', () => {
     const squad = standardSquad();
-    // Give one forward a double gameweek (two fixtures in the target event)
-    // while the other two forwards only blank/single-fixture at a lower epNext.
+    // one forward has a double gameweek; the others have one fixture or none
     squad[12] = makePlayer({
       id: squad[12]!.id,
       position: 'FWD',

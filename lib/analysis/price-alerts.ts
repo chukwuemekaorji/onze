@@ -13,8 +13,8 @@ export interface PriceAlertsAnalysis {
   alerts: PriceAlert[];
 }
 
-// Community-heuristic thresholds — FPL's actual price algorithm is
-// undisclosed, so this is a momentum signal, never a guarantee.
+// community heuristic: fpl's price algorithm is secret, so this is a signal,
+// never a guarantee
 const NET_TRANSFER_RISE_THRESHOLD = 50_000;
 const NET_TRANSFER_FALL_THRESHOLD = -50_000;
 

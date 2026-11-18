@@ -1,8 +1,6 @@
 /**
- * TypeScript interfaces for the official (unofficial-but-public) FPL API.
- * Only fields Sensei actually consumes are declared — the real payloads
- * carry many more. Fields are typed permissively (e.g. numeric strings)
- * where the FPL API is inconsistent about it.
+ * only the fields sensei uses from the public fpl api. some numbers arrive as
+ * strings, so the types follow what the api actually sends.
  */
 
 export interface FplEvent {
@@ -28,7 +26,7 @@ export interface FplTeam {
   strength_defence_away: number;
 }
 
-/** element_type id -> position (1 GK, 2 DEF, 3 MID, 4 FWD). */
+/** id maps to position: 1 gk, 2 def, 3 mid, 4 fwd */
 export interface FplElementType {
   id: number;
   singular_name_short: string;
@@ -75,7 +73,7 @@ export interface FplFixture {
   kickoff_time: string | null;
 }
 
-/** A classic league as it appears in /entry/{id}/'s leagues.classic. league_type "s" is one of FPL's own system leagues (Overall, country, gameweek); "x" is a league a manager actually created or joined. */
+/** league_type "s" is an fpl system league, "x" is one the manager joined */
 export interface FplClassicLeague {
   id: number;
   name: string;

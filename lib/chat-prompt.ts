@@ -23,9 +23,7 @@ genuinely needs more. Don't number out multiple transfer options or
 close with a question back to the user — just tell them what to do.`;
 
 const MAX_CHAT_TOKENS = 350;
-// Client is expected to cap history to ~10 turns already (MASTER.md
-// §7a); this is a defensive server-side backstop against a misbehaving
-// or malicious client blowing up token usage on every request.
+// server-side backstop so a bad client can't blow up token usage
 const MAX_HISTORY_MESSAGES = 20;
 
 export interface BuildChatRequestOptions {

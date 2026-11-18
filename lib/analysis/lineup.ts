@@ -7,11 +7,11 @@ export interface LineupPlayer {
 }
 
 export interface LineupAnalysis {
-  /** e.g. "3-4-3" (DEF-MID-FWD). */
+  /** e.g. "3-4-3" (def-mid-fwd) */
   formation: string;
-  /** GK first, then DEF, MID, FWD, each sorted best-first. */
+  /** gk, def, mid, fwd, each best first */
   startingXI: LineupPlayer[];
-  /** Sub priority order: best outfield sub first, backup GK last. */
+  /** sub order: best outfield sub first, backup gk last */
   bench: LineupPlayer[];
 }
 
@@ -21,8 +21,7 @@ interface FormationCounts {
   fwd: number;
 }
 
-// FPL's legal outfield shapes: 10 outfield players split DEF 3-5, MID
-// 2-5, FWD 1-3.
+// fpl's legal outfield shapes: def 3-5, mid 2-5, fwd 1-3
 function validFormations(): FormationCounts[] {
   const formations: FormationCounts[] = [];
   for (let def = 3; def <= 5; def++) {
@@ -38,7 +37,7 @@ function bestN(players: LineupPlayer[], n: number): LineupPlayer[] {
   return [...players].sort((a, b) => b.score - a.score).slice(0, n);
 }
 
-/** Best starting XI + formation for one target gameweek, from a 15-player squad. */
+/** picks the highest-scoring legal formation, not a fixed one */
 export function analyzeLineup(squad: AnalysisPlayer[], event: number): LineupAnalysis {
   const scored: LineupPlayer[] = squad.map((player) => ({
     player,
@@ -81,9 +80,7 @@ export function analyzeLineup(squad: AnalysisPlayer[], event: number): LineupAna
   }
 
   if (!best) {
-    // Squad doesn't have enough players in some position to fill any
-    // legal formation (e.g. an incomplete squad) — fall back to
-    // whatever's available rather than throwing.
+    // an incomplete squad can't fill any legal shape; use what's there
     const startingXI = [
       ...startingGk,
       ...byPosition.DEF,

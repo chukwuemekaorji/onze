@@ -94,8 +94,7 @@ const REQUIRED_FIELDS = [
   'formation',
 ] as const;
 
-// Claude sometimes wraps JSON in a markdown fence despite being told not
-// to; strip it before parsing rather than fighting the model over it.
+// claude sometimes fences the json despite instructions; strip it instead
 function stripMarkdownFence(text: string): string {
   const trimmed = text.trim();
   const fenceMatch = /^```(?:json)?\s*([\s\S]*?)\s*```$/.exec(trimmed);

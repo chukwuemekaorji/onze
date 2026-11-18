@@ -1,8 +1,4 @@
-/**
- * Renders a recommended lineup as an SVG pitch graphic. Pure string
- * templating, no rendering dependencies here — api/lineup-image.ts
- * converts the SVG to PNG at the I/O boundary.
- */
+/** pure svg templating; api/lineup-image.ts does the png conversion */
 
 import type { LineupAnalysis, LineupPlayer } from './analysis/lineup.js';
 import type { Position } from './analysis/types.js';

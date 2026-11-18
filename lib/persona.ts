@@ -1,9 +1,4 @@
-/**
- * Sensei's single source of truth for voice and persona. Both the report
- * (coach-prompt.ts) and chat (chat-prompt.ts) import this — the whole
- * point of a shared persona is that the report and the chat sound like
- * the same coach.
- */
+/** the voice lives only here so the report and chat sound like one coach */
 
 export const DEFAULT_ANTHROPIC_MODEL = 'claude-sonnet-5-5';
 

@@ -1,8 +1,4 @@
-/**
- * Orchestrates fetch -> build -> analyze into one AnalysisSummary. Shared
- * by api/coach.ts (the report) and api/lineup-image.ts (the squad PNG),
- * which both need the identical squad/transfer/lineup computation.
- */
+/** fetch, build, analyze. shared by the report and the lineup image so both agree */
 
 import {
   getBootstrapStatic,
@@ -28,7 +24,7 @@ import type { AnalysisSummary } from './analysis-summary.js';
 
 const LOOKAHEAD_EVENTS = 5;
 
-// FPL's own short codes for chips used, from /entry/{id}/history/.
+// fpl's chip codes as they appear in /entry/{id}/history/
 const FPL_CHIP_NAME_MAP: Record<string, ChipName> = {
   wildcard: 'wildcard',
   bboost: 'bench_boost',
@@ -47,13 +43,8 @@ export async function generateAnalysisSummary(
     getFixtures(),
   ]);
 
-  // Picks only exist for a gameweek that has actually started — FPL 404s
-  // on /entry/{id}/event/{gw}/picks/ for a future gameweek. So this can
-  // NEVER follow requestedEvent; it always has to be the live gameweek,
-  // even when the caller wants analysis for a different target event
-  // (e.g. /api/lineup-image passing the report's planning event through
-  // to stay in sync — that's a future gameweek once the current one's
-  // deadline has passed, and its picks don't exist yet).
+  // fpl 404s on picks for a gameweek that hasn't started, so this is always
+  // the live gameweek, never requestedEvent
   const picksEvent =
     bootstrap.events.find((e) => e.is_current)?.id ??
     bootstrap.events.find((e) => e.is_next)?.id;
@@ -64,14 +55,8 @@ export async function generateAnalysisSummary(
     );
   }
 
-  // requestedEvent only ever chooses which gameweek transfer/captaincy/
-  // lineup advice targets (planningEvent below). FPL keeps a gameweek
-  // flagged is_current for its whole duration, even after its own
-  // deadline has passed mid-gameweek, so without an explicit request the
-  // default target is the soonest gameweek whose deadline hasn't passed
-  // yet, not necessarily picksEvent. The squad itself (which 15 players
-  // are owned) doesn't change between gameweeks except by transfer, so
-  // reusing picksEvent's squad here is still accurate regardless.
+  // fpl keeps is_current set past the deadline, so default to the next open
+  // deadline. the squad only changes by transfer, so picksEvent's still holds.
   const now = Date.now();
   const nextActionableEvent = bootstrap.events.find(
     (e) => new Date(e.deadline_time).getTime() > now,
@@ -113,9 +98,7 @@ export async function generateAnalysisSummary(
   });
   const postTransferSquad = applyRecommendedTransfers(squad.squad, transfers);
   const lineup = analyzeLineup(postTransferSquad, planningEvent);
-  // Captaincy is chosen from the recommended lineup, not squad.picks'
-  // historical starting XI (which may be a stale, already-played
-  // gameweek's lineup once picksEvent's deadline has passed).
+  // use the recommended xi; squad.picks may be an already-played gameweek's
   const captaincy = analyzeCaptaincy(
     lineup.startingXI.map((p) => p.player),
     planningEvent,

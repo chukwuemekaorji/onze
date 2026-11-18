@@ -9,9 +9,8 @@ import type {
 
 const FPL_BASE_URL = 'https://fantasy.premierleague.com/api';
 
-// bootstrap-static and fixtures are large and change rarely; everything
-// else (entry/picks/history/element-summary) is manager- or gameweek-
-// specific and cheap enough to fetch fresh each time.
+// only these two are cached: large and rarely change. the rest is per-manager
+// and cheap to fetch fresh.
 const BOOTSTRAP_CACHE_TTL_MS = 10 * 60 * 1000;
 const FIXTURES_CACHE_TTL_MS = 10 * 60 * 1000;
 
@@ -100,7 +99,7 @@ export async function getElementSummary(
   );
 }
 
-/** Test-only hook to reset in-memory caches between test runs. */
+/** test-only: clears the in-memory caches */
 export function __resetCachesForTests(): void {
   bootstrapCache = null;
   fixturesCache = null;

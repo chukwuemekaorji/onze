@@ -1,9 +1,6 @@
 /**
- * Rule-based writer used when no ANTHROPIC_API_KEY is configured. Same
- * input (AnalysisSummary) and output (CoachReport) shape as coach-prompt
- * + the LLM call, so api/coach.ts never needs to special-case which
- * writer produced the report. Report-only — chat has no fallback (see
- * MASTER.md §7a: an ungrounded chatbot would defeat the point).
+ * rule-based report for when no api key is set. same shapes as the llm path,
+ * so api/coach.ts never special-cases it. chat has no fallback on purpose.
  */
 
 import type { AnalysisSummary } from './analysis-summary.js';

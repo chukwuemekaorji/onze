@@ -1,12 +1,6 @@
 /**
- * Maps raw FPL API responses into the plain data shapes lib/analysis/*
- * consumes. Pure transform, no fetch calls — those live in fpl-client.ts.
- *
- * Fixture difficulty for every player (squad or full pool) is derived
- * from the general fixtures list + team id, not from element-summary:
- * FPL's fixture-level team_h_difficulty/team_a_difficulty already carries
- * the same rating element-summary would return per player, so deriving it
- * this way avoids one API call per player (600+) for the full pool.
+ * pure mapping from raw fpl responses to analysis shapes. difficulty comes from
+ * the fixtures list, not element-summary, to avoid 600+ per-player calls.
  */
 
 import type {
@@ -42,9 +36,8 @@ function toPosition(elementTypeId: number): Position {
   return position;
 }
 
-// FPL returns several numeric fields (form, ep_next, selected_by_percent)
-// as strings; this repo treats "unparseable" as 0 rather than throwing,
-// since these are display stats, not values analysis correctness depends on.
+// fpl sends form, ep_next etc. as strings; junk becomes 0 rather than
+// failing the whole report
 function parseFplFloat(value: string): number {
   const parsed = Number.parseFloat(value);
   return Number.isNaN(parsed) ? 0 : parsed;
@@ -80,9 +73,9 @@ function buildFixtureDifficulty(
 }
 
 export interface BuildAnalysisPlayerOptions {
-  /** Gameweek to start the fixture lookahead from — normally the current/next event. */
+  /** first gameweek of the fixture lookahead */
   fromEvent: number;
-  /** How many gameweeks of fixtures to attach. Default 5. */
+  /** default 5 */
   lookaheadEvents?: number;
 }
 
@@ -157,10 +150,8 @@ export function buildSquadContext(
   return { currentEvent, bank, freeTransfers, squad, picks: squadPicks };
 }
 
-// league_type "s" marks FPL's own system leagues (Overall, country,
-// gameweek, "second chance") — every manager is auto-entered in these and
-// nobody meaningfully "wins" one. "x" is a league a manager actually
-// created or joined, which is what "the leagues I'm in" means in practice.
+// "s" is an fpl system league (overall, country) that nobody really wins;
+// "x" is one the manager created or joined
 const USER_JOINED_LEAGUE_TYPE = 'x';
 
 export function buildLeagueStandings(entry: FplEntry): LeagueStanding[] {
@@ -175,22 +166,12 @@ export function buildLeagueStandings(entry: FplEntry): LeagueStanding[] {
     }));
 }
 
-// FPL's free-transfer roll-over rule (2024/25 ruleset onward): every
-// manager starts with 1 free transfer for gameweek 2, gains +1 for each
-// gameweek where it isn't fully used (capped at 5), and drops back to 1
-// the gameweek after any that overspends it. Transfers made while
-// Wildcard or Free Hit is active don't count against this — FPL excludes
-// them from the following gameweek's free-transfer calculation entirely.
+// fpl rule since 2024/25: 1 free transfer for gw2, +1 per week not fully used,
+// capped at 5, back to 1 after a hit. wildcard and free hit weeks don't count.
 const FREE_TRANSFER_CAP = 5;
 const CHIPS_EXEMPT_FROM_TRANSFER_COUNT = new Set(['wildcard', 'freehit']);
 
-/**
- * Simulates the free-transfer count a manager has going into
- * `planningEvent`, from their full gameweek-by-gameweek history. FPL's
- * public API never exposes this directly (the real-time count only
- * appears on the authenticated "my-team" endpoint), so it has to be
- * derived from event_transfers on every prior finished gameweek.
- */
+/** the public api never exposes free transfers, so replay them from history */
 export function computeFreeTransfers(
   history: FplEntryHistoryResponse,
   planningEvent: number,
@@ -203,7 +184,7 @@ export function computeFreeTransfers(
       .map((c) => c.event),
   );
 
-  let freeTransfers = 1; // what every manager has entering gameweek 2
+  let freeTransfers = 1; // every manager has 1 entering gw2
   for (const gw of history.current) {
     if (gw.event < 2 || gw.event >= planningEvent) continue;
     const transfersMade = chipExemptEvents.has(gw.event) ? 0 : gw.event_transfers;
@@ -216,11 +197,7 @@ export function computeFreeTransfers(
   return freeTransfers;
 }
 
-/**
- * Swaps in the recommended transfers (if any) so downstream lineup/
- * formation analysis reflects the squad after the suggested changes, not
- * the one currently owned.
- */
+/** so lineup and captaincy see the squad after the recommended swaps */
 export function applyRecommendedTransfers(
   squad: AnalysisPlayer[],
   transfers: TransfersAnalysis,

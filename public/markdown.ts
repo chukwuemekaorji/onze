@@ -1,8 +1,4 @@
-/**
- * Minimal, safe markdown-to-HTML for LLM-written prose: bold and line
- * breaks only. Escapes first so nothing the model writes can inject
- * markup. This is not a general markdown renderer.
- */
+/** bold and line breaks only. escapes first so model output can't inject markup */
 
 function escapeHtml(text: string): string {
   const div = document.createElement('div');
