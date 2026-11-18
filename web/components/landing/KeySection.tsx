@@ -1,5 +1,6 @@
 import { GITHUB_URL } from '../../site-links.js';
 import { ImageSlot } from '../ui/ImageSlot.js';
+import { MarkerUnderline } from '../ui/MarkerUnderline.js';
 import { Reveal } from './Reveal.js';
 
 const PROMISES = [
@@ -21,7 +22,7 @@ export function KeySection() {
       <div className="key-section__copy">
         <p className="eyebrow">Privacy</p>
         <h2 id="key-title" className="landing-section__title">
-          Your key stays yours.
+          Your key stays <MarkerUnderline>yours</MarkerUnderline>.
         </h2>
         <ul className="promises">
           {PROMISES.map((promise) => (

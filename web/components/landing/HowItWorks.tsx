@@ -1,4 +1,5 @@
 import { ImageSlot } from '../ui/ImageSlot.js';
+import { MarkerUnderline } from '../ui/MarkerUnderline.js';
 import { Reveal } from './Reveal.js';
 
 const STEPS = [
@@ -26,15 +27,16 @@ export function HowItWorks() {
       <div className="landing-section__intro">
         <p className="eyebrow">How it works</p>
         <h2 id="how-title" className="landing-section__title">
-          Three steps, no account.
+          Three steps, <MarkerUnderline>no account</MarkerUnderline>.
         </h2>
       </div>
       <div className="how-it-works__body">
         <ol className="steps">
           {STEPS.map((step, index) => (
             <li key={step.title} className="step">
-              <span className="step__number num" aria-hidden="true">
-                {String(index + 1).padStart(2, '0')}
+              {/* chalked up like a coach numbering the drill */}
+              <span className="step__number" aria-hidden="true">
+                {index + 1}
               </span>
               <h3 className="step__title">{step.title}</h3>
               <p className="step__body">{step.body}</p>

@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { StickyNote } from '../ui/StickyNote.js';
 import { Reveal } from './Reveal.js';
 
 interface Feature {
@@ -59,11 +60,19 @@ const FEATURES: Feature[] = [
 export function Features() {
   return (
     <Reveal className="landing-section features" labelledBy="features-title">
-      <div className="landing-section__intro">
-        <p className="eyebrow">What it covers</p>
-        <h2 id="features-title" className="landing-section__title">
-          The decisions that move your rank.
-        </h2>
+      <div className="features__head">
+        <div className="landing-section__intro">
+          <p className="eyebrow">What it covers</p>
+          <h2 id="features-title" className="landing-section__title">
+            The decisions that move your rank.
+          </h2>
+        </div>
+        {/* the one sticky note on the page, in the coach's own hand */}
+        <StickyNote className="features__tip" tilt="left" role="note">
+          <span className="sr-only">Coach's tip: </span>
+          Never take a -4 for a one-week punt. If it won't pay back this week, it can
+          wait.
+        </StickyNote>
       </div>
       <ul className="feature-grid">
         {FEATURES.map((feature) => (

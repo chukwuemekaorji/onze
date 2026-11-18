@@ -94,19 +94,36 @@
   border-radius: var(--radius-md);
 }
 
-/* sticky note: the yellow and the handwriting stay on the notepad, so this is plain paper */
+/* sticky note: yellow paper in the coach's hand, pressed on a touch crooked */
 
 .ui-sticky {
   position: relative;
-  max-width: 20rem;
-  padding: var(--space-5);
-  font-family: var(--font-body);
-  font-size: var(--text-md);
-  line-height: 1.5;
+  max-width: 18rem;
+  padding: var(--space-5) var(--space-5) var(--space-4);
+  font-family: var(--font-hand);
+  font-size: var(--text-hand);
+  font-weight: 500;
+  line-height: 1.2;
   color: var(--ink);
-  background: var(--paper-card);
-  border: var(--stroke) solid var(--hairline);
-  border-radius: var(--radius-sm);
+  background: var(--highlighter);
+  box-shadow: 2px 3px 0 rgba(27, 26, 23, 0.16);
+}
+
+.ui-sticky--left {
+  rotate: -2deg;
+}
+
+.ui-sticky--right {
+  rotate: 1.5deg;
+}
+
+/* the slightly darker adhesive strip */
+.ui-sticky::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: var(--space-3);
+  background: rgba(27, 26, 23, 0.05);
 }
 
 /* marker strokes */
@@ -126,7 +143,7 @@
 .ui-marker-stroke path {
   fill: none;
   stroke: var(--marker-red);
-  stroke-width: 3;
+  stroke-width: 4;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -152,17 +169,19 @@
   stroke-width: 2.5;
 }
 
-/* highlight: a quiet ink wash rather than a yellow swipe */
+/* highlight: a yellow highlighter pass behind a word */
 
 .ui-highlight {
   color: inherit;
   background-color: transparent;
-  background-image: linear-gradient(var(--wash), var(--wash));
+  /* a solid fill, sized and swiped in by motion. not a gradient wash */
+  background-image: linear-gradient(var(--highlighter), var(--highlighter));
   background-repeat: no-repeat;
-  background-position: 0 85%;
+  background-position: 0 88%;
   /* height mirrors HIGHLIGHT_HEIGHT in web/motion.ts */
   background-size: 100% 62%;
-  padding-inline: 0.15em;
+  padding-inline: 0.12em;
+  margin-inline: -0.06em;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
