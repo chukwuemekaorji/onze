@@ -1,0 +1,295 @@
+/* the report screen in web/components/Workspace.tsx: tab bar, page and coach */
+
+.workspace__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-5);
+  padding-top: var(--space-5);
+}
+
+/* coach panel, docked on a laptop */
+
+.coach-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--paper-card);
+  border: var(--stroke) solid var(--hairline);
+  border-radius: var(--radius-lg);
+}
+
+.coach-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  border-bottom: var(--stroke) solid var(--hairline);
+}
+
+.coach-panel__title {
+  margin: 0;
+  font-size: var(--text-lg);
+}
+
+.coach-panel__collapse {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  color: var(--ink);
+  background: transparent;
+  border: var(--stroke) solid var(--hairline-strong);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+}
+
+.coach-panel__collapse:hover {
+  background: var(--wash);
+}
+
+.coach-panel__collapse svg {
+  width: 0.85rem;
+  height: 0.85rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.coach-panel__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  padding: var(--space-5);
+}
+
+.coach-panel__body[hidden] {
+  display: none;
+}
+
+/* the collapsed rail: the whole strip is the button that opens the panel again */
+.coach-rail {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-5) 0;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--ink);
+  background: transparent;
+  border: none;
+  border-radius: inherit;
+  cursor: pointer;
+}
+
+.coach-rail:hover {
+  background: var(--wash);
+}
+
+.coach-rail__label {
+  writing-mode: vertical-rl;
+  letter-spacing: 0.06em;
+}
+
+.coach-icon {
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* what the coach holds: notes on top, the chat filling the rest */
+
+.coach-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-5);
+  min-height: 0;
+}
+
+.coach-content__notes {
+  /* room for the notepad's slight lean and its tape */
+  padding: var(--space-1) var(--space-1) var(--space-3);
+}
+
+.coach-content__notes .coach-note {
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+}
+
+.coach-content .chat-panel {
+  max-width: none;
+  min-height: 0;
+  padding-top: var(--space-4);
+  border-top: var(--stroke) solid var(--hairline);
+}
+
+.chat-panel__title {
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-md);
+}
+
+/* the floating coach button below laptop width */
+
+.coach-fab {
+  position: fixed;
+  right: var(--page-gutter);
+  bottom: var(--space-5);
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--paper);
+  background: var(--ink);
+  border: none;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-soft);
+  cursor: pointer;
+}
+
+/* leave space under the last section so the floating button never covers it */
+@media (max-width: 1023px) {
+  .workspace {
+    padding-bottom: var(--space-8);
+  }
+}
+
+/* laptop and up: one screen, no page scroll. header and tabs on top, then the
+   page and the coach side by side filling what's left; only inner areas scroll */
+@media (min-width: 1024px) {
+  .app:has(> #results:not([hidden])) {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+    padding-block: var(--space-4);
+    overflow: hidden;
+  }
+
+  .app:has(> #results:not([hidden])) > .masthead {
+    flex: none;
+    margin-bottom: var(--space-3);
+    padding-bottom: var(--space-4);
+  }
+
+  .app:has(> #results:not([hidden])) > .setup-card {
+    flex: none;
+    margin-bottom: var(--space-4);
+  }
+
+  #results:not([hidden]) {
+    display: block;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .workspace {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .workspace__body {
+    flex: 1;
+    min-height: 0;
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding-top: var(--space-4);
+  }
+
+  .workspace .binder {
+    --binder-padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .workspace .binder__sheets {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  /* height is precious here, so the notices shrink to one row of small pills */
+  .workspace .binder__alerts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    max-width: none;
+  }
+
+  .workspace .binder__alerts:has(> :not([hidden])) {
+    margin-bottom: var(--space-3);
+  }
+
+  .workspace .binder__alerts .report-label,
+  .workspace .binder__alerts .report-banner {
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--text-xs);
+    border-radius: var(--radius-pill);
+  }
+
+  /* the page itself scrolls when a tab holds more than fits */
+  .workspace .binder__sheet {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .workspace .this-week,
+  .workspace .this-week__pitch {
+    height: 100%;
+  }
+
+  /* the pitch and bench, scaled to the height that's left. the ratio mirrors
+     the field and bench viewboxes in Pitch.tsx (740 wide, 1110 + 210 tall),
+     plus a little for the gap above the bench */
+  .workspace .this-week__pitch .pitch {
+    width: auto;
+    max-width: 100%;
+    height: 100%;
+    aspect-ratio: 740 / 1370;
+  }
+
+  .coach-panel--open {
+    width: clamp(380px, 30vw, 420px);
+  }
+
+  .coach-panel--closed {
+    width: 3.5rem;
+  }
+
+  .coach-content .chat-panel {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+
+  /* messages scroll inside the panel; the input stays pinned at the bottom */
+  .coach-content .chat-messages {
+    flex: 1;
+    min-height: 0;
+    max-height: none;
+  }
+
+  .coach-content .chat-disabled {
+    margin-bottom: auto;
+  }
+}

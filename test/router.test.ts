@@ -42,6 +42,11 @@ describe('routes', () => {
   it('looks up a path by route id', () => {
     expect(routePath('captaincy')).toBe('/app/captaincy');
   });
+
+  it('has a leagues page', () => {
+    expect(routePath('leagues')).toBe('/app/leagues');
+    expect(routeFromPath('/app/leagues')?.label).toBe('Leagues');
+  });
 });
 
 describe('canonicalPathFor', () => {

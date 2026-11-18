@@ -2,7 +2,8 @@ import { useSyncExternalStore } from 'react';
 
 /** the binder's pages. each is a real url, so it can be linked and shared */
 
-export type RouteId = 'week' | 'transfers' | 'captaincy' | 'chips' | 'prices';
+export type RouteId =
+  'week' | 'transfers' | 'captaincy' | 'chips' | 'prices' | 'leagues';
 
 export interface Route {
   id: RouteId;
@@ -16,6 +17,7 @@ export const ROUTES: readonly Route[] = [
   { id: 'captaincy', path: '/app/captaincy', label: 'Captaincy' },
   { id: 'chips', path: '/app/chips', label: 'Chips' },
   { id: 'prices', path: '/app/prices', label: 'Prices' },
+  { id: 'leagues', path: '/app/leagues', label: 'Leagues' },
 ];
 
 export const HOME_ROUTE: Route = ROUTES[0] as Route;

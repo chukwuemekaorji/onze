@@ -5,9 +5,9 @@ import { usePrefersReducedMotion } from '../../motion.js';
 import { hasNavigated, HOME_ROUTE, useRoute } from '../../router.js';
 import type { RouteId } from '../../router.js';
 import type { ShownReport } from '../../use-report-flow.js';
-import { BinderTabs } from './BinderTabs.js';
 import { CaptaincyPage } from './CaptaincyPage.js';
 import { ChipsPage } from './ChipsPage.js';
+import { LeaguesPage } from './LeaguesPage.js';
 import type { BinderPageProps } from './page-props.js';
 import { PricesPage } from './PricesPage.js';
 import { ThisWeekPage } from './ThisWeekPage.js';
@@ -19,6 +19,7 @@ const PAGES: Record<RouteId, ComponentType<BinderPageProps>> = {
   captaincy: CaptaincyPage,
   chips: ChipsPage,
   prices: PricesPage,
+  leagues: LeaguesPage,
 };
 
 // a binder page turning: a short slide out to the left, the next in from the right
@@ -31,7 +32,7 @@ interface BinderProps {
   writing: boolean;
 }
 
-/** the report as a coach's binder, one tabbed page per route */
+/** the open tab's page, under the tab bar; each route is one page */
 export function Binder({ shown, writing }: BinderProps) {
   const route = useRoute();
   const reduced = usePrefersReducedMotion();
@@ -51,13 +52,11 @@ export function Binder({ shown, writing }: BinderProps) {
 
   return (
     <div className="binder">
-      <BinderTabs active={route.id} />
-
       <div className="binder__sheets">
         <div className="binder__alerts">
           {shown.isExample && (
             <p className="report-label">
-              You're looking at an example team, built from real FPL data.{' '}
+              Example team, built from real FPL data.{' '}
               {/* a full load, so the example state is left behind */}
               <a href={HOME_ROUTE.path} className="report-label__link">
                 Use your own team
@@ -85,8 +84,8 @@ export function Binder({ shown, writing }: BinderProps) {
             className="report-label"
             hidden={shown.source !== 'basic'}
           >
-            Basic report (no AI). Add an Anthropic API key with the AI coaching button
-            at the top for the full write-up and chat.
+            Basic report (no AI). Add your Anthropic key at the top for the full
+            write-up and chat.
           </p>
         </div>
 

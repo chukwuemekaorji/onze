@@ -155,29 +155,6 @@ export function hitAdvice(
   return `A ${HIT_LABEL} for ${next.outName} isn't worth it: the swap gains about ${next.gain.toFixed(1)} pts, short of the ${HIT_THRESHOLD} needed to beat the hit with a margin.`;
 }
 
-/** the recommended transfers in one line, for the this week page */
-export function transferSummaryLine(transfers: AnalysisSummary['transfers']): string {
-  const moves = transferRows(transfers).filter((row) => row.verdict !== 'skip');
-  if (moves.length === 0) return 'No transfer worth making. Roll it.';
-  const swaps = moves
-    .map((m) => `${m.outName} for ${m.inName ?? 'nobody yet'}`)
-    .join(', ');
-  const hit = transfers.pointsHitCost > 0 ? `, one ${HIT_LABEL}` : '';
-  return `${swaps} (${formatGain(transfers.projectedNetGain)}${hit})`;
-}
-
-/** the captaincy picks in one line, for the this week page */
-export function captainSummaryLine(
-  captaincy: AnalysisSummary['captaincy'],
-  event: number,
-): string {
-  const { captain, viceCaptain } = captaincy;
-  if (!captain) return 'No clear captain in this lineup.';
-  const fixture = fixtureLabel(captain.player.nextFixtures, event);
-  const vice = viceCaptain ? `, vice ${viceCaptain.player.webName}` : '';
-  return `${captain.player.webName}, ${fixture}${vice}`;
-}
-
 /** the top captain options, best first, with the chosen c and v marked */
 export function captainOptions(
   captaincy: AnalysisSummary['captaincy'],

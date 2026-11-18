@@ -7,6 +7,7 @@ import type { ChatMessage } from '../../lib/chat-prompt.js';
 import { DEFAULT_ANTHROPIC_MODEL } from '../../lib/model.js';
 import { AnthropicCallError, sendMessage } from '../anthropic-client.js';
 import { renderMarkdownLite } from '../markdown.js';
+import { DRAWER_FOCUS_ATTRIBUTE } from './ui/Drawer.js';
 
 const GENERIC_CHAT_ERROR = 'Something went wrong. Please try again.';
 
@@ -76,12 +77,13 @@ export function ChatPanel({ summary, apiKey }: ChatPanelProps) {
   }
 
   return (
-    <aside id="chat-panel" className="panel chat-panel">
-      <div className="panel-header">
-        <h2>Ask Sensei</h2>
-      </div>
+    <section id="chat-panel" className="chat-panel" aria-labelledby="chat-heading">
+      <h3 id="chat-heading" className="chat-panel__title">
+        Ask Sensei
+      </h3>
       <div id="chat-disabled" className="chat-disabled" hidden={available}>
-        Add your Anthropic API key above to chat with Sensei about this report.
+        Add your Anthropic API key with the AI coaching button at the top to chat with
+        Sensei about this report.
       </div>
       <div id="chat-messages" className="chat-messages" ref={messagesRef}>
         {messages.map((message) => (
@@ -109,6 +111,7 @@ export function ChatPanel({ summary, apiKey }: ChatPanelProps) {
         <input
           ref={inputRef}
           id="chat-input"
+          {...{ [DRAWER_FOCUS_ATTRIBUTE]: true }}
           type="text"
           placeholder="Ask a follow-up, e.g. why not captain Salah?"
           autoComplete="off"
@@ -120,6 +123,6 @@ export function ChatPanel({ summary, apiKey }: ChatPanelProps) {
           Send
         </button>
       </form>
-    </aside>
+    </section>
   );
 }

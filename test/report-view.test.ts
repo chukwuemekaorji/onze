@@ -3,7 +3,6 @@ import type { AnalysisSummary } from '../lib/analysis-summary.js';
 import type { AnalysisPlayer } from '../lib/analysis/types.js';
 import {
   captainOptions,
-  captainSummaryLine,
   chipStamps,
   formatGain,
   formatPrice,
@@ -12,7 +11,6 @@ import {
   leagueRows,
   priceRows,
   transferRows,
-  transferSummaryLine,
 } from '../web/report-view.js';
 
 const EVENT = 12;
@@ -172,48 +170,6 @@ describe('hitAdvice', () => {
     expect(
       hitAdvice({ transfers: transfers({}), leagueStandings: NOT_LEADING }),
     ).toMatch(/No weak links/);
-  });
-});
-
-describe('summary lines', () => {
-  it('sums up the recommended transfers in one line', () => {
-    expect(
-      transferSummaryLine(
-        transfers({
-          suggestions: [
-            suggestion('Wissa', 'Watkins', 3),
-            suggestion('Mitoma', 'Mbeumo', 7),
-          ],
-          recommendedCount: 2,
-          pointsHitCost: 4,
-          projectedNetGain: 6,
-        }),
-      ),
-    ).toBe('Wissa for Watkins, Mitoma for Mbeumo (+6.0 pts, one -4)');
-    expect(transferSummaryLine(transfers({}))).toBe(
-      'No transfer worth making. Roll it.',
-    );
-  });
-
-  it('sums up the captain and vice in one line', () => {
-    const salah = player('Salah', {
-      nextFixtures: [
-        { event: EVENT, opponentShortName: 'WHU', isHome: false, difficulty: 2 },
-      ],
-    });
-    expect(
-      captainSummaryLine(
-        {
-          captain: { player: salah, score: 9 },
-          viceCaptain: { player: player('Haaland'), score: 8 },
-          candidates: [],
-        },
-        EVENT,
-      ),
-    ).toBe('Salah, WHU (A), vice Haaland');
-    expect(
-      captainSummaryLine({ captain: null, viceCaptain: null, candidates: [] }, EVENT),
-    ).toBe('No clear captain in this lineup.');
   });
 });
 

@@ -6,13 +6,12 @@ import { loadStoredManagerId } from '../manager-id-store.js';
 import { wantsExample } from '../router.js';
 import { loadSampleSummary } from '../sample-summary.js';
 import { useReportFlow } from '../use-report-flow.js';
-import { Binder } from './binder/Binder.js';
-import { ChatPanel } from './ChatPanel.js';
 import { KeySettings } from './KeySettings.js';
 import { ManagerIdForm } from './ManagerIdForm.js';
 import { TopBar } from './TopBar.js';
 import { Drawer } from './ui/Drawer.js';
 import { InkFilters } from './ui/InkFilters.js';
+import { Workspace } from './Workspace.js';
 
 const KEY_DRAWER_ID = 'key-drawer';
 
@@ -94,14 +93,11 @@ export function App() {
 
       <main id="results" className="layout" hidden={flow.resultsHidden}>
         {flow.shown && (
-          <>
-            <Binder shown={flow.shown} writing={flow.writing} />
-            <ChatPanel
-              key={flow.shown.version}
-              summary={flow.shown.summary}
-              apiKey={storedKey?.key ?? null}
-            />
-          </>
+          <Workspace
+            shown={flow.shown}
+            writing={flow.writing}
+            apiKey={storedKey?.key ?? null}
+          />
         )}
       </main>
     </div>
