@@ -58,7 +58,32 @@ export function numberColourFor(kit: KitColours): string {
   return mostReadable(kit.primary, [NUMBER_INK, NUMBER_PAPER]);
 }
 
+// each club colour is blended this far toward the paper, so twenty kits sit
+// together quietly instead of reading as a rainbow
+export const KIT_MUTE_AMOUNT = 0.22;
+
+const channels = (hex: string) =>
+  [1, 3, 5].map((start) => parseInt(hex.slice(start, start + 2), 16));
+
+/** mixes a #rrggbb colour toward another by amount, from 0 (unchanged) to 1 */
+export function mixColour(hex: string, toward: string, amount: number): string {
+  const from = channels(hex);
+  const to = channels(toward);
+  return `#${from
+    .map((value, i) => Math.round(value + ((to[i] ?? value) - value) * amount))
+    .map((value) => value.toString(16).padStart(2, '0'))
+    .join('')}`;
+}
+
+function muted(kit: KitColours): KitColours {
+  return {
+    primary: mixColour(kit.primary, NUMBER_PAPER, KIT_MUTE_AMOUNT),
+    secondary: mixColour(kit.secondary, NUMBER_PAPER, KIT_MUTE_AMOUNT),
+  };
+}
+
+/** the shirt to draw: the club's kit, the keeper kit or the fallback, muted */
 export function kitFor(teamShortName: string, position: Position): KitColours {
-  if (position === 'GK') return GOALKEEPER_KIT;
-  return CLUB_KITS[teamShortName.toUpperCase()] ?? KIT_FALLBACK;
+  if (position === 'GK') return muted(GOALKEEPER_KIT);
+  return muted(CLUB_KITS[teamShortName.toUpperCase()] ?? KIT_FALLBACK);
 }
