@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "description": "AI-powered Fantasy Premier League coach",
+  "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "vercel dev",
     "build": "tsc --noEmit && npm run build:client",
     "build:client": "esbuild public/app.ts --bundle --outfile=public/dist/app.js --format=esm --target=es2022",
     "vercel-build": "npm run build:client",
@@ -16,7 +16,8 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.32.1",
-    "@vercel/node": "^3.2.24"
+    "@vercel/node": "^3.2.24",
+    "sharp": "^0.35.4"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
@@ -26,6 +27,7 @@
     "eslint": "^9.17.0",
     "prettier": "^3.4.2",
     "typescript": "^5.7.2",
+    "vercel": "^64.3.1",
     "vitest": "^2.1.8"
   }
 }
