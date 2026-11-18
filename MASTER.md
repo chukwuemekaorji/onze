@@ -114,8 +114,14 @@ to test and keeps "the math" separate from "the writing."
 
 - **`transfers.ts`** — scores each squad player on recent form, next-N
   fixture difficulty, minutes/rotation risk (`chance_of_playing_*`), and
-  price trend; flags the weakest 1-3 and proposes replacement candidates
-  within budget (squad value + bank) from the full player pool.
+  price trend; flags the weakest 1-5 and proposes replacement candidates
+  within budget (squad value + bank) from the full player pool. How many
+  of those are actually *recommended* this gameweek isn't fixed at one —
+  it weighs each suggestion's projected `ep_next` gain against the
+  manager's free transfers (simulated from `/entry/{id}/history/`, since
+  FPL's public API never exposes the live count) and the standard -4
+  point cost of a hit, so it can land on zero, one, or several transfers
+  depending on what's actually worth it that week.
 - **`captaincy.ts`** — ranks squad players by FPL's own `ep_next`
   (expected points, next gameweek) blended with fixture difficulty and
   double-gameweek status; returns top captain + vice candidates.
