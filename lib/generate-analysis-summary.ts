@@ -1,4 +1,4 @@
-/** fetch, build, analyze. shared by the report and the lineup image so both agree */
+/** fetch, build, analyze: everything /api/summary returns */
 
 import {
   getBootstrapStatic,
@@ -36,7 +36,6 @@ export class NoCurrentGameweekError extends Error {}
 
 export async function generateAnalysisSummary(
   managerId: number,
-  requestedEvent?: number,
 ): Promise<AnalysisSummary> {
   const [bootstrap, fixtures] = await Promise.all([
     getBootstrapStatic(),
@@ -44,7 +43,7 @@ export async function generateAnalysisSummary(
   ]);
 
   // fpl 404s on picks for a gameweek that hasn't started, so this is always
-  // the live gameweek, never requestedEvent
+  // the live gameweek, never the one being planned
   const picksEvent =
     bootstrap.events.find((e) => e.is_current)?.id ??
     bootstrap.events.find((e) => e.is_next)?.id;
@@ -61,12 +60,10 @@ export async function generateAnalysisSummary(
   const nextActionableEvent = bootstrap.events.find(
     (e) => new Date(e.deadline_time).getTime() > now,
   );
-  const planningEvent = requestedEvent ?? nextActionableEvent?.id ?? picksEvent;
+  const planningEvent = nextActionableEvent?.id ?? picksEvent;
 
   const planningEventInfo = bootstrap.events.find((e) => e.id === planningEvent);
-  const followingEventInfo = bootstrap.events.find(
-    (e) => e.id === planningEvent + 1,
-  );
+  const followingEventInfo = bootstrap.events.find((e) => e.id === planningEvent + 1);
 
   const [entry, picks, history] = await Promise.all([
     getEntry(managerId),
