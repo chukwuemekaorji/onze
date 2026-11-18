@@ -42,41 +42,91 @@
   fill: var(--ink);
 }
 
-.pitch-player__marker {
-  fill: var(--paper-card);
-  stroke: var(--ink);
-  stroke-width: 4;
-}
+/* jersey sticker: hard shadow, paper edge, thin ink seams */
 
-.pitch-player__name {
-  font-family: var(--font-display);
-  /* mirrors labelFontSize in Pitch.tsx, which squeezes names to fit */
-  font-size: 27px;
-  font-weight: 700;
-  text-anchor: middle;
+.jersey__shadow {
   fill: var(--ink);
-  /* a paper halo keeps names readable where they cross a line */
-  stroke: var(--paper-card);
-  stroke-width: 7px;
-  stroke-linejoin: round;
-  paint-order: stroke;
+  opacity: 0.28;
 }
 
-.pitch-player__armband text {
+.jersey__edge {
+  fill: var(--paper);
+  stroke: var(--paper);
+  stroke-width: 6;
+  stroke-linejoin: round;
+}
+
+.jersey__panel {
+  /* fills are club colours, set as svg attributes */
+  stroke: var(--ink);
+  stroke-width: 1.3;
+  stroke-linejoin: round;
+}
+
+.jersey__collar {
+  fill: none;
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.jersey__number {
   font-family: var(--font-display);
-  font-size: 16px;
+  font-size: 24px;
+  font-weight: 800;
+  text-anchor: middle;
+}
+
+.jersey__armband circle {
+  stroke: var(--paper);
+  stroke-width: 2;
+}
+
+.jersey__armband text {
+  font-family: var(--font-display);
+  font-size: 12px;
   font-weight: 800;
   text-anchor: middle;
   fill: var(--paper);
 }
 
-.pitch-player__armband--captain circle {
-  /* the darker red, so the white c keeps 4.5:1 */
+.jersey__armband--captain circle {
+  /* the darker red, so the paper c keeps 4.5:1 */
   fill: var(--marker-red-text);
 }
 
-.pitch-player__armband--vice circle {
+.jersey__armband--vice circle {
   fill: var(--ink);
+}
+
+/* name on a strip of masking tape */
+
+.pitch-player__tape {
+  fill: var(--tape);
+  stroke: var(--tape-edge);
+  stroke-width: 1;
+}
+
+.pitch-player__name {
+  font-family: var(--font-display);
+  /* mirrors labelFontSize in Pitch.tsx, which squeezes names to fit */
+  font-size: 25px;
+  font-weight: 700;
+  text-anchor: middle;
+  fill: var(--ink);
+}
+
+.pitch-player__fixture {
+  font-family: var(--font-mono);
+  /* mirrors fixtureFontSize in Pitch.tsx */
+  font-size: 20px;
+  font-weight: 500;
+  text-anchor: middle;
+  fill: var(--ink-muted);
+  /* a paper halo keeps it readable where it crosses a line */
+  stroke: var(--paper);
+  stroke-width: 5px;
+  stroke-linejoin: round;
+  paint-order: stroke;
 }
 
 .pitch__bench {
@@ -90,14 +140,14 @@
   fill: var(--ink-muted);
 }
 
-/* the bench fades back, but names stay at muted-ink contrast */
-.pitch__bench .pitch-player__marker {
-  opacity: 0.55;
+/* the bench fades back, but its text stays at muted-ink contrast */
+.pitch__bench .pitch-player__jersey,
+.pitch__bench .pitch-player__tape {
+  opacity: 0.6;
 }
 
 .pitch__bench .pitch-player__name {
   fill: var(--ink-muted);
-  stroke: var(--paper);
 }
 
 .pitch-empty {

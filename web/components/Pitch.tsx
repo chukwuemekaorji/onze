@@ -1,7 +1,9 @@
 import type { AnalysisSummary } from '../../lib/analysis-summary.js';
 import type { Position } from '../../lib/analysis/types.js';
-import { placeRow, placeStartingXI } from '../pitch-layout.js';
-import type { ArmbandIds, PlacedPlayer, RowLayout } from '../pitch-layout.js';
+import { kitFor } from '../club-colours.js';
+import { placeRow, placeStartingXI, shirtNumbers } from '../pitch-layout.js';
+import type { PlacedPlayer, PlacementContext, RowLayout } from '../pitch-layout.js';
+import { Jersey, JERSEY_HALF_HEIGHT } from './Jersey.js';
 import { INK_WOBBLE_FILTER } from './ui/InkFilters.js';
 
 // drawn in metres times ten, so the markings use real fifa dimensions
@@ -23,20 +25,30 @@ const SPOT_RADIUS = m(0.35);
 const CORNER_ARC_RADIUS = m(2);
 const MOWING_STRIPES = 12;
 
-const PLAYER_RADIUS = 24;
-const ARMBAND_RADIUS = 13;
-const LABEL_OFFSET = PLAYER_RADIUS + 30;
+// gaps below the jersey, in pitch units
+const TAPE_GAP = 7;
+const TAPE_HEIGHT = 34;
+const TAPE_PADDING_X = 10;
+// how far a torn tape end bites into the strip
+const TAPE_TEAR = 4;
+// alternate tapes lean opposite ways, so the row looks stuck on by hand
+const TAPE_TILT_DEG = 1.5;
+const FIXTURE_BASELINE_GAP = 25;
 
 const PITCH_ROW_LAYOUT: RowLayout = {
   width: PITCH_WIDTH,
   sideMargin: m(4),
-  // mirrors .pitch-player__name font-size in pitch.css
-  labelFontSize: 27,
+  // these two mirror the font sizes in pitch.css
+  labelFontSize: 25,
+  fixtureFontSize: 20,
   labelGap: 10,
 };
 
-const BENCH_HEIGHT = 150;
-const BENCH_ROW_Y = 60;
+// the jersey is drawn 64 units wide; this sizes it to fill its slot on the pitch
+const PITCH_JERSEY_SCALE = 1.3;
+const BENCH_JERSEY_SCALE = PITCH_JERSEY_SCALE * 0.8;
+const BENCH_HEIGHT = 210;
+const BENCH_ROW_Y = 75;
 
 const POSITION_NAME: Record<Position, string> = {
   GK: 'goalkeeper',
@@ -55,17 +67,21 @@ export function Pitch({ summary }: PitchProps) {
     return <p className="pitch-empty">Not enough squad data to draw a lineup.</p>;
   }
 
-  const ids: ArmbandIds = {
-    captainId: captaincy.captain?.player.id ?? null,
-    viceCaptainId: captaincy.viceCaptain?.player.id ?? null,
+  const context: PlacementContext = {
+    ids: {
+      captainId: captaincy.captain?.player.id ?? null,
+      viceCaptainId: captaincy.viceCaptain?.player.id ?? null,
+    },
+    shirtNumbers: shirtNumbers(lineup),
+    event: summary.currentEvent,
   };
   const starters = placeStartingXI(
     lineup.startingXI,
     PITCH_LENGTH,
     PITCH_ROW_LAYOUT,
-    ids,
+    context,
   );
-  const bench = placeRow(lineup.bench, BENCH_ROW_Y, PITCH_ROW_LAYOUT, ids);
+  const bench = placeRow(lineup.bench, BENCH_ROW_Y, PITCH_ROW_LAYOUT, context);
 
   return (
     <figure className="pitch">
@@ -78,7 +94,11 @@ export function Pitch({ summary }: PitchProps) {
         <Grass />
         <Markings />
         {starters.map((player) => (
-          <PlayerMarker key={player.id} player={player} />
+          <PlayerMarker
+            key={player.id}
+            player={player}
+            jerseyScale={PITCH_JERSEY_SCALE}
+          />
         ))}
       </svg>
 
@@ -93,7 +113,11 @@ export function Pitch({ summary }: PitchProps) {
             Bench
           </text>
           {bench.map((player) => (
-            <PlayerMarker key={player.id} player={player} />
+            <PlayerMarker
+              key={player.id}
+              player={player}
+              jerseyScale={BENCH_JERSEY_SCALE}
+            />
           ))}
         </svg>
       )}
@@ -196,36 +220,67 @@ function Markings() {
   );
 }
 
-function PlayerMarker({ player }: { player: PlacedPlayer }) {
-  const badgeX = player.x + PLAYER_RADIUS * 0.8;
-  const badgeY = player.y - PLAYER_RADIUS * 0.8;
+function tapePath(width: number, height: number): string {
+  const hw = width / 2;
+  const hh = height / 2;
+  const t = TAPE_TEAR;
+  // straight long edges, zigzag torn ends
+  return [
+    `M ${-hw} ${-hh} L ${hw} ${-hh}`,
+    `L ${hw - t} ${-hh / 2} L ${hw} 0 L ${hw - t} ${hh / 2} L ${hw} ${hh}`,
+    `L ${-hw} ${hh}`,
+    `L ${-hw + t} ${hh / 2} L ${-hw} 0 L ${-hw + t} ${-hh / 2} Z`,
+  ].join(' ');
+}
+
+function squeezeTo(length: number | null) {
+  return length === null
+    ? {}
+    : { textLength: length, lengthAdjust: 'spacingAndGlyphs' as const };
+}
+
+interface PlayerMarkerProps {
+  player: PlacedPlayer;
+  jerseyScale: number;
+}
+
+function PlayerMarker({ player, jerseyScale }: PlayerMarkerProps) {
+  const tapeY =
+    player.y + JERSEY_HALF_HEIGHT * jerseyScale + TAPE_GAP + TAPE_HEIGHT / 2;
+  const tilt = (player.shirtNumber ?? 0) % 2 === 0 ? TAPE_TILT_DEG : -TAPE_TILT_DEG;
+
   return (
     <g className="pitch-player">
-      <circle
-        className="pitch-player__marker"
-        cx={player.x}
-        cy={player.y}
-        r={PLAYER_RADIUS}
-        filter={INK_WOBBLE_FILTER}
-      />
-      {player.armband && (
-        <g className={`pitch-player__armband pitch-player__armband--${player.armband}`}>
-          <circle cx={badgeX} cy={badgeY} r={ARMBAND_RADIUS} />
-          <text x={badgeX} y={badgeY} dy="0.35em">
-            {player.armband === 'captain' ? 'C' : 'V'}
-          </text>
-        </g>
-      )}
-      <text
-        className="pitch-player__name"
-        x={player.x}
-        y={player.y + LABEL_OFFSET}
-        {...(player.labelLength !== null && {
-          textLength: player.labelLength,
-          lengthAdjust: 'spacingAndGlyphs',
-        })}
+      <g
+        className="pitch-player__jersey"
+        transform={`translate(${player.x} ${player.y}) scale(${jerseyScale})`}
       >
-        {player.name}
+        <Jersey
+          kit={kitFor(player.teamShortName, player.position)}
+          shirtNumber={player.shirtNumber}
+          armband={player.armband}
+        />
+      </g>
+      <g transform={`translate(${player.x} ${tapeY}) rotate(${tilt})`}>
+        <path
+          className="pitch-player__tape"
+          d={tapePath(player.labelWidth + 2 * TAPE_PADDING_X, TAPE_HEIGHT)}
+        />
+        <text
+          className="pitch-player__name"
+          dy="0.36em"
+          {...squeezeTo(player.labelLength)}
+        >
+          {player.name}
+        </text>
+      </g>
+      <text
+        className="pitch-player__fixture"
+        x={player.x}
+        y={tapeY + TAPE_HEIGHT / 2 + FIXTURE_BASELINE_GAP}
+        {...squeezeTo(player.fixtureLength)}
+      >
+        {player.fixture}
       </text>
     </g>
   );
@@ -245,7 +300,11 @@ function PlayerList({
       <ul>
         {players.map((player) => (
           <li key={player.id}>
-            {player.name}, {POSITION_NAME[player.position]}, {player.teamShortName}
+            {player.name}, number {player.shirtNumber}, {POSITION_NAME[player.position]}
+            , {player.teamShortName},{' '}
+            {player.fixture === 'Blank'
+              ? 'no game this gameweek'
+              : `plays ${player.fixture}`}
             {player.armband === 'captain' && ', captain'}
             {player.armband === 'vice' && ', vice-captain'}
           </li>

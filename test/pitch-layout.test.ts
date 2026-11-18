@@ -1,27 +1,60 @@
 import { describe, expect, it } from 'vitest';
 import type { LineupPlayer } from '../lib/analysis/lineup.js';
-import type { AnalysisPlayer, Position } from '../lib/analysis/types.js';
+import type {
+  AnalysisPlayer,
+  FixtureDifficulty,
+  Position,
+} from '../lib/analysis/types.js';
 import {
   estimateLabelWidth,
   fitLabel,
+  fixtureLabel,
   placeRow,
   placeStartingXI,
   ROW_DEPTH,
+  shirtNumbers,
 } from '../web/pitch-layout.js';
-import type { RowLayout } from '../web/pitch-layout.js';
+import type { ArmbandIds, PlacementContext, RowLayout } from '../web/pitch-layout.js';
 
 const LAYOUT: RowLayout = {
   width: 680,
   sideMargin: 40,
   labelFontSize: 25,
+  fixtureFontSize: 20,
   labelGap: 10,
 };
 const PITCH_LENGTH = 1050;
-const NO_ARMBANDS = { captainId: null, viceCaptainId: null };
+const EVENT = 12;
+const NO_ARMBANDS: ArmbandIds = { captainId: null, viceCaptainId: null };
+
+function context(
+  ids: ArmbandIds = NO_ARMBANDS,
+  xi: LineupPlayer[] = [],
+): PlacementContext {
+  return {
+    ids,
+    shirtNumbers: shirtNumbers({ startingXI: xi, bench: [] }),
+    event: EVENT,
+  };
+}
+
+function fixture(event: number, opponent: string, isHome: boolean): FixtureDifficulty {
+  return { event, opponentShortName: opponent, isHome, difficulty: 3 };
+}
 
 let nextId = 1;
-function lineupPlayer(position: Position, webName = `P${nextId}`): LineupPlayer {
-  const player = { id: nextId++, webName, position, teamShortName: 'TST' };
+function lineupPlayer(
+  position: Position,
+  webName = `P${nextId}`,
+  nextFixtures: FixtureDifficulty[] = [fixture(EVENT, 'LIV', true)],
+): LineupPlayer {
+  const player = {
+    id: nextId++,
+    webName,
+    position,
+    teamShortName: 'TST',
+    nextFixtures,
+  };
   // only the fields the layout reads
   return { player: player as AnalysisPlayer, score: 0 };
 }
@@ -37,12 +70,7 @@ function formation(def: number, mid: number, fwd: number): LineupPlayer[] {
 
 describe('placeStartingXI', () => {
   it('puts each line at its depth with the goalkeeper at the bottom', () => {
-    const placed = placeStartingXI(
-      formation(3, 4, 3),
-      PITCH_LENGTH,
-      LAYOUT,
-      NO_ARMBANDS,
-    );
+    const placed = placeStartingXI(formation(3, 4, 3), PITCH_LENGTH, LAYOUT, context());
 
     expect(placed).toHaveLength(11);
     const depthOf = (position: Position) =>
@@ -55,12 +83,7 @@ describe('placeStartingXI', () => {
   });
 
   it('keeps a five-man line inside the touchline margins, left to right', () => {
-    const placed = placeStartingXI(
-      formation(5, 3, 2),
-      PITCH_LENGTH,
-      LAYOUT,
-      NO_ARMBANDS,
-    );
+    const placed = placeStartingXI(formation(5, 3, 2), PITCH_LENGTH, LAYOUT, context());
     const defenders = placed.filter((p) => p.position === 'DEF').map((p) => p.x);
 
     expect(defenders).toEqual([...defenders].sort((a, b) => a - b));
@@ -69,12 +92,7 @@ describe('placeStartingXI', () => {
   });
 
   it('centres a lone striker and goalkeeper', () => {
-    const placed = placeStartingXI(
-      formation(4, 5, 1),
-      PITCH_LENGTH,
-      LAYOUT,
-      NO_ARMBANDS,
-    );
+    const placed = placeStartingXI(formation(4, 5, 1), PITCH_LENGTH, LAYOUT, context());
     for (const position of ['GK', 'FWD'] as const) {
       expect(placed.find((p) => p.position === position)?.x).toBe(LAYOUT.width / 2);
     }
@@ -83,24 +101,98 @@ describe('placeStartingXI', () => {
   it('marks the captain and vice-captain only', () => {
     const xi = formation(4, 4, 2);
     const [keeper, defender] = xi as [LineupPlayer, LineupPlayer];
-    const placed = placeStartingXI(xi, PITCH_LENGTH, LAYOUT, {
-      captainId: defender.player.id,
-      viceCaptainId: keeper.player.id,
-    });
+    const placed = placeStartingXI(
+      xi,
+      PITCH_LENGTH,
+      LAYOUT,
+      context({ captainId: defender.player.id, viceCaptainId: keeper.player.id }),
+    );
 
     expect(placed.find((p) => p.id === defender.player.id)?.armband).toBe('captain');
     expect(placed.find((p) => p.id === keeper.player.id)?.armband).toBe('vice');
     expect(placed.filter((p) => p.armband === null)).toHaveLength(9);
   });
 
+  it('carries each player shirt number and fixture', () => {
+    const xi = formation(4, 4, 2);
+    const placed = placeStartingXI(xi, PITCH_LENGTH, LAYOUT, context(NO_ARMBANDS, xi));
+
+    expect(placed.find((p) => p.position === 'GK')?.shirtNumber).toBe(1);
+    expect(placed.every((p) => p.fixture === 'LIV (H)')).toBe(true);
+  });
+
   it('returns nothing for an empty lineup', () => {
-    expect(placeStartingXI([], PITCH_LENGTH, LAYOUT, NO_ARMBANDS)).toEqual([]);
+    expect(placeStartingXI([], PITCH_LENGTH, LAYOUT, context())).toEqual([]);
+  });
+});
+
+describe('shirtNumbers', () => {
+  it('numbers the xi 1 to 11 in formation order and the bench 12 to 15', () => {
+    // deliberately shuffled, the numbering must still go gk, def, mid, fwd
+    const fwd = lineupPlayer('FWD');
+    const gk = lineupPlayer('GK');
+    const mids = [lineupPlayer('MID'), lineupPlayer('MID'), lineupPlayer('MID')];
+    const defs = [lineupPlayer('DEF'), lineupPlayer('DEF'), lineupPlayer('DEF')];
+    const moreFwds = [lineupPlayer('FWD'), lineupPlayer('FWD')];
+    const xi = [fwd, ...mids, gk, ...defs, ...moreFwds, lineupPlayer('MID')];
+    const bench = [
+      lineupPlayer('DEF'),
+      lineupPlayer('MID'),
+      lineupPlayer('FWD'),
+      lineupPlayer('GK'),
+    ];
+
+    const numbers = shirtNumbers({ startingXI: xi, bench });
+    const numberOf = (p: LineupPlayer) => numbers.get(p.player.id);
+
+    expect(numberOf(gk)).toBe(1);
+    expect(defs.map(numberOf)).toEqual([2, 3, 4]);
+    expect(mids.map(numberOf)).toEqual([5, 6, 7]);
+    expect(numberOf(fwd)).toBe(9);
+    expect(moreFwds.map(numberOf)).toEqual([10, 11]);
+    expect(bench.map(numberOf)).toEqual([12, 13, 14, 15]);
+  });
+
+  it('keeps the same order as the players are placed left to right', () => {
+    const xi = formation(4, 4, 2);
+    const numbers = shirtNumbers({ startingXI: xi, bench: [] });
+    const defenders = placeStartingXI(
+      xi,
+      PITCH_LENGTH,
+      LAYOUT,
+      context(NO_ARMBANDS, xi),
+    )
+      .filter((p) => p.position === 'DEF')
+      .map((p) => numbers.get(p.id));
+
+    expect(defenders).toEqual([2, 3, 4, 5]);
+  });
+
+  it('returns an empty map for an empty lineup', () => {
+    expect(shirtNumbers({ startingXI: [], bench: [] }).size).toBe(0);
+  });
+});
+
+describe('fixtureLabel', () => {
+  it('shows the opponent and venue for the planned gameweek only', () => {
+    const fixtures = [fixture(EVENT, 'CHE', false), fixture(EVENT + 1, 'ARS', true)];
+    expect(fixtureLabel(fixtures, EVENT)).toBe('CHE (A)');
+  });
+
+  it('lists both games in a double gameweek', () => {
+    const fixtures = [fixture(EVENT, 'LIV', true), fixture(EVENT, 'EVE', false)];
+    expect(fixtureLabel(fixtures, EVENT)).toBe('LIV (H) + EVE (A)');
+  });
+
+  it('says blank when the team has no game that week', () => {
+    expect(fixtureLabel([fixture(EVENT + 1, 'ARS', true)], EVENT)).toBe('Blank');
+    expect(fixtureLabel([], EVENT)).toBe('Blank');
   });
 });
 
 describe('placeRow', () => {
   it('returns nothing for an empty row', () => {
-    expect(placeRow([], 50, LAYOUT, NO_ARMBANDS)).toEqual([]);
+    expect(placeRow([], 50, LAYOUT, context())).toEqual([]);
   });
 
   it('squeezes only the names too long for their slot', () => {
@@ -111,11 +203,21 @@ describe('placeRow', () => {
       lineupPlayer('DEF', 'Gvardiol'),
       lineupPlayer('DEF', 'Pedro Porro'),
     ];
-    const placed = placeRow(row, 50, LAYOUT, NO_ARMBANDS);
-    const slotWidth = (LAYOUT.width - 2 * LAYOUT.sideMargin) / row.length;
+    const placed = placeRow(row, 50, LAYOUT, context());
+    const maxLabelWidth =
+      (LAYOUT.width - 2 * LAYOUT.sideMargin) / row.length - LAYOUT.labelGap;
 
-    expect(placed[0]?.labelLength).toBe(slotWidth - LAYOUT.labelGap);
+    expect(placed[0]?.labelLength).toBe(maxLabelWidth);
+    expect(placed[0]?.labelWidth).toBe(maxLabelWidth);
     expect(placed[1]?.labelLength).toBeNull();
+    expect(placed[1]?.labelWidth).toBe(
+      estimateLabelWidth('Saka', LAYOUT.labelFontSize),
+    );
+  });
+
+  it('gives a player missing from the numbering no shirt number', () => {
+    const [placed] = placeRow([lineupPlayer('MID')], 50, LAYOUT, context());
+    expect(placed?.shirtNumber).toBeNull();
   });
 });
 
