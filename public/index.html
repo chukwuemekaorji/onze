@@ -3,59 +3,76 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sensei — Your FPL Coach</title>
+    <title>Sensei, Your FPL Coach</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header class="page-header">
-      <h1>Sensei</h1>
-      <p>Your AI-powered Fantasy Premier League coach.</p>
-    </header>
+    <div class="app">
+      <header class="topbar">
+        <div class="topbar-brand">
+          <span class="topbar-logo" aria-hidden="true">⚽</span>
+          <span class="topbar-title">Sensei</span>
+        </div>
+        <div id="gw-info" class="gw-info" hidden></div>
+        <button id="refresh-button" class="ghost-button" type="button" hidden>
+          Refresh
+        </button>
+        <button id="change-id-button" class="ghost-button" type="button" hidden>
+          Change manager ID
+        </button>
+      </header>
 
-    <main>
-      <form id="coach-form" class="coach-form">
+      <form id="coach-form" class="setup-card">
         <label for="manager-id">FPL Manager ID</label>
-        <input
-          id="manager-id"
-          name="manager-id"
-          type="number"
-          min="1"
-          placeholder="e.g. 1234567"
-          required
-        />
-        <button id="submit-button" type="submit">Get my report</button>
+        <div class="setup-row">
+          <input
+            id="manager-id"
+            name="manager-id"
+            type="number"
+            min="1"
+            placeholder="e.g. 1234567"
+            required
+          />
+          <button id="submit-button" type="submit">Get my report</button>
+        </div>
+        <p id="status" role="status"></p>
       </form>
 
-      <p id="status" role="status"></p>
+      <main id="results" class="layout" hidden>
+        <section class="panel report-panel">
+          <div class="panel-header">
+            <h2>Your Squad</h2>
+          </div>
+          <ul id="squad-list" class="squad-grid"></ul>
 
-      <section id="results" hidden>
-        <div class="squad-column">
-          <h2>Your Squad</h2>
-          <ul id="squad-list" class="squad-list"></ul>
-        </div>
+          <div id="report" class="report"></div>
 
-        <div id="report" class="report"></div>
+          <div class="lineup-image-card">
+            <img id="lineup-image" alt="Recommended starting lineup" />
+          </div>
+        </section>
 
-        <div id="chat-panel" class="chat-panel" hidden>
-          <h2>Ask Sensei</h2>
+        <aside id="chat-panel" class="panel chat-panel" hidden>
+          <div class="panel-header">
+            <h2>Ask Sensei</h2>
+          </div>
           <div id="chat-disabled" class="chat-disabled" hidden>
-            Chat requires an Anthropic API key configured on this
-            deployment — the report above was generated with the
-            rule-based fallback writer instead.
+            Chat needs an Anthropic API key configured on this deployment.
+            The report above used the rule-based fallback writer instead.
           </div>
           <div id="chat-messages" class="chat-messages"></div>
           <form id="chat-form" class="chat-form">
             <input
               id="chat-input"
               type="text"
-              placeholder="e.g. why not captain Salah instead?"
+              placeholder="Ask a follow-up, e.g. why not captain Salah?"
               autocomplete="off"
             />
-            <button type="submit">Send</button>
+            <button type="submit" aria-label="Send">Send</button>
           </form>
-        </div>
-      </section>
-    </main>
+        </aside>
+      </main>
+    </div>
 
     <script type="module" src="dist/app.js"></script>
   </body>

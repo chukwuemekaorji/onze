@@ -1,4 +1,5 @@
 import type { AnalysisSummary } from '../lib/analysis-summary.js';
+import { renderMarkdownLite } from './markdown.js';
 
 interface ChatMessage {
   role: 'user' | 'assistant';
@@ -16,15 +17,25 @@ let history: ChatMessage[] = [];
 const chatPanel = document.querySelector<HTMLElement>('#chat-panel')!;
 const chatForm = document.querySelector<HTMLFormElement>('#chat-form')!;
 const chatInput = document.querySelector<HTMLInputElement>('#chat-input')!;
+const chatSendButton = chatForm.querySelector<HTMLButtonElement>('button')!;
 const chatMessagesEl = document.querySelector<HTMLElement>('#chat-messages')!;
 const chatDisabledEl = document.querySelector<HTMLElement>('#chat-disabled')!;
 
 function appendMessage(role: ChatMessage['role'], content: string): void {
   const div = document.createElement('div');
   div.className = `chat-message chat-message--${role}`;
-  div.textContent = content;
+  div.innerHTML = renderMarkdownLite(content);
   chatMessagesEl.appendChild(div);
   chatMessagesEl.scrollTop = chatMessagesEl.scrollHeight;
+}
+
+function appendTypingIndicator(): HTMLElement {
+  const div = document.createElement('div');
+  div.className = 'chat-message chat-message--assistant chat-message--typing';
+  div.innerHTML = '<span></span><span></span><span></span>';
+  chatMessagesEl.appendChild(div);
+  chatMessagesEl.scrollTop = chatMessagesEl.scrollHeight;
+  return div;
 }
 
 export function initChat(summary: AnalysisSummary, usedFallback: boolean): void {
@@ -48,6 +59,10 @@ chatForm.addEventListener('submit', async (event) => {
   const historyBeforeThisMessage = [...history];
   history.push({ role: 'user', content: message });
 
+  chatInput.disabled = true;
+  chatSendButton.disabled = true;
+  const typingEl = appendTypingIndicator();
+
   try {
     const response = await fetch('/api/chat', {
       method: 'POST',
@@ -60,6 +75,8 @@ chatForm.addEventListener('submit', async (event) => {
     });
 
     const body = (await response.json()) as ChatResponseBody;
+    typingEl.remove();
+
     if (!response.ok || !body.reply) {
       appendMessage('assistant', body.error ?? 'Something went wrong. Please try again.');
       return;
@@ -68,6 +85,11 @@ chatForm.addEventListener('submit', async (event) => {
     appendMessage('assistant', body.reply);
     history.push({ role: 'assistant', content: body.reply });
   } catch {
+    typingEl.remove();
     appendMessage('assistant', 'Could not reach the server. Please try again.');
+  } finally {
+    chatInput.disabled = false;
+    chatSendButton.disabled = false;
+    chatInput.focus();
   }
 });
