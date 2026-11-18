@@ -107,6 +107,71 @@ function pickRecommendedCount(
   return { count, pointsHitCost, projectedNetGain: sum(count) - pointsHitCost };
 }
 
+// fpl allows at most three players from any one club
+export const MAX_PLAYERS_PER_CLUB = 3;
+// a doubt below this is too likely to miss the game to be worth buying
+export const MIN_CHANCE_OF_PLAYING = 75;
+
+/** fit to buy: fpl marks them available and gives no real doubt */
+export function isAvailableToBuy(player: AnalysisPlayer): boolean {
+  return (
+    player.status === 'a' &&
+    (player.chanceOfPlayingNextRound === null ||
+      player.chanceOfPlayingNextRound >= MIN_CHANCE_OF_PLAYING)
+  );
+}
+
+/** the squad as swaps are made: money in the bank and players per club */
+interface SquadState {
+  bank: number;
+  clubCounts: Map<number, number>;
+}
+
+function stateOf(squad: SquadContext): SquadState {
+  const clubCounts = new Map<number, number>();
+  for (const player of squad.squad) {
+    clubCounts.set(player.teamId, (clubCounts.get(player.teamId) ?? 0) + 1);
+  }
+  return { bank: squad.bank, clubCounts };
+}
+
+function canBuy(
+  candidate: AnalysisPlayer,
+  outPlayer: AnalysisPlayer,
+  state: SquadState,
+): boolean {
+  // selling the outgoing player frees a place at his own club
+  const clubAfterSale =
+    (state.clubCounts.get(candidate.teamId) ?? 0) -
+    (candidate.teamId === outPlayer.teamId ? 1 : 0);
+  return (
+    candidate.nowCost <= outPlayer.nowCost + state.bank &&
+    clubAfterSale < MAX_PLAYERS_PER_CLUB
+  );
+}
+
+function applySwap(
+  state: SquadState,
+  outPlayer: AnalysisPlayer,
+  inPlayer: AnalysisPlayer,
+): void {
+  // fpl's real selling price can be lower than now_cost (only half of any rise
+  // is paid out) and the public api doesn't expose it, so this is a best case
+  state.bank += outPlayer.nowCost - inPlayer.nowCost;
+  state.clubCounts.set(
+    outPlayer.teamId,
+    (state.clubCounts.get(outPlayer.teamId) ?? 1) - 1,
+  );
+  state.clubCounts.set(
+    inPlayer.teamId,
+    (state.clubCounts.get(inPlayer.teamId) ?? 0) + 1,
+  );
+}
+
+function cloneState(state: SquadState): SquadState {
+  return { bank: state.bank, clubCounts: new Map(state.clubCounts) };
+}
+
 export function analyzeTransfers(
   squad: SquadContext,
   fullPlayerPool: AnalysisPlayer[],
@@ -116,66 +181,84 @@ export function analyzeTransfers(
   const maxCandidatesPerSuggestion = options.maxCandidatesPerSuggestion ?? 3;
   const squadIds = new Set(squad.squad.map((p) => p.id));
 
-  const weakestFirst = [...squad.squad].sort((a, b) => scorePlayer(a) - scorePlayer(b));
+  // everyone fit to buy who isn't already in the squad, best first
+  const buyable = fullPlayerPool
+    .filter((candidate) => !squadIds.has(candidate.id) && isAvailableToBuy(candidate))
+    .sort((a, b) => scorePlayer(b) - scorePlayer(a));
+  const rankedFor = (outPlayer: AnalysisPlayer) =>
+    buyable.filter((candidate) => candidate.position === outPlayer.position);
 
-  const suggestions: TransferSuggestion[] = [];
+  const weakLinks = [...squad.squad]
+    .sort((a, b) => scorePlayer(a) - scorePlayer(b))
+    .slice(0, maxSuggestions)
+    .map((outPlayer) => ({ outPlayer, reasonCodes: reasonCodesFor(outPlayer) }))
+    // a squad player with nothing wrong isn't a weak link
+    .filter((link) => link.reasonCodes.length > 0);
 
-  for (const outPlayer of weakestFirst.slice(0, maxSuggestions)) {
-    const reasonCodes = reasonCodesFor(outPlayer);
-    if (reasonCodes.length === 0) continue; // not actually a weak link
+  // first look, against the squad as it stands, only to decide the order swaps
+  // are tried in: the biggest gain gets first pick of money and club places
+  const startState = stateOf(squad);
+  const firstLookGain = (outPlayer: AnalysisPlayer) => {
+    const best = rankedFor(outPlayer).find((c) => canBuy(c, outPlayer, startState));
+    return best ? best.epNext - outPlayer.epNext : 0;
+  };
+  const byGain = weakLinks
+    .map((link) => ({ ...link, gain: firstLookGain(link.outPlayer) }))
+    .filter((link) => link.gain > 0)
+    .sort((a, b) => b.gain - a.gain);
 
-    // known simplification: budget is checked per swap, not across several
-    const budget = outPlayer.nowCost + squad.bank;
-    const inCandidates = fullPlayerPool
-      .filter(
-        (candidate) =>
-          candidate.position === outPlayer.position &&
-          !squadIds.has(candidate.id) &&
-          candidate.nowCost <= budget,
-      )
-      .sort((a, b) => scorePlayer(b) - scorePlayer(a))
-      .slice(0, maxCandidatesPerSuggestion);
-
-    const expectedPointsGain = inCandidates[0]
-      ? inCandidates[0].epNext - outPlayer.epNext
-      : 0;
-
-    suggestions.push({ outPlayer, reasonCodes, inCandidates, expectedPointsGain });
-  }
-
-  // an incoming player can only be bought once, so strongest swaps pick first
-  const worthConsidering = suggestions
-    .filter((s) => s.expectedPointsGain > 0)
-    .sort((a, b) => b.expectedPointsGain - a.expectedPointsGain);
-  const usedIncomingIds = new Set<number>();
-  const distinctSuggestions = worthConsidering.map((suggestion) => {
-    const replacement = suggestion.inCandidates.find(
-      (candidate) => !usedIncomingIds.has(candidate.id),
+  // swaps are made one after another, so each sees the bank, club places and
+  // players the earlier ones used up
+  const running = cloneState(startState);
+  const bought = new Set<number>();
+  const actionable: TransferSuggestion[] = [];
+  for (const { outPlayer, reasonCodes } of byGain) {
+    const replacement = rankedFor(outPlayer).find(
+      (c) => !bought.has(c.id) && canBuy(c, outPlayer, running),
     );
-    if (!replacement) {
-      return { ...suggestion, inCandidates: [], expectedPointsGain: 0 };
-    }
-    usedIncomingIds.add(replacement.id);
-    return {
-      ...suggestion,
+    if (!replacement || replacement.epNext - outPlayer.epNext <= 0) continue;
+    applySwap(running, outPlayer, replacement);
+    bought.add(replacement.id);
+    actionable.push({
+      outPlayer,
+      reasonCodes,
       // one candidate only, or the writer may pick the same player twice
       inCandidates: [replacement],
-      expectedPointsGain: replacement.epNext - suggestion.outPlayer.epNext,
-    };
-  });
-  const actionableSuggestions = distinctSuggestions.filter(
-    (suggestion) => suggestion.expectedPointsGain > 0,
-  );
+      expectedPointsGain: replacement.epNext - outPlayer.epNext,
+    });
+  }
 
   const { count, pointsHitCost, projectedNetGain } = pickRecommendedCount(
-    actionableSuggestions.map((s) => s.expectedPointsGain),
+    actionable.map((s) => s.expectedPointsGain),
     squad.freeTransfers,
     options.isLeadingALeague !== true,
   );
+  const recommended = actionable.slice(0, count);
 
-  const recommended = actionableSuggestions.slice(0, count);
+  // the other weak links are shown against the squad after the recommended
+  // swaps, and no player is offered for more than one of them
+  const afterRecommended = cloneState(startState);
+  for (const s of recommended) {
+    const replacement = s.inCandidates[0];
+    if (replacement) applySwap(afterRecommended, s.outPlayer, replacement);
+  }
+  const listed = new Set(recommended.flatMap((s) => s.inCandidates.map((p) => p.id)));
   const recommendedIds = new Set(recommended.map((s) => s.outPlayer.id));
-  const rest = suggestions.filter((s) => !recommendedIds.has(s.outPlayer.id));
+  const rest: TransferSuggestion[] = weakLinks
+    .filter((link) => !recommendedIds.has(link.outPlayer.id))
+    .map(({ outPlayer, reasonCodes }) => {
+      const inCandidates = rankedFor(outPlayer)
+        .filter((c) => !listed.has(c.id) && canBuy(c, outPlayer, afterRecommended))
+        .slice(0, maxCandidatesPerSuggestion);
+      for (const candidate of inCandidates) listed.add(candidate.id);
+      const best = inCandidates[0];
+      return {
+        outPlayer,
+        reasonCodes,
+        inCandidates,
+        expectedPointsGain: best ? best.epNext - outPlayer.epNext : 0,
+      };
+    });
 
   return {
     suggestions: [...recommended, ...rest],

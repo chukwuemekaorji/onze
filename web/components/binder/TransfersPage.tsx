@@ -93,6 +93,11 @@ export function TransfersPage({ shown, focusTitle }: BinderPageProps) {
           {note !== null && <CoachNote text={note} />}
         </PaperCard>
       </DealtCard>
+      {/* fpl's public api doesn't share selling prices, which only pay half of any rise */}
+      <p className="budget-note">
+        Budgets assume you sell at today's price. FPL only pays you half of any rise
+        since you bought a player, so your real budget may be a little lower.
+      </p>
     </BinderPage>
   );
 }
