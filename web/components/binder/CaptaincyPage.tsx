@@ -43,11 +43,7 @@ export function CaptaincyPage({ shown, focusTitle }: BinderPageProps) {
                   </span>
                   <span className="captain-rank__name">{option.name}</span>
                   <span className="captain-rank__fixture">{option.fixture}</span>
-                  <span className="captain-rank__points">
-                    {option.expectedPoints.toFixed(1)}
-                    <span className="captain-rank__unit"> xP</span>
-                    <span className="sr-only"> expected points</span>
-                  </span>
+                  <span className="captain-rank__reason">{option.reason}</span>
                 </li>
               ))}
             </ol>

@@ -68,16 +68,17 @@ describe('report cache storage', () => {
     expect(loadCachedReport(43)).toBeNull();
   });
 
-  it('ignores entries from the old unversioned cache key', () => {
+  it('ignores entries from older cache versions', () => {
     const store = stubLocalStorage();
     store.set('sensei:report:42', JSON.stringify(makeCached(DEADLINE)));
+    store.set('sensei:report:v2:42', JSON.stringify(makeCached(DEADLINE)));
 
     expect(loadCachedReport(42)).toBeNull();
   });
 
   it('returns null for corrupt entries and blocked storage', () => {
     const store = stubLocalStorage();
-    store.set('sensei:report:v2:42', '{not json');
+    store.set('sensei:report:v3:42', '{not json');
     expect(loadCachedReport(42)).toBeNull();
 
     vi.stubGlobal('localStorage', {

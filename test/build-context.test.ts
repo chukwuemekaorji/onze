@@ -1,6 +1,16 @@
 import { describe, it, expect } from 'vitest';
-import { computeFreeTransfers, buildLeagueStandings } from '../lib/build-context.js';
-import type { FplEntry, FplEntryHistoryResponse, FplClassicLeague } from '../lib/fpl-types.js';
+import {
+  buildAnalysisPlayer,
+  buildLeagueStandings,
+  computeFreeTransfers,
+} from '../lib/build-context.js';
+import type {
+  FplBootstrapStatic,
+  FplClassicLeague,
+  FplElement,
+  FplEntry,
+  FplEntryHistoryResponse,
+} from '../lib/fpl-types.js';
 
 function makeLeague(overrides: Partial<FplClassicLeague> = {}): FplClassicLeague {
   return {
@@ -30,7 +40,11 @@ function makeEntry(classic: FplClassicLeague[]): FplEntry {
 }
 
 function makeHistory(
-  current: Array<{ event: number; event_transfers: number; event_transfers_cost: number }>,
+  current: Array<{
+    event: number;
+    event_transfers: number;
+    event_transfers_cost: number;
+  }>,
   chips: FplEntryHistoryResponse['chips'] = [],
 ): FplEntryHistoryResponse {
   return {
@@ -47,7 +61,9 @@ function makeHistory(
 
 describe('computeFreeTransfers', () => {
   it('gives every manager 1 free transfer entering gameweek 2', () => {
-    const history = makeHistory([{ event: 1, event_transfers: 0, event_transfers_cost: 0 }]);
+    const history = makeHistory([
+      { event: 1, event_transfers: 0, event_transfers_cost: 0 },
+    ]);
     expect(computeFreeTransfers(history, 2)).toBe(1);
   });
 
@@ -102,7 +118,13 @@ describe('computeFreeTransfers', () => {
 describe('buildLeagueStandings', () => {
   it('maps a user-joined league to a plain standing', () => {
     const entry = makeEntry([
-      makeLeague({ id: 5, name: 'Friends League', rank_count: 8, entry_rank: 2, entry_last_rank: 3 }),
+      makeLeague({
+        id: 5,
+        name: 'Friends League',
+        rank_count: 8,
+        entry_rank: 2,
+        entry_last_rank: 3,
+      }),
     ]);
 
     expect(buildLeagueStandings(entry)).toEqual([
@@ -126,5 +148,73 @@ describe('buildLeagueStandings', () => {
   it('returns an empty list when the manager has joined no private leagues', () => {
     const entry = makeEntry([makeLeague({ league_type: 's' })]);
     expect(buildLeagueStandings(entry)).toEqual([]);
+  });
+});
+
+function makeElement(overrides: Partial<FplElement> = {}): FplElement {
+  return {
+    id: 7,
+    web_name: 'Jackson',
+    first_name: 'Nicolas',
+    second_name: 'Jackson',
+    team: 1,
+    element_type: 4,
+    now_cost: 71,
+    cost_change_event: 0,
+    cost_change_start: 0,
+    selected_by_percent: '12.4',
+    form: '11.0',
+    points_per_game: '6.0',
+    ep_next: '11.0',
+    ep_this: '11.0',
+    total_points: 54,
+    transfers_in_event: 0,
+    transfers_out_event: 0,
+    chance_of_playing_next_round: null,
+    chance_of_playing_this_round: null,
+    status: 'a',
+    news: '',
+    ...overrides,
+  };
+}
+
+const BOOTSTRAP = {
+  events: [],
+  element_types: [],
+  elements: [],
+  teams: [{ id: 1, name: 'Aston Villa', short_name: 'AVL' }],
+} as unknown as FplBootstrapStatic;
+
+describe('buildAnalysisPlayer', () => {
+  it("reads form, points per game and fpl's projection as separate numbers", () => {
+    const player = buildAnalysisPlayer(
+      makeElement({ form: '11.0', points_per_game: '6.0', ep_next: '8.3' }),
+      BOOTSTRAP,
+      [],
+      { fromEvent: 11 },
+    );
+    expect(player.form).toBe(11);
+    expect(player.pointsPerGame).toBe(6);
+    expect(player.epNext).toBe(8.3);
+  });
+
+  it("keeps fpl's availability status", () => {
+    for (const status of ['a', 'd', 'i', 's', 'u', 'n'] as const) {
+      expect(
+        buildAnalysisPlayer(makeElement({ status }), BOOTSTRAP, [], { fromEvent: 11 })
+          .status,
+      ).toBe(status);
+    }
+  });
+
+  it('treats an unknown status as unavailable and junk numbers as 0', () => {
+    const player = buildAnalysisPlayer(
+      makeElement({ status: 'x', points_per_game: 'n/a' }),
+      BOOTSTRAP,
+      [],
+      { fromEvent: 11 },
+    );
+    expect(player.status).toBe('u');
+    expect(player.pointsPerGame).toBe(0);
   });
 });

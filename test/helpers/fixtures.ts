@@ -12,16 +12,16 @@ export function makePlayer(overrides: Partial<AnalysisPlayer> = {}): AnalysisPla
     position: 'MID',
     nowCost: 50,
     form: 5,
+    pointsPerGame: 5,
     epNext: 5,
     totalPoints: 50,
     selectedByPercent: 10,
     chanceOfPlayingNextRound: null,
+    status: 'a',
     costChangeEvent: 0,
     transfersInEvent: 0,
     transfersOutEvent: 0,
-    nextFixtures: [
-      { event: 1, isHome: true, difficulty: 3, opponentShortName: 'BBB' },
-    ],
+    nextFixtures: [{ event: 1, isHome: true, difficulty: 3, opponentShortName: 'BBB' }],
     ...overrides,
   };
 }

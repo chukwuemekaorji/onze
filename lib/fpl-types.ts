@@ -44,6 +44,7 @@ export interface FplElement {
   cost_change_start: number;
   selected_by_percent: string;
   form: string;
+  points_per_game: string;
   ep_next: string;
   ep_this: string;
   total_points: number;

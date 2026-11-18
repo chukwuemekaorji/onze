@@ -15,6 +15,7 @@ import type {
   AnalysisPlayer,
   FixtureDifficulty,
   LeagueStanding,
+  PlayerStatus,
   Position,
   SquadContext,
   SquadPick,
@@ -41,6 +42,14 @@ function toPosition(elementTypeId: number): Position {
 function parseFplFloat(value: string): number {
   const parsed = Number.parseFloat(value);
   return Number.isNaN(parsed) ? 0 : parsed;
+}
+
+const PLAYER_STATUSES: readonly PlayerStatus[] = ['a', 'd', 'i', 's', 'u', 'n'];
+
+// an unknown flag is treated as unavailable, so a player fpl marks in some new
+// way is never recommended by accident
+function toPlayerStatus(value: string): PlayerStatus {
+  return PLAYER_STATUSES.find((status) => status === value) ?? 'u';
 }
 
 function buildFixtureDifficulty(
@@ -97,10 +106,12 @@ export function buildAnalysisPlayer(
     position: toPosition(element.element_type),
     nowCost: element.now_cost,
     form: parseFplFloat(element.form),
+    pointsPerGame: parseFplFloat(element.points_per_game),
     epNext: parseFplFloat(element.ep_next),
     totalPoints: element.total_points,
     selectedByPercent: parseFplFloat(element.selected_by_percent),
     chanceOfPlayingNextRound: element.chance_of_playing_next_round,
+    status: toPlayerStatus(element.status),
     costChangeEvent: element.cost_change_event,
     transfersInEvent: element.transfers_in_event,
     transfersOutEvent: element.transfers_out_event,

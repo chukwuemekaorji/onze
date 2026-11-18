@@ -1,6 +1,6 @@
 import type { AnalysisSummary } from '../lib/analysis-summary.js';
 import type { ChipName } from '../lib/analysis/chips.js';
-import type { PriceDirection } from '../lib/analysis/price-alerts.js';
+import type { PriceAlertStatus, PriceDirection } from '../lib/analysis/price-alerts.js';
 import { HIT_SAFETY_MARGIN, POINTS_PER_HIT } from '../lib/analysis/transfers.js';
 import { fixtureLabel } from './pitch-layout.js';
 
@@ -25,7 +25,12 @@ export interface CaptainOption {
   id: number;
   name: string;
   fixture: string;
-  expectedPoints: number;
+  form: number;
+  pointsPerGame: number;
+  /** fpl's next-gameweek figure, only when it says something form doesn't */
+  projected: number | null;
+  /** e.g. "form 11.0 · 6.0 per game", plus the projection when it differs */
+  reason: string;
   role: 'captain' | 'vice' | null;
 }
 
@@ -163,14 +168,36 @@ export function captainOptions(
 ): CaptainOption[] {
   const captainId = captaincy.captain?.player.id;
   const viceId = captaincy.viceCaptain?.player.id;
-  return captaincy.candidates.slice(0, limit).map(({ player }, index) => ({
-    rank: index + 1,
-    id: player.id,
-    name: player.webName,
-    fixture: fixtureLabel(player.nextFixtures, event),
-    expectedPoints: player.epNext,
-    role: player.id === captainId ? 'captain' : player.id === viceId ? 'vice' : null,
-  }));
+  return captaincy.candidates.slice(0, limit).map(({ player }, index) => {
+    const projected = projectionIfDifferent(player.form, player.epNext);
+    const parts = [
+      `form ${formatStat(player.form)}`,
+      `${formatStat(player.pointsPerGame)} per game`,
+    ];
+    if (projected !== null) parts.push(`${formatStat(projected)} projected`);
+    return {
+      rank: index + 1,
+      id: player.id,
+      name: player.webName,
+      fixture: fixtureLabel(player.nextFixtures, event),
+      form: player.form,
+      pointsPerGame: player.pointsPerGame,
+      projected,
+      reason: parts.join(' · '),
+      role: player.id === captainId ? 'captain' : player.id === viceId ? 'vice' : null,
+    };
+  });
+}
+
+const formatStat = (value: number) => value.toFixed(1);
+
+/**
+ * fpl's ep_next is form scaled by availability, so for a fit player it just
+ * repeats form. it's only shown when it differs at the precision displayed,
+ * which in practice means fpl has priced in a fitness doubt
+ */
+export function projectionIfDifferent(form: number, epNext: number): number | null {
+  return formatStat(form) === formatStat(epNext) ? null : epNext;
 }
 
 /** every chip, so the card also shows what's been used */
@@ -254,6 +281,15 @@ export function leagueRows(standings: AnalysisSummary['leagueStandings']): Leagu
   });
 }
 
+// every note says "this gameweek": fpl's figures cover the whole gameweek, not today
+const PRICE_NOTE: Record<PriceAlertStatus, Record<PriceDirection, string>> = {
+  changed_this_gameweek: { rise: 'rose this gameweek', fall: 'fell this gameweek' },
+  demand_this_gameweek: {
+    rise: 'heavily bought this gameweek',
+    fall: 'heavily sold this gameweek',
+  },
+};
+
 export function priceRows(
   alerts: AnalysisSummary['priceAlerts']['alerts'],
 ): PriceRow[] {
@@ -262,13 +298,6 @@ export function priceRows(
     name: player.webName,
     price: formatPrice(player.nowCost),
     direction,
-    note:
-      status === 'changed_today'
-        ? direction === 'rise'
-          ? 'rose today'
-          : 'fell today'
-        : direction === 'rise'
-          ? 'likely to rise'
-          : 'likely to fall',
+    note: PRICE_NOTE[status][direction],
   }));
 }

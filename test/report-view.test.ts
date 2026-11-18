@@ -28,10 +28,12 @@ function player(
     position: 'MID',
     nowCost: 80,
     form: 5,
+    pointsPerGame: 5,
     epNext: 5,
     totalPoints: 50,
     selectedByPercent: 10,
     chanceOfPlayingNextRound: null,
+    status: 'a',
     costChangeEvent: 0,
     transfersInEvent: 0,
     transfersOutEvent: 0,
@@ -177,7 +179,7 @@ describe('captainOptions', () => {
   it('ranks the top five with fixture, expected points, and c and v marked', () => {
     const candidates = ['Salah', 'Haaland', 'Palmer', 'Saka', 'Isak', 'Watkins'].map(
       (name, index) => ({
-        player: player(name, { epNext: 8 - index }),
+        player: player(name, { form: 8 - index, epNext: 8 - index }),
         score: 10 - index,
       }),
     );
@@ -190,14 +192,46 @@ describe('captainOptions', () => {
       EVENT,
     );
     expect(options).toHaveLength(5);
-    expect(options.map((o) => [o.rank, o.name, o.role, o.expectedPoints])).toEqual([
-      [1, 'Salah', 'captain', 8],
-      [2, 'Haaland', 'vice', 7],
-      [3, 'Palmer', null, 6],
-      [4, 'Saka', null, 5],
-      [5, 'Isak', null, 4],
+    expect(options.map((o) => [o.rank, o.name, o.role])).toEqual([
+      [1, 'Salah', 'captain'],
+      [2, 'Haaland', 'vice'],
+      [3, 'Palmer', null],
+      [4, 'Saka', null],
+      [5, 'Isak', null],
     ]);
     expect(options[0]?.fixture).toBe('LIV (H)');
+  });
+
+  it('gives form and points per game, never the same number twice', () => {
+    const jackson = player('N.Jackson', { form: 11, epNext: 11, pointsPerGame: 6 });
+    const [option] = captainOptions(
+      {
+        captain: { player: jackson, score: 15 },
+        viceCaptain: null,
+        candidates: [{ player: jackson, score: 15 }],
+      },
+      EVENT,
+    );
+    expect(option?.reason).toBe('form 11.0 · 6.0 per game');
+    expect(option?.projected).toBeNull();
+  });
+
+  it('adds the projection only when it differs from form, as with a fitness doubt', () => {
+    const doubtful = player('Calvert-Lewin', {
+      form: 2,
+      epNext: 1.5,
+      pointsPerGame: 3.9,
+    });
+    const [option] = captainOptions(
+      {
+        captain: { player: doubtful, score: 5 },
+        viceCaptain: null,
+        candidates: [{ player: doubtful, score: 5 }],
+      },
+      EVENT,
+    );
+    expect(option?.reason).toBe('form 2.0 · 3.9 per game · 1.5 projected');
+    expect(option?.projected).toBe(1.5);
   });
 
   it('returns nothing without candidates', () => {
@@ -280,23 +314,36 @@ describe('chipStamps', () => {
 });
 
 describe('priceRows', () => {
-  it('describes confirmed and predicted moves in both directions', () => {
+  it('labels every alert as this gameweek, never today', () => {
     const rows = priceRows([
       {
         player: player('Salah', { nowCost: 131 }),
         direction: 'rise',
-        status: 'predicted',
+        status: 'demand_this_gameweek',
+      },
+      {
+        player: player('Isak', { nowCost: 85 }),
+        direction: 'fall',
+        status: 'demand_this_gameweek',
+      },
+      {
+        player: player('Konsa', { nowCost: 49 }),
+        direction: 'rise',
+        status: 'changed_this_gameweek',
       },
       {
         player: player('Watkins', { nowCost: 90 }),
         direction: 'fall',
-        status: 'changed_today',
+        status: 'changed_this_gameweek',
       },
     ]);
     expect(rows.map((r) => [r.name, r.price, r.direction, r.note])).toEqual([
-      ['Salah', '£13.1m', 'rise', 'likely to rise'],
-      ['Watkins', '£9.0m', 'fall', 'fell today'],
+      ['Salah', '£13.1m', 'rise', 'heavily bought this gameweek'],
+      ['Isak', '£8.5m', 'fall', 'heavily sold this gameweek'],
+      ['Konsa', '£4.9m', 'rise', 'rose this gameweek'],
+      ['Watkins', '£9.0m', 'fall', 'fell this gameweek'],
     ]);
+    expect(rows.some((r) => r.note.includes('today'))).toBe(false);
   });
 
   it('returns nothing when there are no alerts', () => {

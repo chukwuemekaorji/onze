@@ -23,6 +23,7 @@ import { analyzeLineup } from './analysis/lineup.js';
 import type { AnalysisSummary } from './analysis-summary.js';
 
 const LOOKAHEAD_EVENTS = 5;
+const MS_PER_DAY = 24 * 60 * 60 * 1000;
 
 // fpl's chip codes as they appear in /entry/{id}/history/
 const FPL_CHIP_NAME_MAP: Record<string, ChipName> = {
@@ -33,6 +34,11 @@ const FPL_CHIP_NAME_MAP: Record<string, ChipName> = {
 };
 
 export class NoCurrentGameweekError extends Error {}
+
+function daysSince(iso: string | undefined, now: number): number | undefined {
+  const time = iso ? new Date(iso).getTime() : Number.NaN;
+  return Number.isFinite(time) ? (now - time) / MS_PER_DAY : undefined;
+}
 
 export async function generateAnalysisSummary(
   managerId: number,
@@ -63,6 +69,8 @@ export async function generateAnalysisSummary(
   const planningEvent = nextActionableEvent?.id ?? picksEvent;
 
   const planningEventInfo = bootstrap.events.find((e) => e.id === planningEvent);
+  // the live gameweek opened at its deadline; its transfer totals run from there
+  const picksEventInfo = bootstrap.events.find((e) => e.id === picksEvent);
   const followingEventInfo = bootstrap.events.find((e) => e.id === planningEvent + 1);
 
   const [entry, picks, history] = await Promise.all([
@@ -116,7 +124,9 @@ export async function generateAnalysisSummary(
     transfers,
     captaincy,
     chips: analyzeChips(fixtures, allTeamIds, squad, chipsUsed),
-    priceAlerts: analyzePriceAlerts(squad.squad),
+    priceAlerts: analyzePriceAlerts(squad.squad, {
+      daysSinceGameweekOpened: daysSince(picksEventInfo?.deadline_time, now),
+    }),
     lineup,
   };
 }

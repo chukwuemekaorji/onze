@@ -8,8 +8,9 @@ export function PricesPage({ shown, focusTitle }: BinderPageProps) {
   return (
     <BinderPage title="Prices" focusTitle={focusTitle} className="prices-page">
       <p className="page-lede">
-        Expected rises and falls for players in your squad. FPL's price changes are
-        secret, so these are signals, not promises.
+        Price moves in your squad this gameweek, and players being heavily bought or
+        sold. FPL only shares transfer totals for the whole gameweek and keeps its price
+        rules secret, so demand is a signal, not a prediction for tonight.
       </p>
       <DealtCard cardKey="price-alerts" order={0} dealt={false}>
         <PriceAlertsCard

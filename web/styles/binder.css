@@ -231,6 +231,14 @@
   border-left: var(--stroke-bold) solid var(--ink);
 }
 
+/* the small print under the transfer list */
+.budget-note {
+  max-width: var(--measure);
+  margin: calc(-1 * var(--space-4)) 0 0;
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+}
+
 .transfer-list {
   display: grid;
   margin: 0;
@@ -295,14 +303,10 @@
   border-top-color: transparent;
 }
 
-.captain-rank__number,
-.captain-rank__points {
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-}
-
 .captain-rank__number {
+  font-family: var(--font-mono);
   font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
   color: var(--ink-muted);
 }
 
@@ -315,14 +319,10 @@
   color: var(--ink-muted);
 }
 
-.captain-rank__points {
+.captain-rank__reason {
   font-size: var(--text-sm);
-}
-
-.captain-rank__unit {
-  font-family: var(--font-body);
-  font-size: var(--text-xs);
   color: var(--ink-muted);
+  white-space: nowrap;
 }
 
 /* chips timeline */
@@ -432,6 +432,12 @@
   .captain-rank__fixture {
     grid-column: 3;
     grid-row: 2;
+  }
+
+  .captain-rank__reason {
+    grid-column: 3 / -1;
+    grid-row: 3;
+    white-space: normal;
   }
 }
 

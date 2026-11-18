@@ -4,8 +4,9 @@ import type { ReportSource } from './report-writer.js';
 
 // skips the fpl fetch and llm call on reload. dropped once the deadline passes,
 // since the advice is stale by then
-// v2 adds `source`; older entries are ignored rather than migrated
-const REPORT_CACHE_PREFIX = 'sensei:report:v2:';
+// v3 adds points per game, player status and the gameweek price labels; older
+// entries are ignored rather than migrated
+const REPORT_CACHE_PREFIX = 'sensei:report:v3:';
 
 export interface CachedReport {
   report: CoachReport;

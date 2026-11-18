@@ -142,10 +142,12 @@ function writePriceAlerts(summary: AnalysisSummary): string {
 
   return alerts
     .map((a) => {
-      const verb = a.direction === 'rise' ? 'rising' : 'falling';
-      return a.status === 'changed_today'
-        ? `${a.player.webName} already changed price today (${verb}).`
-        : `${a.player.webName} is predicted to be at risk of ${verb} in price soon.`;
+      if (a.status === 'changed_this_gameweek') {
+        return `${a.player.webName}'s price ${a.direction === 'rise' ? 'rose' : 'fell'} this gameweek.`;
+      }
+      return a.direction === 'rise'
+        ? `${a.player.webName} is being heavily bought this gameweek, so a rise may follow.`
+        : `${a.player.webName} is being heavily sold this gameweek, so a fall may follow.`;
     })
     .join(' ');
 }
