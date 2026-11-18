@@ -26,9 +26,8 @@ let fixturesCache: CacheEntry<FplFixture[]> | null = null;
 async function fplFetch<T>(path: string): Promise<T> {
   const response = await fetch(`${FPL_BASE_URL}${path}`, {
     headers: {
-      // FPL blocks requests with no User-Agent; be a polite, identifiable
-      // consumer rather than looking like an anonymous scraper.
-      'User-Agent': 'Sensei-FPL-Coach/1.0 (+https://github.com)',
+      // fpl blocks requests without a user-agent, so identify ourselves
+      'User-Agent': 'Sensei-FPL-Coach/1.0 (+https://github.com/chukwuemekaorji/sensei)',
     },
   });
 
