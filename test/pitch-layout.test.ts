@@ -7,6 +7,8 @@ import type {
 } from '../lib/analysis/types.js';
 import {
   benchInFplOrder,
+  incomingNote,
+  incomingTransfers,
   estimateLabelWidth,
   fitLabel,
   fixtureLabel,
@@ -256,5 +258,59 @@ describe('fitLabel', () => {
   it('treats an empty name as fitting', () => {
     expect(estimateLabelWidth('', 25)).toBe(0);
     expect(fitLabel('', 0, 25)).toBeNull();
+  });
+});
+
+describe('incomingTransfers', () => {
+  const swap = (outName: string, inPlayer: LineupPlayer | null) => ({
+    outPlayer: lineupPlayer('MID', outName).player,
+    reasonCodes: [],
+    inCandidates: inPlayer ? [inPlayer.player] : [],
+    expectedPointsGain: 3,
+  });
+
+  it('maps each recommended arrival to the player they replace', () => {
+    const isak = lineupPlayer('FWD', 'Isak');
+    const saka = lineupPlayer('MID', 'Saka');
+    const skipped = lineupPlayer('MID', 'Palmer');
+    const incoming = incomingTransfers({
+      suggestions: [swap('Wissa', isak), swap('Mitoma', saka), swap('Gordon', skipped)],
+      recommendedCount: 2,
+    });
+    expect([...incoming]).toEqual([
+      [isak.player.id, 'Wissa'],
+      [saka.player.id, 'Mitoma'],
+    ]);
+  });
+
+  it('brings no one in for a move with no affordable replacement, or none recommended', () => {
+    expect(
+      incomingTransfers({ suggestions: [swap('Wissa', null)], recommendedCount: 1 })
+        .size,
+    ).toBe(0);
+    expect(incomingTransfers({ suggestions: [], recommendedCount: 0 }).size).toBe(0);
+  });
+
+  it('marks the arrival on the pitch with a note that fits its slot', () => {
+    const arrival = lineupPlayer('MID', 'Saka');
+    const [placed] = placeRow([arrival], 50, LAYOUT, {
+      ...context(),
+      incoming: new Map([[arrival.player.id, 'Mitoma']]),
+    });
+    expect(placed?.incomingFor).toBe('Mitoma');
+    expect(incomingNote('Mitoma')).toBe('in for Mitoma');
+    expect(placed?.incomingNoteLength).toBeNull();
+
+    const [others] = placeRow([lineupPlayer('MID')], 50, LAYOUT, context());
+    expect(others?.incomingFor).toBeNull();
+  });
+
+  it('squeezes a long note into a narrow slot', () => {
+    const row = Array.from({ length: 5 }, () => lineupPlayer('DEF'));
+    const [first] = placeRow(row, 50, LAYOUT, {
+      ...context(),
+      incoming: new Map([[row[0]!.player.id, 'Alexander-Arnold-Smithson']]),
+    });
+    expect(first?.incomingNoteLength).not.toBeNull();
   });
 });

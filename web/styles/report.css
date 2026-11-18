@@ -4,7 +4,7 @@
    the only thing allowed a lean, and the only yellow in the design */
 
 .notepad {
-  rotate: -0.6deg;
+  rotate: -1deg;
 }
 
 .notepad__binding {
@@ -242,25 +242,30 @@
   background: var(--ink);
 }
 
-/* chips: small, upright stamps with a single thin outline */
+/* chips: rubber stamps, upright. a recommended chip is stamped in red */
 
 .chip-stamps {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-3);
+  gap: var(--space-4);
   margin: 0;
-  padding: 0;
+  padding: var(--space-1);
   list-style: none;
 }
 
 .chip-stamp {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--space-1);
   padding: var(--space-3) var(--space-4);
-  border: var(--stroke) solid var(--hairline-strong);
+  text-align: center;
+  color: var(--ink);
+  border: 1.5px solid currentColor;
   border-radius: var(--radius-sm);
+  outline: 1px solid currentColor;
+  outline-offset: 2px;
+  mix-blend-mode: multiply;
 }
 
 .chip-stamp__name {
@@ -270,27 +275,28 @@
 
 .chip-stamp__verdict {
   font-size: var(--text-label);
-  font-weight: 600;
-  letter-spacing: var(--tracking-label);
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--ink-muted);
 }
 
 .chip-stamp--recommended {
-  border-color: var(--ink);
+  color: var(--marker-red-text);
+  border-width: 2px;
 }
 
-.chip-stamp--recommended .chip-stamp__verdict {
-  color: var(--ink);
+.chip-stamp--available {
+  color: var(--ink-muted);
 }
 
 .chip-stamp--used {
+  color: var(--ink-muted);
   border-style: dashed;
+  outline-style: dashed;
 }
 
 .chip-stamp--used .chip-stamp__name {
   font-weight: 500;
-  color: var(--ink-muted);
   text-decoration: line-through;
 }
 

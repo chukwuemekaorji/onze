@@ -1,4 +1,5 @@
 import type { LineupAnalysis, LineupPlayer } from '../lib/analysis/lineup.js';
+import type { TransfersAnalysis } from '../lib/analysis/transfers.js';
 import type { FixtureDifficulty, Position } from '../lib/analysis/types.js';
 
 export type Armband = 'captain' | 'vice' | null;
@@ -20,6 +21,10 @@ export interface PlacedPlayer {
   /** e.g. "LIV (H)", both games in a double, "Blank" in a blank */
   fixture: string;
   fixtureLength: number | null;
+  /** the outgoing player's name when this one is a recommended transfer in */
+  incomingFor: string | null;
+  /** compressed width for the "in for" note when it won't fit, else null */
+  incomingNoteLength: number | null;
 }
 
 export interface ArmbandIds {
@@ -42,6 +47,8 @@ export interface PlacementContext {
   shirtNumbers: ReadonlyMap<number, number>;
   /** the gameweek the lineup is picked for */
   event: number;
+  /** recommended arrivals: incoming player id to the name they replace */
+  incoming?: ReadonlyMap<number, string>;
 }
 
 // how far down the pitch each line sits, as a fraction of its length.
@@ -63,6 +70,13 @@ const FIRST_BENCH_NUMBER = 12;
 // average glyph width as a share of font size. an estimate, since svg can't
 // measure text before it renders
 export const NAME_GLYPH_WIDTH_EM = 0.58;
+// caveat is a narrow hand, so the "in for" note packs in more per unit width
+export const HAND_GLYPH_WIDTH_EM = 0.42;
+
+export function incomingNote(outgoingName: string): string {
+  return `in for ${outgoingName}`;
+}
+
 // fixtures are set in the body font at a regular weight, a little narrower
 export const FIXTURE_GLYPH_WIDTH_EM = 0.52;
 
@@ -108,6 +122,21 @@ export function shirtNumbers(
   return numbers;
 }
 
+/**
+ * the recommended moves as incoming player id to outgoing name, so the pitch can
+ * ring each new arrival. a move with no affordable replacement brings no one in
+ */
+export function incomingTransfers(
+  transfers: Pick<TransfersAnalysis, 'suggestions' | 'recommendedCount'>,
+): Map<number, string> {
+  const incoming = new Map<number, string>();
+  for (const suggestion of transfers.suggestions.slice(0, transfers.recommendedCount)) {
+    const arrival = suggestion.inCandidates[0];
+    if (arrival) incoming.set(arrival.id, suggestion.outPlayer.webName);
+  }
+  return incoming;
+}
+
 /** the player's games in one gameweek: "LIV (H)", "LIV (H) + CHE (A)" or "Blank" */
 export function fixtureLabel(fixtures: FixtureDifficulty[], event: number): string {
   const games = fixtures.filter((fixture) => fixture.event === event);
@@ -136,6 +165,7 @@ export function placeRow(
 
   return players.map(({ player }, index) => {
     const fixture = fixtureLabel(player.nextFixtures, context.event);
+    const incomingFor = context.incoming?.get(player.id) ?? null;
     return {
       id: player.id,
       name: player.webName,
@@ -157,6 +187,16 @@ export function placeRow(
         layout.fixtureFontSize,
         FIXTURE_GLYPH_WIDTH_EM,
       ),
+      incomingFor,
+      incomingNoteLength:
+        incomingFor === null
+          ? null
+          : fitLabel(
+              incomingNote(incomingFor),
+              maxLabelWidth,
+              layout.labelFontSize,
+              HAND_GLYPH_WIDTH_EM,
+            ),
     };
   });
 }

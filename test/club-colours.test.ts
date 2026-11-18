@@ -50,7 +50,7 @@ describe('mixColour', () => {
 
   it('blends each channel part of the way', () => {
     expect(mixColour('#000000', '#ffffff', 0.5)).toBe('#808080');
-    expect(mixColour('#ef0107', '#f2ecdf', KIT_MUTE_AMOUNT)).toBe('#f03537');
+    expect(mixColour('#ef0107', '#f2ecdf', KIT_MUTE_AMOUNT)).toBe('#ef1418');
   });
 });
 

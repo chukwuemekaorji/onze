@@ -11,6 +11,8 @@ import {
 } from '../motion.js';
 import {
   benchInFplOrder,
+  incomingNote,
+  incomingTransfers,
   placeRow,
   placeStartingXI,
   shirtNumbers,
@@ -38,11 +40,20 @@ const SPOT_RADIUS = m(0.35);
 const CORNER_ARC_RADIUS = m(2);
 const MOWING_STRIPES = 12;
 
-// the name chip under each jersey, in pitch units
+// the masking tape name label under each jersey, in pitch units
 const LABEL_GAP = 8;
 const LABEL_HEIGHT = 34;
 const LABEL_PADDING_X = 12;
-const LABEL_RADIUS = 8;
+// how far a torn tape end bites into the strip
+const TAPE_TEAR = 4;
+// the red marker ring round a new arrival, and the note above it
+const RING_RADIUS_X = 46;
+const RING_RADIUS_Y = 42;
+const NOTE_GAP = 14;
+const RING_DRAW_S = 0.6;
+// where the formation is scribbled, in the top left corner of the pitch
+const FORMATION_X = m(3);
+const FORMATION_Y = m(7);
 const FIXTURE_BASELINE_GAP = 25;
 
 const PITCH_ROW_LAYOUT: RowLayout = {
@@ -57,8 +68,9 @@ const PITCH_ROW_LAYOUT: RowLayout = {
 // the jersey is drawn 64 units wide; this sizes it to fill its slot on the pitch
 const PITCH_JERSEY_SCALE = 1.3;
 const BENCH_JERSEY_SCALE = PITCH_JERSEY_SCALE * 0.8;
-const BENCH_HEIGHT = 210;
-const BENCH_ROW_Y = 75;
+// room above the bench row for an "in for" note
+const BENCH_HEIGHT = 228;
+const BENCH_ROW_Y = 92;
 
 const POSITION_NAME: Record<Position, string> = {
   GK: 'goalkeeper',
@@ -87,6 +99,7 @@ export function Pitch({ summary, entranceKey = 'pitch' }: PitchProps) {
     },
     shirtNumbers: shirtNumbers(lineup),
     event: summary.currentEvent,
+    incoming: incomingTransfers(summary.transfers),
   };
   const starters = placeStartingXI(
     lineup.startingXI,
@@ -116,6 +129,20 @@ export function Pitch({ summary, entranceKey = 'pitch' }: PitchProps) {
       >
         <Grass />
         <Markings drawIn={playEntrance} />
+        {lineup.formation && (
+          <motion.text
+            className="pitch__formation"
+            x={FORMATION_X}
+            y={FORMATION_Y}
+            {...(playEntrance && {
+              initial: { opacity: 0 },
+              animate: { opacity: 1 },
+              transition: { delay: PITCH_DRAW_S, duration: 0.4 },
+            })}
+          >
+            {lineup.formation}
+          </motion.text>
+        )}
         {starters.map((player) => (
           <PlayerMarker
             key={player.id}
@@ -315,20 +342,47 @@ interface PlayerMarkerProps {
 }
 
 // each shirt settles into place: a touch large, a hint of give, then still
-const SLAP_START_SCALE = 1.08;
-const SLAP_SQUASH_SCALE = 0.99;
+const SLAP_START_SCALE = 1.25;
+const SLAP_SQUASH_SCALE = 0.95;
+// it lands a little crooked and is pressed flat; nothing stays tilted
+const SLAP_TILT_DEG = 6;
+
+function tapePath(width: number, height: number): string {
+  const hw = width / 2;
+  const hh = height / 2;
+  const t = TAPE_TEAR;
+  // straight long edges, zigzag torn ends
+  return [
+    `M ${-hw} ${-hh} L ${hw} ${-hh}`,
+    `L ${hw - t} ${-hh / 2} L ${hw} 0 L ${hw - t} ${hh / 2} L ${hw} ${hh}`,
+    `L ${-hw} ${hh}`,
+    `L ${-hw + t} ${hh / 2} L ${-hw} 0 L ${-hw + t} ${-hh / 2} Z`,
+  ].join(' ');
+}
+
+/** a loose marker loop that overshoots where it started, like a coach's ring */
+function ringPath(rx: number, ry: number): string {
+  return [
+    `M ${0.3 * rx} ${-ry}`,
+    `C ${1.12 * rx} ${-0.98 * ry}, ${1.14 * rx} ${0.92 * ry}, ${0.05 * rx} ${ry}`,
+    `C ${-1.1 * rx} ${1.05 * ry}, ${-1.16 * rx} ${-0.9 * ry}, ${-0.15 * rx} ${-1.04 * ry}`,
+    `C ${0.2 * rx} ${-1.08 * ry}, ${0.55 * rx} ${-0.95 * ry}, ${0.72 * rx} ${-0.78 * ry}`,
+  ].join(' ');
+}
 
 function PlayerMarker({ player, jerseyScale, entranceDelayS }: PlayerMarkerProps) {
   const labelY = JERSEY_HALF_HEIGHT * jerseyScale + LABEL_GAP + LABEL_HEIGHT / 2;
   const labelWidth = player.labelWidth + 2 * LABEL_PADDING_X;
+  const slapTilt = (player.shirtNumber ?? 0) % 2 === 0 ? SLAP_TILT_DEG : -SLAP_TILT_DEG;
   const landing =
     entranceDelayS === null
       ? {}
       : {
-          initial: { opacity: 0, scale: SLAP_START_SCALE },
+          initial: { opacity: 0, scale: SLAP_START_SCALE, rotate: slapTilt },
           animate: {
             opacity: [0, 1, 1],
             scale: [SLAP_START_SCALE, SLAP_SQUASH_SCALE, 1],
+            rotate: [slapTilt, 0, 0],
           },
           transition: {
             delay: entranceDelayS,
@@ -337,6 +391,34 @@ function PlayerMarker({ player, jerseyScale, entranceDelayS }: PlayerMarkerProps
             ease: 'easeOut' as const,
           },
         };
+
+  // the ring draws itself once the shirt has landed
+  const ringDelay = entranceDelayS === null ? null : entranceDelayS + JERSEY_SLAP_S;
+  const ringDraw =
+    ringDelay === null
+      ? {}
+      : {
+          initial: { pathLength: 0, opacity: 0 },
+          animate: { pathLength: 1, opacity: 1 },
+          transition: {
+            pathLength: {
+              delay: ringDelay,
+              duration: RING_DRAW_S,
+              ease: 'easeInOut' as const,
+            },
+            opacity: { delay: ringDelay, duration: 0.01 },
+          },
+        };
+  const noteFade =
+    ringDelay === null
+      ? {}
+      : {
+          initial: { opacity: 0 },
+          animate: { opacity: 1 },
+          transition: { delay: ringDelay + RING_DRAW_S / 2, duration: 0.3 },
+        };
+  const ringX = RING_RADIUS_X * jerseyScale;
+  const ringY = RING_RADIUS_Y * jerseyScale;
 
   // the outer group places the player with an svg transform; the inner one
   // carries motion's css transform, which would otherwise replace it
@@ -351,14 +433,7 @@ function PlayerMarker({ player, jerseyScale, entranceDelayS }: PlayerMarkerProps
           />
         </g>
         <g transform={`translate(0 ${labelY})`}>
-          <rect
-            className="pitch-player__label-bg"
-            x={-labelWidth / 2}
-            y={-LABEL_HEIGHT / 2}
-            width={labelWidth}
-            height={LABEL_HEIGHT}
-            rx={LABEL_RADIUS}
-          />
+          <path className="pitch-player__tape" d={tapePath(labelWidth, LABEL_HEIGHT)} />
           <text
             className="pitch-player__name"
             dy="0.36em"
@@ -376,6 +451,24 @@ function PlayerMarker({ player, jerseyScale, entranceDelayS }: PlayerMarkerProps
           {player.fixture}
         </text>
       </motion.g>
+      {player.incomingFor !== null && (
+        <g className="pitch-player__arrival">
+          <motion.path
+            className="pitch-player__ring"
+            d={ringPath(ringX, ringY)}
+            filter={INK_WOBBLE_FILTER}
+            {...ringDraw}
+          />
+          <motion.text
+            className="pitch-player__note"
+            y={-(ringY + NOTE_GAP)}
+            {...squeezeTo(player.incomingNoteLength)}
+            {...noteFade}
+          >
+            {incomingNote(player.incomingFor)}
+          </motion.text>
+        </g>
+      )}
     </g>
   );
 }

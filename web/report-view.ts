@@ -184,7 +184,7 @@ export function chipStamps(
     if (used.has(chip)) return { chip, label, state: 'used', verdict: 'Used' };
     const recommendation = suggestions.find((s) => s.chip === chip)?.recommendation;
     if (recommendation === 'play_now') {
-      return { chip, label, state: 'recommended', verdict: 'Play now' };
+      return { chip, label, state: 'recommended', verdict: 'Play this week' };
     }
     if (recommendation === 'consider_soon') {
       return { chip, label, state: 'recommended', verdict: 'Plan soon' };

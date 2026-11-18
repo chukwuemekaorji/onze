@@ -7,6 +7,9 @@ export const JERSEY_HALF_HEIGHT = 28;
 const SILHOUETTE =
   'M -8 -28 Q 0 -22 8 -28 L 17 -25 L 32 -12 L 24 -1 L 17 -8 L 17 28 L -17 28 L -17 -8 L -24 -1 L -32 -12 L -17 -25 Z';
 const BODY = 'M -17 -25 L -8 -28 Q 0 -22 8 -28 L 17 -25 L 17 28 L -17 28 Z';
+// the hard drop shadow of a sticker lifted slightly off the page
+const SHADOW_OFFSET_X = 2;
+const SHADOW_OFFSET_Y = 2.5;
 const LEFT_SLEEVE = 'M -17 -25 L -32 -12 L -24 -1 L -17 -8 Z';
 const RIGHT_SLEEVE = 'M 17 -25 L 32 -12 L 24 -1 L 17 -8 Z';
 const COLLAR = 'M -8.5 -27.5 Q 0 -20 8.5 -27.5';
@@ -27,7 +30,12 @@ interface JerseyProps {
 export function Jersey({ kit, shirtNumber, armband }: JerseyProps) {
   return (
     <g className="jersey">
-      {/* a thin paper edge separates the shirt from the grass */}
+      {/* a sticker: a small hard shadow and a thin paper edge */}
+      <path
+        className="jersey__shadow"
+        d={SILHOUETTE}
+        transform={`translate(${SHADOW_OFFSET_X} ${SHADOW_OFFSET_Y})`}
+      />
       <path className="jersey__edge" d={SILHOUETTE} />
       <path className="jersey__panel" d={LEFT_SLEEVE} fill={kit.secondary} />
       <path className="jersey__panel" d={RIGHT_SLEEVE} fill={kit.secondary} />

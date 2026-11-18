@@ -40,18 +40,59 @@
   fill: var(--field-line);
 }
 
+/* the formation, scribbled in red marker in the corner of the pitch */
+.pitch__formation {
+  font-family: var(--font-hand);
+  font-size: 52px;
+  font-weight: 700;
+  /* the darker red keeps the scribble readable on the grass */
+  fill: var(--marker-red-text);
+}
+
+/* a recommended arrival: ringed in red marker, with a note above */
+.pitch-player__ring {
+  fill: none;
+  stroke: var(--marker-red);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pitch-player__note {
+  font-family: var(--font-hand);
+  /* mirrors labelFontSize in Pitch.tsx, used to fit the note to its slot */
+  font-size: 24px;
+  font-weight: 700;
+  text-anchor: middle;
+  fill: var(--marker-red-text);
+  /* a halo in the grass colour keeps it clear of the lines */
+  stroke: var(--field);
+  stroke-width: 5px;
+  stroke-linejoin: round;
+  paint-order: stroke;
+}
+
+.pitch__bench .pitch-player__note {
+  stroke: var(--paper-card);
+}
+
 /* motion scales each player around their own centre as they land */
 .pitch-player__landing {
   transform-box: fill-box;
   transform-origin: center;
 }
 
-/* jersey: a thin paper edge and soft seams, no drop shadow */
+/* jersey sticker: a small hard shadow, a thin paper edge, soft seams */
+
+.jersey__shadow {
+  fill: var(--ink);
+  opacity: 0.22;
+}
 
 .jersey__edge {
   fill: var(--paper-card);
   stroke: var(--paper-card);
-  stroke-width: 4;
+  stroke-width: 3;
   stroke-linejoin: round;
 }
 
@@ -98,11 +139,12 @@
   fill: var(--ink);
 }
 
-/* name on a quiet paper chip */
+/* name on a strip of masking tape */
 
-.pitch-player__label-bg {
-  fill: var(--paper-card);
-  fill-opacity: 0.92;
+.pitch-player__tape {
+  fill: var(--tape);
+  stroke: var(--tape-edge);
+  stroke-width: 1;
 }
 
 .pitch-player__name {

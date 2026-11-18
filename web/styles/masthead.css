@@ -72,7 +72,8 @@
   gap: var(--space-4);
 }
 
-/* deadline stamp: one thin red rule, upright, small */
+/* deadline stamp: red ink pressed on a touch crooked, one of the two tilted
+   things on the screen (the notepad is the other) */
 
 .deadline-stamp {
   position: relative;
@@ -82,26 +83,33 @@
   padding: var(--space-1) var(--space-3);
   line-height: 1.3;
   color: var(--marker-red-text);
-  border: var(--stroke) solid var(--marker-red);
+  border: 2px solid var(--marker-red);
   border-radius: var(--radius-sm);
+  outline: 1px solid var(--marker-red);
+  outline-offset: 2px;
+  rotate: -3deg;
+  /* soaks into the paper like ink rather than sitting on it */
+  mix-blend-mode: multiply;
 }
 
 .deadline-stamp__label {
   font-size: var(--text-label);
-  font-weight: 600;
-  letter-spacing: var(--tracking-label);
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
 .deadline-stamp__countdown {
   font-family: var(--font-mono);
   font-size: var(--text-sm);
+  font-weight: 500;
   font-variant-numeric: tabular-nums;
 }
 
 .deadline-stamp__date {
   font-size: var(--text-xs);
-  color: var(--ink-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 /* the last hour: a slow, faint red pulse. the bold digits carry it when motion is off */
@@ -128,7 +136,8 @@
 
 .deadline-stamp--closed {
   color: var(--ink-muted);
-  border-color: var(--hairline-strong);
+  border-color: var(--ink-muted);
+  outline-color: var(--ink-muted);
 }
 
 /* header controls */

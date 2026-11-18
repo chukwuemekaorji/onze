@@ -269,7 +269,7 @@ describe('chipStamps', () => {
     expect(stamps.map((s) => [s.chip, s.state, s.verdict])).toEqual([
       ['wildcard', 'used', 'Used'],
       ['free_hit', 'available', 'Available'],
-      ['bench_boost', 'recommended', 'Play now'],
+      ['bench_boost', 'recommended', 'Play this week'],
       ['triple_captain', 'recommended', 'Plan soon'],
     ]);
   });

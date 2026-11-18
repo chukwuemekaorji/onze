@@ -58,9 +58,9 @@ export function numberColourFor(kit: KitColours): string {
   return mostReadable(kit.primary, [NUMBER_INK, NUMBER_PAPER]);
 }
 
-// each club colour is blended this far toward the paper, so twenty kits sit
-// together quietly instead of reading as a rainbow
-export const KIT_MUTE_AMOUNT = 0.22;
+// a light blend toward the paper takes the edge off the brightest kits while
+// keeping every club recognisable
+export const KIT_MUTE_AMOUNT = 0.08;
 
 const channels = (hex: string) =>
   [1, 3, 5].map((start) => parseInt(hex.slice(start, start + 2), 16));
