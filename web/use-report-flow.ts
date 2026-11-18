@@ -25,6 +25,8 @@ export interface ShownReport {
 export interface ReportFlow {
   status: StatusLine;
   busy: boolean;
+  /** true while the squad and analysis are being fetched */
+  loadingTeam: boolean;
   writing: boolean;
   formHidden: boolean;
   resultsHidden: boolean;
@@ -42,6 +44,7 @@ export interface ReportFlow {
 export function useReportFlow(): ReportFlow {
   const [status, setStatusLine] = useState<StatusLine>(NO_STATUS);
   const [busy, setBusy] = useState(false);
+  const [loadingTeam, setLoadingTeam] = useState(false);
   const [writing, setWriting] = useState(false);
   const [formHidden, setFormHidden] = useState(false);
   const [resultsHidden, setResultsHidden] = useState(true);
@@ -126,18 +129,22 @@ export function useReportFlow(): ReportFlow {
     }
 
     setBusy(true);
-    setStatus('Fetching your squad...');
+    // the pencil loader carries the message while the squad loads
+    setStatus('');
+    setLoadingTeam(true);
     setResultsHidden(true);
     // keep progress and errors visible on refresh too
     setFormHidden(false);
     try {
       const summary = await fetchSummary(managerId);
+      setLoadingTeam(false);
       storeManagerId(managerId);
       await writeAndShowReport(managerId, summary);
     } catch (err) {
       if (!(err instanceof SummaryFetchError)) throw err;
       setStatus(err.message, true);
     } finally {
+      setLoadingTeam(false);
       setBusy(false);
     }
   }
@@ -169,6 +176,7 @@ export function useReportFlow(): ReportFlow {
   return {
     status,
     busy,
+    loadingTeam,
     writing,
     formHidden,
     resultsHidden,

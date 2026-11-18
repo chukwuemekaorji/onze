@@ -1,6 +1,14 @@
+import { motion } from 'motion/react';
 import type { AnalysisSummary } from '../../lib/analysis-summary.js';
 import type { Position } from '../../lib/analysis/types.js';
 import { kitFor } from '../club-colours.js';
+import {
+  JERSEY_FIRST_DELAY_S,
+  JERSEY_SLAP_S,
+  JERSEY_STAGGER_S,
+  PITCH_DRAW_S,
+  usePlayOnce,
+} from '../motion.js';
 import { placeRow, placeStartingXI, shirtNumbers } from '../pitch-layout.js';
 import type { PlacedPlayer, PlacementContext, RowLayout } from '../pitch-layout.js';
 import { Jersey, JERSEY_HALF_HEIGHT } from './Jersey.js';
@@ -62,6 +70,7 @@ interface PitchProps {
 }
 
 export function Pitch({ summary }: PitchProps) {
+  const playEntrance = usePlayOnce('pitch');
   const { lineup, captaincy } = summary;
   if (lineup.startingXI.length === 0) {
     return <p className="pitch-empty">Not enough squad data to draw a lineup.</p>;
@@ -82,6 +91,11 @@ export function Pitch({ summary }: PitchProps) {
     context,
   );
   const bench = placeRow(lineup.bench, BENCH_ROW_Y, PITCH_ROW_LAYOUT, context);
+  // shirts land in number order: keeper, defence, midfield, attack, then the bench
+  const landingDelay = (player: PlacedPlayer) =>
+    playEntrance
+      ? JERSEY_FIRST_DELAY_S + ((player.shirtNumber ?? 1) - 1) * JERSEY_STAGGER_S
+      : null;
 
   return (
     <figure className="pitch">
@@ -92,12 +106,13 @@ export function Pitch({ summary }: PitchProps) {
         focusable="false"
       >
         <Grass />
-        <Markings />
+        <Markings drawIn={playEntrance} />
         {starters.map((player) => (
           <PlayerMarker
             key={player.id}
             player={player}
             jerseyScale={PITCH_JERSEY_SCALE}
+            entranceDelayS={landingDelay(player)}
           />
         ))}
       </svg>
@@ -117,6 +132,7 @@ export function Pitch({ summary }: PitchProps) {
               key={player.id}
               player={player}
               jerseyScale={BENCH_JERSEY_SCALE}
+              entranceDelayS={landingDelay(player)}
             />
           ))}
         </svg>
@@ -157,7 +173,12 @@ function Grass() {
   );
 }
 
-function Markings() {
+interface MarkingsProps {
+  /** draw the lines in on first load */
+  drawIn: boolean;
+}
+
+function Markings({ drawIn }: MarkingsProps) {
   const centreX = PITCH_WIDTH / 2;
   const halfway = PITCH_LENGTH / 2;
   const penaltyAreaLeft = centreX - PENALTY_AREA_WIDTH / 2;
@@ -170,51 +191,102 @@ function Markings() {
   );
   const r = CENTRE_CIRCLE_RADIUS;
   const c = CORNER_ARC_RADIUS;
+  // pathLength under the hood is a stroke-dashoffset animation
+  const line = drawIn
+    ? {
+        initial: { pathLength: 0 },
+        animate: { pathLength: 1 },
+        transition: { duration: PITCH_DRAW_S, ease: 'easeInOut' as const },
+      }
+    : {};
+  const spot = drawIn
+    ? {
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        transition: { delay: PITCH_DRAW_S / 2, duration: PITCH_DRAW_S / 2 },
+      }
+    : {};
 
   return (
     <g className="pitch__lines" filter={INK_WOBBLE_FILTER}>
-      <rect x={0} y={0} width={PITCH_WIDTH} height={PITCH_LENGTH} />
-      <line x1={0} y1={halfway} x2={PITCH_WIDTH} y2={halfway} />
-      <circle cx={centreX} cy={halfway} r={r} />
-      <circle className="pitch__spot" cx={centreX} cy={halfway} r={SPOT_RADIUS} />
+      <motion.rect x={0} y={0} width={PITCH_WIDTH} height={PITCH_LENGTH} {...line} />
+      <motion.line x1={0} y1={halfway} x2={PITCH_WIDTH} y2={halfway} {...line} />
+      <motion.circle cx={centreX} cy={halfway} r={r} {...line} />
+      <motion.circle
+        className="pitch__spot"
+        cx={centreX}
+        cy={halfway}
+        r={SPOT_RADIUS}
+        {...spot}
+      />
 
       {/* top end */}
-      <rect
+      <motion.rect
         x={penaltyAreaLeft}
         y={0}
         width={PENALTY_AREA_WIDTH}
         height={PENALTY_AREA_DEPTH}
+        {...line}
       />
-      <rect x={goalAreaLeft} y={0} width={GOAL_AREA_WIDTH} height={GOAL_AREA_DEPTH} />
-      <circle className="pitch__spot" cx={centreX} cy={topSpotY} r={SPOT_RADIUS} />
-      <path
+      <motion.rect
+        x={goalAreaLeft}
+        y={0}
+        width={GOAL_AREA_WIDTH}
+        height={GOAL_AREA_DEPTH}
+        {...line}
+      />
+      <motion.circle
+        className="pitch__spot"
+        cx={centreX}
+        cy={topSpotY}
+        r={SPOT_RADIUS}
+        {...spot}
+      />
+      <motion.path
         d={`M ${centreX - arcHalfWidth} ${PENALTY_AREA_DEPTH} A ${r} ${r} 0 0 0 ${centreX + arcHalfWidth} ${PENALTY_AREA_DEPTH}`}
+        {...line}
       />
 
       {/* bottom end */}
-      <rect
+      <motion.rect
         x={penaltyAreaLeft}
         y={PITCH_LENGTH - PENALTY_AREA_DEPTH}
         width={PENALTY_AREA_WIDTH}
         height={PENALTY_AREA_DEPTH}
+        {...line}
       />
-      <rect
+      <motion.rect
         x={goalAreaLeft}
         y={PITCH_LENGTH - GOAL_AREA_DEPTH}
         width={GOAL_AREA_WIDTH}
         height={GOAL_AREA_DEPTH}
+        {...line}
       />
-      <circle className="pitch__spot" cx={centreX} cy={bottomSpotY} r={SPOT_RADIUS} />
-      <path
+      <motion.circle
+        className="pitch__spot"
+        cx={centreX}
+        cy={bottomSpotY}
+        r={SPOT_RADIUS}
+        {...spot}
+      />
+      <motion.path
         d={`M ${centreX - arcHalfWidth} ${PITCH_LENGTH - PENALTY_AREA_DEPTH} A ${r} ${r} 0 0 1 ${centreX + arcHalfWidth} ${PITCH_LENGTH - PENALTY_AREA_DEPTH}`}
+        {...line}
       />
 
       {/* corner arcs, each centred on its corner flag */}
-      <path d={`M ${c} 0 A ${c} ${c} 0 0 1 0 ${c}`} />
-      <path d={`M ${PITCH_WIDTH - c} 0 A ${c} ${c} 0 0 0 ${PITCH_WIDTH} ${c}`} />
-      <path d={`M 0 ${PITCH_LENGTH - c} A ${c} ${c} 0 0 1 ${c} ${PITCH_LENGTH}`} />
-      <path
+      <motion.path d={`M ${c} 0 A ${c} ${c} 0 0 1 0 ${c}`} {...line} />
+      <motion.path
+        d={`M ${PITCH_WIDTH - c} 0 A ${c} ${c} 0 0 0 ${PITCH_WIDTH} ${c}`}
+        {...line}
+      />
+      <motion.path
+        d={`M 0 ${PITCH_LENGTH - c} A ${c} ${c} 0 0 1 ${c} ${PITCH_LENGTH}`}
+        {...line}
+      />
+      <motion.path
         d={`M ${PITCH_WIDTH - c} ${PITCH_LENGTH} A ${c} ${c} 0 0 1 ${PITCH_WIDTH} ${PITCH_LENGTH - c}`}
+        {...line}
       />
     </g>
   );
@@ -242,46 +314,72 @@ function squeezeTo(length: number | null) {
 interface PlayerMarkerProps {
   player: PlacedPlayer;
   jerseyScale: number;
+  /** when this shirt lands, or null to show it in place straight away */
+  entranceDelayS: number | null;
 }
 
-function PlayerMarker({ player, jerseyScale }: PlayerMarkerProps) {
-  const tapeY =
-    player.y + JERSEY_HALF_HEIGHT * jerseyScale + TAPE_GAP + TAPE_HEIGHT / 2;
-  const tilt = (player.shirtNumber ?? 0) % 2 === 0 ? TAPE_TILT_DEG : -TAPE_TILT_DEG;
+// a sticker slapped down: a little big and crooked, a squash, then flat
+const SLAP_START_SCALE = 1.3;
+const SLAP_SQUASH_SCALE = 0.94;
+const SLAP_TILT_DEG = 7;
 
+function PlayerMarker({ player, jerseyScale, entranceDelayS }: PlayerMarkerProps) {
+  const tapeY = JERSEY_HALF_HEIGHT * jerseyScale + TAPE_GAP + TAPE_HEIGHT / 2;
+  const isEven = (player.shirtNumber ?? 0) % 2 === 0;
+  const tapeTilt = isEven ? TAPE_TILT_DEG : -TAPE_TILT_DEG;
+  const slapTilt = isEven ? SLAP_TILT_DEG : -SLAP_TILT_DEG;
+  const landing =
+    entranceDelayS === null
+      ? {}
+      : {
+          initial: { opacity: 0, scale: SLAP_START_SCALE, rotate: slapTilt },
+          animate: {
+            opacity: [0, 1, 1],
+            scale: [SLAP_START_SCALE, SLAP_SQUASH_SCALE, 1],
+            rotate: [slapTilt, 0, 0],
+          },
+          transition: {
+            delay: entranceDelayS,
+            duration: JERSEY_SLAP_S,
+            times: [0, 0.6, 1],
+            ease: 'easeOut' as const,
+          },
+        };
+
+  // the outer group places the player with an svg transform; the inner one
+  // carries motion's css transform, which would otherwise replace it
   return (
-    <g className="pitch-player">
-      <g
-        className="pitch-player__jersey"
-        transform={`translate(${player.x} ${player.y}) scale(${jerseyScale})`}
-      >
-        <Jersey
-          kit={kitFor(player.teamShortName, player.position)}
-          shirtNumber={player.shirtNumber}
-          armband={player.armband}
-        />
-      </g>
-      <g transform={`translate(${player.x} ${tapeY}) rotate(${tilt})`}>
-        <path
-          className="pitch-player__tape"
-          d={tapePath(player.labelWidth + 2 * TAPE_PADDING_X, TAPE_HEIGHT)}
-        />
+    <g className="pitch-player" transform={`translate(${player.x} ${player.y})`}>
+      <motion.g className="pitch-player__landing" {...landing}>
+        <g className="pitch-player__jersey" transform={`scale(${jerseyScale})`}>
+          <Jersey
+            kit={kitFor(player.teamShortName, player.position)}
+            shirtNumber={player.shirtNumber}
+            armband={player.armband}
+          />
+        </g>
+        <g transform={`translate(0 ${tapeY}) rotate(${tapeTilt})`}>
+          <path
+            className="pitch-player__tape"
+            d={tapePath(player.labelWidth + 2 * TAPE_PADDING_X, TAPE_HEIGHT)}
+          />
+          <text
+            className="pitch-player__name"
+            dy="0.36em"
+            {...squeezeTo(player.labelLength)}
+          >
+            {player.name}
+          </text>
+        </g>
         <text
-          className="pitch-player__name"
-          dy="0.36em"
-          {...squeezeTo(player.labelLength)}
+          className="pitch-player__fixture"
+          x={0}
+          y={tapeY + TAPE_HEIGHT / 2 + FIXTURE_BASELINE_GAP}
+          {...squeezeTo(player.fixtureLength)}
         >
-          {player.name}
+          {player.fixture}
         </text>
-      </g>
-      <text
-        className="pitch-player__fixture"
-        x={player.x}
-        y={tapeY + TAPE_HEIGHT / 2 + FIXTURE_BASELINE_GAP}
-        {...squeezeTo(player.fixtureLength)}
-      >
-        {player.fixture}
-      </text>
+      </motion.g>
     </g>
   );
 }

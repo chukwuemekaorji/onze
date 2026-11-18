@@ -69,6 +69,7 @@
 /* rubber stamp: double red rule, mono caps, pressed on slightly crooked */
 
 .deadline-stamp {
+  position: relative;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
@@ -102,6 +103,28 @@
 .deadline-stamp__date {
   font-size: var(--text-xs);
   letter-spacing: 0.04em;
+}
+
+/* the last hour: a slow red pulse. the bold digits carry it when motion is off */
+.deadline-stamp--urgent .deadline-stamp__countdown {
+  font-weight: 700;
+}
+
+.deadline-stamp--urgent::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  background: var(--marker-red);
+  border-radius: var(--radius-sm);
+  opacity: 0;
+  pointer-events: none;
+  animation: stamp-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes stamp-pulse {
+  50% {
+    opacity: 0.2;
+  }
 }
 
 .deadline-stamp--closed {

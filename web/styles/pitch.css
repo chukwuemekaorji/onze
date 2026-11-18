@@ -42,6 +42,12 @@
   fill: var(--ink);
 }
 
+/* motion scales and tilts each player around their own centre as they land */
+.pitch-player__landing {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
 /* jersey sticker: hard shadow, paper edge, thin ink seams */
 
 .jersey__shadow {

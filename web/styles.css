@@ -8,6 +8,7 @@
 @import './styles/pitch.css';
 @import './styles/masthead.css';
 @import './styles/report.css';
+@import './styles/loader.css';
 
 /* existing app, mapped onto the tactics board tokens. layout is unchanged */
 

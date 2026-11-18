@@ -69,6 +69,7 @@ export function App() {
         hidden={flow.formHidden}
         value={managerIdText}
         busy={flow.busy}
+        loading={flow.loadingTeam}
         status={flow.status}
         onValueChange={setManagerIdText}
         onSubmit={() => flow.submitManagerId(managerIdText)}

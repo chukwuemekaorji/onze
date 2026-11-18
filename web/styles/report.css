@@ -32,6 +32,11 @@
   margin-inline: auto;
 }
 
+/* the motion wrapper each card is dealt in */
+.dealt-card {
+  transform-origin: center bottom;
+}
+
 .report-board__column {
   display: flex;
   flex-direction: column;
@@ -62,15 +67,108 @@
   }
 }
 
-/* summary sticky */
+/* coach's notepad: spiral binding, a board cover that flips up, yellow page */
 
-.report-summary.ui-sticky {
-  max-width: none;
+.notepad {
   margin-inline: var(--space-2);
+  rotate: -1deg;
 }
 
-.report-summary p {
+.notepad__binding {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  height: 1.7rem;
+  padding: 0 var(--space-3);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.notepad__spiral {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+}
+
+.notepad__sheets {
+  position: relative;
+  margin-top: calc(-1 * var(--space-2));
+  /* depth for the cover's flip */
+  perspective: 1100px;
+}
+
+.notepad__page {
+  position: relative;
+  min-height: 8.5rem;
+  padding: var(--space-5) var(--space-4) var(--space-4);
+  font-family: var(--font-hand);
+  font-size: var(--text-hand);
+  font-weight: 500;
+  line-height: 1.25;
+  background: var(--highlighter);
+  box-shadow: 2px 3px 0 rgba(27, 26, 23, 0.22);
+}
+
+.notepad--open .notepad__page {
+  cursor: pointer;
+}
+
+.notepad__writing {
+  position: relative;
+}
+
+.notepad__text {
   margin: 0;
+}
+
+/* each strip is the page colour, shrinking right to uncover its line */
+.notepad__line-cover {
+  position: absolute;
+  background: var(--highlighter);
+  transform-origin: right center;
+  pointer-events: none;
+}
+
+.notepad__cover {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: var(--space-1);
+  text-align: center;
+  color: var(--highlighter);
+  background: var(--ink);
+  border-radius: var(--radius-sm);
+  box-shadow: 3px 4px 0 rgba(27, 26, 23, 0.3);
+  transform-origin: top center;
+  /* past vertical the cover shows its back, which is hidden, so it simply clears */
+  backface-visibility: hidden;
+  cursor: pointer;
+}
+
+.notepad--open .notepad__cover {
+  pointer-events: none;
+}
+
+.notepad__cover-title {
+  font-family: var(--font-hand);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.notepad__cover-hint {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--paper);
 }
 
 /* cards */

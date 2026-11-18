@@ -1,12 +1,12 @@
-import { renderMarkdownLite } from '../markdown.js';
 import type { ShownReport } from '../use-report-flow.js';
 import { Pitch } from './Pitch.js';
 import { CaptaincyCard } from './report/CaptaincyCard.js';
 import { ChipsCard } from './report/ChipsCard.js';
 import { CoachNote } from './report/CoachNote.js';
+import { DealtCard } from './report/DealtCard.js';
+import { Notepad } from './report/Notepad.js';
 import { PriceAlertsCard } from './report/PriceAlertsCard.js';
 import { TransfersCard } from './report/TransfersCard.js';
-import { StickyNote } from './ui/StickyNote.js';
 
 interface ReportPanelProps {
   shown: ShownReport;
@@ -55,22 +55,31 @@ export function ReportPanel({ shown, writing }: ReportPanelProps) {
           the top for the full write-up and chat.
         </p>
 
-        <StickyNote className="report-summary" tilt="left">
-          {/* model output only reaches the dom through renderMarkdownLite, which escapes first */}
-          <p dangerouslySetInnerHTML={{ __html: renderMarkdownLite(report.summary) }} />
-        </StickyNote>
-
-        <TransfersCard transfers={summary.transfers} note={noteFor(report.transfers)} />
-        <CaptaincyCard
-          captaincy={summary.captaincy}
-          event={summary.currentEvent}
-          note={noteFor(report.captaincy)}
-        />
-        <ChipsCard summary={summary} note={noteFor(report.chips)} />
-        <PriceAlertsCard
-          alerts={summary.priceAlerts.alerts}
-          note={noteFor(report.priceAlerts)}
-        />
+        <DealtCard order={0}>
+          <Notepad text={report.summary} />
+        </DealtCard>
+        <DealtCard order={1}>
+          <TransfersCard
+            transfers={summary.transfers}
+            note={noteFor(report.transfers)}
+          />
+        </DealtCard>
+        <DealtCard order={2}>
+          <CaptaincyCard
+            captaincy={summary.captaincy}
+            event={summary.currentEvent}
+            note={noteFor(report.captaincy)}
+          />
+        </DealtCard>
+        <DealtCard order={3}>
+          <ChipsCard summary={summary} note={noteFor(report.chips)} />
+        </DealtCard>
+        <DealtCard order={4}>
+          <PriceAlertsCard
+            alerts={summary.priceAlerts.alerts}
+            note={noteFor(report.priceAlerts)}
+          />
+        </DealtCard>
       </section>
     </div>
   );

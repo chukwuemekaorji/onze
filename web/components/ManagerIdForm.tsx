@@ -1,11 +1,13 @@
 import type { FormEvent, RefObject } from 'react';
 import type { StatusLine } from '../status-line.js';
+import { PencilLoader } from './PencilLoader.js';
 
 interface ManagerIdFormProps {
   inputRef: RefObject<HTMLInputElement | null>;
   hidden: boolean;
   value: string;
   busy: boolean;
+  loading: boolean;
   status: StatusLine;
   onValueChange: (value: string) => void;
   onSubmit: () => void;
@@ -16,6 +18,7 @@ export function ManagerIdForm({
   hidden,
   value,
   busy,
+  loading,
   status,
   onValueChange,
   onSubmit,
@@ -49,6 +52,7 @@ export function ManagerIdForm({
           Get my report
         </button>
       </div>
+      {loading && <PencilLoader />}
       <p
         id="status"
         role="status"
