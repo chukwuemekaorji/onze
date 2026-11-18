@@ -2,12 +2,16 @@ import { describe, expect, it } from 'vitest';
 import type { AnalysisSummary } from '../lib/analysis-summary.js';
 import type { AnalysisPlayer } from '../lib/analysis/types.js';
 import {
-  captainPicks,
+  captainOptions,
+  captainSummaryLine,
   chipStamps,
   formatGain,
   formatPrice,
+  gameweekTimeline,
+  hitAdvice,
   priceRows,
-  transferMoves,
+  transferRows,
+  transferSummaryLine,
 } from '../web/report-view.js';
 
 const EVENT = 12;
@@ -39,106 +43,259 @@ function player(
   };
 }
 
-function suggestion(outName: string, inName: string | null, gain: number) {
+function suggestion(
+  outName: string,
+  inName: string | null,
+  gain: number,
+  alternatives: AnalysisPlayer[] = [],
+) {
   return {
     outPlayer: player(outName),
     reasonCodes: [],
-    inCandidates: inName ? [player(inName)] : [],
+    inCandidates: inName ? [player(inName), ...alternatives] : [],
     expectedPointsGain: gain,
   };
 }
 
-type Transfers = AnalysisSummary['transfers'];
+function transfers(overrides: Partial<AnalysisSummary['transfers']>) {
+  return {
+    suggestions: [],
+    recommendedCount: 0,
+    freeTransfers: 1,
+    pointsHitCost: 0,
+    projectedNetGain: 0,
+    ...overrides,
+  };
+}
 
-describe('transferMoves', () => {
-  const suggestions = [
-    suggestion('Watkins', 'Isak', 3.2),
-    suggestion('Mitoma', 'Saka', 2.1),
-    suggestion('Gordon', 'Palmer', 1.4),
-  ];
+const NOT_LEADING: AnalysisSummary['leagueStandings'] = [];
+const LEADING: AnalysisSummary['leagueStandings'] = [
+  { id: 1, name: 'Office', rank: 1, previousRank: 1, totalEntries: 12 },
+];
 
-  it('keeps only the recommended moves, spending free transfers first', () => {
-    const transfers: Transfers = {
-      suggestions,
-      recommendedCount: 2,
-      freeTransfers: 1,
-      pointsHitCost: 4,
-      projectedNetGain: 1.3,
-    };
-    expect(transferMoves(transfers)).toEqual([
-      { outName: 'Watkins', inName: 'Isak', gain: 3.2, cost: 'free' },
-      { outName: 'Mitoma', inName: 'Saka', gain: 2.1, cost: 'hit' },
+describe('transferRows', () => {
+  it('lists every suggestion: free first, then a hit, then the ones to skip', () => {
+    const rows = transferRows(
+      transfers({
+        suggestions: [
+          suggestion('Wissa', 'Watkins', 7.4, [player('Isak', { nowCost: 85 })]),
+          suggestion('Mitoma', 'Mbeumo', 6.8),
+          suggestion('Gordon', 'Palmer', 1.4),
+        ],
+        recommendedCount: 2,
+        freeTransfers: 1,
+        pointsHitCost: 4,
+      }),
+    );
+    expect(rows.map((r) => [r.outName, r.inName, r.verdict])).toEqual([
+      ['Wissa', 'Watkins', 'free'],
+      ['Mitoma', 'Mbeumo', 'hit'],
+      ['Gordon', 'Palmer', 'skip'],
     ]);
+    expect(rows[0]?.alternatives).toEqual(['Isak £8.5m']);
+    expect(rows[1]?.alternatives).toEqual([]);
   });
 
-  it('returns nothing when no move is worth making', () => {
-    const transfers: Transfers = {
-      suggestions,
-      recommendedCount: 0,
-      freeTransfers: 1,
-      pointsHitCost: 0,
-      projectedNetGain: 0,
-    };
-    expect(transferMoves(transfers)).toEqual([]);
+  it('marks a suggestion with no affordable replacement', () => {
+    const rows = transferRows(
+      transfers({ suggestions: [suggestion('Wissa', null, 0)], recommendedCount: 0 }),
+    );
+    expect(rows[0]).toMatchObject({ inName: null, verdict: 'skip', alternatives: [] });
   });
 
-  it('marks a move with no affordable replacement', () => {
-    const transfers: Transfers = {
-      suggestions: [suggestion('Watkins', null, 0)],
-      recommendedCount: 1,
-      freeTransfers: 2,
-      pointsHitCost: 0,
-      projectedNetGain: 0,
-    };
-    expect(transferMoves(transfers)[0]?.inName).toBeNull();
+  it('returns nothing when there are no suggestions', () => {
+    expect(transferRows(transfers({}))).toEqual([]);
   });
 });
 
-describe('captainPicks', () => {
-  it('gives the captain and vice with fixture, form and expected points', () => {
+describe('hitAdvice', () => {
+  it('explains a hit that is worth taking', () => {
+    const advice = hitAdvice({
+      transfers: transfers({
+        suggestions: [
+          suggestion('Wissa', 'Watkins', 3),
+          suggestion('Mitoma', 'Mbeumo', 7),
+        ],
+        recommendedCount: 2,
+        pointsHitCost: 4,
+      }),
+      leagueStandings: NOT_LEADING,
+    });
+    expect(advice).toMatch(
+      /^The -4 is worth it: Mitoma for Mbeumo gains about 7\.0 pts/,
+    );
+  });
+
+  it('explains why the next move is not worth a hit', () => {
+    const advice = hitAdvice({
+      transfers: transfers({
+        suggestions: [
+          suggestion('Wissa', 'Watkins', 3),
+          suggestion('Mitoma', 'Mbeumo', 4.5),
+        ],
+        recommendedCount: 1,
+      }),
+      leagueStandings: NOT_LEADING,
+    });
+    expect(advice).toBe(
+      "A -4 for Mitoma isn't worth it: the swap gains about 4.5 pts, short of the 6 needed to beat the hit with a margin.",
+    );
+  });
+
+  it('says a big gain is skipped to protect a league lead', () => {
+    const advice = hitAdvice({
+      transfers: transfers({
+        suggestions: [
+          suggestion('Wissa', 'Watkins', 3),
+          suggestion('Mitoma', 'Mbeumo', 8),
+        ],
+        recommendedCount: 1,
+      }),
+      leagueStandings: LEADING,
+    });
+    expect(advice).toMatch(/you lead a league/);
+  });
+
+  it('covers free transfers that handle everything, and no suggestions at all', () => {
+    const covered = hitAdvice({
+      transfers: transfers({
+        suggestions: [suggestion('Wissa', 'Watkins', 3)],
+        recommendedCount: 1,
+        freeTransfers: 2,
+      }),
+      leagueStandings: NOT_LEADING,
+    });
+    expect(covered).toBe(
+      'Your 2 free transfers cover every move worth making, so no hit is needed.',
+    );
+    expect(
+      hitAdvice({ transfers: transfers({}), leagueStandings: NOT_LEADING }),
+    ).toMatch(/No weak links/);
+  });
+});
+
+describe('summary lines', () => {
+  it('sums up the recommended transfers in one line', () => {
+    expect(
+      transferSummaryLine(
+        transfers({
+          suggestions: [
+            suggestion('Wissa', 'Watkins', 3),
+            suggestion('Mitoma', 'Mbeumo', 7),
+          ],
+          recommendedCount: 2,
+          pointsHitCost: 4,
+          projectedNetGain: 6,
+        }),
+      ),
+    ).toBe('Wissa for Watkins, Mitoma for Mbeumo (+6.0 pts, one -4)');
+    expect(transferSummaryLine(transfers({}))).toBe(
+      'No transfer worth making. Roll it.',
+    );
+  });
+
+  it('sums up the captain and vice in one line', () => {
     const salah = player('Salah', {
-      form: 8.25,
-      epNext: 7.1,
       nextFixtures: [
         { event: EVENT, opponentShortName: 'WHU', isHome: false, difficulty: 2 },
       ],
     });
-    const picks = captainPicks(
-      {
-        captain: { player: salah, score: 9 },
-        viceCaptain: { player: player('Haaland'), score: 8 },
-        candidates: [],
-      },
-      EVENT,
-    );
-    expect(picks).toEqual([
-      {
-        role: 'captain',
-        name: 'Salah',
-        reason: 'WHU (A) · form 8.3 · 7.1 expected pts',
-      },
-      {
-        role: 'vice',
-        name: 'Haaland',
-        reason: 'LIV (H) · form 5.0 · 5.0 expected pts',
-      },
-    ]);
-  });
-
-  it('notes a blank gameweek and skips a missing vice', () => {
-    const blank = player('Mbeumo', { nextFixtures: [] });
-    const picks = captainPicks(
-      { captain: { player: blank, score: 1 }, viceCaptain: null, candidates: [] },
-      EVENT,
-    );
-    expect(picks).toHaveLength(1);
-    expect(picks[0]?.reason).toMatch(/^Blank/);
-  });
-
-  it('returns nothing without a captain', () => {
     expect(
-      captainPicks({ captain: null, viceCaptain: null, candidates: [] }, EVENT),
+      captainSummaryLine(
+        {
+          captain: { player: salah, score: 9 },
+          viceCaptain: { player: player('Haaland'), score: 8 },
+          candidates: [],
+        },
+        EVENT,
+      ),
+    ).toBe('Salah, WHU (A), vice Haaland');
+    expect(
+      captainSummaryLine({ captain: null, viceCaptain: null, candidates: [] }, EVENT),
+    ).toBe('No clear captain in this lineup.');
+  });
+});
+
+describe('captainOptions', () => {
+  it('ranks the top five with fixture, expected points, and c and v marked', () => {
+    const candidates = ['Salah', 'Haaland', 'Palmer', 'Saka', 'Isak', 'Watkins'].map(
+      (name, index) => ({
+        player: player(name, { epNext: 8 - index }),
+        score: 10 - index,
+      }),
+    );
+    const [first, second] = candidates as [
+      (typeof candidates)[0],
+      (typeof candidates)[0],
+    ];
+    const options = captainOptions(
+      { captain: first, viceCaptain: second, candidates },
+      EVENT,
+    );
+    expect(options).toHaveLength(5);
+    expect(options.map((o) => [o.rank, o.name, o.role, o.expectedPoints])).toEqual([
+      [1, 'Salah', 'captain', 8],
+      [2, 'Haaland', 'vice', 7],
+      [3, 'Palmer', null, 6],
+      [4, 'Saka', null, 5],
+      [5, 'Isak', null, 4],
+    ]);
+    expect(options[0]?.fixture).toBe('LIV (H)');
+  });
+
+  it('returns nothing without candidates', () => {
+    expect(
+      captainOptions({ captain: null, viceCaptain: null, candidates: [] }, EVENT),
     ).toEqual([]);
+  });
+});
+
+describe('gameweekTimeline', () => {
+  const squad = [
+    player('A', { teamId: 1 }),
+    player('B', { teamId: 1 }),
+    player('C', { teamId: 2 }),
+  ];
+  const base = {
+    currentEvent: 12,
+    squad: { squad } as AnalysisSummary['squad'],
+  };
+
+  it('counts squad players in each double and blank over the next five weeks', () => {
+    const timeline = gameweekTimeline({
+      ...base,
+      chips: {
+        doubleGameweeks: [{ event: 13, teamIds: [1, 9] }],
+        blankGameweeks: [
+          { event: 15, teamIds: [2] },
+          { event: 30, teamIds: [1] },
+        ],
+        suggestions: [],
+      },
+    });
+    expect(timeline.map((gw) => [gw.event, gw.doublePlayers, gw.blankPlayers])).toEqual(
+      [
+        [12, 0, 0],
+        [13, 2, 0],
+        [14, 0, 0],
+        [15, 0, 1],
+        [16, 0, 0],
+      ],
+    );
+  });
+
+  it('shows quiet weeks when no double or blank touches the squad', () => {
+    const timeline = gameweekTimeline({
+      ...base,
+      chips: {
+        doubleGameweeks: [{ event: 12, teamIds: [7] }],
+        blankGameweeks: [],
+        suggestions: [],
+      },
+    });
+    expect(
+      timeline.every((gw) => gw.doublePlayers === 0 && gw.blankPlayers === 0),
+    ).toBe(true);
   });
 });
 

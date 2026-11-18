@@ -14,7 +14,7 @@ export function ChipsCard({ summary, note }: ChipsCardProps) {
   return (
     <PaperCard as="section" className="report-card" aria-labelledby="chips-heading">
       <h3 id="chips-heading" className="report-card__title">
-        Chips
+        Your chips
       </h3>
       <ul className="chip-stamps">
         {stamps.map((stamp) => (

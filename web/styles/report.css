@@ -1,71 +1,4 @@
-/* the report board in web/components/ReportPanel.tsx and its cards */
-
-.report-board {
-  display: grid;
-  /* pitch about 60%, report column the rest */
-  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-  gap: var(--space-6);
-  align-items: start;
-}
-
-.report-board__heading {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-3);
-  margin: 0 0 var(--space-4);
-  font-size: var(--text-xl);
-}
-
-.report-board__formation {
-  font-family: var(--font-mono);
-  font-size: var(--text-md);
-  font-weight: 500;
-  color: var(--ink-muted);
-}
-
-.report-board__pitch .pitch {
-  max-width: 600px;
-}
-
-.report-board__pitch > .coach-note {
-  max-width: 600px;
-  margin-inline: auto;
-}
-
-/* the motion wrapper each card is dealt in */
-.dealt-card {
-  transform-origin: center bottom;
-}
-
-.report-board__column {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
-}
-
-.report-board__column .report-label,
-.report-board__column .report-banner {
-  margin: 0;
-}
-
-@media (max-width: 1000px) {
-  .report-board {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-
-/* phones: the pitch runs edge to edge so its labels stay readable */
-@media (max-width: 600px) {
-  .report-board__pitch .pitch {
-    margin-inline: calc(-1 * var(--page-gutter));
-  }
-
-  .report-board__pitch .pitch__field {
-    border-inline: none;
-    border-radius: 0;
-    box-shadow: none;
-  }
-}
+/* cards and pieces shared by the binder pages in web/components/binder */
 
 /* coach's notepad: spiral binding, a board cover that flips up, yellow page */
 
@@ -275,34 +208,7 @@
 
 /* captaincy */
 
-.captain-picks {
-  display: grid;
-  gap: var(--space-3);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.captain-pick {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  column-gap: var(--space-3);
-  align-items: center;
-}
-
-.captain-pick__name {
-  font-weight: 700;
-}
-
-.captain-pick__reason {
-  grid-column: 2;
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--ink-muted);
-}
-
 .armband-badge {
-  grid-row: span 2;
   display: inline-grid;
   place-items: center;
   width: 1.9rem;

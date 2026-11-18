@@ -1,5 +1,4 @@
 import { motion } from 'motion/react';
-import { useState } from 'react';
 import type { ReactNode } from 'react';
 import {
   CARD_DEAL_S,
@@ -8,21 +7,26 @@ import {
   SETTLE_EASE,
   usePlayOnce,
 } from '../../motion.js';
+import { stableTilt } from '../../stable-tilt.js';
 
-// cards land a little crooked and stay that way, like they were dealt by hand
+// cards sit a little crooked, like they were dealt by hand
 const MAX_TILT_DEG = 1.2;
 const DEAL_FROM_PX = 48;
 
 interface DealtCardProps {
+  /** names the card; it fixes the tilt and the once-per-load entrance */
+  cardKey: string;
   /** position in the deal, which sets its delay */
   order: number;
+  /** false on tab pages, which arrive with the page flip instead */
+  dealt?: boolean;
   children: ReactNode;
 }
 
-export function DealtCard({ order, children }: DealtCardProps) {
-  const deal = usePlayOnce(`report-card-${order}`);
-  // picked once per mount, so a re-render never re-tilts the card
-  const [tilt] = useState(() => (Math.random() * 2 - 1) * MAX_TILT_DEG);
+export function DealtCard({ cardKey, order, dealt = true, children }: DealtCardProps) {
+  const firstDeal = usePlayOnce(`report-card-${cardKey}`);
+  const deal = dealt && firstDeal;
+  const tilt = stableTilt(cardKey, MAX_TILT_DEG);
 
   return (
     <motion.div

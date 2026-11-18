@@ -1,10 +1,7 @@
 import type { AnalysisPlayer, SquadContext } from './types.js';
 
 export type TransferReasonCode =
-  | 'poor_form'
-  | 'difficult_fixtures'
-  | 'rotation_risk'
-  | 'injury_doubt';
+  'poor_form' | 'difficult_fixtures' | 'rotation_risk' | 'injury_doubt';
 
 export interface TransferSuggestion {
   outPlayer: AnalysisPlayer;
@@ -37,7 +34,7 @@ export const POINTS_PER_HIT = 4;
 // ep_next is a one-week estimate, so stacking hits stacks risk. allow one hit
 // at most, and only when the gain clears the cost by a margin.
 const MAX_HITS_PER_WEEK = 1;
-const HIT_SAFETY_MARGIN = 2;
+export const HIT_SAFETY_MARGIN = 2;
 
 // fpl gives 0-100, or null when there's no doubt (treated as 100)
 function rotationRiskPenalty(player: AnalysisPlayer): number {
@@ -119,9 +116,7 @@ export function analyzeTransfers(
   const maxCandidatesPerSuggestion = options.maxCandidatesPerSuggestion ?? 3;
   const squadIds = new Set(squad.squad.map((p) => p.id));
 
-  const weakestFirst = [...squad.squad].sort(
-    (a, b) => scorePlayer(a) - scorePlayer(b),
-  );
+  const weakestFirst = [...squad.squad].sort((a, b) => scorePlayer(a) - scorePlayer(b));
 
   const suggestions: TransferSuggestion[] = [];
 

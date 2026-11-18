@@ -4,10 +4,10 @@ import { loadKey } from '../key-store.js';
 import type { StoredKey } from '../key-store.js';
 import { loadStoredManagerId } from '../manager-id-store.js';
 import { useReportFlow } from '../use-report-flow.js';
+import { Binder } from './binder/Binder.js';
 import { ChatPanel } from './ChatPanel.js';
 import { KeySettings } from './KeySettings.js';
 import { ManagerIdForm } from './ManagerIdForm.js';
-import { ReportPanel } from './ReportPanel.js';
 import { TopBar } from './TopBar.js';
 import { Drawer } from './ui/Drawer.js';
 import { InkFilters } from './ui/InkFilters.js';
@@ -88,7 +88,7 @@ export function App() {
       <main id="results" className="layout" hidden={flow.resultsHidden}>
         {flow.shown && (
           <>
-            <ReportPanel shown={flow.shown} writing={flow.writing} />
+            <Binder shown={flow.shown} writing={flow.writing} />
             <ChatPanel
               key={flow.shown.version}
               summary={flow.shown.summary}

@@ -2,6 +2,16 @@
   "buildCommand": "npm run build:web",
   "devCommand": "vite --port $PORT --strictPort",
   "outputDirectory": "dist",
+  "rewrites": [
+    {
+      "source": "/app",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/app/:path*",
+      "destination": "/index.html"
+    }
+  ],
   "functions": {
     "api/**/*.ts": {
       "maxDuration": 30
