@@ -1,15 +1,13 @@
 import type { AnalysisSummary } from '../lib/analysis-summary.js';
+import { buildChatRequest } from '../lib/chat-prompt.js';
+import type { ChatMessage } from '../lib/chat-prompt.js';
+import { DEFAULT_ANTHROPIC_MODEL } from '../lib/model.js';
+import { AnthropicCallError, sendMessage } from './anthropic-client.js';
+import { loadKey } from './key-store.js';
+import { onKeyChange } from './key-settings.js';
 import { renderMarkdownLite } from './markdown.js';
 
-interface ChatMessage {
-  role: 'user' | 'assistant';
-  content: string;
-}
-
-interface ChatResponseBody {
-  reply?: string;
-  error?: string;
-}
+const GENERIC_CHAT_ERROR = 'Something went wrong. Please try again.';
 
 let currentSummary: AnalysisSummary | null = null;
 let history: ChatMessage[] = [];
@@ -38,56 +36,57 @@ function appendTypingIndicator(): HTMLElement {
   return div;
 }
 
-export function initChat(summary: AnalysisSummary, usedFallback: boolean): void {
+function setChatAvailable(available: boolean): void {
+  chatForm.hidden = !available;
+  chatDisabledEl.hidden = available;
+}
+
+export function initChat(summary: AnalysisSummary): void {
   currentSummary = summary;
   history = [];
   chatMessagesEl.innerHTML = '';
   chatPanel.hidden = false;
-  chatForm.hidden = usedFallback;
-  chatDisabledEl.hidden = !usedFallback;
+  setChatAvailable(loadKey() !== null);
 }
+
+onKeyChange((stored) => setChatAvailable(stored !== null));
 
 chatForm.addEventListener('submit', async (event) => {
   event.preventDefault();
-  if (!currentSummary) return;
+  const apiKey = loadKey()?.key;
+  if (!currentSummary || !apiKey) return;
 
-  const message = chatInput.value.trim();
-  if (!message) return;
+  const question = chatInput.value.trim();
+  if (!question) return;
 
-  appendMessage('user', message);
+  appendMessage('user', question);
   chatInput.value = '';
-  const historyBeforeThisMessage = [...history];
-  history.push({ role: 'user', content: message });
 
   chatInput.disabled = true;
   chatSendButton.disabled = true;
   const typingEl = appendTypingIndicator();
 
   try {
-    const response = await fetch('/api/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        message,
-        analysisSummary: currentSummary,
-        history: historyBeforeThisMessage,
-      }),
+    const request = buildChatRequest({
+      analysisSummary: currentSummary,
+      history,
+      question,
+      model: DEFAULT_ANTHROPIC_MODEL,
     });
-
-    const body = (await response.json()) as ChatResponseBody;
-    typingEl.remove();
-
-    if (!response.ok || !body.reply) {
-      appendMessage('assistant', body.error ?? 'Something went wrong. Please try again.');
-      return;
-    }
-
-    appendMessage('assistant', body.reply);
-    history.push({ role: 'assistant', content: body.reply });
-  } catch {
-    typingEl.remove();
-    appendMessage('assistant', 'Could not reach the server. Please try again.');
+    const reply = await sendMessage(apiKey, request);
+    appendMessage('assistant', reply);
+    // only completed exchanges go into history, so a failed turn can be retried cleanly
+    history.push(
+      { role: 'user', content: question },
+      { role: 'assistant', content: reply },
+    );
+  } catch (err) {
+    appendMessage(
+      'assistant',
+      err instanceof AnthropicCallError ? err.message : GENERIC_CHAT_ERROR,
+    );
   } finally {
+    typingEl.remove();
     chatInput.disabled = false;
     chatSendButton.disabled = false;
     chatInput.focus();

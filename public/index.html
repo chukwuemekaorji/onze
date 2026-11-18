@@ -80,6 +80,14 @@
           </div>
           <ul id="squad-list" class="squad-grid"></ul>
 
+          <p id="report-progress" class="report-label" role="status" hidden>
+            Sensei is writing your AI report...
+          </p>
+          <div id="report-banner" class="report-banner" role="alert" hidden></div>
+          <p id="report-label" class="report-label" hidden>
+            Basic report (no AI). Add an Anthropic API key above for an
+            AI-written report and chat.
+          </p>
           <div id="report" class="report"></div>
 
           <div class="lineup-image-card">
@@ -92,8 +100,8 @@
             <h2>Ask Sensei</h2>
           </div>
           <div id="chat-disabled" class="chat-disabled" hidden>
-            Chat needs an Anthropic API key configured on this deployment.
-            The report above used the rule-based fallback writer instead.
+            Add your Anthropic API key above to chat with Sensei about this
+            report.
           </div>
           <div id="chat-messages" class="chat-messages"></div>
           <form id="chat-form" class="chat-form">

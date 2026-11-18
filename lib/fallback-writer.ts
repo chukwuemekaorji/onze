@@ -1,6 +1,6 @@
 /**
- * rule-based report for when no api key is set. same shapes as the llm path,
- * so api/coach.ts never special-cases it. chat has no fallback on purpose.
+ * rule-based report for when there's no key or the ai call fails. same shapes
+ * as the llm path, so callers never special-case it. chat has no fallback on purpose.
  */
 
 import type { AnalysisSummary } from './analysis-summary.js';

@@ -17,7 +17,7 @@ export type AnthropicErrorKind =
   | 'unknown';
 
 const MESSAGE_BY_KIND: Record<Exclude<AnthropicErrorKind, 'unknown'>, string> = {
-  invalid_key: 'Anthropic rejected your API key. Check it and save it again.',
+  invalid_key: 'Anthropic rejected your API key. Forget it and save a valid one.',
   rate_limited: 'Anthropic is rate limiting your key. Wait a minute and try again.',
   no_credit: 'Your Anthropic account is out of credit. Top up and try again.',
   overloaded: 'Anthropic is overloaded right now. Try again shortly.',

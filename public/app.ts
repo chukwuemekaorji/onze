@@ -1,13 +1,14 @@
 import type { AnalysisSummary } from '../lib/analysis-summary.js';
 import type { CoachReport } from '../lib/coach-prompt.js';
 import { initChat } from './chat.js';
-import { initKeySettings } from './key-settings.js';
+import { loadKey } from './key-store.js';
+import { initKeySettings, onKeyChange } from './key-settings.js';
 import { renderMarkdownLite } from './markdown.js';
+import { writeReport } from './report-writer.js';
+import type { ReportSource } from './report-writer.js';
 
-interface CoachResponseBody {
-  report: CoachReport;
+interface SummaryResponseBody {
   analysisSummary: AnalysisSummary;
-  usedFallback: boolean;
 }
 
 interface ErrorResponseBody {
@@ -35,12 +36,13 @@ function storeManagerId(managerId: number): void {
 
 // skips the fpl fetch and llm call on reload. dropped once the deadline passes,
 // since the advice is stale by then
-const REPORT_CACHE_PREFIX = 'sensei:report:';
+// v2 adds `source`; older entries are ignored rather than migrated
+const REPORT_CACHE_PREFIX = 'sensei:report:v2:';
 
 interface CachedReport {
   report: CoachReport;
   analysisSummary: AnalysisSummary;
-  usedFallback: boolean;
+  source: ReportSource;
   cachedAt: number;
 }
 
@@ -94,6 +96,9 @@ const lineupImageEl = document.querySelector<HTMLImageElement>('#lineup-image')!
 const gwInfoEl = document.querySelector<HTMLElement>('#gw-info')!;
 const changeIdButton = document.querySelector<HTMLButtonElement>('#change-id-button')!;
 const refreshButton = document.querySelector<HTMLButtonElement>('#refresh-button')!;
+const reportBannerEl = document.querySelector<HTMLElement>('#report-banner')!;
+const reportLabelEl = document.querySelector<HTMLElement>('#report-label')!;
+const reportProgressEl = document.querySelector<HTMLElement>('#report-progress')!;
 
 function setStatus(message: string, isError = false): void {
   statusEl.textContent = message;
@@ -127,7 +132,13 @@ function renderSquad(summary: AnalysisSummary): void {
   }
 }
 
-function renderReport(report: CoachReport): void {
+function renderReportBanner(errorMessage: string | null): void {
+  reportBannerEl.textContent = errorMessage ?? '';
+  reportBannerEl.hidden = errorMessage === null;
+}
+
+function renderReport(report: CoachReport, source: ReportSource): void {
+  reportLabelEl.hidden = source !== 'basic';
   reportEl.innerHTML = '';
   const sections: Array<[string, string]> = [
     ['Summary', report.summary],
@@ -164,32 +175,85 @@ function renderGwInfo(summary: AnalysisSummary, cachedAt: number): void {
     `Updated ${formatUpdatedAt(cachedAt)}`,
   ];
   if (summary.nextEvent) {
-    parts.push(`Next: GW${summary.nextEvent.id}, ${formatDeadline(summary.nextEvent.deadline)}`);
+    parts.push(
+      `Next: GW${summary.nextEvent.id}, ${formatDeadline(summary.nextEvent.deadline)}`,
+    );
   }
   gwInfoEl.textContent = parts.join(' · ');
   gwInfoEl.hidden = false;
 }
 
 let currentManagerId: number | null = null;
+let currentSummary: AnalysisSummary | null = null;
+let currentSource: ReportSource | null = null;
+// bumped per write so a slow, superseded reply can't overwrite a newer report
+let writeGeneration = 0;
 
-function applyReport(
-  managerId: number,
-  report: CoachReport,
-  analysisSummary: AnalysisSummary,
-  usedFallback: boolean,
-  cachedAt: number,
-): void {
+function applyReport(managerId: number, cached: CachedReport): void {
   currentManagerId = managerId;
+  currentSummary = cached.analysisSummary;
+  currentSource = cached.source;
   setStatus('');
   resultsEl.hidden = false;
   form.hidden = true;
   changeIdButton.hidden = false;
   refreshButton.hidden = false;
-  renderGwInfo(analysisSummary, cachedAt);
-  renderSquad(analysisSummary);
-  renderReport(report);
-  lineupImageEl.src = `/api/lineup-image?managerId=${managerId}&event=${analysisSummary.currentEvent}`;
-  initChat(analysisSummary, usedFallback);
+  renderGwInfo(cached.analysisSummary, cached.cachedAt);
+  renderSquad(cached.analysisSummary);
+  renderReport(cached.report, cached.source);
+  lineupImageEl.src = `/api/lineup-image?managerId=${managerId}&event=${cached.analysisSummary.currentEvent}`;
+  initChat(cached.analysisSummary);
+}
+
+function setBusy(busy: boolean): void {
+  submitButton.disabled = busy;
+  refreshButton.disabled = busy;
+}
+
+async function writeAndShowReport(
+  managerId: number,
+  summary: AnalysisSummary,
+): Promise<void> {
+  const generation = ++writeGeneration;
+  const apiKey = loadKey()?.key ?? null;
+  // the status line lives in the id form, which is hidden once a report is showing
+  if (apiKey) {
+    setStatus('Sensei is writing your report...');
+    reportProgressEl.hidden = false;
+  }
+
+  const written = await writeReport(summary, apiKey);
+  if (generation !== writeGeneration) return;
+  reportProgressEl.hidden = true;
+
+  const cached: CachedReport = {
+    report: written.report,
+    analysisSummary: summary,
+    source: written.source,
+    cachedAt: Date.now(),
+  };
+  storeCachedReport(managerId, cached);
+  applyReport(managerId, cached);
+  renderReportBanner(written.errorMessage);
+}
+
+async function fetchSummary(managerId: number): Promise<AnalysisSummary | null> {
+  try {
+    const response = await fetch('/api/summary', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ managerId }),
+    });
+    if (!response.ok) {
+      const body = (await response.json()) as ErrorResponseBody;
+      setStatus(body.error, true);
+      return null;
+    }
+    return ((await response.json()) as SummaryResponseBody).analysisSummary;
+  } catch {
+    setStatus('Could not reach the server. Please try again.', true);
+    return null;
+  }
 }
 
 async function fetchReport(
@@ -199,42 +263,40 @@ async function fetchReport(
   if (!options.forceRefresh) {
     const cached = loadCachedReport(managerId);
     if (cached && !isCacheStale(cached)) {
-      applyReport(managerId, cached.report, cached.analysisSummary, cached.usedFallback, cached.cachedAt);
+      applyReport(managerId, cached);
+      renderReportBanner(null);
+      // a basic report cached before a key was added gets upgraded in place
+      if (cached.source === 'basic' && loadKey()) {
+        await upgradeToAiReport(managerId, cached.analysisSummary);
+      }
       return;
     }
   }
 
-  submitButton.disabled = true;
-  refreshButton.disabled = true;
-  setStatus('Fetching your squad and building your report...');
+  setBusy(true);
+  setStatus('Fetching your squad...');
   resultsEl.hidden = true;
-
+  // keep progress and errors visible on refresh too
+  form.hidden = false;
   try {
-    const response = await fetch('/api/coach', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ managerId }),
-    });
-
-    if (!response.ok) {
-      const body = (await response.json()) as ErrorResponseBody;
-      setStatus(body.error, true);
-      return;
-    }
-
-    const body = (await response.json()) as CoachResponseBody;
+    const summary = await fetchSummary(managerId);
+    if (!summary) return;
     storeManagerId(managerId);
-    storeCachedReport(managerId, {
-      report: body.report,
-      analysisSummary: body.analysisSummary,
-      usedFallback: body.usedFallback,
-    });
-    applyReport(managerId, body.report, body.analysisSummary, body.usedFallback, Date.now());
-  } catch {
-    setStatus('Could not reach the server. Please try again.', true);
+    await writeAndShowReport(managerId, summary);
   } finally {
-    submitButton.disabled = false;
-    refreshButton.disabled = false;
+    setBusy(false);
+  }
+}
+
+async function upgradeToAiReport(
+  managerId: number,
+  summary: AnalysisSummary,
+): Promise<void> {
+  setBusy(true);
+  try {
+    await writeAndShowReport(managerId, summary);
+  } finally {
+    setBusy(false);
   }
 }
 
@@ -262,9 +324,25 @@ refreshButton.addEventListener('click', () => {
 
 initKeySettings();
 
+// no refetch from fpl: the summary is already here, only the prose changes
+onKeyChange((stored) => {
+  if (
+    stored &&
+    currentSource === 'basic' &&
+    currentManagerId !== null &&
+    currentSummary
+  ) {
+    void upgradeToAiReport(currentManagerId, currentSummary);
+  }
+});
+
 const storedManagerId = loadStoredManagerId();
 const parsedStoredId = Number(storedManagerId);
-if (storedManagerId !== null && Number.isInteger(parsedStoredId) && parsedStoredId > 0) {
+if (
+  storedManagerId !== null &&
+  Number.isInteger(parsedStoredId) &&
+  parsedStoredId > 0
+) {
   managerIdInput.value = storedManagerId;
   void fetchReport(parsedStoredId);
 }
