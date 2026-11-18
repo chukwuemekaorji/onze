@@ -50,10 +50,18 @@ const REQUIRED_FIELDS = [
   'priceAlerts',
 ] as const;
 
+// Claude sometimes wraps JSON in a markdown fence despite being told not
+// to; strip it before parsing rather than fighting the model over it.
+function stripMarkdownFence(text: string): string {
+  const trimmed = text.trim();
+  const fenceMatch = /^```(?:json)?\s*([\s\S]*?)\s*```$/.exec(trimmed);
+  return fenceMatch ? fenceMatch[1]! : trimmed;
+}
+
 export function parseCoachResponse(rawText: string): CoachReport {
   let parsed: unknown;
   try {
-    parsed = JSON.parse(rawText);
+    parsed = JSON.parse(stripMarkdownFence(rawText));
   } catch {
     throw new Error('Coach LLM response was not valid JSON');
   }
