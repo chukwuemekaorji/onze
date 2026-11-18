@@ -46,6 +46,8 @@ describe('design tokens', () => {
     ['marker-red-text', 'paper'],
     ['marker-red-text', 'paper-card'],
     ['paper', 'ink'],
+    // the captain's c on the pitch
+    ['paper', 'marker-red-text'],
   ])('%s text on %s meets aa', (text, background) => {
     expect(contrast(token(text), token(background))).toBeGreaterThanOrEqual(
       MIN_TEXT_CONTRAST,
