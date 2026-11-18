@@ -7,12 +7,16 @@ describe('analyzeCaptaincy', () => {
     const strong = makePlayer({
       id: 1,
       epNext: 8,
-      nextFixtures: [{ event: 1, isHome: true, difficulty: 2, opponentShortName: 'BBB' }],
+      nextFixtures: [
+        { event: 1, isHome: true, difficulty: 2, opponentShortName: 'BBB' },
+      ],
     });
     const weak = makePlayer({
       id: 2,
       epNext: 3,
-      nextFixtures: [{ event: 1, isHome: false, difficulty: 5, opponentShortName: 'CCC' }],
+      nextFixtures: [
+        { event: 1, isHome: false, difficulty: 5, opponentShortName: 'CCC' },
+      ],
     });
 
     const result = analyzeCaptaincy([strong, weak], 1);

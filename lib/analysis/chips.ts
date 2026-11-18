@@ -1,11 +1,7 @@
 import type { FplFixture } from '../fpl-types.js';
 import type { SquadContext } from './types.js';
 
-export type ChipName =
-  | 'wildcard'
-  | 'bench_boost'
-  | 'free_hit'
-  | 'triple_captain';
+export type ChipName = 'wildcard' | 'bench_boost' | 'free_hit' | 'triple_captain';
 
 export type ChipRecommendation = 'play_now' | 'consider_soon' | 'hold';
 
@@ -47,9 +43,7 @@ function countFixturesPerTeamPerEvent(
   return byEvent;
 }
 
-export function detectDoubleGameweeks(
-  fixtures: FplFixture[],
-): GameweekTeamEvent[] {
+export function detectDoubleGameweeks(fixtures: FplFixture[]): GameweekTeamEvent[] {
   const byEvent = countFixturesPerTeamPerEvent(fixtures);
   const result: GameweekTeamEvent[] = [];
   for (const [event, teamCounts] of byEvent) {
@@ -140,7 +134,11 @@ export function analyzeChips(
         reasonCodes: ['squad_double_gameweek_upcoming'],
       });
     } else {
-      suggestions.push({ chip: 'bench_boost', recommendation: 'hold', reasonCodes: [] });
+      suggestions.push({
+        chip: 'bench_boost',
+        recommendation: 'hold',
+        reasonCodes: [],
+      });
     }
   }
 
@@ -161,7 +159,11 @@ export function analyzeChips(
         reasonCodes: ['squad_double_gameweek_upcoming'],
       });
     } else {
-      suggestions.push({ chip: 'triple_captain', recommendation: 'hold', reasonCodes: [] });
+      suggestions.push({
+        chip: 'triple_captain',
+        recommendation: 'hold',
+        reasonCodes: [],
+      });
     }
   }
 
@@ -188,8 +190,20 @@ export function analyzeChips(
 
   if (!usedSet.has('wildcard')) {
     const upcomingSwing =
-      hasUpcomingDisruption(doubleGameweeks, currentEvent - 1, horizonEnd, squadTeamIds, 3) ||
-      hasUpcomingDisruption(blankGameweeks, currentEvent - 1, horizonEnd, squadTeamIds, 3);
+      hasUpcomingDisruption(
+        doubleGameweeks,
+        currentEvent - 1,
+        horizonEnd,
+        squadTeamIds,
+        3,
+      ) ||
+      hasUpcomingDisruption(
+        blankGameweeks,
+        currentEvent - 1,
+        horizonEnd,
+        squadTeamIds,
+        3,
+      );
     suggestions.push({
       chip: 'wildcard',
       recommendation: upcomingSwing ? 'consider_soon' : 'hold',

@@ -1,5 +1,9 @@
 import { describe, it, expect } from 'vitest';
-import { analyzeChips, detectDoubleGameweeks, detectBlankGameweeks } from '../../lib/analysis/chips.js';
+import {
+  analyzeChips,
+  detectDoubleGameweeks,
+  detectBlankGameweeks,
+} from '../../lib/analysis/chips.js';
 import { makePlayer, makeSquadContext } from '../helpers/fixtures.js';
 import type { FplFixture } from '../../lib/fpl-types.js';
 
@@ -78,12 +82,7 @@ describe('analyzeChips', () => {
     ];
     const context = makeSquadContext({ squad, currentEvent: 1 });
 
-    const result = analyzeChips(
-      fixtures,
-      [1, 2, 3, 4, 5, 6],
-      context,
-      [],
-    );
+    const result = analyzeChips(fixtures, [1, 2, 3, 4, 5, 6], context, []);
 
     const freeHit = result.suggestions.find((s) => s.chip === 'free_hit');
     expect(freeHit?.recommendation).toBe('play_now');

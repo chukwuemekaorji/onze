@@ -54,8 +54,11 @@ export function analyzeLineup(squad: AnalysisPlayer[], event: number): LineupAna
   const startingGk = bestN(byPosition.GK, 1);
   const backupGks = byPosition.GK.filter((p) => !startingGk.includes(p));
 
-  let best: { formation: FormationCounts; startingXI: LineupPlayer[]; total: number } | null =
-    null;
+  let best: {
+    formation: FormationCounts;
+    startingXI: LineupPlayer[];
+    total: number;
+  } | null = null;
 
   if (startingGk.length === 1) {
     for (const formation of validFormations()) {

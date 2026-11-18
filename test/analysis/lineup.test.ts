@@ -37,7 +37,9 @@ describe('analyzeLineup', () => {
     expect(result.startingXI).toHaveLength(11);
     expect(result.bench).toHaveLength(4);
 
-    const startingGkCount = result.startingXI.filter((p) => p.player.position === 'GK').length;
+    const startingGkCount = result.startingXI.filter(
+      (p) => p.player.position === 'GK',
+    ).length;
     expect(startingGkCount).toBe(1);
 
     const [def, mid, fwd] = result.formation.split('-').map(Number);
@@ -46,7 +48,9 @@ describe('analyzeLineup', () => {
     expect(mid).toBeGreaterThanOrEqual(2);
     expect(fwd).toBeGreaterThanOrEqual(1);
 
-    const allIds = new Set([...result.startingXI, ...result.bench].map((p) => p.player.id));
+    const allIds = new Set(
+      [...result.startingXI, ...result.bench].map((p) => p.player.id),
+    );
     expect(allIds.size).toBe(15);
   });
 
@@ -62,7 +66,12 @@ describe('analyzeLineup', () => {
         { event: 1, isHome: false, difficulty: 3, opponentShortName: 'BBB' },
       ],
     });
-    squad[11] = makePlayer({ id: squad[11]!.id, position: 'FWD', epNext: 2, nextFixtures: [] });
+    squad[11] = makePlayer({
+      id: squad[11]!.id,
+      position: 'FWD',
+      epNext: 2,
+      nextFixtures: [],
+    });
 
     const result = analyzeLineup(squad, 1);
     const startingFwdIds = result.startingXI
