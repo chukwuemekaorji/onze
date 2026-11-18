@@ -8,8 +8,7 @@ import {
   usePlayOnce,
 } from '../../motion.js';
 
-// a short rise into place; cards sit square on the page
-const DEAL_FROM_PX = 14;
+// cards are editorial, so they only fade in; they sit square on the page
 
 interface DealtCardProps {
   /** names the card for its once-per-load entrance */
@@ -28,8 +27,8 @@ export function DealtCard({ cardKey, order, dealt = true, children }: DealtCardP
   return (
     <motion.div
       className="dealt-card"
-      initial={deal ? { opacity: 0, y: DEAL_FROM_PX } : false}
-      animate={{ opacity: 1, y: 0 }}
+      initial={deal ? { opacity: 0 } : false}
+      animate={{ opacity: 1 }}
       transition={
         deal
           ? {

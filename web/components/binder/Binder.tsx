@@ -22,9 +22,8 @@ const PAGES: Record<RouteId, ComponentType<BinderPageProps>> = {
   leagues: LeaguesPage,
 };
 
-// a binder page turning: a short slide out to the left, the next in from the right
-const PAGE_FLIP_S = 0.22;
-const PAGE_SLIDE_PX = 16;
+// switching tabs is editorial, so the pages simply cross-fade
+const PAGE_FLIP_S = 0.2;
 const APP_TITLE = 'Sensei, Your FPL Coach';
 
 interface BinderProps {
@@ -45,8 +44,8 @@ export function Binder({ shown, writing }: BinderProps) {
   const flip = reduced
     ? { initial: false as const, transition: { duration: 0 } }
     : {
-        initial: { opacity: 0, x: PAGE_SLIDE_PX },
-        exit: { opacity: 0, x: -PAGE_SLIDE_PX },
+        initial: { opacity: 0 },
+        exit: { opacity: 0 },
         transition: { duration: PAGE_FLIP_S, ease: 'easeOut' as const },
       };
 
@@ -88,13 +87,13 @@ export function Binder({ shown, writing }: BinderProps) {
             write-up and chat.
           </p>
         </div>
-
-        {/* initial false: the page present on load arrives with its own entrance */}
-        <AnimatePresence mode="wait" initial={false}>
+        {/* no initial={false} here: it would also cancel the entrances inside the
+            page, like the pitch drawing itself and the shirts landing */}
+        <AnimatePresence mode="wait">
           <motion.div
             key={route.id}
             className="binder__sheet"
-            animate={{ opacity: 1, x: 0 }}
+            animate={{ opacity: 1 }}
             {...flip}
           >
             <Page shown={shown} focusTitle={hasNavigated()} />
