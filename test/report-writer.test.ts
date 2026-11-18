@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import type { AnalysisSummary } from '../lib/analysis-summary.js';
-import { writeReport } from '../public/report-writer.js';
+import { writeReport } from '../web/report-writer.js';
 import { makeSquadContext } from './helpers/fixtures.js';
 
 const AI_REPORT = {

@@ -5,7 +5,7 @@ import {
   KeyStoreError,
   loadKey,
   saveKey,
-} from '../public/key-store.js';
+} from '../web/key-store.js';
 
 const VALID_KEY = 'sk-ant-api03-test';
 

@@ -1,0 +1,62 @@
+import { INK_WOBBLE_FILTER } from './ui/InkFilters.js';
+
+interface TopBarProps {
+  // null until the first report is shown
+  gameweekInfo: string | null;
+  busy: boolean;
+  onRefresh: () => void;
+  onChangeManagerId: () => void;
+}
+
+export function TopBar({
+  gameweekInfo,
+  busy,
+  onRefresh,
+  onChangeManagerId,
+}: TopBarProps) {
+  const hasReport = gameweekInfo !== null;
+  return (
+    <header className="topbar">
+      <div className="topbar-brand">
+        {/* a chalkboard play: a player, a marker and the run between them */}
+        <svg
+          className="topbar-mark"
+          viewBox="0 0 32 32"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <circle cx="8" cy="22" r="4.5" filter={INK_WOBBLE_FILTER} />
+          <path d="M20 5 l7 7 M27 5 l-7 7" filter={INK_WOBBLE_FILTER} />
+          <path
+            className="topbar-mark__arrow"
+            d="M11.5 18 C 14 12, 17 15, 21 13 M17.5 11.6 L21 13 L19.2 16.4"
+            filter={INK_WOBBLE_FILTER}
+          />
+        </svg>
+        <span className="topbar-title">Sensei</span>
+      </div>
+      <div id="gw-info" className="gw-info" hidden={!hasReport}>
+        {gameweekInfo}
+      </div>
+      <button
+        id="refresh-button"
+        className="ghost-button"
+        type="button"
+        hidden={!hasReport}
+        disabled={busy}
+        onClick={onRefresh}
+      >
+        Refresh
+      </button>
+      <button
+        id="change-id-button"
+        className="ghost-button"
+        type="button"
+        hidden={!hasReport}
+        onClick={onChangeManagerId}
+      >
+        Change manager ID
+      </button>
+    </header>
+  );
+}

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import type Anthropic from '@anthropic-ai/sdk';
-import { AnthropicCallError, sendMessage } from '../public/anthropic-client.js';
+import { AnthropicCallError, sendMessage } from '../web/anthropic-client.js';
 
 const REQUEST: Anthropic.MessageCreateParamsNonStreaming = {
   model: 'claude-sonnet-5-5',

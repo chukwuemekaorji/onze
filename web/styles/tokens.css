@@ -1,0 +1,76 @@
+/* tactics board tokens. text pairs are checked for 4.5:1 in test/design-tokens.test.ts */
+:root {
+  color-scheme: light;
+
+  /* palette */
+  --paper: #f2ecdf;
+  --paper-card: #fbf7ee;
+  --photo-paper: #fffdf8;
+  --ink: #1b1a17;
+  --ink-muted: #5a554c;
+  --marker-red: #c8371f;
+  /* the marker red is 4.4:1 on paper, just under aa, so red text uses this */
+  --marker-red-text: #a92f1a;
+  --highlighter: #f6d94a;
+  /* pitch stripes only, never text or ui chrome */
+  --grass: #dfe6cf;
+  --grid-line: rgba(27, 26, 23, 0.06);
+  --tape: rgba(226, 214, 178, 0.82);
+  --tape-edge: rgba(27, 26, 23, 0.08);
+
+  /* fonts */
+  --font-display: 'Bricolage Grotesque Variable', 'Arial Narrow', sans-serif;
+  --font-body: 'Bricolage Grotesque Variable', system-ui, sans-serif;
+  --font-hand: 'Caveat Variable', 'Comic Sans MS', cursive;
+  --font-mono: 'DM Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+  /* type scale, roughly a 1.25 ratio */
+  --text-xs: 0.78rem;
+  --text-sm: 0.88rem;
+  --text-md: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.6rem;
+  --text-2xl: 2.1rem;
+  --text-3xl: 2.9rem;
+  --text-hand: 1.45rem;
+  --leading-tight: 1.1;
+  --leading-body: 1.55;
+
+  /* spacing, 4px base */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+
+  /* radius: paper has crisp corners, so these stay small */
+  --radius-sm: 3px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-pill: 999px;
+
+  /* strokes and shadows: hard offsets like a sticker, never blurred */
+  --stroke: 2px;
+  --stroke-bold: 3px;
+  --shadow-offset: 4px;
+  --shadow-offset-lift: 6px;
+  --shadow-sticker: var(--shadow-offset) var(--shadow-offset) 0 var(--ink);
+  --shadow-marker: var(--shadow-offset) var(--shadow-offset) 0 var(--marker-red);
+
+  /* tilts */
+  --tilt-left: -1.5deg;
+  --tilt-right: 1.2deg;
+  --tilt-sticky: -2.5deg;
+
+  /* motion */
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --duration-fast: 120ms;
+  --duration-base: 220ms;
+
+  /* focus */
+  --focus-ring: 3px solid var(--marker-red);
+  --focus-offset: 3px;
+}

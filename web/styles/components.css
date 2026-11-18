@@ -1,0 +1,304 @@
+/* styles for web/components/ui. linked through styles.css, never imported from js */
+
+.ui-svg-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* shared tilts, set with rotate so hover transforms still compose */
+.ui-tilt-left {
+  rotate: var(--tilt-left);
+}
+
+.ui-tilt-right {
+  rotate: var(--tilt-right);
+}
+
+/* button */
+
+.ui-button {
+  --button-bg: var(--ink);
+  --button-fg: var(--paper);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  color: var(--button-fg);
+  background: var(--button-bg);
+  border: var(--stroke-bold) solid var(--ink);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-marker);
+  cursor: pointer;
+  transition:
+    transform var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.ui-button--outline {
+  --button-bg: var(--paper-card);
+  --button-fg: var(--ink);
+}
+
+.ui-button:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-offset-lift) var(--shadow-offset-lift) 0 var(--marker-red);
+}
+
+.ui-button:active {
+  transform: translate(var(--shadow-offset), var(--shadow-offset));
+  box-shadow: 0 0 0 var(--marker-red);
+}
+
+/* clear the offset shadow so the ring reads as its own mark */
+.ui-button:focus-visible {
+  outline: var(--stroke-bold) dashed var(--ink);
+  outline-offset: calc(var(--shadow-offset) + var(--focus-offset));
+}
+
+.ui-button:disabled,
+.ui-button[aria-disabled='true'] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: var(--shadow-marker);
+}
+
+/* tape */
+
+.ui-tape {
+  position: absolute;
+  z-index: 1;
+  width: 5.5rem;
+  height: 1.5rem;
+  background: var(--tape);
+  border-inline: 1px solid var(--tape-edge);
+  /* torn ends */
+  clip-path: polygon(
+    0 8%,
+    4% 0,
+    96% 4%,
+    100% 0,
+    98% 30%,
+    100% 55%,
+    97% 100%,
+    3% 94%,
+    0 100%,
+    2% 60%
+  );
+  pointer-events: none;
+}
+
+.ui-tape--top-left {
+  top: 0.4rem;
+  left: -1.6rem;
+  rotate: -38deg;
+}
+
+.ui-tape--top-right {
+  top: 0.4rem;
+  right: -1.6rem;
+  rotate: 38deg;
+}
+
+.ui-tape--top {
+  top: -0.8rem;
+  left: 50%;
+  translate: -50% 0;
+  rotate: -3deg;
+}
+
+/* paper card */
+
+.ui-paper-card {
+  position: relative;
+  padding: var(--space-6) var(--space-5) var(--space-5);
+  background: var(--paper-card);
+  border: var(--stroke) solid var(--ink);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sticker);
+}
+
+/* the red header rule of an index card, kept inside the top padding */
+.ui-paper-card::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: var(--space-4);
+  border-top: 1.5px solid var(--marker-red);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* sticky note */
+
+.ui-sticky {
+  position: relative;
+  max-width: 17rem;
+  padding: var(--space-5) var(--space-4) var(--space-4);
+  font-family: var(--font-hand);
+  font-size: var(--text-hand);
+  font-weight: 500;
+  line-height: 1.15;
+  color: var(--ink);
+  background: var(--highlighter);
+  box-shadow: 2px 3px 0 rgba(27, 26, 23, 0.22);
+  rotate: var(--tilt-sticky);
+}
+
+.ui-sticky--right {
+  rotate: calc(var(--tilt-sticky) * -0.8);
+}
+
+/* the slightly darker adhesive strip */
+.ui-sticky::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: var(--space-4);
+  background: rgba(27, 26, 23, 0.05);
+}
+
+/* marker strokes */
+
+.ui-marker-underline,
+.ui-marker-circle {
+  position: relative;
+  display: inline-block;
+}
+
+.ui-marker-stroke {
+  position: absolute;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.ui-marker-stroke path {
+  fill: none;
+  stroke: var(--marker-red);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ui-marker-underline__stroke {
+  left: -3%;
+  /* below the descenders, so the stroke never crosses g, p or y */
+  bottom: -0.55em;
+  width: 106%;
+  height: 0.55em;
+}
+
+.ui-marker-circle {
+  padding-inline: 0.15em;
+}
+
+.ui-marker-circle__stroke {
+  inset: -0.45em -0.55em;
+  width: calc(100% + 1.1em);
+  height: calc(100% + 0.9em);
+}
+
+.ui-marker-circle__stroke path {
+  stroke-width: 3.5;
+}
+
+/* highlight */
+
+.ui-highlight {
+  color: inherit;
+  background-color: transparent;
+  /* a solid fill, sized and swiped in by motion. not a gradient wash */
+  background-image: linear-gradient(var(--highlighter), var(--highlighter));
+  background-repeat: no-repeat;
+  background-position: 0 85%;
+  /* height mirrors HIGHLIGHT_HEIGHT in web/motion.ts */
+  background-size: 100% 62%;
+  padding-inline: 0.15em;
+  margin-inline: -0.05em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* images */
+
+.ui-aspect-square {
+  aspect-ratio: 1;
+}
+
+.ui-aspect-landscape {
+  aspect-ratio: 4 / 3;
+}
+
+.ui-aspect-portrait {
+  aspect-ratio: 3 / 4;
+}
+
+.ui-image {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  border: var(--stroke) solid var(--ink);
+}
+
+.ui-image-placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  padding: var(--space-4);
+  background-color: var(--paper-card);
+  /* pencil hatching */
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent 0 9px,
+    var(--grid-line) 9px 10px
+  );
+  border: var(--stroke) dashed var(--ink-muted);
+}
+
+.ui-image-placeholder__label {
+  max-width: 90%;
+  padding: var(--space-1) var(--space-3);
+  font-family: var(--font-hand);
+  font-size: var(--text-lg);
+  line-height: 1.1;
+  text-align: center;
+  color: var(--ink-muted);
+  background: var(--paper-card);
+  overflow-wrap: anywhere;
+}
+
+.ui-polaroid {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  margin: 0;
+  /* the deep bottom border of an instant photo */
+  padding: var(--space-3) var(--space-3) var(--space-5);
+  background: var(--photo-paper);
+  border: 1px solid rgba(27, 26, 23, 0.15);
+  box-shadow: var(--shadow-sticker);
+  rotate: var(--tilt-right);
+}
+
+.ui-polaroid .ui-image {
+  border-width: 1px;
+}
+
+.ui-polaroid__caption {
+  margin-bottom: calc(-1 * var(--space-2));
+  padding-top: var(--space-2);
+  font-family: var(--font-hand);
+  font-size: var(--text-hand);
+  line-height: 1.1;
+  text-align: center;
+  color: var(--ink);
+}
