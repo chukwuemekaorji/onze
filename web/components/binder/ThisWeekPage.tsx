@@ -7,6 +7,7 @@ import { Notepad } from '../report/Notepad.js';
 import { RouteLink } from '../RouteLink.js';
 import { PaperCard } from '../ui/PaperCard.js';
 import { BinderPage } from './BinderPage.js';
+import { LeaguesCard } from './LeaguesCard.js';
 import { aiNote } from './page-props.js';
 import type { BinderPageProps } from './page-props.js';
 
@@ -63,6 +64,9 @@ export function ThisWeekPage({ shown, focusTitle }: BinderPageProps) {
                 </div>
               </dl>
             </PaperCard>
+          </DealtCard>
+          <DealtCard cardKey="your-leagues" order={2}>
+            <LeaguesCard standings={summary.leagueStandings} />
           </DealtCard>
         </div>
       </div>

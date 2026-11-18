@@ -9,6 +9,7 @@ import {
   formatPrice,
   gameweekTimeline,
   hitAdvice,
+  leagueRows,
   priceRows,
   transferRows,
   transferSummaryLine,
@@ -356,5 +357,44 @@ describe('formatting', () => {
 
   it('formats fpl tenths as millions', () => {
     expect(formatPrice(55)).toBe('£5.5m');
+  });
+});
+
+describe('leagueRows', () => {
+  const standing = (rank: number, previousRank: number, totalEntries = 1200) => ({
+    id: rank * 1000 + previousRank,
+    name: 'League',
+    rank,
+    previousRank,
+    totalEntries,
+  });
+
+  it('lists every league with its position and movement since last gameweek', () => {
+    const rows = leagueRows([
+      standing(231, 240),
+      standing(7, 4, 14),
+      standing(1, 1, 9),
+    ]);
+    expect(rows.map((r) => [r.position, r.movement, r.places])).toEqual([
+      ['231st of 1,200', 'up', 9],
+      ['7th of 14', 'down', 3],
+      ['1st of 9', 'same', 0],
+    ]);
+  });
+
+  it('uses the right ordinal for the teens', () => {
+    expect(
+      leagueRows([standing(12, 12), standing(113, 113)]).map((r) => r.position),
+    ).toEqual(['12th of 1,200', '113th of 1,200']);
+  });
+
+  it('marks a league with no previous rank, or no rank yet, as new', () => {
+    const [joined, unranked] = leagueRows([standing(5, 0, 20), standing(0, 0, 20)]);
+    expect(joined).toMatchObject({ movement: 'new', position: '5th of 20' });
+    expect(unranked).toMatchObject({ movement: 'new', position: 'not ranked yet' });
+  });
+
+  it('returns nothing when the manager is in no leagues', () => {
+    expect(leagueRows([])).toEqual([]);
   });
 });

@@ -207,6 +207,67 @@
   text-underline-offset: 3px;
 }
 
+/* your leagues */
+
+.league-rows {
+  display: grid;
+  gap: var(--space-4);
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.league-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  column-gap: var(--space-3);
+}
+
+/* league names run long, so each gets the full width of its own line */
+.league-row__name {
+  grid-column: 1 / -1;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.league-row__position {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+
+.league-row__movement {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+}
+
+.league-row__arrow {
+  width: 0.8rem;
+  height: 0.85rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.league-row--up .league-row__movement {
+  color: var(--ink);
+}
+
+.league-row--down .league-row__movement {
+  color: var(--marker-red-text);
+}
+
+.league-row--down .league-row__arrow {
+  rotate: 180deg;
+}
+
 /* transfers */
 
 .hit-advice {

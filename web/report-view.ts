@@ -47,6 +47,18 @@ export interface PriceRow {
   note: string;
 }
 
+export type LeagueMovement = 'up' | 'down' | 'same' | 'new';
+
+export interface LeagueRow {
+  id: number;
+  name: string;
+  /** "3rd of 12", or a note when fpl hasn't ranked the league yet */
+  position: string;
+  movement: LeagueMovement;
+  /** places gained or lost since last gameweek; 0 when same or new */
+  places: number;
+}
+
 export interface GameweekMark {
   event: number;
   /** squad players whose team plays twice that week */
@@ -223,6 +235,44 @@ export function gameweekTimeline(
       blankPlayers: playersAffected(
         summary.chips.blankGameweeks.find((gw) => gw.event === event)?.teamIds,
       ),
+    };
+  });
+}
+
+const COUNT_FORMAT = new Intl.NumberFormat('en-GB');
+
+function ordinal(n: number): string {
+  const lastTwo = n % 100;
+  if (lastTwo >= 11 && lastTwo <= 13) return `${n}th`;
+  const suffix = { 1: 'st', 2: 'nd', 3: 'rd' }[n % 10] ?? 'th';
+  return `${n}${suffix}`;
+}
+
+/**
+ * every mini-league with its position and movement since last gameweek. fpl
+ * gives 0 for a rank it hasn't worked out yet, as in a league's first week
+ */
+export function leagueRows(standings: AnalysisSummary['leagueStandings']): LeagueRow[] {
+  return standings.map((league) => {
+    const ranked = league.rank > 0;
+    const position = ranked
+      ? `${ordinal(league.rank)} of ${COUNT_FORMAT.format(league.totalEntries)}`
+      : 'not ranked yet';
+    const change = league.previousRank - league.rank;
+    const movement: LeagueMovement =
+      !ranked || league.previousRank <= 0
+        ? 'new'
+        : change > 0
+          ? 'up'
+          : change < 0
+            ? 'down'
+            : 'same';
+    return {
+      id: league.id,
+      name: league.name,
+      position,
+      movement,
+      places: movement === 'up' || movement === 'down' ? Math.abs(change) : 0,
     };
   });
 }
