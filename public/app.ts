@@ -13,17 +13,14 @@ interface ErrorResponseBody {
   error: string;
 }
 
-// This app is single-user (one FPL manager ID). Remembering it locally
-// saves re-typing it every visit; the fallback is the owner's own ID so
-// the report loads immediately on a fresh browser too.
+// remembered so returning visitors skip retyping their id
 const MANAGER_ID_STORAGE_KEY = 'sensei:managerId';
-const DEFAULT_MANAGER_ID = '1164353';
 
-function loadStoredManagerId(): string {
+function loadStoredManagerId(): string | null {
   try {
-    return localStorage.getItem(MANAGER_ID_STORAGE_KEY) ?? DEFAULT_MANAGER_ID;
+    return localStorage.getItem(MANAGER_ID_STORAGE_KEY);
   } catch {
-    return DEFAULT_MANAGER_ID;
+    return null;
   }
 }
 
@@ -265,8 +262,8 @@ refreshButton.addEventListener('click', () => {
 });
 
 const storedManagerId = loadStoredManagerId();
-managerIdInput.value = storedManagerId;
 const parsedStoredId = Number(storedManagerId);
-if (Number.isInteger(parsedStoredId) && parsedStoredId > 0) {
+if (storedManagerId !== null && Number.isInteger(parsedStoredId) && parsedStoredId > 0) {
+  managerIdInput.value = storedManagerId;
   void fetchReport(parsedStoredId);
 }
