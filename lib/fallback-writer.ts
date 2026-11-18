@@ -8,6 +8,7 @@ import type { CoachReport } from './coach-prompt.js';
 import type { TransferReasonCode } from './analysis/transfers.js';
 import type { ChipName } from './analysis/chips.js';
 import type { LineupPlayer } from './analysis/lineup.js';
+import { notableLeague } from './analysis/leagues.js';
 
 const REASON_CODE_TEXT: Record<TransferReasonCode, string> = {
   poor_form: 'poor recent form',
@@ -40,10 +41,21 @@ function formatDeadline(iso: string): string {
   });
 }
 
+function ordinal(n: number): string {
+  const lastTwo = n % 100;
+  if (lastTwo >= 11 && lastTwo <= 13) return `${n}th`;
+  const suffix = { 1: 'st', 2: 'nd', 3: 'rd' }[n % 10] ?? 'th';
+  return `${n}${suffix}`;
+}
+
+// only a league the manager leads or sits near the top of gets named; the
+// first league in fpl's list is arbitrary, so quoting it misled
 function writeLeagueContext(summary: AnalysisSummary): string {
-  const league = summary.leagueStandings[0];
+  const league = notableLeague(summary.leagueStandings);
   if (!league) return '';
-  return ` You're ranked ${league.rank} of ${league.totalEntries} in ${league.name}.`;
+  return league.rank === 1
+    ? ` You're top of ${league.name}.`
+    : ` You're ${ordinal(league.rank)} of ${league.totalEntries} in ${league.name}.`;
 }
 
 function writeSummary(summary: AnalysisSummary): string {

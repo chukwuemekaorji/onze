@@ -1,6 +1,7 @@
 import type Anthropic from '@anthropic-ai/sdk';
 import { SENSEI_PERSONA } from './persona.js';
 import type { AnalysisSummary } from './analysis-summary.js';
+import { notableLeague } from './analysis/leagues.js';
 
 export interface CoachReport {
   summary: string;
@@ -11,7 +12,7 @@ export interface CoachReport {
   formation: string;
 }
 
-const REPORT_SYSTEM_PROMPT = `${SENSEI_PERSONA}
+export const REPORT_SYSTEM_PROMPT = `${SENSEI_PERSONA}
 
 You are writing a gameweek coaching report from a pre-computed data
 summary (JSON) describing the user's squad, transfer candidates,
@@ -49,16 +50,14 @@ formation (already computed assuming the transfer above, if any, is
 made). State the formation and who starts vs. who's benched, using the
 real player names.
 
-League context: "leagueStandings" lists the user's own classic
-mini-leagues (not FPL's Overall/country leagues — those aren't winnable
-and aren't included), each with their current rank, previous rank, and
-total entries. Use this to color your tone, not to change the
-transfer/hit numbers above, which are already final: if they're
-leading a small league, you can note that playing it safe protects
-their spot; if they're well back, you can note there's more room to
-take a swing later in the season. Only mention a league by name when it
-adds something real — don't force a league reference into every
-section, and never mention this at all if leagueStandings is empty.
+League context: "notableLeague" is the one mini-league worth naming:
+one the user leads or sits in the top 3 of. It is the ONLY league you
+may name or quote a rank for, and at most once in the whole report. If
+"notableLeague" is null, say nothing about leagues, ranks or rivals
+anywhere in the report. "leagueStandings" lists all of the user's
+mini-leagues; never name one of those or quote its rank unless it is
+"notableLeague". League context never changes the transfer or hit
+numbers above, which are already final.
 
 Respond with ONLY a JSON object matching this exact shape — no markdown
 fences, no commentary outside the JSON:
@@ -81,7 +80,17 @@ export function buildCoachRequest(
     model,
     max_tokens: MAX_REPORT_TOKENS,
     system: REPORT_SYSTEM_PROMPT,
-    messages: [{ role: 'user', content: JSON.stringify(summary) }],
+    // the notable league is decided here, not by the model, so the report never
+    // singles out an arbitrary league
+    messages: [
+      {
+        role: 'user',
+        content: JSON.stringify({
+          ...summary,
+          notableLeague: notableLeague(summary.leagueStandings),
+        }),
+      },
+    ],
   };
 }
 
