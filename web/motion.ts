@@ -52,19 +52,19 @@ export function useHighlighterSwipe(delayS = 0): EntranceProps {
   };
 }
 
-// entrance timeline for the report, in seconds. the pitch draws first, then
-// the shirts land one by one; the cards are dealt alongside
-export const PITCH_DRAW_S = 1.2;
+// entrance timeline for the report, in seconds: short and quiet. the pitch
+// draws first, then the shirts settle one by one; the cards arrive alongside
+export const PITCH_DRAW_S = 0.9;
 export const JERSEY_FIRST_DELAY_S = PITCH_DRAW_S;
-export const JERSEY_STAGGER_S = 0.07;
-export const JERSEY_SLAP_S = 0.4;
-export const CARD_DEAL_START_S = 0.3;
-export const CARD_DEAL_STAGGER_S = 0.14;
-export const CARD_DEAL_S = 0.5;
-export const STAMP_THUMP_DELAY_S = 0.2;
+export const JERSEY_STAGGER_S = 0.04;
+export const JERSEY_SLAP_S = 0.3;
+export const CARD_DEAL_START_S = 0.2;
+export const CARD_DEAL_STAGGER_S = 0.1;
+export const CARD_DEAL_S = 0.4;
+export const STAMP_THUMP_DELAY_S = 0.15;
 
-/** a quick overshoot then settle, for things landing on the table */
-export const SETTLE_EASE: NonNullable<Transition['ease']> = [0.2, 0.9, 0.3, 1];
+/** a gentle ease out, for things settling into place */
+export const SETTLE_EASE: NonNullable<Transition['ease']> = [0.25, 0.8, 0.25, 1];
 
 // entrances already played in this page load. module scope, so a remount or a
 // refreshed report never replays them

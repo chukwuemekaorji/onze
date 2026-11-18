@@ -21,10 +21,9 @@ const PAGES: Record<RouteId, ComponentType<BinderPageProps>> = {
   prices: PricesPage,
 };
 
-// a binder page turning: out to the left with a slight tip, the next in from the right
-const PAGE_FLIP_S = 0.28;
-const PAGE_SLIDE_PX = 28;
-const PAGE_TILT_DEG = 1.2;
+// a binder page turning: a short slide out to the left, the next in from the right
+const PAGE_FLIP_S = 0.22;
+const PAGE_SLIDE_PX = 16;
 const APP_TITLE = 'Sensei, Your FPL Coach';
 
 interface BinderProps {
@@ -45,8 +44,8 @@ export function Binder({ shown, writing }: BinderProps) {
   const flip = reduced
     ? { initial: false as const, transition: { duration: 0 } }
     : {
-        initial: { opacity: 0, x: PAGE_SLIDE_PX, rotate: PAGE_TILT_DEG },
-        exit: { opacity: 0, x: -PAGE_SLIDE_PX, rotate: -PAGE_TILT_DEG },
+        initial: { opacity: 0, x: PAGE_SLIDE_PX },
+        exit: { opacity: 0, x: -PAGE_SLIDE_PX },
         transition: { duration: PAGE_FLIP_S, ease: 'easeOut' as const },
       };
 
@@ -87,7 +86,7 @@ export function Binder({ shown, writing }: BinderProps) {
           <motion.div
             key={route.id}
             className="binder__sheet"
-            animate={{ opacity: 1, x: 0, rotate: 0 }}
+            animate={{ opacity: 1, x: 0 }}
             {...flip}
           >
             <Page shown={shown} focusTitle={hasNavigated()} />

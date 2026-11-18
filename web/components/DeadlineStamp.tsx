@@ -7,17 +7,15 @@ import {
   formatDeadlineDate,
   upcomingDeadline,
 } from '../deadline.js';
-import { STAMP_THUMP_DELAY_S, usePlayOnce } from '../motion.js';
+import { SETTLE_EASE, STAMP_THUMP_DELAY_S, usePlayOnce } from '../motion.js';
 import { useNow } from '../use-now.js';
 
 // inside the last hour the stamp pulses red
 const URGENT_WITHIN_MS = 60 * 60 * 1000;
 
-// the thump: oversized and crooked, slammed flat, then a small shake on impact
-const THUMP_START_SCALE = 1.5;
-const THUMP_START_TILT_DEG = -8;
-const THUMP_DURATION_S = 0.65;
-const THUMP_SHAKE_PX = 2;
+// the stamp presses down: a touch large, then flat. no tilt, no shake
+const THUMP_START_SCALE = 1.12;
+const THUMP_DURATION_S = 0.35;
 
 interface DeadlineStampProps {
   summary: AnalysisSummary;
@@ -61,26 +59,14 @@ function StampFrame({
   children: ReactNode;
 }) {
   const thump = usePlayOnce('deadline-stamp');
-  const s = THUMP_SHAKE_PX;
   const entrance = thump
     ? {
-        initial: {
-          opacity: 0,
-          scale: THUMP_START_SCALE,
-          rotate: THUMP_START_TILT_DEG,
-          x: 0,
-        },
-        animate: {
-          opacity: [0, 1, 1, 1, 1, 1],
-          scale: [THUMP_START_SCALE, 0.97, 1, 1, 1, 1],
-          rotate: [THUMP_START_TILT_DEG, 0, 0, 0, 0, 0],
-          x: [0, 0, -s, s, -s / 2, 0],
-        },
+        initial: { opacity: 0, scale: THUMP_START_SCALE },
+        animate: { opacity: 1, scale: 1 },
         transition: {
           delay: STAMP_THUMP_DELAY_S,
           duration: THUMP_DURATION_S,
-          times: [0, 0.4, 0.55, 0.7, 0.85, 1],
-          ease: 'easeOut' as const,
+          ease: SETTLE_EASE,
         },
       }
     : {};
