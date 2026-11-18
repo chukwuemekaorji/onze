@@ -69,10 +69,12 @@ const POSITION_NAME: Record<Position, string> = {
 
 interface PitchProps {
   summary: AnalysisSummary;
+  /** names the entrance, so a second pitch on another page plays its own */
+  entranceKey?: string;
 }
 
-export function Pitch({ summary }: PitchProps) {
-  const playEntrance = usePlayOnce('pitch');
+export function Pitch({ summary, entranceKey = 'pitch' }: PitchProps) {
+  const playEntrance = usePlayOnce(entranceKey);
   const { lineup, captaincy } = summary;
   if (lineup.startingXI.length === 0) {
     return <p className="pitch-empty">Not enough squad data to draw a lineup.</p>;

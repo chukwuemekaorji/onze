@@ -10,6 +10,7 @@
 @import './styles/report.css';
 @import './styles/binder.css';
 @import './styles/loader.css';
+@import './styles/landing.css';
 
 /* app shell, forms and chat */
 
@@ -214,6 +215,12 @@
   color: var(--ink-muted);
   background: var(--wash);
   border-radius: var(--radius-sm);
+}
+
+.report-label__link {
+  font-weight: 600;
+  color: var(--ink);
+  text-underline-offset: 3px;
 }
 
 .report-banner[hidden],

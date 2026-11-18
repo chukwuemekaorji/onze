@@ -32,7 +32,7 @@
   --field-line: rgba(250, 248, 242, 0.92);
   --field-edge: rgba(27, 26, 23, 0.1);
 
-  /* fonts. caveat is for the notepad and the formation scribble only,
+  /* fonts. caveat is for the notepad, the formation scribble and the landing note,
      dm mono for numbers only */
   --font-display: 'Bricolage Grotesque Variable', 'Arial Narrow', sans-serif;
   --font-body: 'Bricolage Grotesque Variable', system-ui, sans-serif;

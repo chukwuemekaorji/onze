@@ -1,7 +1,8 @@
 import type { RefObject } from 'react';
 import type { AnalysisSummary } from '../../lib/analysis-summary.js';
 import { DeadlineStamp } from './DeadlineStamp.js';
-import { INK_WOBBLE_FILTER } from './ui/InkFilters.js';
+import { LANDING_PATH } from '../router.js';
+import { BrandMark } from './BrandMark.js';
 
 interface TopBarProps {
   // null until the first report is shown
@@ -29,24 +30,11 @@ export function TopBar({
 }: TopBarProps) {
   return (
     <header className="masthead">
-      <div className="masthead__brand">
-        {/* a chalkboard play: a player, a marker and the run between them */}
-        <svg
-          className="masthead__mark"
-          viewBox="0 0 32 32"
-          aria-hidden="true"
-          focusable="false"
-        >
-          <circle cx="8" cy="22" r="4.5" filter={INK_WOBBLE_FILTER} />
-          <path d="M20 5 l7 7 M27 5 l-7 7" filter={INK_WOBBLE_FILTER} />
-          <path
-            className="masthead__mark-arrow"
-            d="M11.5 18 C 14 12, 17 15, 21 13 M17.5 11.6 L21 13 L19.2 16.4"
-            filter={INK_WOBBLE_FILTER}
-          />
-        </svg>
+      {/* the wordmark leads back to the landing page, like most sites */}
+      <a href={LANDING_PATH} className="masthead__brand">
+        <BrandMark className="masthead__mark" />
         <span className="masthead__wordmark">Sensei</span>
-      </div>
+      </a>
 
       {summary && (
         <div className="masthead__gameweek">

@@ -83,3 +83,20 @@ export function usePlayOnce(entranceKey: string): boolean {
   }, [entranceKey]);
   return firstTime && !reduced;
 }
+
+// landing sections rise a little as they scroll into view, once
+const REVEAL_RISE_PX = 16;
+const REVEAL_S = 0.45;
+const REVEAL_IN_VIEW_AMOUNT = 0.2;
+
+/** a section fading up into place the first time it scrolls into view */
+export function useRevealOnScroll(delayS = 0): EntranceProps {
+  const reduced = usePrefersReducedMotion();
+  if (reduced) return {};
+  return {
+    initial: { opacity: 0, y: REVEAL_RISE_PX },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, amount: REVEAL_IN_VIEW_AMOUNT },
+    transition: { duration: REVEAL_S, ease: SETTLE_EASE, delay: delayS },
+  };
+}

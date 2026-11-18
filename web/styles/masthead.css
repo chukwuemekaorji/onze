@@ -14,6 +14,8 @@
 .masthead__brand {
   grid-area: brand;
   display: flex;
+  color: var(--ink);
+  text-decoration: none;
   align-items: center;
   gap: var(--space-2);
 }
@@ -33,7 +35,7 @@
   stroke-linejoin: round;
 }
 
-.masthead__mark .masthead__mark-arrow {
+.masthead__mark .brand-mark__arrow {
   stroke: var(--ink-muted);
 }
 
