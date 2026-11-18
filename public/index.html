@@ -38,6 +38,41 @@
         <p id="status" role="status"></p>
       </form>
 
+      <form id="key-form" class="setup-card key-card" autocomplete="off">
+        <label for="api-key">
+          Anthropic API key <span class="label-hint">(optional)</span>
+        </label>
+        <p class="key-help">
+          Adds an AI-written report and chat. Your key goes straight from this
+          browser to Anthropic and never touches our server. Without one you
+          get a basic report.
+        </p>
+        <div id="key-entry">
+          <div class="setup-row">
+            <input
+              id="api-key"
+              name="api-key"
+              type="password"
+              placeholder="sk-ant-..."
+              autocomplete="off"
+              spellcheck="false"
+            />
+            <button type="submit">Save key</button>
+          </div>
+          <label class="checkbox-row" for="remember-key">
+            <input id="remember-key" type="checkbox" />
+            Remember on this device
+          </label>
+        </div>
+        <div id="key-saved" class="key-saved" hidden>
+          <span id="key-saved-label"></span>
+          <button id="forget-key-button" class="ghost-button" type="button">
+            Forget key
+          </button>
+        </div>
+        <p id="key-message" class="key-message" role="status"></p>
+      </form>
+
       <main id="results" class="layout" hidden>
         <section class="panel report-panel">
           <div class="panel-header">

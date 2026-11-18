@@ -149,6 +149,52 @@ body {
   font-weight: 600;
 }
 
+.label-hint {
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.key-help {
+  margin: 0 0 0.9rem;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.setup-card label.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.75rem 0 0;
+  font-weight: 500;
+  font-size: 0.88rem;
+  cursor: pointer;
+}
+
+.key-saved {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  font-size: 0.92rem;
+}
+
+.key-saved[hidden],
+#key-entry[hidden] {
+  display: none;
+}
+
+.key-message {
+  min-height: 1.2rem;
+  margin: 0.6rem 0 0;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.key-message--error {
+  color: var(--error);
+  font-weight: 600;
+}
+
 .layout {
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(320px, 1fr);

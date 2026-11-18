@@ -1,6 +1,7 @@
 import type { AnalysisSummary } from '../lib/analysis-summary.js';
 import type { CoachReport } from '../lib/coach-prompt.js';
 import { initChat } from './chat.js';
+import { initKeySettings } from './key-settings.js';
 import { renderMarkdownLite } from './markdown.js';
 
 interface CoachResponseBody {
@@ -258,6 +259,8 @@ refreshButton.addEventListener('click', () => {
     void fetchReport(currentManagerId, { forceRefresh: true });
   }
 });
+
+initKeySettings();
 
 const storedManagerId = loadStoredManagerId();
 const parsedStoredId = Number(storedManagerId);
