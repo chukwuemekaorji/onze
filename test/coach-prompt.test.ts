@@ -7,6 +7,7 @@ const VALID_REPORT = {
   captaincy: 'c',
   chips: 'd',
   priceAlerts: 'e',
+  formation: 'f',
 };
 
 describe('parseCoachResponse', () => {
