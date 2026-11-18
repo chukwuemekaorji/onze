@@ -1,0 +1,227 @@
+/* the header in web/components/TopBar.tsx */
+
+.masthead {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas: 'brand gameweek actions';
+  align-items: center;
+  gap: var(--space-4) var(--space-5);
+  padding-bottom: var(--space-5);
+}
+
+.masthead__brand {
+  grid-area: brand;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.masthead__mark {
+  width: 2rem;
+  height: 2rem;
+  color: var(--ink);
+}
+
+.masthead__mark circle,
+.masthead__mark path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.masthead__mark .masthead__mark-arrow {
+  stroke: var(--marker-red);
+}
+
+.masthead__wordmark {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.masthead__gameweek {
+  grid-area: gameweek;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-5);
+}
+
+.masthead__title {
+  margin: 0;
+  font-size: var(--text-3xl);
+  letter-spacing: -0.04em;
+}
+
+.masthead__actions {
+  grid-area: actions;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/* rubber stamp: double red rule, mono caps, pressed on slightly crooked */
+
+.deadline-stamp {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+  padding: var(--space-1) var(--space-3);
+  font-family: var(--font-mono);
+  line-height: 1.15;
+  text-transform: uppercase;
+  color: var(--marker-red-text);
+  border: var(--stroke-bold) solid var(--marker-red-text);
+  border-radius: var(--radius-sm);
+  outline: 1.5px solid var(--marker-red-text);
+  outline-offset: 3px;
+  rotate: -3deg;
+  /* soaks into the paper like ink rather than sitting on it */
+  mix-blend-mode: multiply;
+}
+
+.deadline-stamp__label {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+}
+
+.deadline-stamp__countdown {
+  font-size: var(--text-lg);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.deadline-stamp__date {
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+}
+
+.deadline-stamp--closed {
+  padding-block: var(--space-2);
+}
+
+/* header controls */
+
+.icon-button {
+  display: inline-grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  color: var(--ink);
+  background: var(--paper-card);
+  border: var(--stroke) solid var(--ink);
+  border-radius: var(--radius-sm);
+  box-shadow: 3px 3px 0 var(--marker-red);
+  cursor: pointer;
+  transition:
+    transform var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.icon-button svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.icon-button:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--marker-red);
+}
+
+.icon-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.text-link {
+  padding: var(--space-1) 0;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--ink);
+  background: none;
+  border: none;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.text-link:hover {
+  text-decoration-color: var(--marker-red);
+}
+
+.ai-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--paper-card);
+  border: var(--stroke) solid var(--ink);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+}
+
+.ai-pill:hover {
+  background: var(--paper);
+}
+
+.ai-pill__dot {
+  width: 0.6rem;
+  height: 0.6rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+}
+
+.ai-pill--on .ai-pill__dot {
+  background: var(--marker-red);
+  border-color: var(--marker-red);
+}
+
+.ai-pill__action {
+  padding: 0.1rem var(--space-2);
+  background: var(--highlighter);
+  border-radius: var(--radius-sm);
+}
+
+/* phones: brand and actions share the top row, the gameweek gets its own */
+@media (max-width: 720px) {
+  .masthead {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'brand'
+      'actions'
+      'gameweek';
+  }
+
+  .masthead__actions {
+    justify-content: flex-start;
+  }
+
+  .masthead__gameweek {
+    justify-content: space-between;
+  }
+
+  .masthead__title {
+    font-size: var(--text-2xl);
+  }
+}

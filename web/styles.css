@@ -6,6 +6,7 @@
 @import './styles/textures.css';
 @import './styles/components.css';
 @import './styles/pitch.css';
+@import './styles/masthead.css';
 
 /* existing app, mapped onto the tactics board tokens. layout is unchanged */
 
@@ -15,55 +16,7 @@
   padding: var(--space-5) 1.25rem var(--space-7);
 }
 
-.topbar {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  flex-wrap: wrap;
-  padding-bottom: var(--space-5);
-}
-
-.topbar-brand {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-}
-
-.topbar-mark {
-  width: 2rem;
-  height: 2rem;
-  color: var(--ink);
-}
-
-.topbar-mark circle,
-.topbar-mark path {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2.4;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.topbar-mark .topbar-mark__arrow {
-  stroke: var(--marker-red);
-}
-
-.topbar-title {
-  font-family: var(--font-display);
-  font-size: var(--text-xl);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: var(--ink);
-}
-
-.gw-info {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--ink-muted);
-}
-
 .ghost-button {
-  margin-left: auto;
   padding: var(--space-2) var(--space-4);
   font-family: var(--font-display);
   font-size: var(--text-sm);
@@ -104,7 +57,8 @@
   margin-bottom: var(--space-5);
 }
 
-.setup-card label {
+.setup-card label,
+.key-form label {
   display: block;
   margin-bottom: var(--space-2);
   font-family: var(--font-display);
@@ -206,7 +160,8 @@
   color: var(--ink-muted);
 }
 
-.setup-card label.checkbox-row {
+.setup-card label.checkbox-row,
+.key-form label.checkbox-row {
   display: flex;
   align-items: center;
   gap: var(--space-2);
@@ -229,10 +184,6 @@
   gap: var(--space-3);
   flex-wrap: wrap;
   font-size: var(--text-sm);
-}
-
-.key-saved .ghost-button {
-  margin-left: 0;
 }
 
 .key-saved[hidden],

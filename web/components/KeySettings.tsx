@@ -5,6 +5,7 @@ import { forgetKey, KeyStoreError, saveKey } from '../key-store.js';
 import type { StoredKey } from '../key-store.js';
 import { NO_STATUS } from '../status-line.js';
 import type { StatusLine } from '../status-line.js';
+import { DRAWER_FOCUS_ATTRIBUTE } from './ui/Drawer.js';
 
 const VISIBLE_KEY_SUFFIX_LENGTH = 4;
 
@@ -23,15 +24,20 @@ export function KeySettings({ storedKey, onChange }: KeySettingsProps) {
   const [remember, setRemember] = useState(false);
   const [message, setMessage] = useState<StatusLine>(NO_STATUS);
   const keyInputRef = useRef<HTMLInputElement>(null);
+  const forgetButtonRef = useRef<HTMLButtonElement>(null);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>): void {
     event.preventDefault();
     try {
       const stored = saveKey(keyText, remember);
-      // don't leave the key sitting in the dom once it's stored
-      setKeyText('');
-      setMessage(NO_STATUS);
-      onChange(stored);
+      // the entry row hides once a key is saved, so focus would be lost with it
+      flushSync(() => {
+        // don't leave the key sitting in the dom once it's stored
+        setKeyText('');
+        setMessage(NO_STATUS);
+        onChange(stored);
+      });
+      forgetButtonRef.current?.focus();
     } catch (err) {
       if (!(err instanceof KeyStoreError)) throw err;
       setMessage({ message: err.message, isError: true });
@@ -57,12 +63,7 @@ export function KeySettings({ storedKey, onChange }: KeySettingsProps) {
     : '';
 
   return (
-    <form
-      id="key-form"
-      className="setup-card key-card"
-      autoComplete="off"
-      onSubmit={handleSubmit}
-    >
+    <form id="key-form" className="key-form" autoComplete="off" onSubmit={handleSubmit}>
       <label htmlFor="api-key">
         Anthropic API key <span className="label-hint">(optional)</span>
       </label>
@@ -76,6 +77,7 @@ export function KeySettings({ storedKey, onChange }: KeySettingsProps) {
           <input
             ref={keyInputRef}
             id="api-key"
+            {...{ [DRAWER_FOCUS_ATTRIBUTE]: true }}
             name="api-key"
             type="password"
             placeholder="sk-ant-..."
@@ -99,7 +101,9 @@ export function KeySettings({ storedKey, onChange }: KeySettingsProps) {
       <div id="key-saved" className="key-saved" hidden={storedKey === null}>
         <span id="key-saved-label">{savedLabel}</span>
         <button
+          ref={forgetButtonRef}
           id="forget-key-button"
+          {...{ [DRAWER_FOCUS_ATTRIBUTE]: true }}
           className="ghost-button"
           type="button"
           onClick={handleForget}

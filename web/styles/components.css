@@ -302,3 +302,92 @@
   text-align: center;
   color: var(--ink);
 }
+
+/* drawer: a modal <dialog> pinned to the right edge */
+
+.ui-drawer {
+  position: fixed;
+  inset: 0 0 0 auto;
+  width: min(26rem, 100vw);
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  color: var(--ink);
+  background: var(--paper-card);
+  border: none;
+  border-left: var(--stroke) solid var(--ink);
+  box-shadow: calc(-1 * var(--shadow-offset)) 0 0 var(--ink);
+  translate: 0 0;
+  transition:
+    translate var(--duration-base) var(--ease-out),
+    display var(--duration-base) allow-discrete,
+    overlay var(--duration-base) allow-discrete;
+}
+
+/* slides in from the edge; browsers without @starting-style just appear */
+@starting-style {
+  .ui-drawer[open] {
+    translate: 100% 0;
+  }
+}
+
+.ui-drawer:not([open]) {
+  translate: 100% 0;
+}
+
+.ui-drawer::backdrop {
+  background: rgba(27, 26, 23, 0.35);
+}
+
+/* the page behind a modal shouldn't scroll under it */
+html:has(.ui-drawer[open]) {
+  overflow: hidden;
+}
+
+/* fills the dialog, so only backdrop clicks land on the dialog itself */
+.ui-drawer__panel {
+  height: 100%;
+  overflow-y: auto;
+  padding: var(--space-5);
+}
+
+.ui-drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.ui-drawer__title {
+  margin: 0;
+  font-size: var(--text-xl);
+}
+
+.ui-drawer__close {
+  display: inline-grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  color: var(--ink);
+  background: none;
+  border: var(--stroke) solid var(--ink);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.ui-drawer__close:hover {
+  background: var(--paper);
+}
+
+.ui-drawer__close svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}

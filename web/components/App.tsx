@@ -9,7 +9,10 @@ import { KeySettings } from './KeySettings.js';
 import { ManagerIdForm } from './ManagerIdForm.js';
 import { ReportPanel } from './ReportPanel.js';
 import { TopBar } from './TopBar.js';
+import { Drawer } from './ui/Drawer.js';
 import { InkFilters } from './ui/InkFilters.js';
+
+const KEY_DRAWER_ID = 'key-drawer';
 
 export function App() {
   const [storedKey, setStoredKey] = useState<StoredKey | null>(() => loadKey());
@@ -19,6 +22,8 @@ export function App() {
   );
   const flow = useReportFlow();
   const managerIdInputRef = useRef<HTMLInputElement>(null);
+  const aiPillRef = useRef<HTMLButtonElement>(null);
+  const [keyDrawerOpen, setKeyDrawerOpen] = useState(false);
   const initialLoadStarted = useRef(false);
 
   const loadInitialReport = useEffectEvent(() => {
@@ -48,10 +53,15 @@ export function App() {
     <div className="app">
       <InkFilters />
       <TopBar
-        gameweekInfo={flow.shown?.gameweekInfo ?? null}
+        summary={flow.shown?.summary ?? null}
         busy={flow.busy}
+        aiOn={storedKey !== null}
+        keyDrawerId={KEY_DRAWER_ID}
+        keyDrawerOpen={keyDrawerOpen}
+        aiPillRef={aiPillRef}
         onRefresh={flow.refresh}
-        onChangeManagerId={showManagerIdForm}
+        onChangeTeam={showManagerIdForm}
+        onOpenKeyDrawer={() => setKeyDrawerOpen(true)}
       />
 
       <ManagerIdForm
@@ -64,7 +74,15 @@ export function App() {
         onSubmit={() => flow.submitManagerId(managerIdText)}
       />
 
-      <KeySettings storedKey={storedKey} onChange={handleKeyChange} />
+      <Drawer
+        id={KEY_DRAWER_ID}
+        open={keyDrawerOpen}
+        title="AI coaching"
+        onClose={() => setKeyDrawerOpen(false)}
+        returnFocusTo={aiPillRef}
+      >
+        <KeySettings storedKey={storedKey} onChange={handleKeyChange} />
+      </Drawer>
 
       <main id="results" className="layout" hidden={flow.resultsHidden}>
         {flow.shown && (

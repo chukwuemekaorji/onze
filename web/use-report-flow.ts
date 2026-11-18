@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react';
 import type { AnalysisSummary } from '../lib/analysis-summary.js';
 import type { CoachReport } from '../lib/coach-prompt.js';
-import { describeGameweek } from './gameweek-info.js';
 import { loadKey } from './key-store.js';
 import type { StoredKey } from './key-store.js';
 import { parseManagerId, storeManagerId } from './manager-id-store.js';
@@ -18,8 +17,6 @@ export interface ShownReport {
   summary: AnalysisSummary;
   report: CoachReport;
   source: ReportSource;
-  // worked out once when shown, so "updated x ago" doesn't drift on re-render
-  gameweekInfo: string;
   errorMessage: string | null;
   // bumped per report so the chat panel remounts with a fresh conversation
   version: number;
@@ -69,7 +66,6 @@ export function useReportFlow(): ReportFlow {
       summary: cached.analysisSummary,
       report: cached.report,
       source: cached.source,
-      gameweekInfo: describeGameweek(cached.analysisSummary, cached.cachedAt),
       errorMessage,
       version: (previous?.version ?? 0) + 1,
     }));
