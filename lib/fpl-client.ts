@@ -4,7 +4,6 @@ import type {
   FplEntry,
   FplEntryPicksResponse,
   FplEntryHistoryResponse,
-  FplElementSummaryResponse,
 } from './fpl-types.js';
 
 const FPL_BASE_URL = 'https://fantasy.premierleague.com/api';
@@ -80,27 +79,11 @@ export async function getEntryPicks(
   managerId: number,
   event: number,
 ): Promise<FplEntryPicksResponse> {
-  return fplFetch<FplEntryPicksResponse>(
-    `/entry/${managerId}/event/${event}/picks/`,
-  );
+  return fplFetch<FplEntryPicksResponse>(`/entry/${managerId}/event/${event}/picks/`);
 }
 
 export async function getEntryHistory(
   managerId: number,
 ): Promise<FplEntryHistoryResponse> {
   return fplFetch<FplEntryHistoryResponse>(`/entry/${managerId}/history/`);
-}
-
-export async function getElementSummary(
-  playerId: number,
-): Promise<FplElementSummaryResponse> {
-  return fplFetch<FplElementSummaryResponse>(
-    `/element-summary/${playerId}/`,
-  );
-}
-
-/** test-only: clears the in-memory caches */
-export function __resetCachesForTests(): void {
-  bootstrapCache = null;
-  fixturesCache = null;
 }

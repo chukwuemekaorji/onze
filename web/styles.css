@@ -43,18 +43,14 @@
   cursor: not-allowed;
 }
 
-.setup-card,
-.panel {
+.setup-card {
   position: relative;
+  max-width: 40rem;
+  margin-bottom: var(--space-7);
   padding: var(--space-6);
   background: var(--paper-card);
   border: var(--stroke) solid var(--hairline);
   border-radius: var(--radius-md);
-}
-
-.setup-card {
-  max-width: 40rem;
-  margin-bottom: var(--space-7);
 }
 
 .setup-card label,
@@ -192,11 +188,6 @@
   grid-template-columns: minmax(0, 1fr);
   gap: var(--space-8);
   align-items: start;
-}
-
-.panel-header h2 {
-  margin: 0 0 var(--space-5);
-  font-size: var(--text-xl);
 }
 
 /* errors keep the red: it's a signal here, not decoration */

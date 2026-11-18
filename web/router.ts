@@ -22,10 +22,6 @@ export const ROUTES: readonly Route[] = [
 
 export const HOME_ROUTE: Route = ROUTES[0] as Route;
 
-export function routePath(id: RouteId): string {
-  return ROUTES.find((route) => route.id === id)?.path ?? HOME_ROUTE.path;
-}
-
 // the custom event pushState doesn't fire, so in-app navigation can be heard
 const NAVIGATE_EVENT = 'sensei:navigate';
 

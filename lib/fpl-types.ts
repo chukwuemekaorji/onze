@@ -135,20 +135,3 @@ export interface FplEntryHistoryResponse {
   }>;
   chips: FplEntryHistoryChip[];
 }
-
-export interface FplElementSummaryFixture {
-  event: number | null;
-  is_home: boolean;
-  difficulty: number;
-  team_h: number;
-  team_a: number;
-}
-
-export interface FplElementSummaryResponse {
-  fixtures: FplElementSummaryFixture[];
-  history: Array<{
-    round: number;
-    total_points: number;
-    minutes: number;
-  }>;
-}

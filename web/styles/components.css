@@ -128,8 +128,7 @@
 
 /* marker strokes */
 
-.ui-marker-underline,
-.ui-marker-circle {
+.ui-marker-underline {
   position: relative;
   display: inline-block;
 }
@@ -153,20 +152,6 @@
   bottom: -0.5em;
   width: 104%;
   height: 0.5em;
-}
-
-.ui-marker-circle {
-  padding-inline: 0.15em;
-}
-
-.ui-marker-circle__stroke {
-  inset: -0.4em -0.5em;
-  width: calc(100% + 1em);
-  height: calc(100% + 0.8em);
-}
-
-.ui-marker-circle__stroke path {
-  stroke-width: 2.5;
 }
 
 /* highlight: a yellow highlighter pass behind a word */

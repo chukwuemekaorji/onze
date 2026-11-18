@@ -5,7 +5,6 @@ import {
   HOME_ROUTE,
   isLandingPath,
   routeFromPath,
-  routePath,
   ROUTES,
   wantsExample,
 } from '../web/router.js';
@@ -39,12 +38,7 @@ describe('routes', () => {
     for (const route of ROUTES) expect(route.path).toMatch(/^\/app(\/[a-z]+)?$/);
   });
 
-  it('looks up a path by route id', () => {
-    expect(routePath('captaincy')).toBe('/app/captaincy');
-  });
-
   it('has a leagues page', () => {
-    expect(routePath('leagues')).toBe('/app/leagues');
     expect(routeFromPath('/app/leagues')?.label).toBe('Leagues');
   });
 });
