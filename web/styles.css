@@ -11,62 +11,57 @@
 @import './styles/binder.css';
 @import './styles/loader.css';
 
-/* existing app, mapped onto the tactics board tokens. layout is unchanged */
+/* app shell, forms and chat */
 
 .app {
-  max-width: 1100px;
+  max-width: var(--content-max);
   margin-inline: auto;
-  padding: var(--space-5) var(--page-gutter) var(--space-7);
+  padding: var(--space-6) var(--page-gutter) var(--space-9);
 }
 
 .ghost-button {
   padding: var(--space-2) var(--space-4);
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: var(--text-sm);
-  font-weight: 700;
+  font-weight: 600;
   color: var(--ink);
-  background: var(--paper-card);
-  border: var(--stroke) solid var(--ink);
-  border-radius: var(--radius-sm);
-  box-shadow: 3px 3px 0 var(--marker-red);
+  background: transparent;
+  border: var(--stroke) solid var(--hairline-strong);
+  border-radius: var(--radius-pill);
   cursor: pointer;
-  transition:
-    transform var(--duration-fast) var(--ease-out),
-    box-shadow var(--duration-fast) var(--ease-out);
+  transition: background-color var(--duration-fast) var(--ease-out);
 }
 
 .ghost-button:hover {
-  transform: translate(-1px, -1px);
-  box-shadow: 4px 4px 0 var(--marker-red);
+  background: var(--wash);
 }
 
 .ghost-button:disabled {
-  opacity: 0.55;
+  opacity: 0.5;
   cursor: not-allowed;
-  transform: none;
 }
 
 .setup-card,
 .panel {
   position: relative;
-  padding: var(--space-5);
+  padding: var(--space-6);
   background: var(--paper-card);
-  border: var(--stroke) solid var(--ink);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-sticker);
+  border: var(--stroke) solid var(--hairline);
+  border-radius: var(--radius-md);
 }
 
 .setup-card {
-  margin-bottom: var(--space-5);
+  max-width: 40rem;
+  margin-bottom: var(--space-7);
 }
 
 .setup-card label,
 .key-form label {
   display: block;
-  margin-bottom: var(--space-2);
-  font-family: var(--font-display);
+  margin-bottom: var(--space-3);
+  font-family: var(--font-body);
   font-size: var(--text-md);
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .setup-row {
@@ -83,8 +78,9 @@
   font-family: var(--font-body);
   font-size: var(--text-md);
   color: var(--ink);
-  background: var(--paper);
-  border: var(--stroke) solid var(--ink);
+  background: var(--paper-card);
+  /* muted ink, so the field edge keeps 3:1 against the card */
+  border: var(--stroke) solid var(--ink-muted);
   border-radius: var(--radius-sm);
 }
 
@@ -100,44 +96,26 @@
 .setup-row button,
 .chat-form button {
   padding: var(--space-3) var(--space-5);
-  font-family: var(--font-display);
-  font-size: var(--text-md);
-  font-weight: 700;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
   color: var(--paper);
   background: var(--ink);
-  border: var(--stroke-bold) solid var(--ink);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-marker);
+  border: var(--stroke) solid var(--ink);
+  border-radius: var(--radius-pill);
   cursor: pointer;
-  transition:
-    transform var(--duration-fast) var(--ease-out),
-    box-shadow var(--duration-fast) var(--ease-out);
+  transition: background-color var(--duration-fast) var(--ease-out);
 }
 
 .setup-row button:hover,
 .chat-form button:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: var(--shadow-offset-lift) var(--shadow-offset-lift) 0 var(--marker-red);
-}
-
-.setup-row button:active,
-.chat-form button:active {
-  transform: translate(var(--shadow-offset), var(--shadow-offset));
-  box-shadow: none;
-}
-
-.setup-row button:focus-visible,
-.chat-form button:focus-visible {
-  outline: var(--stroke-bold) dashed var(--ink);
-  outline-offset: calc(var(--shadow-offset) + var(--focus-offset));
+  background: #33312c;
 }
 
 .setup-row button:disabled,
 .chat-form button:disabled {
-  opacity: 0.55;
+  opacity: 0.5;
   cursor: not-allowed;
-  transform: none;
-  box-shadow: var(--shadow-marker);
 }
 
 #status {
@@ -149,7 +127,7 @@
 
 #status.status--error {
   color: var(--marker-red-text);
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .label-hint {
@@ -158,7 +136,8 @@
 }
 
 .key-help {
-  margin: 0 0 var(--space-4);
+  max-width: var(--measure);
+  margin: 0 0 var(--space-5);
   font-size: var(--text-sm);
   color: var(--ink-muted);
 }
@@ -168,16 +147,15 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  margin: var(--space-3) 0 0;
-  font-family: var(--font-body);
+  margin: var(--space-4) 0 0;
   font-size: var(--text-sm);
   font-weight: 500;
   cursor: pointer;
 }
 
 .checkbox-row input {
-  width: 1.1rem;
-  height: 1.1rem;
+  width: 1rem;
+  height: 1rem;
   accent-color: var(--ink);
 }
 
@@ -196,46 +174,45 @@
 
 .key-message {
   min-height: 1.2rem;
-  margin: var(--space-2) 0 0;
+  margin: var(--space-3) 0 0;
   font-size: var(--text-sm);
   color: var(--ink-muted);
 }
 
 .key-message--error {
   color: var(--marker-red-text);
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .layout {
   display: grid;
-  /* the report board sets its own columns; chat sits under it for now */
+  /* the binder sets its own columns; chat sits under it for now */
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-7);
+  gap: var(--space-8);
   align-items: start;
 }
 
 .panel-header h2 {
-  margin: 0 0 var(--space-4);
-  font-size: var(--text-lg);
+  margin: 0 0 var(--space-5);
+  font-size: var(--text-xl);
 }
 
+/* errors keep the red: it's a signal here, not decoration */
 .report-banner {
-  margin-bottom: var(--space-4);
   padding: var(--space-3) var(--space-4);
   font-size: var(--text-sm);
-  font-weight: 700;
+  font-weight: 600;
   color: var(--marker-red-text);
-  background: var(--paper);
+  background: var(--paper-card);
   border: var(--stroke) solid var(--marker-red);
   border-radius: var(--radius-sm);
 }
 
 .report-label {
-  margin: 0 0 var(--space-4);
-  padding: var(--space-2) var(--space-4);
+  padding: var(--space-3) var(--space-4);
   font-size: var(--text-sm);
-  font-weight: 600;
-  background: var(--highlighter);
+  color: var(--ink-muted);
+  background: var(--wash);
   border-radius: var(--radius-sm);
 }
 
@@ -247,19 +224,17 @@
 }
 
 .chat-panel {
-  position: sticky;
-  top: var(--space-5);
   display: flex;
   flex-direction: column;
-  min-height: 560px;
+  max-width: 48rem;
+  min-height: 520px;
 }
 
 .chat-disabled {
-  padding: var(--space-3);
-  font-family: var(--font-hand);
-  font-size: var(--text-lg);
-  line-height: 1.2;
-  background: var(--highlighter);
+  padding: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+  background: var(--wash);
   border-radius: var(--radius-sm);
 }
 
@@ -267,20 +242,19 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
-  min-height: 380px;
+  gap: var(--space-3);
+  min-height: 360px;
   max-height: 60vh;
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-5);
   padding-right: var(--space-1);
   overflow-y: auto;
 }
 
 .chat-message {
-  max-width: 88%;
-  padding: var(--space-2) var(--space-4);
+  max-width: min(88%, var(--measure));
+  padding: var(--space-3) var(--space-4);
   font-size: var(--text-sm);
-  line-height: 1.45;
-  border: 1.5px solid var(--ink);
+  line-height: 1.5;
   border-radius: var(--radius-md);
 }
 
@@ -288,13 +262,12 @@
   align-self: flex-end;
   color: var(--paper);
   background: var(--ink);
-  border-bottom-right-radius: var(--radius-sm);
 }
 
 .chat-message--assistant {
   align-self: flex-start;
-  background: var(--paper);
-  border-bottom-left-radius: var(--radius-sm);
+  background: var(--paper-card);
+  border: var(--stroke) solid var(--hairline);
 }
 
 .chat-message--typing {
@@ -305,8 +278,8 @@
 }
 
 .chat-message--typing span {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   background: currentColor;
   opacity: 0.4;
@@ -329,7 +302,7 @@
     opacity: 0.4;
   }
   30% {
-    transform: translateY(-4px);
+    transform: translateY(-3px);
     opacity: 1;
   }
 }

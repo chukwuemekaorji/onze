@@ -38,21 +38,18 @@ const SPOT_RADIUS = m(0.35);
 const CORNER_ARC_RADIUS = m(2);
 const MOWING_STRIPES = 12;
 
-// gaps below the jersey, in pitch units
-const TAPE_GAP = 7;
-const TAPE_HEIGHT = 34;
-const TAPE_PADDING_X = 10;
-// how far a torn tape end bites into the strip
-const TAPE_TEAR = 4;
-// alternate tapes lean opposite ways, so the row looks stuck on by hand
-const TAPE_TILT_DEG = 1.5;
+// the name chip under each jersey, in pitch units
+const LABEL_GAP = 8;
+const LABEL_HEIGHT = 34;
+const LABEL_PADDING_X = 12;
+const LABEL_RADIUS = 8;
 const FIXTURE_BASELINE_GAP = 25;
 
 const PITCH_ROW_LAYOUT: RowLayout = {
   width: PITCH_WIDTH,
   sideMargin: m(4),
   // these two mirror the font sizes in pitch.css
-  labelFontSize: 25,
+  labelFontSize: 24,
   fixtureFontSize: 20,
   labelGap: 10,
 };
@@ -135,7 +132,7 @@ export function Pitch({ summary }: PitchProps) {
           focusable="false"
         >
           <text className="pitch__bench-label" x={0} y={22}>
-            Bench
+            BENCH
           </text>
           {bench.map((player) => (
             <PlayerMarker
@@ -302,19 +299,6 @@ function Markings({ drawIn }: MarkingsProps) {
   );
 }
 
-function tapePath(width: number, height: number): string {
-  const hw = width / 2;
-  const hh = height / 2;
-  const t = TAPE_TEAR;
-  // straight long edges, zigzag torn ends
-  return [
-    `M ${-hw} ${-hh} L ${hw} ${-hh}`,
-    `L ${hw - t} ${-hh / 2} L ${hw} 0 L ${hw - t} ${hh / 2} L ${hw} ${hh}`,
-    `L ${-hw} ${hh}`,
-    `L ${-hw + t} ${hh / 2} L ${-hw} 0 L ${-hw + t} ${-hh / 2} Z`,
-  ].join(' ');
-}
-
 function squeezeTo(length: number | null) {
   return length === null
     ? {}
@@ -328,25 +312,21 @@ interface PlayerMarkerProps {
   entranceDelayS: number | null;
 }
 
-// a sticker slapped down: a little big and crooked, a squash, then flat
-const SLAP_START_SCALE = 1.3;
-const SLAP_SQUASH_SCALE = 0.94;
-const SLAP_TILT_DEG = 7;
+// each shirt settles into place: a touch large, a hint of give, then still
+const SLAP_START_SCALE = 1.08;
+const SLAP_SQUASH_SCALE = 0.99;
 
 function PlayerMarker({ player, jerseyScale, entranceDelayS }: PlayerMarkerProps) {
-  const tapeY = JERSEY_HALF_HEIGHT * jerseyScale + TAPE_GAP + TAPE_HEIGHT / 2;
-  const isEven = (player.shirtNumber ?? 0) % 2 === 0;
-  const tapeTilt = isEven ? TAPE_TILT_DEG : -TAPE_TILT_DEG;
-  const slapTilt = isEven ? SLAP_TILT_DEG : -SLAP_TILT_DEG;
+  const labelY = JERSEY_HALF_HEIGHT * jerseyScale + LABEL_GAP + LABEL_HEIGHT / 2;
+  const labelWidth = player.labelWidth + 2 * LABEL_PADDING_X;
   const landing =
     entranceDelayS === null
       ? {}
       : {
-          initial: { opacity: 0, scale: SLAP_START_SCALE, rotate: slapTilt },
+          initial: { opacity: 0, scale: SLAP_START_SCALE },
           animate: {
             opacity: [0, 1, 1],
             scale: [SLAP_START_SCALE, SLAP_SQUASH_SCALE, 1],
-            rotate: [slapTilt, 0, 0],
           },
           transition: {
             delay: entranceDelayS,
@@ -368,10 +348,14 @@ function PlayerMarker({ player, jerseyScale, entranceDelayS }: PlayerMarkerProps
             armband={player.armband}
           />
         </g>
-        <g transform={`translate(0 ${tapeY}) rotate(${tapeTilt})`}>
-          <path
-            className="pitch-player__tape"
-            d={tapePath(player.labelWidth + 2 * TAPE_PADDING_X, TAPE_HEIGHT)}
+        <g transform={`translate(0 ${labelY})`}>
+          <rect
+            className="pitch-player__label-bg"
+            x={-labelWidth / 2}
+            y={-LABEL_HEIGHT / 2}
+            width={labelWidth}
+            height={LABEL_HEIGHT}
+            rx={LABEL_RADIUS}
           />
           <text
             className="pitch-player__name"
@@ -384,7 +368,7 @@ function PlayerMarker({ player, jerseyScale, entranceDelayS }: PlayerMarkerProps
         <text
           className="pitch-player__fixture"
           x={0}
-          y={tapeY + TAPE_HEIGHT / 2 + FIXTURE_BASELINE_GAP}
+          y={labelY + LABEL_HEIGHT / 2 + FIXTURE_BASELINE_GAP}
           {...squeezeTo(player.fixtureLength)}
         >
           {player.fixture}

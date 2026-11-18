@@ -1,9 +1,9 @@
 /* the coach's binder in web/components/binder: index tabs on the right edge,
-   punched pages, and the layout of each page */
+   a quiet sheet, and the layout of each page */
 
 .binder {
-  --binder-tab-width: 8rem;
-  --binder-padding: var(--space-7);
+  --binder-tab-width: 8.5rem;
+  --binder-padding: var(--space-8);
   position: relative;
   /* room for the tabs sticking out of the right edge */
   margin-right: var(--binder-tab-width);
@@ -13,7 +13,7 @@
 
 .binder-tabs {
   position: absolute;
-  top: var(--space-7);
+  top: var(--space-8);
   left: 100%;
   z-index: 1;
 }
@@ -21,7 +21,7 @@
 .binder-tabs__list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: var(--space-1);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -31,28 +31,26 @@
   position: relative;
   display: block;
   width: var(--binder-tab-width);
-  padding: var(--space-3) var(--space-4);
-  font-family: var(--font-display);
+  padding: var(--space-3) var(--space-4) var(--space-3) var(--space-5);
+  font-family: var(--font-body);
   font-size: var(--text-sm);
-  font-weight: 700;
+  font-weight: 500;
   color: var(--ink-muted);
   text-decoration: none;
-  background: var(--paper);
-  border: var(--stroke) solid var(--ink);
-  border-left: none;
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  box-shadow: 3px 3px 0 var(--ink);
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out);
 }
 
 .binder-tabs__tab:hover {
   color: var(--ink);
-  background: var(--paper-card);
+  background: var(--wash);
 }
 
-/* the open tab joins its page: same paper, pulled over the page's border */
+/* the open tab sits on the sheet's paper, marked by the red accent */
 .binder-tabs__tab[aria-current='page'] {
-  left: calc(-1 * var(--stroke));
-  padding-left: calc(var(--space-4) + var(--stroke));
+  font-weight: 600;
   color: var(--ink);
   background: var(--paper-card);
 }
@@ -60,50 +58,50 @@
 .binder-tabs__tab[aria-current='page']::before {
   content: '';
   position: absolute;
-  top: var(--space-2);
-  bottom: var(--space-2);
+  top: var(--space-3);
+  bottom: var(--space-3);
   left: var(--space-2);
-  width: 3px;
+  width: 2px;
   background: var(--marker-red);
-  border-radius: var(--radius-sm);
+  border-radius: 1px;
 }
 
-/* pages */
+/* the sheet */
 
 .binder__sheets {
   position: relative;
   min-height: 60vh;
   padding: var(--binder-padding);
-  padding-left: calc(var(--binder-padding) + var(--space-5));
+  padding-left: calc(var(--binder-padding) + var(--space-4));
   background: var(--paper-card);
-  border: var(--stroke) solid var(--ink);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-sticker);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
 }
 
-/* three punched holes down the binding edge */
+/* three faint punched holes down the binding edge */
 .binder__sheets::before {
   content: '';
   position: absolute;
   top: 18%;
-  left: var(--space-4);
-  width: 0.9rem;
-  height: 0.9rem;
-  background: rgba(27, 26, 23, 0.16);
+  left: var(--space-5);
+  width: 0.7rem;
+  height: 0.7rem;
+  background: var(--wash);
   border-radius: 50%;
   box-shadow:
-    0 9rem 0 rgba(27, 26, 23, 0.16),
-    0 18rem 0 rgba(27, 26, 23, 0.16);
+    0 10rem 0 var(--wash),
+    0 20rem 0 var(--wash);
   pointer-events: none;
 }
 
 .binder__alerts {
   display: grid;
   gap: var(--space-3);
+  max-width: 46rem;
 }
 
 .binder__alerts:has(> :not([hidden])) {
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-7);
 }
 
 .binder__alerts .report-label,
@@ -119,12 +117,14 @@
 .binder-page {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-7);
 }
 
+/* the one big heading on each page */
 .binder-page__title {
   margin: 0;
-  font-size: var(--text-2xl);
+  font-size: var(--text-3xl);
+  letter-spacing: -0.03em;
 }
 
 /* focused only so screen readers announce the new page; it isn't a control */
@@ -133,8 +133,8 @@
 }
 
 .page-lede {
-  max-width: 40rem;
-  margin: calc(-1 * var(--space-3)) 0 0;
+  max-width: var(--measure);
+  margin: calc(-1 * var(--space-5)) 0 0;
   color: var(--ink-muted);
 }
 
@@ -149,7 +149,7 @@
   display: grid;
   /* pitch about 60%, the notes and moves the rest */
   grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-  gap: var(--space-7);
+  gap: var(--space-8);
   align-items: start;
 }
 
@@ -157,19 +157,25 @@
   display: flex;
   align-items: baseline;
   gap: var(--space-3);
-  margin: 0 0 var(--space-4);
+  margin: 0 0 var(--space-5);
   font-size: var(--text-lg);
 }
 
+/* the formation, scribbled beside the heading */
 .this-week__formation {
-  font-family: var(--font-mono);
-  font-size: var(--text-md);
-  font-weight: 500;
+  font-family: var(--font-hand);
+  font-size: var(--text-xl);
+  font-weight: 600;
   color: var(--ink-muted);
 }
 
 .this-week__pitch .pitch {
-  max-width: 560px;
+  max-width: 540px;
+}
+
+.this-week__pitch > .coach-note {
+  max-width: 540px;
+  margin-inline: auto;
 }
 
 .this-week__column {
@@ -181,30 +187,36 @@
 .moves-summary {
   display: grid;
   gap: var(--space-5);
-  margin: var(--space-4) 0 0;
+  margin: var(--space-5) 0 0;
 }
 
 .moves-summary__row dt {
-  margin-bottom: var(--space-1);
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: 0.08em;
+  margin-bottom: var(--space-2);
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--ink-muted);
 }
 
 .moves-summary__row dd {
   margin: 0;
-  font-weight: 600;
+  font-weight: 500;
+  line-height: 1.5;
 }
 
 .see-all {
   font-size: var(--text-sm);
-  font-weight: 700;
-  color: var(--marker-red-text);
+  font-weight: 500;
+  color: var(--ink);
   white-space: nowrap;
-  text-decoration-thickness: 1.5px;
-  text-underline-offset: 3px;
+  text-decoration-color: var(--hairline-strong);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.see-all:hover {
+  text-decoration-color: currentColor;
 }
 
 /* your leagues */
@@ -212,7 +224,7 @@
 .league-rows {
   display: grid;
   gap: var(--space-4);
-  margin: var(--space-4) 0 0;
+  margin: var(--space-5) 0 0;
   padding: 0;
   list-style: none;
 }
@@ -222,6 +234,13 @@
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: baseline;
   column-gap: var(--space-3);
+  padding-bottom: var(--space-4);
+  border-bottom: var(--stroke) solid var(--hairline);
+}
+
+.league-row:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 /* league names run long, so each gets the full width of its own line */
@@ -234,6 +253,8 @@
 .league-row__position {
   font-family: var(--font-mono);
   font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-muted);
 }
 
 .league-row__movement {
@@ -247,21 +268,17 @@
 }
 
 .league-row__arrow {
-  width: 0.8rem;
-  height: 0.85rem;
+  width: 0.7rem;
+  height: 0.75rem;
   fill: none;
   stroke: currentColor;
-  stroke-width: 2;
+  stroke-width: 1.8;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
 .league-row--up .league-row__movement {
   color: var(--ink);
-}
-
-.league-row--down .league-row__movement {
-  color: var(--marker-red-text);
 }
 
 .league-row--down .league-row__arrow {
@@ -271,11 +288,11 @@
 /* transfers */
 
 .hit-advice {
-  max-width: 44rem;
+  max-width: var(--measure);
   margin: 0;
-  padding: var(--space-3) var(--space-4);
-  font-weight: 600;
-  background: var(--highlighter);
+  padding: var(--space-1) 0 var(--space-1) var(--space-5);
+  font-size: var(--text-md);
+  line-height: 1.6;
   border-left: var(--stroke-bold) solid var(--ink);
 }
 
@@ -287,8 +304,8 @@
 }
 
 .transfer-list__item {
-  padding: var(--space-4) 0;
-  border-top: 1.5px dashed rgba(27, 26, 23, 0.3);
+  padding: var(--space-5) 0;
+  border-top: var(--stroke) solid var(--hairline);
 }
 
 .transfer-list__item:first-child {
@@ -310,14 +327,13 @@
 .transfer-move__tag--skip {
   color: var(--ink-muted);
   border-style: dashed;
-  border-color: var(--ink-muted);
 }
 
 /* captaincy */
 
 .captain-ranks {
   display: grid;
-  gap: var(--space-2);
+  gap: var(--space-1);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -327,52 +343,51 @@
   display: grid;
   grid-template-columns: 1.5rem 2rem minmax(0, 1fr) auto auto;
   align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-3);
-  border: 1.5px solid transparent;
+  gap: var(--space-4);
+  padding: var(--space-4);
   border-radius: var(--radius-sm);
 }
 
-.captain-rank--captain {
-  background: var(--highlighter);
-  border-color: var(--ink);
+.captain-rank + .captain-rank {
+  border-top: var(--stroke) solid var(--hairline);
 }
 
-.captain-rank--vice {
-  border-color: var(--ink);
-  border-style: dashed;
+.captain-rank--captain {
+  background: var(--wash);
+}
+
+.captain-rank--captain + .captain-rank {
+  border-top-color: transparent;
 }
 
 .captain-rank__number,
-.captain-rank__fixture,
 .captain-rank__points {
   font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
 }
 
 .captain-rank__number {
+  font-size: var(--text-sm);
   color: var(--ink-muted);
 }
 
 .captain-rank__name {
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .captain-rank__fixture {
   font-size: var(--text-sm);
-}
-
-.captain-rank__points {
-  font-weight: 500;
-}
-
-.captain-rank__unit {
-  font-size: var(--text-xs);
   color: var(--ink-muted);
 }
 
-.captain-rank--captain .captain-rank__number,
-.captain-rank--captain .captain-rank__unit {
-  color: var(--ink);
+.captain-rank__points {
+  font-size: var(--text-sm);
+}
+
+.captain-rank__unit {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
 }
 
 /* chips timeline */
@@ -380,7 +395,7 @@
 .gw-timeline {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: var(--space-3);
+  gap: var(--space-4);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -395,47 +410,59 @@
 }
 
 .gw-timeline__week--quiet {
-  border-top-color: var(--ink-muted);
+  border-top-color: var(--hairline-strong);
 }
 
 .gw-timeline__event {
-  font-family: var(--font-mono);
-  font-weight: 500;
+  font-size: var(--text-sm);
+  font-weight: 600;
 }
 
 .gw-mark {
   align-self: flex-start;
   padding: 0.1rem var(--space-2);
-  font-family: var(--font-mono);
   font-size: var(--text-xs);
-  border-radius: var(--radius-sm);
+  font-weight: 500;
+  border-radius: var(--radius-pill);
 }
 
 .gw-mark--double {
   color: var(--paper);
-  background: var(--marker-red-text);
+  background: var(--ink);
 }
 
 .gw-mark--blank {
-  border: 1.5px dashed var(--ink);
+  border: var(--stroke) dashed var(--ink-muted);
 }
 
 .gw-mark--normal {
+  padding-inline: 0;
   color: var(--ink-muted);
 }
 
 /* prices get room to breathe */
 
 .prices-page .price-rows {
-  gap: var(--space-4);
+  gap: var(--space-5);
 }
 
 .prices-page .price-row {
-  padding-bottom: var(--space-3);
-  border-bottom: 1.5px dashed rgba(27, 26, 23, 0.2);
+  padding-bottom: var(--space-5);
+  border-bottom: var(--stroke) solid var(--hairline);
+}
+
+.prices-page .price-row:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 /* narrower screens */
+
+@media (max-width: 1100px) {
+  .binder {
+    --binder-padding: var(--space-7);
+  }
+}
 
 @media (max-width: 1000px) {
   .this-week__grid {
@@ -450,13 +477,13 @@
 /* phones: tabs become a sideways-scrolling row across the top */
 @media (max-width: 760px) {
   .binder {
-    --binder-padding: var(--space-4);
+    --binder-padding: var(--space-5);
     margin-right: 0;
   }
 
   .binder-tabs {
     position: static;
-    margin-bottom: calc(-1 * var(--stroke));
+    margin-bottom: var(--space-2);
     overflow-x: auto;
     scrollbar-width: none;
   }
@@ -464,41 +491,37 @@
   .binder-tabs__list {
     flex-direction: row;
     gap: var(--space-1);
-    padding-inline: var(--space-2);
   }
 
   .binder-tabs__tab {
     width: auto;
-    padding: var(--space-2) var(--space-3);
+    padding: var(--space-2) var(--space-4) var(--space-3);
     white-space: nowrap;
-    border: var(--stroke) solid var(--ink);
-    border-bottom: none;
-    border-radius: var(--radius-md) var(--radius-md) 0 0;
-    box-shadow: none;
-  }
-
-  .binder-tabs__tab[aria-current='page'] {
-    left: 0;
-    top: var(--stroke);
-    padding-left: var(--space-3);
+    border-radius: var(--radius-pill);
   }
 
   .binder-tabs__tab[aria-current='page']::before {
-    inset: auto var(--space-2) var(--space-1);
+    inset: auto var(--space-4) var(--space-1);
     width: auto;
-    height: 3px;
+    height: 2px;
   }
 
   .binder__sheets {
     padding-left: var(--binder-padding);
+    border-radius: var(--radius-md);
   }
 
   .binder__sheets::before {
     display: none;
   }
 
+  .binder-page__title {
+    font-size: var(--text-2xl);
+  }
+
   .captain-rank {
     grid-template-columns: 1.25rem 2rem minmax(0, 1fr) auto;
+    gap: var(--space-3);
   }
 
   .captain-rank__fixture {
@@ -510,14 +533,11 @@
 /* phones: the pitch runs to the screen edges so its labels stay readable */
 @media (max-width: 600px) {
   .this-week__pitch .pitch {
-    margin-inline: calc(
-      -1 * (var(--binder-padding) + var(--page-gutter) + var(--stroke))
-    );
+    margin-inline: calc(-1 * (var(--binder-padding) + var(--page-gutter)));
   }
 
   .this-week__pitch .pitch__field {
     border-inline: none;
     border-radius: 0;
-    box-shadow: none;
   }
 }

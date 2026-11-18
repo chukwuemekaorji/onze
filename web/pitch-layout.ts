@@ -63,8 +63,8 @@ const FIRST_BENCH_NUMBER = 12;
 // average glyph width as a share of font size. an estimate, since svg can't
 // measure text before it renders
 export const NAME_GLYPH_WIDTH_EM = 0.58;
-// dm mono's advance width is a fixed 0.6em
-export const MONO_GLYPH_WIDTH_EM = 0.6;
+// fixtures are set in the body font at a regular weight, a little narrower
+export const FIXTURE_GLYPH_WIDTH_EM = 0.52;
 
 export function estimateLabelWidth(
   text: string,
@@ -155,7 +155,7 @@ export function placeRow(
         fixture,
         maxLabelWidth,
         layout.fixtureFontSize,
-        MONO_GLYPH_WIDTH_EM,
+        FIXTURE_GLYPH_WIDTH_EM,
       ),
     };
   });

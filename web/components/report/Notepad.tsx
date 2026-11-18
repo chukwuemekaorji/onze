@@ -5,12 +5,12 @@ import { usePrefersReducedMotion } from '../../motion.js';
 import { measureWordLines, wrapWords } from '../../text-lines.js';
 import type { LineBox } from '../../text-lines.js';
 
-const COVER_FLIP_S = 0.55;
+const COVER_FLIP_S = 0.45;
 // the cover is folded back over the top, past vertical, where its back is hidden
 const COVER_OPEN_ANGLE_DEG = -180;
 // writing starts as the cover clears the page
-const WRITE_START_S = 0.4;
-const LINE_WRITE_S = 0.5;
+const WRITE_START_S = 0.32;
+const LINE_WRITE_S = 0.4;
 // covers reach a hair past each line so no ascender peeks out early
 const LINE_COVER_BLEED_PX = 2;
 const SPIRAL_RINGS = 14;
@@ -76,6 +76,8 @@ export function Notepad({ text }: NotepadProps) {
       </button>
 
       <div className="notepad__sheets">
+        {/* the one piece of tape left in the design, holding the pad down */}
+        <span className="ui-tape notepad__tape" aria-hidden="true" />
         <div id={pageId} className="notepad__page" onClick={handlePageClick}>
           {/* words and covers share this positioned box, so word offsets place the covers */}
           <div ref={writingRef} className="notepad__writing">
@@ -116,7 +118,7 @@ export function Notepad({ text }: NotepadProps) {
           transition={{ duration: reduced ? 0 : COVER_FLIP_S, ease: 'easeInOut' }}
         >
           <span className="notepad__cover-title">Coach's notes</span>
-          <span className="notepad__cover-hint">tap to open</span>
+          <span className="notepad__cover-hint">Tap to open</span>
         </motion.div>
       </div>
     </div>

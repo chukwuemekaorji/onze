@@ -16,8 +16,7 @@
 }
 
 .pencil-loader__label {
-  font-family: var(--font-hand);
-  font-size: var(--text-lg);
+  font-size: var(--text-sm);
   color: var(--ink-muted);
 }
 
@@ -27,8 +26,8 @@
 
 .pencil-loader__stroke {
   fill: none;
-  stroke: var(--ink);
-  stroke-width: 1.6;
+  stroke: var(--ink-muted);
+  stroke-width: 1.4;
   stroke-linecap: round;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
@@ -51,7 +50,7 @@
 }
 
 .pencil-loader__pencil-body {
-  fill: var(--highlighter);
+  fill: var(--paper-card);
   stroke: var(--ink);
   stroke-width: 0.8;
 }
@@ -61,7 +60,7 @@
 }
 
 .pencil-loader__pencil-end {
-  fill: var(--marker-red);
+  fill: var(--ink-muted);
   stroke: var(--ink);
   stroke-width: 0.8;
 }

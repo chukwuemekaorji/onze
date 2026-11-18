@@ -5,8 +5,10 @@
   grid-template-columns: auto 1fr auto;
   grid-template-areas: 'brand gameweek actions';
   align-items: center;
-  gap: var(--space-4) var(--space-5);
+  gap: var(--space-4) var(--space-6);
+  margin-bottom: var(--space-7);
   padding-bottom: var(--space-5);
+  border-bottom: var(--stroke) solid var(--hairline);
 }
 
 .masthead__brand {
@@ -17,8 +19,8 @@
 }
 
 .masthead__mark {
-  width: 2rem;
-  height: 2rem;
+  width: 1.75rem;
+  height: 1.75rem;
   color: var(--ink);
 }
 
@@ -26,20 +28,20 @@
 .masthead__mark path {
   fill: none;
   stroke: currentColor;
-  stroke-width: 2.4;
+  stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
 .masthead__mark .masthead__mark-arrow {
-  stroke: var(--marker-red);
+  stroke: var(--ink-muted);
 }
 
 .masthead__wordmark {
   font-family: var(--font-display);
-  font-size: var(--text-xl);
-  font-weight: 800;
-  letter-spacing: -0.03em;
+  font-size: var(--text-lg);
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 .masthead__gameweek {
@@ -51,10 +53,12 @@
   gap: var(--space-3) var(--space-5);
 }
 
+/* the page title is the big heading; this one is a quiet running head */
 .masthead__title {
   margin: 0;
-  font-size: var(--text-3xl);
-  letter-spacing: -0.04em;
+  font-size: var(--text-lg);
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .masthead__actions {
@@ -63,72 +67,66 @@
   align-items: center;
   justify-content: flex-end;
   flex-wrap: wrap;
-  gap: var(--space-3);
+  gap: var(--space-4);
 }
 
-/* rubber stamp: double red rule, mono caps, pressed on slightly crooked */
+/* deadline stamp: one thin red rule, upright, small */
 
 .deadline-stamp {
   position: relative;
   display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.1rem;
+  align-items: baseline;
+  gap: var(--space-2);
   padding: var(--space-1) var(--space-3);
-  font-family: var(--font-mono);
-  line-height: 1.15;
-  text-transform: uppercase;
+  line-height: 1.3;
   color: var(--marker-red-text);
-  border: var(--stroke-bold) solid var(--marker-red-text);
+  border: var(--stroke) solid var(--marker-red);
   border-radius: var(--radius-sm);
-  outline: 1.5px solid var(--marker-red-text);
-  outline-offset: 3px;
-  rotate: -3deg;
-  /* soaks into the paper like ink rather than sitting on it */
-  mix-blend-mode: multiply;
 }
 
 .deadline-stamp__label {
-  font-size: var(--text-xs);
-  font-weight: 500;
-  letter-spacing: 0.12em;
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
 }
 
 .deadline-stamp__countdown {
-  font-size: var(--text-lg);
-  font-weight: 500;
-  letter-spacing: 0.04em;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
 }
 
 .deadline-stamp__date {
   font-size: var(--text-xs);
-  letter-spacing: 0.04em;
+  color: var(--ink-muted);
 }
 
-/* the last hour: a slow red pulse. the bold digits carry it when motion is off */
+/* the last hour: a slow, faint red pulse. the bold digits carry it when motion is off */
 .deadline-stamp--urgent .deadline-stamp__countdown {
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .deadline-stamp--urgent::after {
   content: '';
   position: absolute;
-  inset: -3px;
+  inset: 0;
   background: var(--marker-red);
-  border-radius: var(--radius-sm);
+  border-radius: inherit;
   opacity: 0;
   pointer-events: none;
-  animation: stamp-pulse 2.4s ease-in-out infinite;
+  animation: stamp-pulse 2.8s ease-in-out infinite;
 }
 
 @keyframes stamp-pulse {
   50% {
-    opacity: 0.2;
+    opacity: 0.1;
   }
 }
 
 .deadline-stamp--closed {
-  padding-block: var(--space-2);
+  color: var(--ink-muted);
+  border-color: var(--hairline-strong);
 }
 
 /* header controls */
@@ -136,57 +134,53 @@
 .icon-button {
   display: inline-grid;
   place-items: center;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.25rem;
+  height: 2.25rem;
   padding: 0;
   color: var(--ink);
-  background: var(--paper-card);
-  border: var(--stroke) solid var(--ink);
-  border-radius: var(--radius-sm);
-  box-shadow: 3px 3px 0 var(--marker-red);
+  background: transparent;
+  border: var(--stroke) solid var(--hairline-strong);
+  border-radius: var(--radius-pill);
   cursor: pointer;
-  transition:
-    transform var(--duration-fast) var(--ease-out),
-    box-shadow var(--duration-fast) var(--ease-out);
+  transition: background-color var(--duration-fast) var(--ease-out);
 }
 
 .icon-button svg {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1.05rem;
+  height: 1.05rem;
   fill: none;
   stroke: currentColor;
-  stroke-width: 2.2;
+  stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
 .icon-button:hover {
-  transform: translate(-1px, -1px);
-  box-shadow: 4px 4px 0 var(--marker-red);
+  background: var(--wash);
 }
 
 .icon-button:disabled {
-  opacity: 0.55;
+  opacity: 0.5;
   cursor: not-allowed;
-  transform: none;
 }
 
 .text-link {
   padding: var(--space-1) 0;
   font-family: var(--font-body);
   font-size: var(--text-sm);
-  font-weight: 600;
+  font-weight: 500;
   color: var(--ink);
   background: none;
   border: none;
   text-decoration: underline;
-  text-decoration-thickness: 1.5px;
-  text-underline-offset: 3px;
+  text-decoration-color: var(--hairline-strong);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
   cursor: pointer;
 }
 
 .text-link:hover {
-  text-decoration-color: var(--marker-red);
+  text-decoration-color: currentColor;
 }
 
 .ai-pill {
@@ -194,39 +188,40 @@
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-2) var(--space-4);
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: var(--text-sm);
-  font-weight: 700;
+  font-weight: 500;
   color: var(--ink);
-  background: var(--paper-card);
-  border: var(--stroke) solid var(--ink);
+  background: transparent;
+  border: var(--stroke) solid var(--hairline-strong);
   border-radius: var(--radius-pill);
   cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-out);
 }
 
 .ai-pill:hover {
-  background: var(--paper);
+  background: var(--wash);
 }
 
 .ai-pill__dot {
-  width: 0.6rem;
-  height: 0.6rem;
-  border: 1.5px solid var(--ink);
+  width: 0.5rem;
+  height: 0.5rem;
+  border: var(--stroke-bold) solid var(--ink-muted);
   border-radius: 50%;
 }
 
 .ai-pill--on .ai-pill__dot {
-  background: var(--marker-red);
-  border-color: var(--marker-red);
+  background: var(--ink);
+  border-color: var(--ink);
 }
 
 .ai-pill__action {
-  padding: 0.1rem var(--space-2);
-  background: var(--highlighter);
-  border-radius: var(--radius-sm);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
-/* phones: brand and actions share the top row, the gameweek gets its own */
+/* phones: brand, then actions, then the gameweek on its own row */
 @media (max-width: 720px) {
   .masthead {
     grid-template-columns: 1fr;
@@ -241,10 +236,6 @@
   }
 
   .masthead__gameweek {
-    justify-content: space-between;
-  }
-
-  .masthead__title {
-    font-size: var(--text-2xl);
+    justify-content: flex-start;
   }
 }

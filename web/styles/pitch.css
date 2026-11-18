@@ -4,7 +4,7 @@
 .pitch {
   /* caps the drawing on desktop; on a phone it shrinks with the panel */
   max-width: 460px;
-  margin: 0 auto var(--space-5);
+  margin: 0 auto;
 }
 
 .pitch__field,
@@ -15,82 +15,76 @@
 }
 
 .pitch__field {
-  border: var(--stroke) solid var(--ink);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-sticker);
+  border: var(--stroke) solid var(--field-edge);
+  border-radius: var(--radius-md);
 }
 
 .pitch__grass {
-  fill: var(--grass);
+  fill: var(--field);
 }
 
 .pitch__stripe {
-  fill: var(--grass-stripe);
+  fill: var(--field-stripe);
 }
 
 .pitch__lines {
   fill: none;
-  stroke: var(--ink);
+  stroke: var(--field-line);
   /* thick enough that the wobble filter bends the line instead of breaking it */
-  stroke-width: 6;
+  stroke-width: 5;
   stroke-linecap: round;
   stroke-linejoin: round;
-  opacity: 0.6;
 }
 
 .pitch__lines .pitch__spot {
-  fill: var(--ink);
+  fill: var(--field-line);
 }
 
-/* motion scales and tilts each player around their own centre as they land */
+/* motion scales each player around their own centre as they land */
 .pitch-player__landing {
   transform-box: fill-box;
   transform-origin: center;
 }
 
-/* jersey sticker: hard shadow, paper edge, thin ink seams */
-
-.jersey__shadow {
-  fill: var(--ink);
-  opacity: 0.28;
-}
+/* jersey: a thin paper edge and soft seams, no drop shadow */
 
 .jersey__edge {
-  fill: var(--paper);
-  stroke: var(--paper);
-  stroke-width: 6;
+  fill: var(--paper-card);
+  stroke: var(--paper-card);
+  stroke-width: 4;
   stroke-linejoin: round;
 }
 
 .jersey__panel {
-  /* fills are club colours, set as svg attributes */
+  /* fills are muted club colours, set as svg attributes */
   stroke: var(--ink);
-  stroke-width: 1.3;
+  stroke-opacity: 0.3;
+  stroke-width: 1.2;
   stroke-linejoin: round;
 }
 
 .jersey__collar {
   fill: none;
-  stroke-width: 4;
+  stroke-width: 3.5;
   stroke-linecap: round;
 }
 
 .jersey__number {
-  font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 800;
+  font-family: var(--font-mono);
+  font-size: 21px;
+  font-weight: 500;
   text-anchor: middle;
 }
 
 .jersey__armband circle {
-  stroke: var(--paper);
-  stroke-width: 2;
+  stroke: var(--paper-card);
+  stroke-width: 1.5;
 }
 
 .jersey__armband text {
-  font-family: var(--font-display);
-  font-size: 12px;
-  font-weight: 800;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
   text-anchor: middle;
   fill: var(--paper);
 }
@@ -104,59 +98,62 @@
   fill: var(--ink);
 }
 
-/* name on a strip of masking tape */
+/* name on a quiet paper chip */
 
-.pitch-player__tape {
-  fill: var(--tape);
-  stroke: var(--tape-edge);
-  stroke-width: 1;
+.pitch-player__label-bg {
+  fill: var(--paper-card);
+  fill-opacity: 0.92;
 }
 
 .pitch-player__name {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   /* mirrors labelFontSize in Pitch.tsx, which squeezes names to fit */
-  font-size: 25px;
-  font-weight: 700;
+  font-size: 24px;
+  font-weight: 600;
   text-anchor: middle;
   fill: var(--ink);
 }
 
 .pitch-player__fixture {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   /* mirrors fixtureFontSize in Pitch.tsx */
   font-size: 20px;
   font-weight: 500;
   text-anchor: middle;
   fill: var(--ink-muted);
-  /* a paper halo keeps it readable where it crosses a line */
-  stroke: var(--paper);
+  /* a halo in the grass colour hides any line it crosses */
+  stroke: var(--field);
   stroke-width: 5px;
   stroke-linejoin: round;
   paint-order: stroke;
 }
 
 .pitch__bench {
-  margin-top: var(--space-2);
+  margin-top: var(--space-3);
 }
 
 .pitch__bench-label {
-  font-family: var(--font-hand);
-  font-size: 34px;
+  font-family: var(--font-body);
+  font-size: 18px;
   font-weight: 600;
+  letter-spacing: 0.12em;
   fill: var(--ink-muted);
 }
 
 /* the bench fades back, but its text stays at muted-ink contrast */
-.pitch__bench .pitch-player__jersey,
-.pitch__bench .pitch-player__tape {
-  opacity: 0.6;
+.pitch__bench .pitch-player__jersey {
+  opacity: 0.55;
 }
 
 .pitch__bench .pitch-player__name {
   fill: var(--ink-muted);
 }
 
+.pitch__bench .pitch-player__fixture {
+  stroke: var(--paper-card);
+}
+
 .pitch-empty {
-  margin: 0 0 var(--space-5);
+  margin: 0;
   color: var(--ink-muted);
 }

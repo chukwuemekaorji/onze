@@ -11,10 +11,6 @@ const LEFT_SLEEVE = 'M -17 -25 L -32 -12 L -24 -1 L -17 -8 Z';
 const RIGHT_SLEEVE = 'M 17 -25 L 32 -12 L 24 -1 L 17 -8 Z';
 const COLLAR = 'M -8.5 -27.5 Q 0 -20 8.5 -27.5';
 
-// the hard drop shadow of a sticker lifted slightly off the page
-const SHADOW_OFFSET_X = 2.5;
-const SHADOW_OFFSET_Y = 3.5;
-
 // the armband sits on the shirt's left sleeve, which is the viewer's right
 const ARMBAND_X = 24;
 const ARMBAND_Y = -13;
@@ -31,12 +27,7 @@ interface JerseyProps {
 export function Jersey({ kit, shirtNumber, armband }: JerseyProps) {
   return (
     <g className="jersey">
-      <path
-        className="jersey__shadow"
-        d={SILHOUETTE}
-        transform={`translate(${SHADOW_OFFSET_X} ${SHADOW_OFFSET_Y})`}
-      />
-      {/* the paper edge left round a cut-out sticker */}
+      {/* a thin paper edge separates the shirt from the grass */}
       <path className="jersey__edge" d={SILHOUETTE} />
       <path className="jersey__panel" d={LEFT_SLEEVE} fill={kit.secondary} />
       <path className="jersey__panel" d={RIGHT_SLEEVE} fill={kit.secondary} />

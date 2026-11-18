@@ -7,164 +7,106 @@
   overflow: hidden;
 }
 
-/* shared tilts, set with rotate so hover transforms still compose */
-.ui-tilt-left {
-  rotate: var(--tilt-left);
-}
-
+/* the kit keeps its tilt props, but the calm design doesn't lean anything */
+.ui-tilt-left,
 .ui-tilt-right {
-  rotate: var(--tilt-right);
+  rotate: none;
 }
 
-/* button */
+/* button: solid ink or a quiet outline. hover darkens or underlines, no lift */
 
 .ui-button {
-  --button-bg: var(--ink);
-  --button-fg: var(--paper);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
   padding: var(--space-3) var(--space-5);
-  font-family: var(--font-display);
-  font-size: var(--text-md);
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: 0.01em;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1.2;
   text-decoration: none;
-  color: var(--button-fg);
-  background: var(--button-bg);
-  border: var(--stroke-bold) solid var(--ink);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-marker);
+  color: var(--paper);
+  background: var(--ink);
+  border: var(--stroke) solid var(--ink);
+  border-radius: var(--radius-pill);
   cursor: pointer;
   transition:
-    transform var(--duration-fast) var(--ease-out),
-    box-shadow var(--duration-fast) var(--ease-out);
-}
-
-.ui-button--outline {
-  --button-bg: var(--paper-card);
-  --button-fg: var(--ink);
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
 }
 
 .ui-button:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: var(--shadow-offset-lift) var(--shadow-offset-lift) 0 var(--marker-red);
+  background: #33312c;
 }
 
-.ui-button:active {
-  transform: translate(var(--shadow-offset), var(--shadow-offset));
-  box-shadow: 0 0 0 var(--marker-red);
+.ui-button--outline {
+  color: var(--ink);
+  background: transparent;
+  border-color: var(--hairline-strong);
 }
 
-/* clear the offset shadow so the ring reads as its own mark */
-.ui-button:focus-visible {
-  outline: var(--stroke-bold) dashed var(--ink);
-  outline-offset: calc(var(--shadow-offset) + var(--focus-offset));
+.ui-button--outline:hover {
+  background: var(--wash);
 }
 
 .ui-button:disabled,
 .ui-button[aria-disabled='true'] {
-  opacity: 0.55;
+  opacity: 0.5;
   cursor: not-allowed;
-  transform: none;
-  box-shadow: var(--shadow-marker);
 }
 
-/* tape */
+/* tape: kept for the one strip on the notepad */
 
 .ui-tape {
   position: absolute;
   z-index: 1;
-  width: 5.5rem;
-  height: 1.5rem;
+  width: 4.5rem;
+  height: 1.2rem;
   background: var(--tape);
   border-inline: 1px solid var(--tape-edge);
-  /* torn ends */
-  clip-path: polygon(
-    0 8%,
-    4% 0,
-    96% 4%,
-    100% 0,
-    98% 30%,
-    100% 55%,
-    97% 100%,
-    3% 94%,
-    0 100%,
-    2% 60%
-  );
   pointer-events: none;
 }
 
 .ui-tape--top-left {
-  top: 0.4rem;
-  left: -1.6rem;
-  rotate: -38deg;
+  top: -0.5rem;
+  left: var(--space-5);
 }
 
 .ui-tape--top-right {
-  top: 0.4rem;
-  right: -1.6rem;
-  rotate: 38deg;
+  top: -0.5rem;
+  right: var(--space-5);
 }
 
 .ui-tape--top {
-  top: -0.8rem;
+  top: -0.6rem;
   left: 50%;
   translate: -50% 0;
-  rotate: -3deg;
 }
 
-/* paper card */
+/* paper card: hairline border, generous padding, no shadow */
 
 .ui-paper-card {
   position: relative;
-  padding: var(--space-6) var(--space-5) var(--space-5);
+  padding: var(--space-6);
   background: var(--paper-card);
-  border: var(--stroke) solid var(--ink);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-sticker);
+  border: var(--stroke) solid var(--hairline);
+  border-radius: var(--radius-md);
 }
 
-/* the red header rule of an index card, kept inside the top padding */
-.ui-paper-card::before {
-  content: '';
-  position: absolute;
-  inset-inline: 0;
-  top: var(--space-4);
-  border-top: 1.5px solid var(--marker-red);
-  opacity: 0.55;
-  pointer-events: none;
-}
-
-/* sticky note */
+/* sticky note: the yellow and the handwriting stay on the notepad, so this is plain paper */
 
 .ui-sticky {
   position: relative;
-  max-width: 17rem;
-  padding: var(--space-5) var(--space-4) var(--space-4);
-  font-family: var(--font-hand);
-  font-size: var(--text-hand);
-  font-weight: 500;
-  line-height: 1.15;
+  max-width: 20rem;
+  padding: var(--space-5);
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  line-height: 1.5;
   color: var(--ink);
-  background: var(--highlighter);
-  box-shadow: 2px 3px 0 rgba(27, 26, 23, 0.22);
-  rotate: var(--tilt-sticky);
-}
-
-.ui-sticky--right {
-  rotate: calc(var(--tilt-sticky) * -0.8);
-}
-
-/* the slightly darker adhesive strip */
-.ui-sticky::before {
-  content: '';
-  position: absolute;
-  inset: 0 0 auto;
-  height: var(--space-4);
-  background: rgba(27, 26, 23, 0.05);
+  background: var(--paper-card);
+  border: var(--stroke) solid var(--hairline);
+  border-radius: var(--radius-sm);
 }
 
 /* marker strokes */
@@ -184,17 +126,16 @@
 .ui-marker-stroke path {
   fill: none;
   stroke: var(--marker-red);
-  stroke-width: 5;
+  stroke-width: 3;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
 .ui-marker-underline__stroke {
-  left: -3%;
-  /* below the descenders, so the stroke never crosses g, p or y */
-  bottom: -0.55em;
-  width: 106%;
-  height: 0.55em;
+  left: -2%;
+  bottom: -0.5em;
+  width: 104%;
+  height: 0.5em;
 }
 
 .ui-marker-circle {
@@ -202,28 +143,26 @@
 }
 
 .ui-marker-circle__stroke {
-  inset: -0.45em -0.55em;
-  width: calc(100% + 1.1em);
-  height: calc(100% + 0.9em);
+  inset: -0.4em -0.5em;
+  width: calc(100% + 1em);
+  height: calc(100% + 0.8em);
 }
 
 .ui-marker-circle__stroke path {
-  stroke-width: 3.5;
+  stroke-width: 2.5;
 }
 
-/* highlight */
+/* highlight: a quiet ink wash rather than a yellow swipe */
 
 .ui-highlight {
   color: inherit;
   background-color: transparent;
-  /* a solid fill, sized and swiped in by motion. not a gradient wash */
-  background-image: linear-gradient(var(--highlighter), var(--highlighter));
+  background-image: linear-gradient(var(--wash), var(--wash));
   background-repeat: no-repeat;
   background-position: 0 85%;
   /* height mirrors HIGHLIGHT_HEIGHT in web/motion.ts */
   background-size: 100% 62%;
   padding-inline: 0.15em;
-  margin-inline: -0.05em;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
@@ -246,7 +185,7 @@
   display: block;
   width: 100%;
   object-fit: cover;
-  border: var(--stroke) solid var(--ink);
+  border-radius: var(--radius-sm);
 }
 
 .ui-image-placeholder {
@@ -254,25 +193,16 @@
   place-items: center;
   width: 100%;
   padding: var(--space-4);
-  background-color: var(--paper-card);
-  /* pencil hatching */
-  background-image: repeating-linear-gradient(
-    -45deg,
-    transparent 0 9px,
-    var(--grid-line) 9px 10px
-  );
-  border: var(--stroke) dashed var(--ink-muted);
+  background: var(--wash);
+  border: var(--stroke) dashed var(--hairline-strong);
+  border-radius: var(--radius-sm);
 }
 
 .ui-image-placeholder__label {
   max-width: 90%;
-  padding: var(--space-1) var(--space-3);
-  font-family: var(--font-hand);
-  font-size: var(--text-lg);
-  line-height: 1.1;
+  font-size: var(--text-sm);
   text-align: center;
   color: var(--ink-muted);
-  background: var(--paper-card);
   overflow-wrap: anywhere;
 }
 
@@ -281,34 +211,29 @@
   display: inline-block;
   width: 100%;
   margin: 0;
-  /* the deep bottom border of an instant photo */
-  padding: var(--space-3) var(--space-3) var(--space-5);
+  padding: var(--space-3) var(--space-3) var(--space-4);
   background: var(--photo-paper);
-  border: 1px solid rgba(27, 26, 23, 0.15);
-  box-shadow: var(--shadow-sticker);
-  rotate: var(--tilt-right);
+  border: var(--stroke) solid var(--hairline);
+  border-radius: var(--radius-sm);
 }
 
-.ui-polaroid .ui-image {
-  border-width: 1px;
+.ui-polaroid .ui-tape {
+  display: none;
 }
 
 .ui-polaroid__caption {
-  margin-bottom: calc(-1 * var(--space-2));
-  padding-top: var(--space-2);
-  font-family: var(--font-hand);
-  font-size: var(--text-hand);
-  line-height: 1.1;
+  padding-top: var(--space-3);
+  font-size: var(--text-sm);
   text-align: center;
-  color: var(--ink);
+  color: var(--ink-muted);
 }
 
-/* drawer: a modal <dialog> pinned to the right edge */
+/* drawer: a modal <dialog> pinned to the right edge, floating on a soft shadow */
 
 .ui-drawer {
   position: fixed;
   inset: 0 0 0 auto;
-  width: min(26rem, 100vw);
+  width: min(28rem, 100vw);
   max-width: none;
   height: 100dvh;
   max-height: none;
@@ -317,8 +242,7 @@
   color: var(--ink);
   background: var(--paper-card);
   border: none;
-  border-left: var(--stroke) solid var(--ink);
-  box-shadow: calc(-1 * var(--shadow-offset)) 0 0 var(--ink);
+  box-shadow: -24px 0 48px -32px rgba(27, 26, 23, 0.35);
   translate: 0 0;
   transition:
     translate var(--duration-base) var(--ease-out),
@@ -338,7 +262,7 @@
 }
 
 .ui-drawer::backdrop {
-  background: rgba(27, 26, 23, 0.35);
+  background: rgba(27, 26, 23, 0.25);
 }
 
 /* the page behind a modal shouldn't scroll under it */
@@ -350,7 +274,7 @@ html:has(.ui-drawer[open]) {
 .ui-drawer__panel {
   height: 100%;
   overflow-y: auto;
-  padding: var(--space-5);
+  padding: var(--space-7) var(--space-6);
 }
 
 .ui-drawer__header {
@@ -358,7 +282,7 @@ html:has(.ui-drawer[open]) {
   align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-6);
 }
 
 .ui-drawer__title {
@@ -374,20 +298,20 @@ html:has(.ui-drawer[open]) {
   padding: 0;
   color: var(--ink);
   background: none;
-  border: var(--stroke) solid var(--ink);
-  border-radius: var(--radius-sm);
+  border: var(--stroke) solid var(--hairline-strong);
+  border-radius: var(--radius-pill);
   cursor: pointer;
 }
 
 .ui-drawer__close:hover {
-  background: var(--paper);
+  background: var(--wash);
 }
 
 .ui-drawer__close svg {
-  width: 0.9rem;
-  height: 0.9rem;
+  width: 0.8rem;
+  height: 0.8rem;
   fill: none;
   stroke: currentColor;
-  stroke-width: 2.4;
+  stroke-width: 2;
   stroke-linecap: round;
 }

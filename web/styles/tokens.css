@@ -1,41 +1,57 @@
-/* tactics board tokens. text pairs are checked for 4.5:1 in test/design-tokens.test.ts */
+/* tactics board tokens: a calm, editorial take. text pairs are checked for
+   4.5:1 in test/design-tokens.test.ts */
 :root {
   color-scheme: light;
 
   /* palette */
   --paper: #f2ecdf;
-  --paper-card: #fbf7ee;
+  --paper-card: #faf7f1;
   --photo-paper: #fffdf8;
   --ink: #1b1a17;
   --ink-muted: #5a554c;
+  /* the one accent, used sparingly: captain, transfer arrow, deadline, active tab */
   --marker-red: #c8371f;
   /* the marker red is 4.4:1 on paper, just under aa, so red text uses this */
   --marker-red-text: #a92f1a;
+  /* only on the notepad's page */
   --highlighter: #f6d94a;
-  /* pitch stripes only, never text or ui chrome */
-  --grass: #dfe6cf;
-  --grass-stripe: #d3ddbf;
-  --grid-line: rgba(27, 26, 23, 0.06);
   --tape: rgba(226, 214, 178, 0.82);
   --tape-edge: rgba(27, 26, 23, 0.08);
 
-  /* fonts */
+  /* lines and surfaces */
+  --hairline: rgba(27, 26, 23, 0.12);
+  --hairline-strong: rgba(27, 26, 23, 0.22);
+  --wash: rgba(27, 26, 23, 0.035);
+  /* a single soft lift, for things that float: drawer, binder sheet */
+  --shadow-soft:
+    0 1px 2px rgba(27, 26, 23, 0.04), 0 18px 40px -24px rgba(27, 26, 23, 0.22);
+
+  /* pitch: soft sage, stripes barely there, off-white lines */
+  --field: #d4dbc6;
+  --field-stripe: #cfd6c0;
+  --field-line: rgba(250, 248, 242, 0.92);
+  --field-edge: rgba(27, 26, 23, 0.1);
+
+  /* fonts. caveat is for the notepad and the formation scribble only,
+     dm mono for numbers only */
   --font-display: 'Bricolage Grotesque Variable', 'Arial Narrow', sans-serif;
   --font-body: 'Bricolage Grotesque Variable', system-ui, sans-serif;
   --font-hand: 'Caveat Variable', 'Comic Sans MS', cursive;
   --font-mono: 'DM Mono', ui-monospace, 'SFMono-Regular', monospace;
 
   /* type scale, roughly a 1.25 ratio */
+  --text-label: 0.72rem;
   --text-xs: 0.78rem;
-  --text-sm: 0.88rem;
+  --text-sm: 0.9rem;
   --text-md: 1rem;
-  --text-lg: 1.25rem;
-  --text-xl: 1.6rem;
-  --text-2xl: 2.1rem;
-  --text-3xl: 2.9rem;
-  --text-hand: 1.45rem;
+  --text-lg: 1.2rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 2rem;
+  --text-3xl: 2.6rem;
+  --text-hand: 1.4rem;
   --leading-tight: 1.1;
-  --leading-body: 1.55;
+  --leading-body: 1.6;
+  --tracking-label: 0.09em;
 
   /* spacing, 4px base */
   --space-1: 0.25rem;
@@ -46,34 +62,29 @@
   --space-6: 2rem;
   --space-7: 3rem;
   --space-8: 4.5rem;
+  --space-9: 6rem;
   /* side padding of the page; the pitch bleeds into it on phones */
   --page-gutter: 1.25rem;
+  --content-max: 1180px;
+  /* comfortable line length for running text */
+  --measure: 62ch;
 
-  /* radius: paper has crisp corners, so these stay small */
-  --radius-sm: 3px;
-  --radius-md: 6px;
-  --radius-lg: 10px;
+  /* radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
   --radius-pill: 999px;
 
-  /* strokes and shadows: hard offsets like a sticker, never blurred */
-  --stroke: 2px;
-  --stroke-bold: 3px;
-  --shadow-offset: 4px;
-  --shadow-offset-lift: 6px;
-  --shadow-sticker: var(--shadow-offset) var(--shadow-offset) 0 var(--ink);
-  --shadow-marker: var(--shadow-offset) var(--shadow-offset) 0 var(--marker-red);
-
-  /* tilts */
-  --tilt-left: -1.5deg;
-  --tilt-right: 1.2deg;
-  --tilt-sticky: -2.5deg;
+  /* strokes */
+  --stroke: 1px;
+  --stroke-bold: 1.5px;
 
   /* motion */
   --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
   --duration-fast: 120ms;
-  --duration-base: 220ms;
+  --duration-base: 180ms;
 
   /* focus */
-  --focus-ring: 3px solid var(--marker-red);
+  --focus-ring: 2px solid var(--ink);
   --focus-offset: 3px;
 }
