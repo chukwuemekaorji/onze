@@ -23,7 +23,7 @@ genuinely needs more. Don't number out multiple transfer options or
 close with a question back to the user — just tell them what to do.`;
 
 const MAX_CHAT_TOKENS = 350;
-// server-side backstop so a bad client can't blow up token usage
+// caps tokens per message as a conversation grows
 const MAX_HISTORY_MESSAGES = 20;
 
 export interface BuildChatRequestOptions {
