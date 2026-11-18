@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { useEffect } from 'react';
 import type { ComponentType } from 'react';
 import { usePrefersReducedMotion } from '../../motion.js';
-import { hasNavigated, useRoute } from '../../router.js';
+import { hasNavigated, HOME_ROUTE, useRoute } from '../../router.js';
 import type { RouteId } from '../../router.js';
 import type { ShownReport } from '../../use-report-flow.js';
 import { BinderTabs } from './BinderTabs.js';
@@ -55,6 +55,15 @@ export function Binder({ shown, writing }: BinderProps) {
 
       <div className="binder__sheets">
         <div className="binder__alerts">
+          {shown.isExample && (
+            <p className="report-label">
+              You're looking at an example team, built from real FPL data.{' '}
+              {/* a full load, so the example state is left behind */}
+              <a href={HOME_ROUTE.path} className="report-label__link">
+                Use your own team
+              </a>
+            </p>
+          )}
           <p
             id="report-progress"
             className="report-label"

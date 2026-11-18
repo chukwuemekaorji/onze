@@ -46,10 +46,35 @@ export function routeFromPath(pathname: string): Route | null {
   return ROUTES.find((route) => route.path === normalised) ?? null;
 }
 
-/** swaps an unknown or bare path for /app without adding a history entry */
+export const LANDING_PATH = '/';
+
+// /app?example opens the bundled sample team instead of the user's own
+const EXAMPLE_PARAM = 'example';
+export const EXAMPLE_PATH = `${HOME_ROUTE.path}?${EXAMPLE_PARAM}`;
+
+export function wantsExample(search: string): boolean {
+  return new URLSearchParams(search).has(EXAMPLE_PARAM);
+}
+
+export function isLandingPath(pathname: string): boolean {
+  return pathname === LANDING_PATH;
+}
+
+/**
+ * where an unknown path should go, or null when it's already fine: the landing
+ * page and the binder pages stay put, an unknown /app path goes to /app, and
+ * anything else goes to the landing page
+ */
+export function canonicalPathFor(pathname: string): string | null {
+  if (isLandingPath(pathname) || routeFromPath(pathname)) return null;
+  return pathname.startsWith(`${HOME_ROUTE.path}/`) ? HOME_ROUTE.path : LANDING_PATH;
+}
+
+/** swaps an unknown path for its canonical one without adding a history entry */
 export function canonicalisePath(): void {
-  if (routeFromPath(window.location.pathname)) return;
-  window.history.replaceState(null, '', HOME_ROUTE.path + window.location.search);
+  const target = canonicalPathFor(window.location.pathname);
+  if (target === null) return;
+  window.history.replaceState(null, '', target + window.location.search);
 }
 
 export function navigate(path: string): void {

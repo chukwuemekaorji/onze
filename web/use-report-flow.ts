@@ -18,9 +18,14 @@ export interface ShownReport {
   report: CoachReport;
   source: ReportSource;
   errorMessage: string | null;
+  /** the bundled example team; never cached and never saved as the user's id */
+  isExample: boolean;
   // bumped per report so the chat panel remounts with a fresh conversation
   version: number;
 }
+
+// parseManagerId only accepts positive ids, so this never clashes with a real one
+const EXAMPLE_MANAGER_ID = 0;
 
 export interface ReportFlow {
   status: StatusLine;
@@ -36,6 +41,7 @@ export interface ReportFlow {
     options?: { forceRefresh?: boolean },
   ) => Promise<void>;
   submitManagerId: (raw: string) => void;
+  showExample: (summary: AnalysisSummary) => void;
   refresh: () => void;
   showForm: () => void;
   handleKeyChange: (stored: StoredKey | null) => void;
@@ -60,6 +66,7 @@ export function useReportFlow(): ReportFlow {
     managerId: number,
     cached: CachedReport,
     errorMessage: string | null,
+    isExample: boolean,
   ): void {
     setStatus('');
     setResultsHidden(false);
@@ -70,6 +77,7 @@ export function useReportFlow(): ReportFlow {
       report: cached.report,
       source: cached.source,
       errorMessage,
+      isExample,
       version: (previous?.version ?? 0) + 1,
     }));
   }
@@ -77,6 +85,7 @@ export function useReportFlow(): ReportFlow {
   async function writeAndShowReport(
     managerId: number,
     summary: AnalysisSummary,
+    isExample = false,
   ): Promise<void> {
     const generation = ++writeGeneration.current;
     const apiKey = loadKey()?.key ?? null;
@@ -96,17 +105,18 @@ export function useReportFlow(): ReportFlow {
       source: written.source,
       cachedAt: Date.now(),
     };
-    storeCachedReport(managerId, cached);
-    applyReport(managerId, cached, written.errorMessage);
+    if (!isExample) storeCachedReport(managerId, cached);
+    applyReport(managerId, cached, written.errorMessage, isExample);
   }
 
   async function upgradeToAiReport(
     managerId: number,
     summary: AnalysisSummary,
+    isExample = false,
   ): Promise<void> {
     setBusy(true);
     try {
-      await writeAndShowReport(managerId, summary);
+      await writeAndShowReport(managerId, summary, isExample);
     } finally {
       setBusy(false);
     }
@@ -119,7 +129,7 @@ export function useReportFlow(): ReportFlow {
     if (!options.forceRefresh) {
       const cached = loadCachedReport(managerId);
       if (cached && !isCacheStale(cached)) {
-        applyReport(managerId, cached, null);
+        applyReport(managerId, cached, null, false);
         // a basic report cached before a key was added gets upgraded in place
         if (cached.source === 'basic' && loadKey()) {
           await upgradeToAiReport(managerId, cached.analysisSummary);
@@ -158,8 +168,15 @@ export function useReportFlow(): ReportFlow {
     void fetchReport(managerId);
   }
 
+  function showExample(summary: AnalysisSummary): void {
+    void upgradeToAiReport(EXAMPLE_MANAGER_ID, summary, true);
+  }
+
   function refresh(): void {
-    if (shown) void fetchReport(shown.managerId, { forceRefresh: true });
+    if (!shown) return;
+    // the example has no fpl team to refetch, so only its prose is rewritten
+    if (shown.isExample) void upgradeToAiReport(shown.managerId, shown.summary, true);
+    else void fetchReport(shown.managerId, { forceRefresh: true });
   }
 
   function showForm(): void {
@@ -169,7 +186,7 @@ export function useReportFlow(): ReportFlow {
   // no refetch from fpl: the summary is already here, only the prose changes
   function handleKeyChange(stored: StoredKey | null): void {
     if (stored && shown?.source === 'basic') {
-      void upgradeToAiReport(shown.managerId, shown.summary);
+      void upgradeToAiReport(shown.managerId, shown.summary, shown.isExample);
     }
   }
 
@@ -183,6 +200,7 @@ export function useReportFlow(): ReportFlow {
     shown,
     fetchReport,
     submitManagerId,
+    showExample,
     refresh,
     showForm,
     handleKeyChange,

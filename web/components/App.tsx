@@ -3,6 +3,8 @@ import { flushSync } from 'react-dom';
 import { loadKey } from '../key-store.js';
 import type { StoredKey } from '../key-store.js';
 import { loadStoredManagerId } from '../manager-id-store.js';
+import { wantsExample } from '../router.js';
+import { loadSampleSummary } from '../sample-summary.js';
 import { useReportFlow } from '../use-report-flow.js';
 import { Binder } from './binder/Binder.js';
 import { ChatPanel } from './ChatPanel.js';
@@ -27,6 +29,11 @@ export function App() {
   const initialLoadStarted = useRef(false);
 
   const loadInitialReport = useEffectEvent(() => {
+    // the example never touches the user's saved team
+    if (wantsExample(window.location.search)) {
+      void loadSampleSummary().then(flow.showExample);
+      return;
+    }
     if (initialManagerId !== null) void flow.fetchReport(initialManagerId);
   });
 

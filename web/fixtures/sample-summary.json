@@ -1,0 +1,2613 @@
+{
+  "managerName": "Sample Coach",
+  "teamName": "Sensei Sample XI",
+  "currentEvent": 11,
+  "currentEventDeadline": "2026-11-21T11:00:00Z",
+  "nextEvent": { "id": 12, "deadline": "2026-11-27T18:30:00Z" },
+  "generatedAt": "2026-11-18T16:44:45.394Z",
+  "squad": {
+    "currentEvent": 11,
+    "bank": 11,
+    "freeTransfers": 2,
+    "squad": [
+      {
+        "id": 1,
+        "webName": "Raya",
+        "teamId": 1,
+        "teamShortName": "ARS",
+        "position": "GK",
+        "nowCost": 62,
+        "form": 6,
+        "epNext": 6,
+        "totalPoints": 60,
+        "selectedByPercent": 47.6,
+        "chanceOfPlayingNextRound": null,
+        "costChangeEvent": 0,
+        "transfersInEvent": 57546,
+        "transfersOutEvent": 16691,
+        "nextFixtures": [
+          { "event": 11, "isHome": false, "difficulty": 3, "opponentShortName": "NEW" },
+          { "event": 12, "isHome": true, "difficulty": 4, "opponentShortName": "MCI" },
+          { "event": 13, "isHome": false, "difficulty": 4, "opponentShortName": "BRE" },
+          { "event": 14, "isHome": false, "difficulty": 3, "opponentShortName": "TOT" },
+          { "event": 15, "isHome": true, "difficulty": 3, "opponentShortName": "BOU" }
+        ]
+      },
+      {
+        "id": 115,
+        "webName": "De Cuyper",
+        "teamId": 5,
+        "teamShortName": "BHA",
+        "position": "DEF",
+        "nowCost": 55,
+        "form": 5.3,
+        "epNext": 5.3,
+        "totalPoints": 75,
+        "selectedByPercent": 48.1,
+        "chanceOfPlayingNextRound": null,
+        "costChangeEvent": 1,
+        "transfersInEvent": 190543,
+        "transfersOutEvent": 10614,
+        "nextFixtures": [
+          { "event": 11, "isHome": false, "difficulty": 2, "opponentShortName": "HUL" },
+          { "event": 12, "isHome": true, "difficulty": 3, "opponentShortName": "NEW" },
+          { "event": 13, "isHome": false, "difficulty": 4, "opponentShortName": "BOU" },
+          { "event": 14, "isHome": false, "difficulty": 2, "opponentShortName": "NFO" },
+          { "event": 15, "isHome": true, "difficulty": 3, "opponentShortName": "EVE" }
+        ]
+      },
+      {
+        "id": 330,
+        "webName": "Bogle",
+        "teamId": 13,
+        "teamShortName": "LEE",
+        "position": "DEF",
+        "nowCost": 48,
+        "form": 4.3,
+        "epNext": 4.3,
+        "totalPoints": 58,
+        "selectedByPercent": 11.2,
+        "chanceOfPlayingNextRound": null,
+        "costChangeEvent": 0,
+        "transfersInEvent": 41946,
+        "transfersOutEvent": 17666,
+        "nextFixtures": [
+          { "event": 11, "isHome": false, "difficulty": 4, "opponentShortName": "CHE" },
+          { "event": 12, "isHome": true, "difficulty": 2, "opponentShortName": "COV" },
+          { "event": 13, "isHome": false, "difficulty": 5, "opponentShortName": "MCI" },
+          { "event": 14, "isHome": true, "difficulty": 2, "opponentShortName": "IPS" },
+          { "event": 15, "isHome": false, "difficulty": 4, "opponentShortName": "LIV" }
+        ]
+      },
+      {
+        "id": 8,
+        "webName": "Calafiori",
+        "teamId": 1,
+        "teamShortName": "ARS",
+        "position": "DEF",
+        "nowCost": 59,
+        "form": 4.3,
+        "epNext": 4.3,
+        "totalPoints": 57,
+        "selectedByPercent": 48.7,
+        "chanceOfPlayingNextRound": 100,
+        "costChangeEvent": 0,
+        "transfersInEvent": 71622,
+        "transfersOutEvent": 36095,
+        "nextFixtures": [
+          { "event": 11, "isHome": false, "difficulty": 3, "opponentShortName": "NEW" },
+          { "event": 12, "isHome": true, "difficulty": 4, "opponentShortName": "MCI" },
+          { "event": 13, "isHome": false, "difficulty": 4, "opponentShortName": "BRE" },
+          { "event": 14, "isHome": false, "difficulty": 3, "opponentShortName": "TOT" },
+          { "event": 15, "isHome": true, "difficulty": 3, "opponentShortName": "BOU" }
+        ]
+      },
+      {
+        "id": 279,
+        "webName": "Ajayi",
+        "teamId": 11,
+        "teamShortName": "HUL",
+        "position": "DEF",
+        "nowCost": 42,
+        "form": 4,
+        "epNext": 4,
+        "totalPoints": 42,
+        "selectedByPercent": 11.9,
+        "chanceOfPlayingNextRound": 100,
+        "costChangeEvent": 0,
+        "transfersInEvent": 8828,
+        "transfersOutEvent": 23392,
+        "nextFixtures": [
+          { "event": 11, "isHome": true, "difficulty": 4, "opponentShortName": "BHA" },
+          { "event": 12, "isHome": false, "difficulty": 2, "opponentShortName": "CRY" },
+          { "event": 13, "isHome": true, "difficulty": 3, "opponentShortName": "NFO" },
+          { "event": 14, "isHome": false, "difficulty": 4, "opponentShortName": "BOU" },
+          { "event": 15, "isHome": true, "difficulty": 3, "opponentShortName": "TOT" }
+        ]
+      },
+      {
+        "id": 259,
+        "webName": "Diop",
+        "teamId": 12,
+        "teamShortName": "IPS",
+        "position": "DEF",
+        "nowCost": 39,
+        "form": 1.3,
+        "epNext": 1.3,
+        "totalPoints": 21,
+        "selectedByPercent": 9.8,
+        "chanceOfPlayingNextRound": null,
+        "costChangeEvent": 0,
+        "transfersInEvent": 4649,
+        "transfersOutEvent": 22238,
+        "nextFixtures": [
+          { "event": 11, "isHome": false, "difficulty": 3, "opponentShortName": "TOT" },
+          { "event": 12, "isHome": true, "difficulty": 3, "opponentShortName": "AVL" },
+          { "event": 13, "isHome": false, "difficulty": 2, "opponentShortName": "COV" },
+          { "event": 14, "isHome": false, "difficulty": 3, "opponentShortName": "LEE" },
+          { "event": 15, "isHome": true, "difficulty": 3, "opponentShortName": "NEW" }
+        ]
+      },
+      {
+        "id": 124,
+        "webName": "Groß",
+        "teamId": 5,
+        "teamShortName": "BHA",
+        "position": "MID",
+        "nowCost": 63,
+        "form": 4,
+        "epNext": 4,
+        "totalPoints": 70,
+        "selectedByPercent": 48.3,
+        "chanceOfPlayingNextRound": null,
+        "costChangeEvent": 1,
+        "transfersInEvent": 135376,
+        "transfersOutEvent": 15542,
+        "nextFixtures": [
+          { "event": 11, "isHome": false, "difficulty": 2, "opponentShortName": "HUL" },
+          { "event": 12, "isHome": true, "difficulty": 3, "opponentShortName": "NEW" },
+          { "event": 13, "isHome": false, "difficulty": 4, "opponentShortName": "BOU" },
+          { "event": 14, "isHome": false, "difficulty": 2, "opponentShortName": "NFO" },
+          { "event": 15, "isHome": true, "difficulty": 3, "opponentShortName": "EVE" }
+        ]
+      },
+      {
+        "id": 68,
+        "webName": "Tavernier",
+        "teamId": 3,
+        "teamShortName": "BOU",
+        "position": "MID",
+        "nowCost": 67,
+        "form": 5.3,
+        "epNext": 5.3,
+        "totalPoints": 58,
+        "selectedByPercent": 31.6,
+        "chanceOfPlayingNextRound": null,
+        "costChangeEvent": 1,
+        "transfersInEvent": 160157,
+        "transfersOutEvent": 33565,
+        "nextFixtures": [
+          { "event": 11, "isHome": true, "difficulty": 3, "opponentShortName": "NFO" },
+          { "event": 12, "isHome": false, "difficulty": 3, "opponentShortName": "FUL" },
+          { "event": 13, "isHome": true, "difficulty": 4, "opponentShortName": "BHA" },
+          { "event": 14, "isHome": true, "difficulty": 2, "opponentShortName": "HUL" },
+          { "event": 15, "isHome": false, "difficulty": 5, "opponentShortName": "ARS" }
+        ]
+      },
+      {
+        "id": 399,
+        "webName": "Cherki",
+        "teamId": 15,
+        "teamShortName": "MCI",
+        "position": "MID",
+        "nowCost": 79,
+        "form": 3.3,
+        "epNext": 3.3,
+        "totalPoints": 54,
+        "selectedByPercent": 33.5,
+        "chanceOfPlayingNextRound": null,
+        "costChangeEvent": 0,
+        "transfersInEvent": 71613,
+        "transfersOutEvent": 49524,
+        "nextFixtures": [
+          { "event": 11, "isHome": true, "difficulty": 2, "opponentShortName": "FUL" },
+          { "event": 12, "isHome": false, "difficulty": 5, "opponentShortName": "ARS" },
+          { "event": 13, "isHome": true, "difficulty": 3, "opponentShortName": "LEE" },
+          { "event": 14, "isHome": false, "difficulty": 4, "opponentShortName": "BRE" },
+          { "event": 15, "isHome": true, "difficulty": 4, "opponentShortName": "CHE" }
+        ]
+      },
+      {
+        "id": 40,
+        "webName": "Rogers",
+        "teamId": 6,
+        "teamShortName": "CHE",
+        "position": "MID",
+        "nowCost": 82,
+        "form": 4,
+        "epNext": 4,
+        "totalPoints": 52,
+        "selectedByPercent": 54,
+        "chanceOfPlayingNextRound": null,
+        "costChangeEvent": 0,
+        "transfersInEvent": 83054,
+        "transfersOutEvent": 35040,
+        "nextFixtures": [
+          { "event": 11, "isHome": true, "difficulty": 3, "opponentShortName": "LEE" },
+          { "event": 12, "isHome": false, "difficulty": 2, "opponentShortName": "NFO" },
+          { "event": 13, "isHome": true, "difficulty": 2, "opponentShortName": "CRY" },
+          { "event": 14, "isHome": true, "difficulty": 4, "opponentShortName": "LIV" },
+          { "event": 15, "isHome": false, "difficulty": 5, "opponentShortName": "MCI" }
+        ]
+      },
+      {
+        "id": 427,
+        "webName": "Mbeumo",
+        "teamId": 16,
+        "teamShortName": "MUN",
+        "position": "MID",
+        "nowCost": 79,
+        "form": 1.7,
+        "epNext": 1.7,
+        "totalPoints": 46,
+        "selectedByPercent": 18.9,
+        "chanceOfPlayingNextRound": null,
+        "costChangeEvent": 0,
+        "transfersInEvent": 9644,
+        "transfersOutEvent": 100139,
+        "nextFixtures": [
+          { "event": 11, "isHome": false, "difficulty": 4, "opponentShortName": "LIV" },
+          { "event": 12, "isHome": true, "difficulty": 3, "opponentShortName": "BRE" },
+          { "event": 13, "isHome": false, "difficulty": 3, "opponentShortName": "NEW" },
+          { "event": 14, "isHome": true, "difficulty": 2, "opponentShortName": "COV" },
+          { "event": 15, "isHome": false, "difficulty": 2, "opponentShortName": "CRY" }
+        ]
+      },
+      {
+        "id": 109,
+        "webName": "Verbruggen",
+        "teamId": 5,
+        "teamShortName": "BHA",
+        "position": "GK",
+        "nowCost": 47,
+        "form": 6.3,
+        "epNext": 6.3,
+        "totalPoints": 57,
+        "selectedByPercent": 24,
+        "chanceOfPlayingNextRound": null,
+        "costChangeEvent": 1,
+        "transfersInEvent": 59083,
+        "transfersOutEvent": 19182,
+        "nextFixtures": [
+          { "event": 11, "isHome": false, "difficulty": 2, "opponentShortName": "HUL" },
+          { "event": 12, "isHome": true, "difficulty": 3, "opponentShortName": "NEW" },
+          { "event": 13, "isHome": false, "difficulty": 4, "opponentShortName": "BOU" },
+          { "event": 14, "isHome": false, "difficulty": 2, "opponentShortName": "NFO" },
+          { "event": 15, "isHome": true, "difficulty": 3, "opponentShortName": "EVE" }
+        ]
+      },
+      {
+        "id": 411,
+        "webName": "Haaland",
+        "teamId": 15,
+        "teamShortName": "MCI",
+        "position": "FWD",
+        "nowCost": 158,
+        "form": 4,
+        "epNext": 4,
+        "totalPoints": 70,
+        "selectedByPercent": 78.8,
+        "chanceOfPlayingNextRound": 100,
+        "costChangeEvent": 0,
+        "transfersInEvent": 23027,
+        "transfersOutEvent": 50577,
+        "nextFixtures": [
+          { "event": 11, "isHome": true, "difficulty": 2, "opponentShortName": "FUL" },
+          { "event": 12, "isHome": false, "difficulty": 5, "opponentShortName": "ARS" },
+          { "event": 13, "isHome": true, "difficulty": 3, "opponentShortName": "LEE" },
+          { "event": 14, "isHome": false, "difficulty": 4, "opponentShortName": "BRE" },
+          { "event": 15, "isHome": true, "difficulty": 4, "opponentShortName": "CHE" }
+        ]
+      },
+      {
+        "id": 194,
+        "webName": "Thomas-Asante",
+        "teamId": 7,
+        "teamShortName": "COV",
+        "position": "FWD",
+        "nowCost": 50,
+        "form": 2.2,
+        "epNext": 2.2,
+        "totalPoints": 23,
+        "selectedByPercent": 0.9,
+        "chanceOfPlayingNextRound": null,
+        "costChangeEvent": 0,
+        "transfersInEvent": 2277,
+        "transfersOutEvent": 7472,
+        "nextFixtures": [
+          { "event": 11, "isHome": true, "difficulty": 2, "opponentShortName": "CRY" },
+          { "event": 12, "isHome": false, "difficulty": 3, "opponentShortName": "LEE" },
+          { "event": 13, "isHome": true, "difficulty": 2, "opponentShortName": "IPS" },
+          { "event": 14, "isHome": false, "difficulty": 3, "opponentShortName": "MUN" },
+          { "event": 15, "isHome": true, "difficulty": 3, "opponentShortName": "AVL" }
+        ]
+      },
+      {
+        "id": 464,
+        "webName": "Wissa",
+        "teamId": 17,
+        "teamShortName": "NEW",
+        "position": "FWD",
+        "nowCost": 59,
+        "form": 1.3,
+        "epNext": 1.3,
+        "totalPoints": 22,
+        "selectedByPercent": 8.2,
+        "chanceOfPlayingNextRound": null,
+        "costChangeEvent": -1,
+        "transfersInEvent": 2248,
+        "transfersOutEvent": 73808,
+        "nextFixtures": [
+          { "event": 11, "isHome": true, "difficulty": 4, "opponentShortName": "ARS" },
+          { "event": 12, "isHome": false, "difficulty": 4, "opponentShortName": "BHA" },
+          { "event": 13, "isHome": true, "difficulty": 3, "opponentShortName": "MUN" },
+          { "event": 14, "isHome": true, "difficulty": 2, "opponentShortName": "SUN" },
+          { "event": 15, "isHome": false, "difficulty": 2, "opponentShortName": "IPS" }
+        ]
+      }
+    ],
+    "picks": [
+      { "elementId": 1, "isCaptain": false, "isViceCaptain": false, "multiplier": 1 },
+      { "elementId": 115, "isCaptain": true, "isViceCaptain": false, "multiplier": 2 },
+      { "elementId": 330, "isCaptain": false, "isViceCaptain": true, "multiplier": 1 },
+      { "elementId": 8, "isCaptain": false, "isViceCaptain": false, "multiplier": 1 },
+      { "elementId": 279, "isCaptain": false, "isViceCaptain": false, "multiplier": 1 },
+      { "elementId": 259, "isCaptain": false, "isViceCaptain": false, "multiplier": 1 },
+      { "elementId": 124, "isCaptain": false, "isViceCaptain": false, "multiplier": 1 },
+      { "elementId": 68, "isCaptain": false, "isViceCaptain": false, "multiplier": 1 },
+      { "elementId": 399, "isCaptain": false, "isViceCaptain": false, "multiplier": 1 },
+      { "elementId": 40, "isCaptain": false, "isViceCaptain": false, "multiplier": 1 },
+      { "elementId": 427, "isCaptain": false, "isViceCaptain": false, "multiplier": 1 },
+      { "elementId": 109, "isCaptain": false, "isViceCaptain": false, "multiplier": 0 },
+      { "elementId": 411, "isCaptain": false, "isViceCaptain": false, "multiplier": 0 },
+      { "elementId": 194, "isCaptain": false, "isViceCaptain": false, "multiplier": 0 },
+      { "elementId": 464, "isCaptain": false, "isViceCaptain": false, "multiplier": 0 }
+    ]
+  },
+  "leagueStandings": [
+    {
+      "id": 2,
+      "name": "Sample Office League",
+      "rank": 2,
+      "previousRank": 4,
+      "totalEntries": 14
+    },
+    {
+      "id": 3,
+      "name": "Five-a-side Friends",
+      "rank": 5,
+      "previousRank": 5,
+      "totalEntries": 9
+    },
+    {
+      "id": 4,
+      "name": "Sample Supporters Club",
+      "rank": 311,
+      "previousRank": 290,
+      "totalEntries": 2380
+    }
+  ],
+  "chipsUsed": ["wildcard"],
+  "transfers": {
+    "suggestions": [
+      {
+        "outPlayer": {
+          "id": 259,
+          "webName": "Diop",
+          "teamId": 12,
+          "teamShortName": "IPS",
+          "position": "DEF",
+          "nowCost": 39,
+          "form": 1.3,
+          "epNext": 1.3,
+          "totalPoints": 21,
+          "selectedByPercent": 9.8,
+          "chanceOfPlayingNextRound": null,
+          "costChangeEvent": 0,
+          "transfersInEvent": 4649,
+          "transfersOutEvent": 22238,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "TOT"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "AVL"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "COV"
+            },
+            {
+              "event": 14,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "LEE"
+            },
+            { "event": 15, "isHome": true, "difficulty": 3, "opponentShortName": "NEW" }
+          ]
+        },
+        "reasonCodes": ["poor_form"],
+        "inCandidates": [
+          {
+            "id": 31,
+            "webName": "Konsa",
+            "teamId": 1,
+            "teamShortName": "ARS",
+            "position": "DEF",
+            "nowCost": 49,
+            "form": 10.7,
+            "epNext": 10.7,
+            "totalPoints": 57,
+            "selectedByPercent": 24.9,
+            "chanceOfPlayingNextRound": 100,
+            "costChangeEvent": 1,
+            "transfersInEvent": 171509,
+            "transfersOutEvent": 17765,
+            "nextFixtures": [
+              {
+                "event": 11,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "NEW"
+              },
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 4,
+                "opponentShortName": "MCI"
+              },
+              {
+                "event": 13,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "BRE"
+              },
+              {
+                "event": 14,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "TOT"
+              },
+              {
+                "event": 15,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "BOU"
+              }
+            ]
+          }
+        ],
+        "expectedPointsGain": 9.399999999999999
+      },
+      {
+        "outPlayer": {
+          "id": 464,
+          "webName": "Wissa",
+          "teamId": 17,
+          "teamShortName": "NEW",
+          "position": "FWD",
+          "nowCost": 59,
+          "form": 1.3,
+          "epNext": 1.3,
+          "totalPoints": 22,
+          "selectedByPercent": 8.2,
+          "chanceOfPlayingNextRound": null,
+          "costChangeEvent": -1,
+          "transfersInEvent": 2248,
+          "transfersOutEvent": 73808,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "ARS"
+            },
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BHA"
+            },
+            {
+              "event": 13,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "MUN"
+            },
+            {
+              "event": 14,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "SUN"
+            },
+            {
+              "event": 15,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "IPS"
+            }
+          ]
+        },
+        "reasonCodes": ["poor_form"],
+        "inCandidates": [
+          {
+            "id": 249,
+            "webName": "Barry",
+            "teamId": 9,
+            "teamShortName": "EVE",
+            "position": "FWD",
+            "nowCost": 57,
+            "form": 9,
+            "epNext": 9,
+            "totalPoints": 55,
+            "selectedByPercent": 10.9,
+            "chanceOfPlayingNextRound": null,
+            "costChangeEvent": 1,
+            "transfersInEvent": 232980,
+            "transfersOutEvent": 16984,
+            "nextFixtures": [
+              {
+                "event": 11,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "BRE"
+              },
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 4,
+                "opponentShortName": "LIV"
+              },
+              {
+                "event": 13,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "AVL"
+              },
+              {
+                "event": 14,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "FUL"
+              },
+              {
+                "event": 15,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "BHA"
+              }
+            ]
+          }
+        ],
+        "expectedPointsGain": 7.7
+      },
+      {
+        "outPlayer": {
+          "id": 427,
+          "webName": "Mbeumo",
+          "teamId": 16,
+          "teamShortName": "MUN",
+          "position": "MID",
+          "nowCost": 79,
+          "form": 1.7,
+          "epNext": 1.7,
+          "totalPoints": 46,
+          "selectedByPercent": 18.9,
+          "chanceOfPlayingNextRound": null,
+          "costChangeEvent": 0,
+          "transfersInEvent": 9644,
+          "transfersOutEvent": 100139,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "LIV"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "BRE"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "NEW"
+            },
+            {
+              "event": 14,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "COV"
+            },
+            {
+              "event": 15,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "CRY"
+            }
+          ]
+        },
+        "reasonCodes": ["poor_form"],
+        "inCandidates": [
+          {
+            "id": 542,
+            "webName": "E.Le Fée",
+            "teamId": 20,
+            "teamShortName": "SUN",
+            "position": "MID",
+            "nowCost": 57,
+            "form": 7.3,
+            "epNext": 7.3,
+            "totalPoints": 46,
+            "selectedByPercent": 2.8,
+            "chanceOfPlayingNextRound": null,
+            "costChangeEvent": 0,
+            "transfersInEvent": 21534,
+            "transfersOutEvent": 5631,
+            "nextFixtures": [
+              {
+                "event": 11,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "AVL"
+              },
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "TOT"
+              },
+              {
+                "event": 13,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "LIV"
+              },
+              {
+                "event": 14,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "NEW"
+              },
+              {
+                "event": 15,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "NFO"
+              }
+            ]
+          },
+          {
+            "id": 366,
+            "webName": "Wirtz",
+            "teamId": 14,
+            "teamShortName": "LIV",
+            "position": "MID",
+            "nowCost": 72,
+            "form": 7,
+            "epNext": 7,
+            "totalPoints": 46,
+            "selectedByPercent": 5.9,
+            "chanceOfPlayingNextRound": 100,
+            "costChangeEvent": 0,
+            "transfersInEvent": 81685,
+            "transfersOutEvent": 6849,
+            "nextFixtures": [
+              {
+                "event": 11,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "MUN"
+              },
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "EVE"
+              },
+              {
+                "event": 13,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "SUN"
+              },
+              {
+                "event": 14,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "CHE"
+              },
+              {
+                "event": 15,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "LEE"
+              }
+            ]
+          },
+          {
+            "id": 52,
+            "webName": "Alysson",
+            "teamId": 2,
+            "teamShortName": "AVL",
+            "position": "MID",
+            "nowCost": 49,
+            "form": 6.3,
+            "epNext": 6.3,
+            "totalPoints": 28,
+            "selectedByPercent": 0.2,
+            "chanceOfPlayingNextRound": 100,
+            "costChangeEvent": 0,
+            "transfersInEvent": 18442,
+            "transfersOutEvent": 932,
+            "nextFixtures": [
+              {
+                "event": 11,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "SUN"
+              },
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 2,
+                "opponentShortName": "IPS"
+              },
+              {
+                "event": 13,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "EVE"
+              },
+              {
+                "event": 14,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "CRY"
+              },
+              {
+                "event": 15,
+                "isHome": false,
+                "difficulty": 2,
+                "opponentShortName": "COV"
+              }
+            ]
+          }
+        ],
+        "expectedPointsGain": 5.6
+      },
+      {
+        "outPlayer": {
+          "id": 194,
+          "webName": "Thomas-Asante",
+          "teamId": 7,
+          "teamShortName": "COV",
+          "position": "FWD",
+          "nowCost": 50,
+          "form": 2.2,
+          "epNext": 2.2,
+          "totalPoints": 23,
+          "selectedByPercent": 0.9,
+          "chanceOfPlayingNextRound": null,
+          "costChangeEvent": 0,
+          "transfersInEvent": 2277,
+          "transfersOutEvent": 7472,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "CRY"
+            },
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "LEE"
+            },
+            {
+              "event": 13,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "IPS"
+            },
+            {
+              "event": 14,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "MUN"
+            },
+            { "event": 15, "isHome": true, "difficulty": 3, "opponentShortName": "AVL" }
+          ]
+        },
+        "reasonCodes": ["poor_form"],
+        "inCandidates": [
+          {
+            "id": 249,
+            "webName": "Barry",
+            "teamId": 9,
+            "teamShortName": "EVE",
+            "position": "FWD",
+            "nowCost": 57,
+            "form": 9,
+            "epNext": 9,
+            "totalPoints": 55,
+            "selectedByPercent": 10.9,
+            "chanceOfPlayingNextRound": null,
+            "costChangeEvent": 1,
+            "transfersInEvent": 232980,
+            "transfersOutEvent": 16984,
+            "nextFixtures": [
+              {
+                "event": 11,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "BRE"
+              },
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 4,
+                "opponentShortName": "LIV"
+              },
+              {
+                "event": 13,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "AVL"
+              },
+              {
+                "event": 14,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "FUL"
+              },
+              {
+                "event": 15,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "BHA"
+              }
+            ]
+          },
+          {
+            "id": 295,
+            "webName": "McBurnie",
+            "teamId": 11,
+            "teamShortName": "HUL",
+            "position": "FWD",
+            "nowCost": 55,
+            "form": 7.3,
+            "epNext": 7.3,
+            "totalPoints": 38,
+            "selectedByPercent": 1.7,
+            "chanceOfPlayingNextRound": null,
+            "costChangeEvent": 0,
+            "transfersInEvent": 5669,
+            "transfersOutEvent": 10775,
+            "nextFixtures": [
+              {
+                "event": 11,
+                "isHome": true,
+                "difficulty": 4,
+                "opponentShortName": "BHA"
+              },
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 2,
+                "opponentShortName": "CRY"
+              },
+              {
+                "event": 13,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "NFO"
+              },
+              {
+                "event": 14,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "BOU"
+              },
+              {
+                "event": 15,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "TOT"
+              }
+            ]
+          },
+          {
+            "id": 167,
+            "webName": "Delap",
+            "teamId": 18,
+            "teamShortName": "NFO",
+            "position": "FWD",
+            "nowCost": 53,
+            "form": 5.7,
+            "epNext": 5.7,
+            "totalPoints": 30,
+            "selectedByPercent": 1.6,
+            "chanceOfPlayingNextRound": null,
+            "costChangeEvent": -1,
+            "transfersInEvent": 29052,
+            "transfersOutEvent": 5364,
+            "nextFixtures": [
+              {
+                "event": 11,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "BOU"
+              },
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 4,
+                "opponentShortName": "CHE"
+              },
+              {
+                "event": 13,
+                "isHome": false,
+                "difficulty": 2,
+                "opponentShortName": "HUL"
+              },
+              {
+                "event": 14,
+                "isHome": true,
+                "difficulty": 4,
+                "opponentShortName": "BHA"
+              },
+              {
+                "event": 15,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "SUN"
+              }
+            ]
+          }
+        ],
+        "expectedPointsGain": 6.8
+      }
+    ],
+    "recommendedCount": 2,
+    "freeTransfers": 2,
+    "pointsHitCost": 0,
+    "projectedNetGain": 17.099999999999998
+  },
+  "captaincy": {
+    "captain": {
+      "player": {
+        "id": 31,
+        "webName": "Konsa",
+        "teamId": 1,
+        "teamShortName": "ARS",
+        "position": "DEF",
+        "nowCost": 49,
+        "form": 10.7,
+        "epNext": 10.7,
+        "totalPoints": 57,
+        "selectedByPercent": 24.9,
+        "chanceOfPlayingNextRound": 100,
+        "costChangeEvent": 1,
+        "transfersInEvent": 171509,
+        "transfersOutEvent": 17765,
+        "nextFixtures": [
+          { "event": 11, "isHome": false, "difficulty": 3, "opponentShortName": "NEW" },
+          { "event": 12, "isHome": true, "difficulty": 4, "opponentShortName": "MCI" },
+          { "event": 13, "isHome": false, "difficulty": 4, "opponentShortName": "BRE" },
+          { "event": 14, "isHome": false, "difficulty": 3, "opponentShortName": "TOT" },
+          { "event": 15, "isHome": true, "difficulty": 3, "opponentShortName": "BOU" }
+        ]
+      },
+      "score": 13.7
+    },
+    "viceCaptain": {
+      "player": {
+        "id": 249,
+        "webName": "Barry",
+        "teamId": 9,
+        "teamShortName": "EVE",
+        "position": "FWD",
+        "nowCost": 57,
+        "form": 9,
+        "epNext": 9,
+        "totalPoints": 55,
+        "selectedByPercent": 10.9,
+        "chanceOfPlayingNextRound": null,
+        "costChangeEvent": 1,
+        "transfersInEvent": 232980,
+        "transfersOutEvent": 16984,
+        "nextFixtures": [
+          { "event": 11, "isHome": false, "difficulty": 4, "opponentShortName": "BRE" },
+          { "event": 12, "isHome": true, "difficulty": 4, "opponentShortName": "LIV" },
+          { "event": 13, "isHome": false, "difficulty": 3, "opponentShortName": "AVL" },
+          { "event": 14, "isHome": true, "difficulty": 2, "opponentShortName": "FUL" },
+          { "event": 15, "isHome": false, "difficulty": 4, "opponentShortName": "BHA" }
+        ]
+      },
+      "score": 11
+    },
+    "candidates": [
+      {
+        "player": {
+          "id": 31,
+          "webName": "Konsa",
+          "teamId": 1,
+          "teamShortName": "ARS",
+          "position": "DEF",
+          "nowCost": 49,
+          "form": 10.7,
+          "epNext": 10.7,
+          "totalPoints": 57,
+          "selectedByPercent": 24.9,
+          "chanceOfPlayingNextRound": 100,
+          "costChangeEvent": 1,
+          "transfersInEvent": 171509,
+          "transfersOutEvent": 17765,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "NEW"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "MCI"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BRE"
+            },
+            {
+              "event": 14,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "TOT"
+            },
+            { "event": 15, "isHome": true, "difficulty": 3, "opponentShortName": "BOU" }
+          ]
+        },
+        "score": 13.7
+      },
+      {
+        "player": {
+          "id": 249,
+          "webName": "Barry",
+          "teamId": 9,
+          "teamShortName": "EVE",
+          "position": "FWD",
+          "nowCost": 57,
+          "form": 9,
+          "epNext": 9,
+          "totalPoints": 55,
+          "selectedByPercent": 10.9,
+          "chanceOfPlayingNextRound": null,
+          "costChangeEvent": 1,
+          "transfersInEvent": 232980,
+          "transfersOutEvent": 16984,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BRE"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "LIV"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "AVL"
+            },
+            {
+              "event": 14,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "FUL"
+            },
+            {
+              "event": 15,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BHA"
+            }
+          ]
+        },
+        "score": 11
+      },
+      {
+        "player": {
+          "id": 109,
+          "webName": "Verbruggen",
+          "teamId": 5,
+          "teamShortName": "BHA",
+          "position": "GK",
+          "nowCost": 47,
+          "form": 6.3,
+          "epNext": 6.3,
+          "totalPoints": 57,
+          "selectedByPercent": 24,
+          "chanceOfPlayingNextRound": null,
+          "costChangeEvent": 1,
+          "transfersInEvent": 59083,
+          "transfersOutEvent": 19182,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "HUL"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "NEW"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BOU"
+            },
+            {
+              "event": 14,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "NFO"
+            },
+            { "event": 15, "isHome": true, "difficulty": 3, "opponentShortName": "EVE" }
+          ]
+        },
+        "score": 10.3
+      },
+      {
+        "player": {
+          "id": 115,
+          "webName": "De Cuyper",
+          "teamId": 5,
+          "teamShortName": "BHA",
+          "position": "DEF",
+          "nowCost": 55,
+          "form": 5.3,
+          "epNext": 5.3,
+          "totalPoints": 75,
+          "selectedByPercent": 48.1,
+          "chanceOfPlayingNextRound": null,
+          "costChangeEvent": 1,
+          "transfersInEvent": 190543,
+          "transfersOutEvent": 10614,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "HUL"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "NEW"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BOU"
+            },
+            {
+              "event": 14,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "NFO"
+            },
+            { "event": 15, "isHome": true, "difficulty": 3, "opponentShortName": "EVE" }
+          ]
+        },
+        "score": 9.3
+      },
+      {
+        "player": {
+          "id": 68,
+          "webName": "Tavernier",
+          "teamId": 3,
+          "teamShortName": "BOU",
+          "position": "MID",
+          "nowCost": 67,
+          "form": 5.3,
+          "epNext": 5.3,
+          "totalPoints": 58,
+          "selectedByPercent": 31.6,
+          "chanceOfPlayingNextRound": null,
+          "costChangeEvent": 1,
+          "transfersInEvent": 160157,
+          "transfersOutEvent": 33565,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "NFO"
+            },
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "FUL"
+            },
+            {
+              "event": 13,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "BHA"
+            },
+            {
+              "event": 14,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "HUL"
+            },
+            {
+              "event": 15,
+              "isHome": false,
+              "difficulty": 5,
+              "opponentShortName": "ARS"
+            }
+          ]
+        },
+        "score": 8.3
+      },
+      {
+        "player": {
+          "id": 124,
+          "webName": "Groß",
+          "teamId": 5,
+          "teamShortName": "BHA",
+          "position": "MID",
+          "nowCost": 63,
+          "form": 4,
+          "epNext": 4,
+          "totalPoints": 70,
+          "selectedByPercent": 48.3,
+          "chanceOfPlayingNextRound": null,
+          "costChangeEvent": 1,
+          "transfersInEvent": 135376,
+          "transfersOutEvent": 15542,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "HUL"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "NEW"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BOU"
+            },
+            {
+              "event": 14,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "NFO"
+            },
+            { "event": 15, "isHome": true, "difficulty": 3, "opponentShortName": "EVE" }
+          ]
+        },
+        "score": 8
+      },
+      {
+        "player": {
+          "id": 411,
+          "webName": "Haaland",
+          "teamId": 15,
+          "teamShortName": "MCI",
+          "position": "FWD",
+          "nowCost": 158,
+          "form": 4,
+          "epNext": 4,
+          "totalPoints": 70,
+          "selectedByPercent": 78.8,
+          "chanceOfPlayingNextRound": 100,
+          "costChangeEvent": 0,
+          "transfersInEvent": 23027,
+          "transfersOutEvent": 50577,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "FUL"
+            },
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 5,
+              "opponentShortName": "ARS"
+            },
+            {
+              "event": 13,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "LEE"
+            },
+            {
+              "event": 14,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BRE"
+            },
+            { "event": 15, "isHome": true, "difficulty": 4, "opponentShortName": "CHE" }
+          ]
+        },
+        "score": 8
+      },
+      {
+        "player": {
+          "id": 8,
+          "webName": "Calafiori",
+          "teamId": 1,
+          "teamShortName": "ARS",
+          "position": "DEF",
+          "nowCost": 59,
+          "form": 4.3,
+          "epNext": 4.3,
+          "totalPoints": 57,
+          "selectedByPercent": 48.7,
+          "chanceOfPlayingNextRound": 100,
+          "costChangeEvent": 0,
+          "transfersInEvent": 71622,
+          "transfersOutEvent": 36095,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "NEW"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "MCI"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BRE"
+            },
+            {
+              "event": 14,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "TOT"
+            },
+            { "event": 15, "isHome": true, "difficulty": 3, "opponentShortName": "BOU" }
+          ]
+        },
+        "score": 7.3
+      },
+      {
+        "player": {
+          "id": 399,
+          "webName": "Cherki",
+          "teamId": 15,
+          "teamShortName": "MCI",
+          "position": "MID",
+          "nowCost": 79,
+          "form": 3.3,
+          "epNext": 3.3,
+          "totalPoints": 54,
+          "selectedByPercent": 33.5,
+          "chanceOfPlayingNextRound": null,
+          "costChangeEvent": 0,
+          "transfersInEvent": 71613,
+          "transfersOutEvent": 49524,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "FUL"
+            },
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 5,
+              "opponentShortName": "ARS"
+            },
+            {
+              "event": 13,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "LEE"
+            },
+            {
+              "event": 14,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BRE"
+            },
+            { "event": 15, "isHome": true, "difficulty": 4, "opponentShortName": "CHE" }
+          ]
+        },
+        "score": 7.3
+      },
+      {
+        "player": {
+          "id": 40,
+          "webName": "Rogers",
+          "teamId": 6,
+          "teamShortName": "CHE",
+          "position": "MID",
+          "nowCost": 82,
+          "form": 4,
+          "epNext": 4,
+          "totalPoints": 52,
+          "selectedByPercent": 54,
+          "chanceOfPlayingNextRound": null,
+          "costChangeEvent": 0,
+          "transfersInEvent": 83054,
+          "transfersOutEvent": 35040,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "LEE"
+            },
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "NFO"
+            },
+            {
+              "event": 13,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "CRY"
+            },
+            {
+              "event": 14,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "LIV"
+            },
+            {
+              "event": 15,
+              "isHome": false,
+              "difficulty": 5,
+              "opponentShortName": "MCI"
+            }
+          ]
+        },
+        "score": 7
+      },
+      {
+        "player": {
+          "id": 330,
+          "webName": "Bogle",
+          "teamId": 13,
+          "teamShortName": "LEE",
+          "position": "DEF",
+          "nowCost": 48,
+          "form": 4.3,
+          "epNext": 4.3,
+          "totalPoints": 58,
+          "selectedByPercent": 11.2,
+          "chanceOfPlayingNextRound": null,
+          "costChangeEvent": 0,
+          "transfersInEvent": 41946,
+          "transfersOutEvent": 17666,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "CHE"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "COV"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 5,
+              "opponentShortName": "MCI"
+            },
+            {
+              "event": 14,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "IPS"
+            },
+            {
+              "event": 15,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "LIV"
+            }
+          ]
+        },
+        "score": 6.3
+      }
+    ]
+  },
+  "chips": {
+    "doubleGameweeks": [],
+    "blankGameweeks": [],
+    "suggestions": [
+      { "chip": "bench_boost", "recommendation": "hold", "reasonCodes": [] },
+      { "chip": "triple_captain", "recommendation": "hold", "reasonCodes": [] },
+      { "chip": "free_hit", "recommendation": "hold", "reasonCodes": [] }
+    ]
+  },
+  "priceAlerts": {
+    "alerts": [
+      {
+        "player": {
+          "id": 115,
+          "webName": "De Cuyper",
+          "teamId": 5,
+          "teamShortName": "BHA",
+          "position": "DEF",
+          "nowCost": 55,
+          "form": 5.3,
+          "epNext": 5.3,
+          "totalPoints": 75,
+          "selectedByPercent": 48.1,
+          "chanceOfPlayingNextRound": null,
+          "costChangeEvent": 1,
+          "transfersInEvent": 190543,
+          "transfersOutEvent": 10614,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "HUL"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "NEW"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BOU"
+            },
+            {
+              "event": 14,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "NFO"
+            },
+            { "event": 15, "isHome": true, "difficulty": 3, "opponentShortName": "EVE" }
+          ]
+        },
+        "direction": "rise",
+        "status": "changed_today"
+      },
+      {
+        "player": {
+          "id": 124,
+          "webName": "Groß",
+          "teamId": 5,
+          "teamShortName": "BHA",
+          "position": "MID",
+          "nowCost": 63,
+          "form": 4,
+          "epNext": 4,
+          "totalPoints": 70,
+          "selectedByPercent": 48.3,
+          "chanceOfPlayingNextRound": null,
+          "costChangeEvent": 1,
+          "transfersInEvent": 135376,
+          "transfersOutEvent": 15542,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "HUL"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "NEW"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BOU"
+            },
+            {
+              "event": 14,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "NFO"
+            },
+            { "event": 15, "isHome": true, "difficulty": 3, "opponentShortName": "EVE" }
+          ]
+        },
+        "direction": "rise",
+        "status": "changed_today"
+      },
+      {
+        "player": {
+          "id": 68,
+          "webName": "Tavernier",
+          "teamId": 3,
+          "teamShortName": "BOU",
+          "position": "MID",
+          "nowCost": 67,
+          "form": 5.3,
+          "epNext": 5.3,
+          "totalPoints": 58,
+          "selectedByPercent": 31.6,
+          "chanceOfPlayingNextRound": null,
+          "costChangeEvent": 1,
+          "transfersInEvent": 160157,
+          "transfersOutEvent": 33565,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "NFO"
+            },
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "FUL"
+            },
+            {
+              "event": 13,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "BHA"
+            },
+            {
+              "event": 14,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "HUL"
+            },
+            {
+              "event": 15,
+              "isHome": false,
+              "difficulty": 5,
+              "opponentShortName": "ARS"
+            }
+          ]
+        },
+        "direction": "rise",
+        "status": "changed_today"
+      },
+      {
+        "player": {
+          "id": 427,
+          "webName": "Mbeumo",
+          "teamId": 16,
+          "teamShortName": "MUN",
+          "position": "MID",
+          "nowCost": 79,
+          "form": 1.7,
+          "epNext": 1.7,
+          "totalPoints": 46,
+          "selectedByPercent": 18.9,
+          "chanceOfPlayingNextRound": null,
+          "costChangeEvent": 0,
+          "transfersInEvent": 9644,
+          "transfersOutEvent": 100139,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "LIV"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "BRE"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "NEW"
+            },
+            {
+              "event": 14,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "COV"
+            },
+            {
+              "event": 15,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "CRY"
+            }
+          ]
+        },
+        "direction": "fall",
+        "status": "predicted"
+      },
+      {
+        "player": {
+          "id": 109,
+          "webName": "Verbruggen",
+          "teamId": 5,
+          "teamShortName": "BHA",
+          "position": "GK",
+          "nowCost": 47,
+          "form": 6.3,
+          "epNext": 6.3,
+          "totalPoints": 57,
+          "selectedByPercent": 24,
+          "chanceOfPlayingNextRound": null,
+          "costChangeEvent": 1,
+          "transfersInEvent": 59083,
+          "transfersOutEvent": 19182,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "HUL"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "NEW"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BOU"
+            },
+            {
+              "event": 14,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "NFO"
+            },
+            { "event": 15, "isHome": true, "difficulty": 3, "opponentShortName": "EVE" }
+          ]
+        },
+        "direction": "rise",
+        "status": "changed_today"
+      },
+      {
+        "player": {
+          "id": 464,
+          "webName": "Wissa",
+          "teamId": 17,
+          "teamShortName": "NEW",
+          "position": "FWD",
+          "nowCost": 59,
+          "form": 1.3,
+          "epNext": 1.3,
+          "totalPoints": 22,
+          "selectedByPercent": 8.2,
+          "chanceOfPlayingNextRound": null,
+          "costChangeEvent": -1,
+          "transfersInEvent": 2248,
+          "transfersOutEvent": 73808,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "ARS"
+            },
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BHA"
+            },
+            {
+              "event": 13,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "MUN"
+            },
+            {
+              "event": 14,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "SUN"
+            },
+            {
+              "event": 15,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "IPS"
+            }
+          ]
+        },
+        "direction": "fall",
+        "status": "changed_today"
+      }
+    ]
+  },
+  "lineup": {
+    "formation": "4-4-2",
+    "startingXI": [
+      {
+        "player": {
+          "id": 109,
+          "webName": "Verbruggen",
+          "teamId": 5,
+          "teamShortName": "BHA",
+          "position": "GK",
+          "nowCost": 47,
+          "form": 6.3,
+          "epNext": 6.3,
+          "totalPoints": 57,
+          "selectedByPercent": 24,
+          "chanceOfPlayingNextRound": null,
+          "costChangeEvent": 1,
+          "transfersInEvent": 59083,
+          "transfersOutEvent": 19182,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "HUL"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "NEW"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BOU"
+            },
+            {
+              "event": 14,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "NFO"
+            },
+            { "event": 15, "isHome": true, "difficulty": 3, "opponentShortName": "EVE" }
+          ]
+        },
+        "score": 10.3
+      },
+      {
+        "player": {
+          "id": 31,
+          "webName": "Konsa",
+          "teamId": 1,
+          "teamShortName": "ARS",
+          "position": "DEF",
+          "nowCost": 49,
+          "form": 10.7,
+          "epNext": 10.7,
+          "totalPoints": 57,
+          "selectedByPercent": 24.9,
+          "chanceOfPlayingNextRound": 100,
+          "costChangeEvent": 1,
+          "transfersInEvent": 171509,
+          "transfersOutEvent": 17765,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "NEW"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "MCI"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BRE"
+            },
+            {
+              "event": 14,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "TOT"
+            },
+            { "event": 15, "isHome": true, "difficulty": 3, "opponentShortName": "BOU" }
+          ]
+        },
+        "score": 13.7
+      },
+      {
+        "player": {
+          "id": 115,
+          "webName": "De Cuyper",
+          "teamId": 5,
+          "teamShortName": "BHA",
+          "position": "DEF",
+          "nowCost": 55,
+          "form": 5.3,
+          "epNext": 5.3,
+          "totalPoints": 75,
+          "selectedByPercent": 48.1,
+          "chanceOfPlayingNextRound": null,
+          "costChangeEvent": 1,
+          "transfersInEvent": 190543,
+          "transfersOutEvent": 10614,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "HUL"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "NEW"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BOU"
+            },
+            {
+              "event": 14,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "NFO"
+            },
+            { "event": 15, "isHome": true, "difficulty": 3, "opponentShortName": "EVE" }
+          ]
+        },
+        "score": 9.3
+      },
+      {
+        "player": {
+          "id": 8,
+          "webName": "Calafiori",
+          "teamId": 1,
+          "teamShortName": "ARS",
+          "position": "DEF",
+          "nowCost": 59,
+          "form": 4.3,
+          "epNext": 4.3,
+          "totalPoints": 57,
+          "selectedByPercent": 48.7,
+          "chanceOfPlayingNextRound": 100,
+          "costChangeEvent": 0,
+          "transfersInEvent": 71622,
+          "transfersOutEvent": 36095,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "NEW"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "MCI"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BRE"
+            },
+            {
+              "event": 14,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "TOT"
+            },
+            { "event": 15, "isHome": true, "difficulty": 3, "opponentShortName": "BOU" }
+          ]
+        },
+        "score": 7.3
+      },
+      {
+        "player": {
+          "id": 330,
+          "webName": "Bogle",
+          "teamId": 13,
+          "teamShortName": "LEE",
+          "position": "DEF",
+          "nowCost": 48,
+          "form": 4.3,
+          "epNext": 4.3,
+          "totalPoints": 58,
+          "selectedByPercent": 11.2,
+          "chanceOfPlayingNextRound": null,
+          "costChangeEvent": 0,
+          "transfersInEvent": 41946,
+          "transfersOutEvent": 17666,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "CHE"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "COV"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 5,
+              "opponentShortName": "MCI"
+            },
+            {
+              "event": 14,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "IPS"
+            },
+            {
+              "event": 15,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "LIV"
+            }
+          ]
+        },
+        "score": 6.3
+      },
+      {
+        "player": {
+          "id": 68,
+          "webName": "Tavernier",
+          "teamId": 3,
+          "teamShortName": "BOU",
+          "position": "MID",
+          "nowCost": 67,
+          "form": 5.3,
+          "epNext": 5.3,
+          "totalPoints": 58,
+          "selectedByPercent": 31.6,
+          "chanceOfPlayingNextRound": null,
+          "costChangeEvent": 1,
+          "transfersInEvent": 160157,
+          "transfersOutEvent": 33565,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "NFO"
+            },
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "FUL"
+            },
+            {
+              "event": 13,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "BHA"
+            },
+            {
+              "event": 14,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "HUL"
+            },
+            {
+              "event": 15,
+              "isHome": false,
+              "difficulty": 5,
+              "opponentShortName": "ARS"
+            }
+          ]
+        },
+        "score": 8.3
+      },
+      {
+        "player": {
+          "id": 124,
+          "webName": "Groß",
+          "teamId": 5,
+          "teamShortName": "BHA",
+          "position": "MID",
+          "nowCost": 63,
+          "form": 4,
+          "epNext": 4,
+          "totalPoints": 70,
+          "selectedByPercent": 48.3,
+          "chanceOfPlayingNextRound": null,
+          "costChangeEvent": 1,
+          "transfersInEvent": 135376,
+          "transfersOutEvent": 15542,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "HUL"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "NEW"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BOU"
+            },
+            {
+              "event": 14,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "NFO"
+            },
+            { "event": 15, "isHome": true, "difficulty": 3, "opponentShortName": "EVE" }
+          ]
+        },
+        "score": 8
+      },
+      {
+        "player": {
+          "id": 399,
+          "webName": "Cherki",
+          "teamId": 15,
+          "teamShortName": "MCI",
+          "position": "MID",
+          "nowCost": 79,
+          "form": 3.3,
+          "epNext": 3.3,
+          "totalPoints": 54,
+          "selectedByPercent": 33.5,
+          "chanceOfPlayingNextRound": null,
+          "costChangeEvent": 0,
+          "transfersInEvent": 71613,
+          "transfersOutEvent": 49524,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "FUL"
+            },
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 5,
+              "opponentShortName": "ARS"
+            },
+            {
+              "event": 13,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "LEE"
+            },
+            {
+              "event": 14,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BRE"
+            },
+            { "event": 15, "isHome": true, "difficulty": 4, "opponentShortName": "CHE" }
+          ]
+        },
+        "score": 7.3
+      },
+      {
+        "player": {
+          "id": 40,
+          "webName": "Rogers",
+          "teamId": 6,
+          "teamShortName": "CHE",
+          "position": "MID",
+          "nowCost": 82,
+          "form": 4,
+          "epNext": 4,
+          "totalPoints": 52,
+          "selectedByPercent": 54,
+          "chanceOfPlayingNextRound": null,
+          "costChangeEvent": 0,
+          "transfersInEvent": 83054,
+          "transfersOutEvent": 35040,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "LEE"
+            },
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "NFO"
+            },
+            {
+              "event": 13,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "CRY"
+            },
+            {
+              "event": 14,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "LIV"
+            },
+            {
+              "event": 15,
+              "isHome": false,
+              "difficulty": 5,
+              "opponentShortName": "MCI"
+            }
+          ]
+        },
+        "score": 7
+      },
+      {
+        "player": {
+          "id": 249,
+          "webName": "Barry",
+          "teamId": 9,
+          "teamShortName": "EVE",
+          "position": "FWD",
+          "nowCost": 57,
+          "form": 9,
+          "epNext": 9,
+          "totalPoints": 55,
+          "selectedByPercent": 10.9,
+          "chanceOfPlayingNextRound": null,
+          "costChangeEvent": 1,
+          "transfersInEvent": 232980,
+          "transfersOutEvent": 16984,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BRE"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "LIV"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "AVL"
+            },
+            {
+              "event": 14,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "FUL"
+            },
+            {
+              "event": 15,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BHA"
+            }
+          ]
+        },
+        "score": 11
+      },
+      {
+        "player": {
+          "id": 411,
+          "webName": "Haaland",
+          "teamId": 15,
+          "teamShortName": "MCI",
+          "position": "FWD",
+          "nowCost": 158,
+          "form": 4,
+          "epNext": 4,
+          "totalPoints": 70,
+          "selectedByPercent": 78.8,
+          "chanceOfPlayingNextRound": 100,
+          "costChangeEvent": 0,
+          "transfersInEvent": 23027,
+          "transfersOutEvent": 50577,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "FUL"
+            },
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 5,
+              "opponentShortName": "ARS"
+            },
+            {
+              "event": 13,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "LEE"
+            },
+            {
+              "event": 14,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BRE"
+            },
+            { "event": 15, "isHome": true, "difficulty": 4, "opponentShortName": "CHE" }
+          ]
+        },
+        "score": 8
+      }
+    ],
+    "bench": [
+      {
+        "player": {
+          "id": 194,
+          "webName": "Thomas-Asante",
+          "teamId": 7,
+          "teamShortName": "COV",
+          "position": "FWD",
+          "nowCost": 50,
+          "form": 2.2,
+          "epNext": 2.2,
+          "totalPoints": 23,
+          "selectedByPercent": 0.9,
+          "chanceOfPlayingNextRound": null,
+          "costChangeEvent": 0,
+          "transfersInEvent": 2277,
+          "transfersOutEvent": 7472,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "CRY"
+            },
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "LEE"
+            },
+            {
+              "event": 13,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "IPS"
+            },
+            {
+              "event": 14,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "MUN"
+            },
+            { "event": 15, "isHome": true, "difficulty": 3, "opponentShortName": "AVL" }
+          ]
+        },
+        "score": 6.2
+      },
+      {
+        "player": {
+          "id": 279,
+          "webName": "Ajayi",
+          "teamId": 11,
+          "teamShortName": "HUL",
+          "position": "DEF",
+          "nowCost": 42,
+          "form": 4,
+          "epNext": 4,
+          "totalPoints": 42,
+          "selectedByPercent": 11.9,
+          "chanceOfPlayingNextRound": 100,
+          "costChangeEvent": 0,
+          "transfersInEvent": 8828,
+          "transfersOutEvent": 23392,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "BHA"
+            },
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "CRY"
+            },
+            {
+              "event": 13,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "NFO"
+            },
+            {
+              "event": 14,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BOU"
+            },
+            { "event": 15, "isHome": true, "difficulty": 3, "opponentShortName": "TOT" }
+          ]
+        },
+        "score": 6
+      },
+      {
+        "player": {
+          "id": 427,
+          "webName": "Mbeumo",
+          "teamId": 16,
+          "teamShortName": "MUN",
+          "position": "MID",
+          "nowCost": 79,
+          "form": 1.7,
+          "epNext": 1.7,
+          "totalPoints": 46,
+          "selectedByPercent": 18.9,
+          "chanceOfPlayingNextRound": null,
+          "costChangeEvent": 0,
+          "transfersInEvent": 9644,
+          "transfersOutEvent": 100139,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "LIV"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "BRE"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "NEW"
+            },
+            {
+              "event": 14,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "COV"
+            },
+            {
+              "event": 15,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "CRY"
+            }
+          ]
+        },
+        "score": 3.7
+      },
+      {
+        "player": {
+          "id": 1,
+          "webName": "Raya",
+          "teamId": 1,
+          "teamShortName": "ARS",
+          "position": "GK",
+          "nowCost": 62,
+          "form": 6,
+          "epNext": 6,
+          "totalPoints": 60,
+          "selectedByPercent": 47.6,
+          "chanceOfPlayingNextRound": null,
+          "costChangeEvent": 0,
+          "transfersInEvent": 57546,
+          "transfersOutEvent": 16691,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "NEW"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "MCI"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BRE"
+            },
+            {
+              "event": 14,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "TOT"
+            },
+            { "event": 15, "isHome": true, "difficulty": 3, "opponentShortName": "BOU" }
+          ]
+        },
+        "score": 9
+      }
+    ]
+  }
+}
