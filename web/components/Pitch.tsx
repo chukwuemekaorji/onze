@@ -9,7 +9,12 @@ import {
   PITCH_DRAW_S,
   usePlayOnce,
 } from '../motion.js';
-import { placeRow, placeStartingXI, shirtNumbers } from '../pitch-layout.js';
+import {
+  benchInFplOrder,
+  placeRow,
+  placeStartingXI,
+  shirtNumbers,
+} from '../pitch-layout.js';
 import type { PlacedPlayer, PlacementContext, RowLayout } from '../pitch-layout.js';
 import { Jersey, JERSEY_HALF_HEIGHT } from './Jersey.js';
 import { INK_WOBBLE_FILTER } from './ui/InkFilters.js';
@@ -90,7 +95,12 @@ export function Pitch({ summary }: PitchProps) {
     PITCH_ROW_LAYOUT,
     context,
   );
-  const bench = placeRow(lineup.bench, BENCH_ROW_Y, PITCH_ROW_LAYOUT, context);
+  const bench = placeRow(
+    benchInFplOrder(lineup.bench),
+    BENCH_ROW_Y,
+    PITCH_ROW_LAYOUT,
+    context,
+  );
   // shirts land in number order: keeper, defence, midfield, attack, then the bench
   const landingDelay = (player: PlacedPlayer) =>
     playEntrance

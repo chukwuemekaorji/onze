@@ -84,6 +84,15 @@ export function fitLabel(
   return estimateLabelWidth(text, fontSize, glyphWidthEm) > maxWidth ? maxWidth : null;
 }
 
+/**
+ * fpl lists the substitute keeper first on the bench, then the outfield subs
+ * in the order they'd come on. the analysis keeps them best first, keeper last
+ */
+export function benchInFplOrder(bench: LineupPlayer[]): LineupPlayer[] {
+  const isKeeper = (p: LineupPlayer) => p.player.position === 'GK';
+  return [...bench.filter(isKeeper), ...bench.filter((p) => !isKeeper(p))];
+}
+
 /** 1 to 11 for the xi in formation order (gk, def, mid, fwd), 12 up for the bench */
 export function shirtNumbers(
   lineup: Pick<LineupAnalysis, 'startingXI' | 'bench'>,
@@ -93,7 +102,7 @@ export function shirtNumbers(
   );
   const numbers = new Map<number, number>();
   inFormationOrder.forEach(({ player }, index) => numbers.set(player.id, index + 1));
-  lineup.bench.forEach(({ player }, index) =>
+  benchInFplOrder(lineup.bench).forEach(({ player }, index) =>
     numbers.set(player.id, FIRST_BENCH_NUMBER + index),
   );
   return numbers;

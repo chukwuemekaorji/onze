@@ -6,6 +6,7 @@ import type {
   Position,
 } from '../lib/analysis/types.js';
 import {
+  benchInFplOrder,
   estimateLabelWidth,
   fitLabel,
   fixtureLabel,
@@ -150,7 +151,16 @@ describe('shirtNumbers', () => {
     expect(mids.map(numberOf)).toEqual([5, 6, 7]);
     expect(numberOf(fwd)).toBe(9);
     expect(moreFwds.map(numberOf)).toEqual([10, 11]);
-    expect(bench.map(numberOf)).toEqual([12, 13, 14, 15]);
+    // fpl's bench order: the substitute keeper first, then the outfield subs
+    const [benchDef, benchMid, benchFwd, benchGk] = bench as [
+      LineupPlayer,
+      LineupPlayer,
+      LineupPlayer,
+      LineupPlayer,
+    ];
+    expect([benchGk, benchDef, benchMid, benchFwd].map(numberOf)).toEqual([
+      12, 13, 14, 15,
+    ]);
   });
 
   it('keeps the same order as the players are placed left to right', () => {
@@ -170,6 +180,22 @@ describe('shirtNumbers', () => {
 
   it('returns an empty map for an empty lineup', () => {
     expect(shirtNumbers({ startingXI: [], bench: [] }).size).toBe(0);
+  });
+});
+
+describe('benchInFplOrder', () => {
+  it('puts the substitute keeper first and keeps the outfield order', () => {
+    const def = lineupPlayer('DEF');
+    const mid = lineupPlayer('MID');
+    const gk = lineupPlayer('GK');
+    expect(benchInFplOrder([def, mid, gk])).toEqual([gk, def, mid]);
+  });
+
+  it('leaves a bench without a keeper, or an empty one, as it is', () => {
+    const def = lineupPlayer('DEF');
+    const fwd = lineupPlayer('FWD');
+    expect(benchInFplOrder([def, fwd])).toEqual([def, fwd]);
+    expect(benchInFplOrder([])).toEqual([]);
   });
 });
 
