@@ -75,6 +75,16 @@ export interface FplFixture {
   kickoff_time: string | null;
 }
 
+/** A classic league as it appears in /entry/{id}/'s leagues.classic. league_type "s" is one of FPL's own system leagues (Overall, country, gameweek); "x" is a league a manager actually created or joined. */
+export interface FplClassicLeague {
+  id: number;
+  name: string;
+  league_type: string;
+  rank_count: number;
+  entry_rank: number;
+  entry_last_rank: number;
+}
+
 export interface FplEntry {
   id: number;
   player_first_name: string;
@@ -85,6 +95,9 @@ export interface FplEntry {
   current_event: number;
   last_deadline_bank: number;
   last_deadline_value: number;
+  leagues: {
+    classic: FplClassicLeague[];
+  };
 }
 
 export interface FplPick {
@@ -119,6 +132,8 @@ export interface FplEntryHistoryResponse {
     total_points: number;
     rank: number;
     overall_rank: number;
+    event_transfers: number;
+    event_transfers_cost: number;
   }>;
   chips: FplEntryHistoryChip[];
 }

@@ -31,6 +31,7 @@ export function makeSquadContext(overrides: Partial<SquadContext> = {}): SquadCo
   return {
     currentEvent: 1,
     bank: 0,
+    freeTransfers: 1,
     squad,
     picks: squad.map((p) => ({
       elementId: p.id,

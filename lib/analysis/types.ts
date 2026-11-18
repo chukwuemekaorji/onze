@@ -46,6 +46,17 @@ export interface SquadContext {
   currentEvent: number;
   /** Same unit as AnalysisPlayer.nowCost (tenths of a million, e.g. 3 = £0.3m). */
   bank: number;
+  /** Free transfers banked going into currentEvent, per FPL's roll-over rules (capped at 5). */
+  freeTransfers: number;
   squad: AnalysisPlayer[];
   picks: SquadPick[];
+}
+
+/** One classic mini-league the manager is actually competing in — FPL's own system leagues (Overall, country, etc.) are excluded since nobody "wins" those. */
+export interface LeagueStanding {
+  id: number;
+  name: string;
+  rank: number;
+  previousRank: number;
+  totalEntries: number;
 }
