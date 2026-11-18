@@ -1,7 +1,7 @@
 import type { CoachReport } from '../../lib/coach-prompt.js';
 import { renderMarkdownLite } from '../markdown.js';
 import type { ShownReport } from '../use-report-flow.js';
-import { SquadList } from './SquadList.js';
+import { Pitch } from './Pitch.js';
 
 const REPORT_SECTIONS: ReadonlyArray<[title: string, field: keyof CoachReport]> = [
   ['Summary', 'summary'],
@@ -18,14 +18,12 @@ interface ReportPanelProps {
 }
 
 export function ReportPanel({ shown, writing }: ReportPanelProps) {
-  const lineupImageUrl = `/api/lineup-image?managerId=${shown.managerId}&event=${shown.summary.currentEvent}`;
-
   return (
     <section className="panel report-panel">
       <div className="panel-header">
         <h2>Your Squad</h2>
       </div>
-      <SquadList summary={shown.summary} />
+      <Pitch summary={shown.summary} />
 
       <p id="report-progress" className="report-label" role="status" hidden={!writing}>
         Sensei is writing your AI report...
@@ -54,10 +52,6 @@ export function ReportPanel({ shown, writing }: ReportPanelProps) {
             />
           </section>
         ))}
-      </div>
-
-      <div className="lineup-image-card">
-        <img id="lineup-image" alt="Recommended starting lineup" src={lineupImageUrl} />
       </div>
     </section>
   );

@@ -5,6 +5,7 @@
 @import './styles/base.css';
 @import './styles/textures.css';
 @import './styles/components.css';
+@import './styles/pitch.css';
 
 /* existing app, mapped onto the tactics board tokens. layout is unchanged */
 
@@ -269,41 +270,6 @@
   font-size: var(--text-lg);
 }
 
-.squad-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: var(--space-2);
-  margin: 0 0 var(--space-5);
-  padding: 0;
-  list-style: none;
-}
-
-.squad-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-  padding: var(--space-2) var(--space-3);
-  background: var(--paper);
-  border: 1.5px solid var(--ink);
-  border-radius: var(--radius-sm);
-}
-
-.squad-item-name {
-  font-size: var(--text-sm);
-  font-weight: 700;
-}
-
-.squad-item-name em {
-  font-style: normal;
-  font-weight: 800;
-  color: var(--marker-red-text);
-}
-
-.squad-item-meta {
-  font-size: var(--text-xs);
-  color: var(--ink-muted);
-}
-
 .report-banner {
   margin-bottom: var(--space-4);
   padding: var(--space-3) var(--space-4);
@@ -348,20 +314,6 @@
 
 .report-section p {
   margin: 0;
-}
-
-.lineup-image-card {
-  margin-top: var(--space-5);
-  overflow: hidden;
-  line-height: 0;
-  border: var(--stroke) solid var(--ink);
-  border-radius: var(--radius-sm);
-}
-
-.lineup-image-card img {
-  display: block;
-  width: 100%;
-  height: auto;
 }
 
 .chat-panel {

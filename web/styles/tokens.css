@@ -14,6 +14,7 @@
   --highlighter: #f6d94a;
   /* pitch stripes only, never text or ui chrome */
   --grass: #dfe6cf;
+  --grass-stripe: #d3ddbf;
   --grid-line: rgba(27, 26, 23, 0.06);
   --tape: rgba(226, 214, 178, 0.82);
   --tape-edge: rgba(27, 26, 23, 0.08);
