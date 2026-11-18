@@ -1,37 +1,14 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import Anthropic from '@anthropic-ai/sdk';
+import { FplApiError } from '../lib/fpl-client.js';
 import {
-  getBootstrapStatic,
-  getFixtures,
-  getEntry,
-  getEntryPicks,
-  getEntryHistory,
-  FplApiError,
-} from '../lib/fpl-client.js';
-import { buildPlayerPool, buildSquadContext } from '../lib/build-context.js';
-import { analyzeTransfers } from '../lib/analysis/transfers.js';
-import { analyzeCaptaincy } from '../lib/analysis/captaincy.js';
-import { analyzeChips } from '../lib/analysis/chips.js';
-import type { ChipName } from '../lib/analysis/chips.js';
-import { analyzePriceAlerts } from '../lib/analysis/price-alerts.js';
-import type { AnalysisSummary } from '../lib/analysis-summary.js';
-import {
-  buildCoachRequest,
-  parseCoachResponse,
-} from '../lib/coach-prompt.js';
+  generateAnalysisSummary,
+  NoCurrentGameweekError,
+} from '../lib/generate-analysis-summary.js';
+import { buildCoachRequest, parseCoachResponse } from '../lib/coach-prompt.js';
 import type { CoachReport } from '../lib/coach-prompt.js';
 import { writeFallbackReport } from '../lib/fallback-writer.js';
 import { DEFAULT_ANTHROPIC_MODEL } from '../lib/persona.js';
-
-const LOOKAHEAD_EVENTS = 5;
-
-// FPL's own short codes for chips used, from /entry/{id}/history/.
-const FPL_CHIP_NAME_MAP: Record<string, ChipName> = {
-  wildcard: 'wildcard',
-  bboost: 'bench_boost',
-  '3xc': 'triple_captain',
-  freehit: 'free_hit',
-};
 
 interface CoachRequestBody {
   managerId: number;
@@ -82,57 +59,10 @@ export default async function handler(
   }
 
   try {
-    const [bootstrap, fixtures] = await Promise.all([
-      getBootstrapStatic(),
-      getFixtures(),
-    ]);
-
-    const targetEvent =
-      body.event ??
-      bootstrap.events.find((e) => e.is_current)?.id ??
-      bootstrap.events.find((e) => e.is_next)?.id;
-
-    if (!targetEvent) {
-      res.status(502).json({
-        error: 'Could not determine the current gameweek from FPL data.',
-      });
-      return;
-    }
-
-    const [entry, picks, history] = await Promise.all([
-      getEntry(body.managerId),
-      getEntryPicks(body.managerId, targetEvent),
-      getEntryHistory(body.managerId),
-    ]);
-
-    const playerPool = buildPlayerPool(bootstrap, fixtures, {
-      fromEvent: targetEvent,
-      lookaheadEvents: LOOKAHEAD_EVENTS,
-    });
-    const squad = buildSquadContext(
-      picks,
-      playerPool,
-      targetEvent,
-      picks.entry_history.bank,
+    const analysisSummary = await generateAnalysisSummary(
+      body.managerId,
+      body.event,
     );
-
-    const chipsUsed = history.chips
-      .map((c) => FPL_CHIP_NAME_MAP[c.name])
-      .filter((c): c is ChipName => c !== undefined);
-
-    const allTeamIds = bootstrap.teams.map((t) => t.id);
-
-    const analysisSummary: AnalysisSummary = {
-      managerName: `${entry.player_first_name} ${entry.player_last_name}`,
-      teamName: entry.name,
-      currentEvent: targetEvent,
-      squad,
-      chipsUsed,
-      transfers: analyzeTransfers(squad, playerPool),
-      captaincy: analyzeCaptaincy(squad),
-      chips: analyzeChips(fixtures, allTeamIds, squad, chipsUsed),
-      priceAlerts: analyzePriceAlerts(squad.squad),
-    };
 
     const apiKey = process.env.ANTHROPIC_API_KEY;
     let report: CoachReport;
@@ -164,6 +94,10 @@ export default async function handler(
             ? 'Manager ID not found. Double-check the ID and try again.'
             : 'The FPL API is currently unavailable. Please try again shortly.',
       });
+      return;
+    }
+    if (err instanceof NoCurrentGameweekError) {
+      res.status(502).json({ error: err.message });
       return;
     }
     console.error('Unexpected error in /api/coach:', err);
