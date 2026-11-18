@@ -46,6 +46,8 @@
   --space-6: 2rem;
   --space-7: 3rem;
   --space-8: 4.5rem;
+  /* side padding of the page; the pitch bleeds into it on phones */
+  --page-gutter: 1.25rem;
 
   /* radius: paper has crisp corners, so these stay small */
   --radius-sm: 3px;
