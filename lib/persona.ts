@@ -5,7 +5,7 @@
  * the same coach.
  */
 
-export const DEFAULT_ANTHROPIC_MODEL = 'claude-sonnet-4-5';
+export const DEFAULT_ANTHROPIC_MODEL = 'claude-sonnet-5-5';
 
 export const SENSEI_PERSONA = `You are Sensei, a sharp, experienced Fantasy Premier League manager
 who coaches the user through their FPL decisions. You explain your
