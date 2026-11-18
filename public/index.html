@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sensei — Your FPL Coach</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="page-header">
+      <h1>Sensei</h1>
+      <p>Your AI-powered Fantasy Premier League coach.</p>
+    </header>
+
+    <main>
+      <form id="coach-form" class="coach-form">
+        <label for="manager-id">FPL Manager ID</label>
+        <input
+          id="manager-id"
+          name="manager-id"
+          type="number"
+          min="1"
+          placeholder="e.g. 1234567"
+          required
+        />
+        <button id="submit-button" type="submit">Get my report</button>
+      </form>
+
+      <p id="status" role="status"></p>
+
+      <section id="results" hidden>
+        <div class="squad-column">
+          <h2>Your Squad</h2>
+          <ul id="squad-list" class="squad-list"></ul>
+        </div>
+
+        <div id="report" class="report"></div>
+
+        <div id="chat-panel" class="chat-panel" hidden>
+          <h2>Ask Sensei</h2>
+          <div id="chat-disabled" class="chat-disabled" hidden>
+            Chat requires an Anthropic API key configured on this
+            deployment — the report above was generated with the
+            rule-based fallback writer instead.
+          </div>
+          <div id="chat-messages" class="chat-messages"></div>
+          <form id="chat-form" class="chat-form">
+            <input
+              id="chat-input"
+              type="text"
+              placeholder="e.g. why not captain Salah instead?"
+              autocomplete="off"
+            />
+            <button type="submit">Send</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="dist/app.js"></script>
+  </body>
+</html>
