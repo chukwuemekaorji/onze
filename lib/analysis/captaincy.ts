@@ -1,4 +1,5 @@
-import type { AnalysisPlayer, SquadContext } from './types.js';
+import type { AnalysisPlayer } from './types.js';
+import { scoreForEvent } from './scoring.js';
 
 export interface CaptaincyCandidate {
   player: AnalysisPlayer;
@@ -12,35 +13,19 @@ export interface CaptaincyAnalysis {
   candidates: CaptaincyCandidate[];
 }
 
-const EP_NEXT_WEIGHT = 1;
-const FIXTURE_DIFFICULTY_WEIGHT = 1;
-// A player with two fixtures in the upcoming event (double gameweek)
-// gets credit for both, so this isn't purely averaged — see scoreCandidate.
-const DOUBLE_GAMEWEEK_BONUS = 2;
-
-function scoreCandidate(player: AnalysisPlayer, nextEvent: number): number {
-  const upcoming = player.nextFixtures.filter((f) => f.event === nextEvent);
-  if (upcoming.length === 0) return 0; // blank gameweek for this player
-
-  const fixtureScore = upcoming.reduce(
-    (acc, f) => acc + (6 - f.difficulty) * FIXTURE_DIFFICULTY_WEIGHT,
-    0,
-  );
-  const doubleBonus =
-    upcoming.length > 1 ? (upcoming.length - 1) * DOUBLE_GAMEWEEK_BONUS : 0;
-
-  return player.epNext * EP_NEXT_WEIGHT + fixtureScore + doubleBonus;
-}
-
-/** Only players actually in the starting XI (multiplier > 0) can be captained. */
-export function analyzeCaptaincy(squad: SquadContext): CaptaincyAnalysis {
-  const startingIds = new Set(
-    squad.picks.filter((p) => p.multiplier > 0).map((p) => p.elementId),
-  );
-  const eligible = squad.squad.filter((p) => startingIds.has(p.id));
-
-  const candidates: CaptaincyCandidate[] = eligible
-    .map((player) => ({ player, score: scoreCandidate(player, squad.currentEvent) }))
+/**
+ * Ranks captaincy candidates for one event. Takes the eligible player
+ * list directly (the caller passes the recommended starting XI, from
+ * lib/analysis/lineup.ts) rather than reading "currently starting" off
+ * historical FPL picks — those reflect whichever gameweek's deadline
+ * last passed, which isn't necessarily the one being planned for.
+ */
+export function analyzeCaptaincy(
+  eligiblePlayers: AnalysisPlayer[],
+  event: number,
+): CaptaincyAnalysis {
+  const candidates: CaptaincyCandidate[] = eligiblePlayers
+    .map((player) => ({ player, score: scoreForEvent(player, event) }))
     .sort((a, b) => b.score - a.score);
 
   return {
