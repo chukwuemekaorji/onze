@@ -1,6 +1,9 @@
 import { join } from 'node:path';
 import { DROP_REASON_LABEL } from '../../lib/dataset/player-gameweek.js';
-import type { DropReason, NormalisedSeason } from '../../lib/dataset/player-gameweek.js';
+import type {
+  DropReason,
+  NormalisedSeason,
+} from '../../lib/dataset/player-gameweek.js';
 import { summariseSeason } from '../../lib/dataset/summarise.js';
 import type { SeasonSummary } from '../../lib/dataset/summarise.js';
 import { DERIVED_DIR, VAASTAV_COMMIT, VAASTAV_SEASONS } from './config.js';
@@ -29,7 +32,11 @@ async function main(): Promise<void> {
   await writeFileAtomically(
     join(DERIVED_DIR, 'manifest.json'),
     JSON.stringify(
-      { builtAt: new Date().toISOString(), vaastavCommit: VAASTAV_COMMIT, seasons: summaries },
+      {
+        builtAt: new Date().toISOString(),
+        vaastavCommit: VAASTAV_COMMIT,
+        seasons: summaries,
+      },
       null,
       2,
     ),
@@ -53,10 +60,15 @@ function printSummary(summaries: readonly SeasonSummary[]): void {
 
   const dropLines = summaries.flatMap((summary) =>
     (Object.entries(summary.dropped) as [DropReason, number][]).map(
-      ([reason, count]) => `  ${summary.season}: ${count} dropped, ${DROP_REASON_LABEL[reason]}`,
+      ([reason, count]) =>
+        `  ${summary.season}: ${count} dropped, ${DROP_REASON_LABEL[reason]}`,
     ),
   );
-  console.log(dropLines.length === 0 ? 'no rows dropped' : `dropped rows:\n${dropLines.join('\n')}`);
+  console.log(
+    dropLines.length === 0
+      ? 'no rows dropped'
+      : `dropped rows:\n${dropLines.join('\n')}`,
+  );
 }
 
 main().catch((error: unknown) => {

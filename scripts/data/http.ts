@@ -15,7 +15,9 @@ export async function fetchText(url: string): Promise<string> {
 
     const retryable = response.status === 429 || response.status >= 500;
     if (!retryable || attempt >= FETCH_ATTEMPTS) {
-      throw new Error(`GET ${url} failed with ${response.status} after ${attempt} tries`);
+      throw new Error(
+        `GET ${url} failed with ${response.status} after ${attempt} tries`,
+      );
     }
     await sleep(RETRY_BASE_DELAY_MS * 2 ** (attempt - 1));
   }

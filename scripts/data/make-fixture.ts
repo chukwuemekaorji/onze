@@ -79,13 +79,17 @@ async function sliceVaastav(): Promise<void> {
   const targetDir = join(FIXTURE_DIR, `vaastav-${VAASTAV_SEASON}`);
   await writeFileAtomically(join(targetDir, 'merged_gw.csv'), toCsv(mergedSlice));
   await writeFileAtomically(join(targetDir, 'fixtures.csv'), toCsv(fixtures));
-  await writeFileAtomically(join(targetDir, 'teams.csv'), toCsv(await read('teams.csv')));
+  await writeFileAtomically(
+    join(targetDir, 'teams.csv'),
+    toCsv(await read('teams.csv')),
+  );
 }
 
 async function sliceFplApi(): Promise<void> {
   const seasonDir = join(RAW_DIR, 'fpl');
   const season = (await readdir(seasonDir)).sort().at(-1);
-  if (season === undefined) throw new Error('no fpl season cached; run data:build first');
+  if (season === undefined)
+    throw new Error('no fpl season cached; run data:build first');
   const snapshot = (await readdir(join(seasonDir, season)))
     .sort((a, b) => Number(a.replace(/\D/g, '')) - Number(b.replace(/\D/g, '')))
     .at(-1);
@@ -109,7 +113,10 @@ async function sliceFplApi(): Promise<void> {
 
   const summaries: Record<string, unknown> = {};
   for (const { id } of elements) {
-    const summary = asRecord(await readJson(join('element-summary', `${String(id)}.json`)), 'summary');
+    const summary = asRecord(
+      await readJson(join('element-summary', `${String(id)}.json`)),
+      'summary',
+    );
     summaries[String(id)] = {
       history: readArray(summary, 'history', 'summary')
         .map((entry) => asRecord(entry, 'entry'))
@@ -133,7 +140,9 @@ async function sliceFplApi(): Promise<void> {
     'fixtures.json',
     fixtures
       .map((fixture) => asRecord(fixture, 'fixture'))
-      .filter((fixture) => SLICE_GAMEWEEKS.has(readInteger(fixture, 'event', 'fixture')))
+      .filter((fixture) =>
+        SLICE_GAMEWEEKS.has(readInteger(fixture, 'event', 'fixture')),
+      )
       .map((fixture) => pick(fixture, FIXTURE_FIELDS)),
   );
   await write('element-summaries.json', summaries);
@@ -143,7 +152,10 @@ function toCsv(records: readonly Record<string, string>[]): string {
   const header = Object.keys(records[0] ?? {});
   const escape = (cell: string) =>
     /[",\n\r]/.test(cell) ? `"${cell.replaceAll('"', '""')}"` : cell;
-  return `${[header, ...records.map((record) => header.map((name) => record[name] ?? ''))]
+  return `${[
+    header,
+    ...records.map((record) => header.map((name) => record[name] ?? '')),
+  ]
     .map((cells) => cells.map(escape).join(','))
     .join('\n')}\n`;
 }

@@ -1,6 +1,12 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { asRecord, readArray, readBoolean, readInteger, readString } from '../../lib/dataset/fields.js';
+import {
+  asRecord,
+  readArray,
+  readBoolean,
+  readInteger,
+  readString,
+} from '../../lib/dataset/fields.js';
 import { normaliseFplApiSeason } from '../../lib/dataset/normalise-fpl-api.js';
 import type { NormalisedSeason } from '../../lib/dataset/player-gameweek.js';
 import { FPL_BASE_URL } from '../../lib/fpl-client.js';
@@ -31,8 +37,12 @@ export async function buildCurrentSeason(): Promise<NormalisedSeason> {
     join(cacheDir, 'fixtures.json'),
   );
 
-  const playerIds = readArray(asRecord(bootstrap, 'bootstrap-static'), 'elements', 'bootstrap-static').map(
-    (element) => readInteger(asRecord(element, 'element'), 'id', 'bootstrap-static element'),
+  const playerIds = readArray(
+    asRecord(bootstrap, 'bootstrap-static'),
+    'elements',
+    'bootstrap-static',
+  ).map((element) =>
+    readInteger(asRecord(element, 'element'), 'id', 'bootstrap-static element'),
   );
   const summaries = new Map<number, unknown>();
   let fetched = 0;
@@ -48,10 +58,14 @@ export async function buildCurrentSeason(): Promise<NormalisedSeason> {
       await sleep(ELEMENT_SUMMARY_DELAY_MS);
     }
     if ((index + 1) % PROGRESS_EVERY === 0) {
-      console.log(`  fpl ${season}: ${index + 1}/${playerIds.length} players (${fetched} downloaded)`);
+      console.log(
+        `  fpl ${season}: ${index + 1}/${playerIds.length} players (${fetched} downloaded)`,
+      );
     }
   }
-  console.log(`  fpl ${season}: ${playerIds.length} players, ${fetched} downloaded, rest from cache`);
+  console.log(
+    `  fpl ${season}: ${playerIds.length} players, ${fetched} downloaded, rest from cache`,
+  );
 
   return normaliseFplApiSeason({
     season,
@@ -66,12 +80,16 @@ function describeSeason(bootstrap: unknown): {
   season: string;
   lastFinishedGameweek: number;
 } {
-  const events = readArray(asRecord(bootstrap, 'bootstrap-static'), 'events', 'bootstrap-static').map(
-    (event) => asRecord(event, 'bootstrap-static event'),
-  );
+  const events = readArray(
+    asRecord(bootstrap, 'bootstrap-static'),
+    'events',
+    'bootstrap-static',
+  ).map((event) => asRecord(event, 'bootstrap-static event'));
   const first = events[0];
   if (first === undefined) throw new Error('bootstrap-static has no gameweeks');
-  const startYear = new Date(readString(first, 'deadline_time', 'first event')).getUTCFullYear();
+  const startYear = new Date(
+    readString(first, 'deadline_time', 'first event'),
+  ).getUTCFullYear();
   const season = `${startYear}-${String((startYear + 1) % 100).padStart(2, '0')}`;
   const finished = events
     .filter((event) => readBoolean(event, 'finished', 'bootstrap-static event'))
