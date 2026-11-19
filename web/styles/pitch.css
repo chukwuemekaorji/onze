@@ -199,3 +199,132 @@
   margin: 0;
   color: var(--ink-muted);
 }
+
+/* each svg sits in a layer that also holds its html controls on top */
+.pitch__layer {
+  position: relative;
+}
+
+/* the controls layer passes clicks through to the drawing, except on its buttons */
+.pitch__controls {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* the swap button sits on the edge of a new arrival's marker ring */
+.swap-button {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  color: var(--marker-red-text);
+  background: var(--paper-card);
+  border: 1.5px solid var(--marker-red);
+  border-radius: 50%;
+  translate: -50% -50%;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.swap-button svg {
+  width: 0.8rem;
+  height: 0.8rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.swap-button:hover {
+  color: var(--paper);
+  background: var(--marker-red-text);
+}
+
+/* the jersey groups the swap and the hover lift move, each around its own centre */
+.pitch-player__lift,
+.pitch-player__swap {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.pitch-player__swap-arrow {
+  fill: none;
+  stroke: var(--marker-red);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* hover lift: picked up like a sticker, leaning toward the pointer, then put back.
+   pointer devices only, and never with reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  .pitch-player__lift {
+    transition: transform var(--duration-base) var(--ease-out);
+  }
+
+  .pitch-player--lifted .pitch-player__lift {
+    transform: translateY(-6px) scale(1.05);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .pitch-player:hover .pitch-player__lift {
+    transform: translateY(-6px) rotate(var(--lift-tilt, 0deg)) scale(1.05);
+  }
+}
+
+/* the eraser that wipes the pitch during a refresh */
+
+.eraser {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.eraser__sheet {
+  position: absolute;
+  inset: 0;
+  /* the page the pitch sits on, so a wiped pitch looks rubbed out */
+  background: var(--paper-card);
+}
+
+/* a full-width track slid from the left; the eraser rides its right edge */
+.eraser__track {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.eraser__block {
+  position: absolute;
+  top: 38%;
+  right: -1.4rem;
+  width: 2.8rem;
+  height: 5.5rem;
+  background: var(--eraser);
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius-sm);
+  box-shadow: 2px 3px 0 rgba(27, 26, 23, 0.2);
+  rotate: -12deg;
+}
+
+/* the sleeve band round the middle of the eraser */
+.eraser__block::after {
+  content: '';
+  position: absolute;
+  inset: 40% -1.5px 22%;
+  background: var(--paper-card);
+  border-block: 1.5px solid var(--ink);
+}
+
+.eraser__loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}

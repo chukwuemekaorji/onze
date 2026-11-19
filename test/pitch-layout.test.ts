@@ -9,6 +9,7 @@ import {
   benchInFplOrder,
   incomingNote,
   incomingTransfers,
+  transferPairs,
   estimateLabelWidth,
   fitLabel,
   fixtureLabel,
@@ -312,5 +313,55 @@ describe('incomingTransfers', () => {
       incoming: new Map([[row[0]!.player.id, 'Alexander-Arnold-Smithson']]),
     });
     expect(first?.incomingNoteLength).not.toBeNull();
+  });
+});
+
+describe('transferPairs', () => {
+  it('pairs each recommended arrival with the player he replaces', () => {
+    const isak = lineupPlayer('FWD', 'Isak');
+    const wissa = lineupPlayer('FWD', 'Wissa');
+    const pairs = transferPairs({
+      suggestions: [
+        {
+          outPlayer: wissa.player,
+          reasonCodes: [],
+          inCandidates: [isak.player],
+          expectedPointsGain: 4,
+        },
+      ],
+      recommendedCount: 1,
+    });
+    expect(pairs.get(isak.player.id)).toBe(wissa.player);
+  });
+
+  it('leaves out moves that are not recommended or bring no one in', () => {
+    const out = lineupPlayer('MID', 'Mitoma');
+    const arrival = lineupPlayer('MID', 'Saka');
+    expect(
+      transferPairs({
+        suggestions: [
+          {
+            outPlayer: out.player,
+            reasonCodes: [],
+            inCandidates: [arrival.player],
+            expectedPointsGain: 1,
+          },
+        ],
+        recommendedCount: 0,
+      }).size,
+    ).toBe(0);
+    expect(
+      transferPairs({
+        suggestions: [
+          {
+            outPlayer: out.player,
+            reasonCodes: [],
+            inCandidates: [],
+            expectedPointsGain: 0,
+          },
+        ],
+        recommendedCount: 1,
+      }).size,
+    ).toBe(0);
   });
 });

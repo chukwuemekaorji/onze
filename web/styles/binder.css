@@ -139,9 +139,16 @@
   justify-content: center;
 }
 
-.this-week__pitch .pitch {
+/* the stage is sized like the pitch, so the eraser covers exactly the drawing */
+.pitch-stage {
+  position: relative;
   width: 100%;
   max-width: 560px;
+}
+
+.pitch-stage .pitch {
+  width: 100%;
+  max-width: none;
 }
 
 /* the tab already names this page, so its title is for screen readers only */
@@ -265,6 +272,10 @@
   margin: var(--space-2) 0 0;
   font-size: var(--text-sm);
   color: var(--ink-muted);
+}
+
+.transfer-list__show {
+  margin-top: var(--space-2);
 }
 
 .transfer-move__tag--skip {
@@ -443,7 +454,8 @@
 
 /* phones: the pitch runs to the screen edges so its labels stay readable */
 @media (max-width: 600px) {
-  .this-week__pitch .pitch {
+  .this-week__pitch .pitch-stage {
+    max-width: none;
     margin-inline: calc(-1 * (var(--binder-padding) + var(--page-gutter)));
   }
 

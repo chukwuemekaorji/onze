@@ -1,4 +1,6 @@
+import { useReportStage } from '../../report-stage.js';
 import { formatGain, HIT_LABEL, hitAdvice, transferRows } from '../../report-view.js';
+import { HOME_ROUTE, navigate } from '../../router.js';
 import type { TransferVerdict } from '../../report-view.js';
 import { CoachNote } from '../report/CoachNote.js';
 import { DealtCard } from '../report/DealtCard.js';
@@ -21,6 +23,15 @@ const VERDICT_DESCRIPTION: Record<TransferVerdict, string> = {
 };
 
 export function TransfersPage({ shown, focusTitle }: BinderPageProps) {
+  const { requestSwap } = useReportStage();
+
+  // the pitch lives on this week, so go there and let it play the swap
+  function showOnPitch(incomingPlayerId: number | null): void {
+    if (incomingPlayerId === null) return;
+    requestSwap(incomingPlayerId);
+    navigate(HOME_ROUTE.path);
+  }
+
   const { transfers } = shown.summary;
   const rows = transferRows(transfers);
   const note = aiNote(shown, 'transfers');
@@ -85,6 +96,16 @@ export function TransfersPage({ shown, focusTitle }: BinderPageProps) {
                     <p className="transfer-list__alternatives">
                       Alternatives: {row.alternatives.join(', ')}
                     </p>
+                  )}
+                  {row.verdict !== 'skip' && row.inId !== null && (
+                    <button
+                      type="button"
+                      className="text-link transfer-list__show"
+                      aria-label={`Show ${row.outName} out, ${row.inName ?? ''} in, on the pitch`}
+                      onClick={() => showOnPitch(row.inId)}
+                    >
+                      Show on pitch
+                    </button>
                   )}
                 </li>
               ))}

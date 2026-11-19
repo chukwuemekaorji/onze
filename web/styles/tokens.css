@@ -17,6 +17,8 @@
   --highlighter: #f6d94a;
   --tape: rgba(226, 214, 178, 0.82);
   --tape-edge: rgba(27, 26, 23, 0.08);
+  /* the pink rubber of the eraser that wipes the pitch on refresh */
+  --eraser: #e7a49b;
 
   /* lines and surfaces */
   --hairline: rgba(27, 26, 23, 0.12);

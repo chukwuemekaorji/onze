@@ -11,6 +11,8 @@ export type TransferVerdict = 'free' | 'hit' | 'skip';
 
 export interface TransferRow {
   outName: string;
+  /** the incoming player's id, for replaying the swap on the pitch */
+  inId: number | null;
   /** null when nothing affordable beats the outgoing player */
   inName: string | null;
   /** expected points gained before any hit */
@@ -124,6 +126,7 @@ export function transferRows(transfers: AnalysisSummary['transfers']): TransferR
           : 'hit';
     return {
       outName: suggestion.outPlayer.webName,
+      inId: best?.id ?? null,
       inName: best?.webName ?? null,
       gain: suggestion.expectedPointsGain,
       verdict,

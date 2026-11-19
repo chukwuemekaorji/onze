@@ -100,3 +100,18 @@ export function useRevealOnScroll(delayS = 0): EntranceProps {
     transition: { duration: REVEAL_S, ease: SETTLE_EASE, delay: delayS },
   };
 }
+
+// the transfer swap on the pitch, about two seconds: the new jersey peels off,
+// the old one slaps into its place and peels away again, the new one slaps back
+// down, then a marker arrow draws from the old name to the new one
+export const SWAP_S = 2;
+// keyframe times, as fractions of SWAP_S
+export const SWAP_TIMES = {
+  inPeeled: 0.18,
+  outLanded: 0.33,
+  outLifts: 0.52,
+  outPeeled: 0.67,
+  inReturns: 0.68,
+  inLanded: 0.83,
+  arrowStarts: 0.7,
+} as const;

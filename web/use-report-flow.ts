@@ -33,6 +33,12 @@ export interface ReportFlow {
   /** true while the squad and analysis are being fetched */
   loadingTeam: boolean;
   writing: boolean;
+  /** a refresh is running while the current report stays on screen */
+  refreshing: boolean;
+  /** successful refreshes since load; the pitch redraws when it changes */
+  refreshCount: number;
+  /** why the last refresh failed, shown over the report it left in place */
+  refreshError: string | null;
   formHidden: boolean;
   resultsHidden: boolean;
   shown: ShownReport | null;
@@ -50,6 +56,9 @@ export interface ReportFlow {
 export function useReportFlow(): ReportFlow {
   const [status, setStatusLine] = useState<StatusLine>(NO_STATUS);
   const [busy, setBusy] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [refreshCount, setRefreshCount] = useState(0);
+  const [refreshError, setRefreshError] = useState<string | null>(null);
   const [loadingTeam, setLoadingTeam] = useState(false);
   const [writing, setWriting] = useState(false);
   const [formHidden, setFormHidden] = useState(false);
@@ -172,11 +181,33 @@ export function useReportFlow(): ReportFlow {
     void upgradeToAiReport(EXAMPLE_MANAGER_ID, summary, true);
   }
 
+  /**
+   * refreshes in place: the current report stays up (the pitch is erased and
+   * redrawn) and a failure leaves it there with an error, instead of dropping
+   * back to the id form
+   */
+  async function refreshInPlace(current: ShownReport): Promise<void> {
+    setBusy(true);
+    setRefreshing(true);
+    setRefreshError(null);
+    try {
+      // the example has no fpl team to refetch, so only its prose is rewritten
+      const summary = current.isExample
+        ? current.summary
+        : await fetchSummary(current.managerId);
+      await writeAndShowReport(current.managerId, summary, current.isExample);
+      setRefreshCount((count) => count + 1);
+    } catch (err) {
+      if (!(err instanceof SummaryFetchError)) throw err;
+      setRefreshError(err.message);
+    } finally {
+      setRefreshing(false);
+      setBusy(false);
+    }
+  }
+
   function refresh(): void {
-    if (!shown) return;
-    // the example has no fpl team to refetch, so only its prose is rewritten
-    if (shown.isExample) void upgradeToAiReport(shown.managerId, shown.summary, true);
-    else void fetchReport(shown.managerId, { forceRefresh: true });
+    if (shown) void refreshInPlace(shown);
   }
 
   function showForm(): void {
@@ -195,6 +226,9 @@ export function useReportFlow(): ReportFlow {
     busy,
     loadingTeam,
     writing,
+    refreshing,
+    refreshCount,
+    refreshError,
     formHidden,
     resultsHidden,
     shown,

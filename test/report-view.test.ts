@@ -101,7 +101,30 @@ describe('transferRows', () => {
     const rows = transferRows(
       transfers({ suggestions: [suggestion('Wissa', null, 0)], recommendedCount: 0 }),
     );
-    expect(rows[0]).toMatchObject({ inName: null, verdict: 'skip', alternatives: [] });
+    expect(rows[0]).toMatchObject({
+      inId: null,
+      inName: null,
+      verdict: 'skip',
+      alternatives: [],
+    });
+  });
+
+  it("carries the incoming player's id, so the swap can be replayed on the pitch", () => {
+    const watkins = player('Watkins');
+    const rows = transferRows(
+      transfers({
+        suggestions: [
+          {
+            outPlayer: player('Wissa'),
+            reasonCodes: [],
+            inCandidates: [watkins],
+            expectedPointsGain: 3,
+          },
+        ],
+        recommendedCount: 1,
+      }),
+    );
+    expect(rows[0]?.inId).toBe(watkins.id);
   });
 
   it('returns nothing when there are no suggestions', () => {

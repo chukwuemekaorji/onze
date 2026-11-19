@@ -261,7 +261,7 @@
   /* the pitch and bench, scaled to the height that's left. the ratio mirrors
      the field and bench viewboxes in Pitch.tsx (740 wide, 1110 + 210 tall),
      plus a little for the gap above the bench */
-  .workspace .this-week__pitch .pitch {
+  .workspace .this-week__pitch .pitch-stage {
     width: auto;
     max-width: 100%;
     height: 100%;

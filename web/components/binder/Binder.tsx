@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { useEffect } from 'react';
 import type { ComponentType } from 'react';
 import { usePrefersReducedMotion } from '../../motion.js';
+import { useReportStage } from '../../report-stage.js';
 import { hasNavigated, HOME_ROUTE, useRoute } from '../../router.js';
 import type { RouteId } from '../../router.js';
 import type { ShownReport } from '../../use-report-flow.js';
@@ -36,6 +37,9 @@ export function Binder({ shown, writing }: BinderProps) {
   const route = useRoute();
   const reduced = usePrefersReducedMotion();
   const Page = PAGES[route.id];
+  const { refreshError } = useReportStage();
+  // a failed refresh leaves the old report up, so its error leads
+  const bannerMessage = refreshError ?? shown.errorMessage;
 
   useEffect(() => {
     document.title = route.id === 'week' ? APP_TITLE : `${route.label} · ${APP_TITLE}`;
@@ -74,9 +78,9 @@ export function Binder({ shown, writing }: BinderProps) {
             id="report-banner"
             className="report-banner"
             role="alert"
-            hidden={shown.errorMessage === null}
+            hidden={bannerMessage === null}
           >
-            {shown.errorMessage}
+            {bannerMessage}
           </div>
           <p
             id="report-label"

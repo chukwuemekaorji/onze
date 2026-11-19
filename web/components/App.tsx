@@ -97,6 +97,9 @@ export function App() {
             shown={flow.shown}
             writing={flow.writing}
             apiKey={storedKey?.key ?? null}
+            refreshing={flow.refreshing}
+            refreshCount={flow.refreshCount}
+            refreshError={flow.refreshError}
           />
         )}
       </main>

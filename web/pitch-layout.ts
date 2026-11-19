@@ -1,6 +1,10 @@
 import type { LineupAnalysis, LineupPlayer } from '../lib/analysis/lineup.js';
 import type { TransfersAnalysis } from '../lib/analysis/transfers.js';
-import type { FixtureDifficulty, Position } from '../lib/analysis/types.js';
+import type {
+  AnalysisPlayer,
+  FixtureDifficulty,
+  Position,
+} from '../lib/analysis/types.js';
 
 export type Armband = 'captain' | 'vice' | null;
 
@@ -123,18 +127,28 @@ export function shirtNumbers(
 }
 
 /**
- * the recommended moves as incoming player id to outgoing name, so the pitch can
- * ring each new arrival. a move with no affordable replacement brings no one in
+ * the recommended moves as incoming player id to the player they replace, so
+ * the pitch can ring each new arrival and replay the swap. a move with no
+ * affordable replacement brings no one in
  */
+export function transferPairs(
+  transfers: Pick<TransfersAnalysis, 'suggestions' | 'recommendedCount'>,
+): Map<number, AnalysisPlayer> {
+  const pairs = new Map<number, AnalysisPlayer>();
+  for (const suggestion of transfers.suggestions.slice(0, transfers.recommendedCount)) {
+    const arrival = suggestion.inCandidates[0];
+    if (arrival) pairs.set(arrival.id, suggestion.outPlayer);
+  }
+  return pairs;
+}
+
+/** incoming player id to the outgoing player's name */
 export function incomingTransfers(
   transfers: Pick<TransfersAnalysis, 'suggestions' | 'recommendedCount'>,
 ): Map<number, string> {
-  const incoming = new Map<number, string>();
-  for (const suggestion of transfers.suggestions.slice(0, transfers.recommendedCount)) {
-    const arrival = suggestion.inCandidates[0];
-    if (arrival) incoming.set(arrival.id, suggestion.outPlayer.webName);
-  }
-  return incoming;
+  return new Map(
+    [...transferPairs(transfers)].map(([inId, outPlayer]) => [inId, outPlayer.webName]),
+  );
 }
 
 /** the player's games in one gameweek: "LIV (H)", "LIV (H) + CHE (A)" or "Blank" */
