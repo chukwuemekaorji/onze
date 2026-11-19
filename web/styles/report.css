@@ -43,6 +43,50 @@
   z-index: 3;
 }
 
+/* a curled corner, hidden flat until the pointer is over the pad. two halves:
+   the tip lifted away shows the surface beneath, the flap shows the underside */
+.notepad__corner {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 4;
+  width: 1.6rem;
+  height: 1.6rem;
+  transform: scale(0);
+  transform-origin: bottom right;
+  pointer-events: none;
+}
+
+.notepad__corner::before,
+.notepad__corner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+/* the surface the pad sits on, where the tip has lifted */
+.notepad__corner::before {
+  background: var(--paper-card);
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+}
+
+/* the underside of the page, folded back over */
+.notepad__corner::after {
+  background: var(--paper);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+  box-shadow: inset -1px -1px 0 rgba(27, 26, 23, 0.15);
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .notepad__corner {
+    transition: transform var(--duration-base) var(--ease-out);
+  }
+
+  .notepad:hover .notepad__corner {
+    transform: scale(1);
+  }
+}
+
 .notepad__page {
   position: relative;
   min-height: 9rem;
@@ -288,8 +332,31 @@
 }
 
 .chip-stamp--used .chip-stamp__name {
+  position: relative;
   font-weight: 500;
-  text-decoration: line-through;
+}
+
+/* a marker line drawn through a used chip's name */
+.chip-stamp__strike {
+  position: absolute;
+  top: 50%;
+  left: -6%;
+  width: 112%;
+  height: 0.8em;
+  overflow: visible;
+  translate: 0 -50%;
+}
+
+.chip-stamp__strike path {
+  fill: none;
+  stroke: var(--marker-red);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+/* the stamp lands around its own centre */
+.chip-stamp__verdict--stamped {
+  display: inline-block;
 }
 
 /* price alerts */

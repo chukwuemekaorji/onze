@@ -78,6 +78,8 @@ export function Notepad({ text }: NotepadProps) {
       <div className="notepad__sheets">
         {/* the one piece of tape left in the design, holding the pad down */}
         <span className="ui-tape notepad__tape" aria-hidden="true" />
+        {/* the bottom corner curls up on hover, like a page about to be turned */}
+        <span className="notepad__corner" aria-hidden="true" />
         <div id={pageId} className="notepad__page" onClick={handlePageClick}>
           {/* words and covers share this positioned box, so word offsets place the covers */}
           <div ref={writingRef} className="notepad__writing">
