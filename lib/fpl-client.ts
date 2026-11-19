@@ -6,7 +6,10 @@ import type {
   FplEntryHistoryResponse,
 } from './fpl-types.js';
 
-const FPL_BASE_URL = 'https://fantasy.premierleague.com/api';
+export const FPL_BASE_URL = 'https://fantasy.premierleague.com/api';
+// fpl blocks requests without a user-agent, so identify ourselves
+export const FPL_USER_AGENT =
+  'Onze-FPL-Coach/1.0 (+https://github.com/chukwuemekaorji/onze)';
 
 // only these two are cached: large and rarely change. the rest is per-manager
 // and cheap to fetch fresh.
@@ -23,10 +26,7 @@ let fixturesCache: CacheEntry<FplFixture[]> | null = null;
 
 async function fplFetch<T>(path: string): Promise<T> {
   const response = await fetch(`${FPL_BASE_URL}${path}`, {
-    headers: {
-      // fpl blocks requests without a user-agent, so identify ourselves
-      'User-Agent': 'Onze-FPL-Coach/1.0 (+https://github.com/chukwuemekaorji/onze)',
-    },
+    headers: { 'User-Agent': FPL_USER_AGENT },
   });
 
   if (!response.ok) {

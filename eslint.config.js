@@ -4,7 +4,21 @@ import reactHooks from 'eslint-plugin-react-hooks';
 
 export default [
   {
-    ignores: ['node_modules/**', 'dist/**'],
+    ignores: ['node_modules/**', 'dist/**', 'data/**'],
+  },
+  {
+    // scripts/ is node-only tooling (downloads, backtests); the app never ships it
+    files: ['web/**/*.{ts,tsx}', 'lib/**/*.ts', 'api/**/*.ts'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            { group: ['**/scripts/**'], message: 'scripts/ is node-only tooling.' },
+          ],
+        },
+      ],
+    },
   },
   {
     files: ['**/*.ts', '**/*.tsx'],

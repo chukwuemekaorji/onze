@@ -6,3 +6,6 @@ dist/
 *.log
 .DS_Store
 .vercel
+
+# backtest data: downloaded and derived by npm run data:build
+/data/

@@ -10,3 +10,6 @@ web/fixtures/sample-summary.json
 README.md
 MASTER.md
 CLAUDE.md
+
+# a slice of real fpl data cut by npm run data:fixture; regenerated, not hand formatted
+test/fixtures/dataset/
