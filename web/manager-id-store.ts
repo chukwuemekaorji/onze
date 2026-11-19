@@ -4,7 +4,7 @@ const MANAGER_ID_STORAGE_KEY = 'onze:managerId';
 export function parseManagerId(raw: string | null): number | null {
   if (raw === null) return null;
   const managerId = Number(raw);
-  return Number.isInteger(managerId) && managerId > 0 ? managerId : null;
+  return Number.isSafeInteger(managerId) && managerId > 0 ? managerId : null;
 }
 
 export function loadStoredManagerId(): number | null {

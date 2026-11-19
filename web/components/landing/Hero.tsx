@@ -1,4 +1,5 @@
 import { EXAMPLE_PATH, HOME_ROUTE } from '../../router.js';
+import { FindMyIdHelp } from '../FindMyIdHelp.js';
 import { Button } from '../ui/Button.js';
 import { Highlight } from '../ui/Highlight.js';
 import { MarkerUnderline } from '../ui/MarkerUnderline.js';
@@ -33,6 +34,7 @@ export function Hero() {
           <HandArrow className="hero__arrow" delayS={ARROW_DELAY_S} />
           no sign-up. just your team ID.
         </p>
+        <FindMyIdHelp className="hero__id-help" />
       </div>
       <HeroPitch />
     </section>

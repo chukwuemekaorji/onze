@@ -3,7 +3,8 @@ import type { AnalysisSummary } from '../lib/analysis-summary.js';
 import type { CoachReport } from '../lib/coach-prompt.js';
 import { loadKey } from './key-store.js';
 import type { StoredKey } from './key-store.js';
-import { parseManagerId, storeManagerId } from './manager-id-store.js';
+import { INVALID_MANAGER_ID_MESSAGE, managerIdFromInput } from './manager-id-input.js';
+import { storeManagerId } from './manager-id-store.js';
 import { isCacheStale, loadCachedReport, storeCachedReport } from './report-cache.js';
 import type { CachedReport } from './report-cache.js';
 import { writeReport } from './report-writer.js';
@@ -169,9 +170,9 @@ export function useReportFlow(): ReportFlow {
   }
 
   function submitManagerId(raw: string): void {
-    const managerId = parseManagerId(raw);
+    const managerId = managerIdFromInput(raw);
     if (managerId === null) {
-      setStatus('Enter a valid manager ID.', true);
+      setStatus(INVALID_MANAGER_ID_MESSAGE, true);
       return;
     }
     void fetchReport(managerId);

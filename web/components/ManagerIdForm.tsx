@@ -1,5 +1,7 @@
 import type { FormEvent, RefObject } from 'react';
+import { tidyManagerIdInput } from '../manager-id-input.js';
 import type { StatusLine } from '../status-line.js';
+import { FindMyIdHelp } from './FindMyIdHelp.js';
 import { PencilLoader } from './PencilLoader.js';
 
 interface ManagerIdFormProps {
@@ -41,17 +43,23 @@ export function ManagerIdForm({
           ref={inputRef}
           id="manager-id"
           name="manager-id"
-          type="number"
-          min="1"
-          placeholder="e.g. 1234567"
+          // text, not number: a number field drops a pasted fpl link entirely
+          type="text"
+          inputMode="numeric"
+          autoComplete="off"
+          spellCheck={false}
+          placeholder="e.g. 1234567, or paste your FPL link"
           required
+          aria-describedby="status"
+          aria-invalid={status.isError}
           value={value}
-          onChange={(event) => onValueChange(event.target.value)}
+          onChange={(event) => onValueChange(tidyManagerIdInput(event.target.value))}
         />
         <button id="submit-button" type="submit" disabled={busy}>
           Get my report
         </button>
       </div>
+      <FindMyIdHelp className="setup-card__id-help" />
       {loading && <PencilLoader />}
       <p
         id="status"

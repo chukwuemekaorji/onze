@@ -1,0 +1,113 @@
+/* "where's my id?": a small card pinned under the link, not a modal */
+
+.id-help {
+  position: relative;
+}
+
+.id-help__toggle {
+  padding: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--ink);
+  background: none;
+  border: 0;
+  text-decoration: underline;
+  text-decoration-color: var(--ink-muted);
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.id-help__toggle:hover {
+  text-decoration-color: var(--ink);
+}
+
+.id-help__panel {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + var(--space-2));
+  left: 0;
+  /* starts up to a card's padding in from the gutter, so it never runs off a phone */
+  width: min(22rem, calc(100vw - 2 * var(--page-gutter) - var(--space-6)));
+  padding: var(--space-4) var(--space-5);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--paper-card);
+  border: var(--stroke) solid var(--hairline-strong);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  /* pinned on the board a touch crooked, like the sticky notes */
+  rotate: -0.6deg;
+}
+
+.id-help__panel[hidden] {
+  display: none;
+}
+
+.id-help__title {
+  margin: 0 0 var(--space-2);
+  font-weight: 700;
+}
+
+.id-help__steps {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding-left: var(--space-5);
+}
+
+.id-help__steps a {
+  color: var(--ink);
+  font-weight: 600;
+  text-underline-offset: 3px;
+}
+
+.id-help__url {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  overflow-wrap: anywhere;
+}
+
+.id-help__url mark {
+  padding: 0 2px;
+  color: var(--ink);
+  background: var(--highlighter);
+}
+
+.id-help__note {
+  margin: var(--space-3) 0 0;
+  font-family: var(--font-hand);
+  font-size: var(--text-hand);
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.id-help__paste {
+  margin: var(--space-2) 0 0;
+  color: var(--ink-muted);
+}
+
+/* in the id form: under the input, before the status line */
+.setup-card__id-help {
+  margin-top: var(--space-3);
+}
+
+/* on the landing hero: under the handwritten note, lined up with its text
+   (past the note's indent and its 3.5rem arrow). the card itself starts back
+   at the column edge so it has room on a phone */
+.hero__id-help {
+  --note-indent: calc(var(--space-6) + 3.5rem + var(--space-2));
+  margin: calc(-1 * var(--space-4)) 0 0 var(--note-indent);
+}
+
+.hero__id-help .id-help__panel {
+  left: calc(-1 * var(--note-indent));
+}
+
+.hero__id-help .id-help__toggle {
+  font-family: var(--font-hand);
+  font-size: var(--text-hand);
+  font-weight: 500;
+}

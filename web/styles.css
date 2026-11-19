@@ -12,6 +12,7 @@
 @import './styles/loader.css';
 @import './styles/landing.css';
 @import './styles/workspace.css';
+@import './styles/id-help.css';
 
 /* app shell, forms and chat */
 
@@ -82,7 +83,7 @@
   border-radius: var(--radius-sm);
 }
 
-.setup-row input[type='number'] {
+#manager-id {
   font-family: var(--font-mono);
 }
 
