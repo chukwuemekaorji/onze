@@ -25,7 +25,7 @@ async function fplFetch<T>(path: string): Promise<T> {
   const response = await fetch(`${FPL_BASE_URL}${path}`, {
     headers: {
       // fpl blocks requests without a user-agent, so identify ourselves
-      'User-Agent': 'Sensei-FPL-Coach/1.0 (+https://github.com/chukwuemekaorji/sensei)',
+      'User-Agent': 'Onze-FPL-Coach/1.0 (+https://github.com/chukwuemekaorji/onze)',
     },
   });
 

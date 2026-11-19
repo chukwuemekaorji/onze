@@ -1,5 +1,5 @@
 // remembered so returning visitors skip retyping their id
-const MANAGER_ID_STORAGE_KEY = 'sensei:managerId';
+const MANAGER_ID_STORAGE_KEY = 'onze:managerId';
 
 export function parseManagerId(raw: string | null): number | null {
   if (raw === null) return null;

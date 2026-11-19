@@ -100,7 +100,7 @@ describe('key store', () => {
 
   it('forgets the key from both storages', () => {
     saveKey(VALID_KEY, true);
-    session.setItem('sensei:anthropicApiKey', VALID_KEY);
+    session.setItem('onze:anthropicApiKey', VALID_KEY);
 
     forgetKey();
 

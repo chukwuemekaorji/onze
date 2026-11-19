@@ -25,7 +25,7 @@ const PAGES: Record<RouteId, ComponentType<BinderPageProps>> = {
 
 // switching tabs is editorial, so the pages simply cross-fade
 const PAGE_FLIP_S = 0.2;
-const APP_TITLE = 'Sensei, Your FPL Coach';
+const APP_TITLE = 'Onze, Your FPL Coach';
 
 interface BinderProps {
   shown: ShownReport;
@@ -72,7 +72,7 @@ export function Binder({ shown, writing }: BinderProps) {
             role="status"
             hidden={!writing}
           >
-            Sensei is writing your AI report...
+            Onze is writing your AI report...
           </p>
           <div
             id="report-banner"

@@ -158,7 +158,7 @@ export function hitAdvice(
 
   const leadingALeague = summary.leagueStandings.some((league) => league.rank === 1);
   if (next.gain > HIT_THRESHOLD && leadingALeague) {
-    return `${next.outName} for ${next.inName ?? 'a replacement'} would gain about ${next.gain.toFixed(1)} pts, but you lead a league, so Sensei skips hits to protect it.`;
+    return `${next.outName} for ${next.inName ?? 'a replacement'} would gain about ${next.gain.toFixed(1)} pts, but you lead a league, so Onze skips hits to protect it.`;
   }
   return `A ${HIT_LABEL} for ${next.outName} isn't worth it: the swap gains about ${next.gain.toFixed(1)} pts, short of the ${HIT_THRESHOLD} needed to beat the hit with a margin.`;
 }

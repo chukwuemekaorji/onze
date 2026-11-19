@@ -6,7 +6,7 @@ import type { ReportSource } from './report-writer.js';
 // since the advice is stale by then
 // v3 adds points per game, player status and the gameweek price labels; older
 // entries are ignored rather than migrated
-const REPORT_CACHE_PREFIX = 'sensei:report:v3:';
+const REPORT_CACHE_PREFIX = 'onze:report:v3:';
 
 export interface CachedReport {
   report: CoachReport;

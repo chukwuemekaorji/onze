@@ -8,7 +8,7 @@ export function LandingNav() {
     <header className="landing-nav">
       <a href={LANDING_PATH} className="landing-nav__brand">
         <BrandMark className="landing-nav__mark" />
-        <span className="landing-nav__wordmark">Sensei</span>
+        <span className="landing-nav__wordmark">Onze</span>
       </a>
       <nav aria-label="Main">
         <ul className="landing-nav__links">

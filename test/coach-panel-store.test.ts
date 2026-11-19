@@ -30,7 +30,7 @@ describe('coach panel preference', () => {
 
   it('ignores a value it did not write', () => {
     const store = stubLocalStorage();
-    store.set('sensei:coachPanel', 'sideways');
+    store.set('onze:coachPanel', 'sideways');
     expect(loadCoachPanelOpen()).toBeNull();
   });
 

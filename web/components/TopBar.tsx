@@ -33,7 +33,7 @@ export function TopBar({
       {/* the wordmark leads back to the landing page, like most sites */}
       <a href={LANDING_PATH} className="masthead__brand">
         <BrandMark className="masthead__mark" />
-        <span className="masthead__wordmark">Sensei</span>
+        <span className="masthead__wordmark">Onze</span>
       </a>
 
       {summary && (

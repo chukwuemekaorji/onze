@@ -14,7 +14,7 @@ const NOW = Date.parse('2026-11-18T12:00:00Z');
 describe('the bundled sample summary', () => {
   it('is a fictional manager, never a real one', () => {
     expect(sample.managerName).toBe('Sample Coach');
-    expect(sample.teamName).toBe('Sensei Sample XI');
+    expect(sample.teamName).toBe('Onze Sample XI');
   });
 
   it('has a full, legal squad and lineup', () => {

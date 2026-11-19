@@ -23,7 +23,7 @@ export const ROUTES: readonly Route[] = [
 export const HOME_ROUTE: Route = ROUTES[0] as Route;
 
 // the custom event pushState doesn't fire, so in-app navigation can be heard
-const NAVIGATE_EVENT = 'sensei:navigate';
+const NAVIGATE_EVENT = 'onze:navigate';
 
 // counts moves between pages since load (links, back and forward). a page that
 // arrives by navigation takes focus; the one present on load doesn't

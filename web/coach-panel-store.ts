@@ -1,5 +1,5 @@
 // remembers whether the docked coach panel was left open or collapsed
-const COACH_PANEL_STORAGE_KEY = 'sensei:coachPanel';
+const COACH_PANEL_STORAGE_KEY = 'onze:coachPanel';
 
 type CoachPanelState = 'open' | 'closed';
 

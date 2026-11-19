@@ -7,7 +7,7 @@ import { KeySection } from './KeySection.js';
 import { LandingFooter } from './LandingFooter.js';
 import { LandingNav } from './LandingNav.js';
 
-/** the page at "/": what sensei is, and the way into /app */
+/** the page at "/": what onze is, and the way into /app */
 export function Landing() {
   return (
     <div className="landing">

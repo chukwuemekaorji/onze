@@ -1,5 +1,5 @@
 import type Anthropic from '@anthropic-ai/sdk';
-import { SENSEI_PERSONA } from './persona.js';
+import { ONZE_PERSONA } from './persona.js';
 import type { AnalysisSummary } from './analysis-summary.js';
 import { notableLeague } from './analysis/leagues.js';
 
@@ -12,7 +12,7 @@ export interface CoachReport {
   formation: string;
 }
 
-export const REPORT_SYSTEM_PROMPT = `${SENSEI_PERSONA}
+export const REPORT_SYSTEM_PROMPT = `${ONZE_PERSONA}
 
 You are writing a gameweek coaching report from a pre-computed data
 summary (JSON) describing the user's squad, transfer candidates,

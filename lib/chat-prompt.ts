@@ -1,5 +1,5 @@
 import type Anthropic from '@anthropic-ai/sdk';
-import { SENSEI_PERSONA } from './persona.js';
+import { ONZE_PERSONA } from './persona.js';
 import type { AnalysisSummary } from './analysis-summary.js';
 
 export interface ChatMessage {
@@ -7,7 +7,7 @@ export interface ChatMessage {
   content: string;
 }
 
-const CHAT_SYSTEM_PROMPT = `${SENSEI_PERSONA}
+const CHAT_SYSTEM_PROMPT = `${ONZE_PERSONA}
 
 You already gave the user a gameweek report built from the data summary
 below. You're now answering a follow-up question about it, in a chat —

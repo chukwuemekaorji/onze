@@ -20,7 +20,7 @@ export function Hero() {
           Start <Highlight delayS={HIGHLIGHT_DELAY_S}>coaching</Highlight>.
         </h1>
         <p className="hero__lede">
-          Enter your FPL ID. Sensei reads your squad, fixtures, form and free transfers,
+          Enter your FPL ID. Onze reads your squad, fixtures, form and free transfers,
           works out the moves in plain code, then explains them like a coach.
         </p>
         <div className="hero__actions">

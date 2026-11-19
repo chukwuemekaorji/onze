@@ -1,5 +1,5 @@
 /**
- * only the fields sensei uses from the public fpl api. some numbers arrive as
+ * only the fields onze uses from the public fpl api. some numbers arrive as
  * strings, so the types follow what the api actually sends.
  */
 

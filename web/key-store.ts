@@ -1,4 +1,4 @@
-const API_KEY_STORAGE_KEY = 'sensei:anthropicApiKey';
+const API_KEY_STORAGE_KEY = 'onze:anthropicApiKey';
 const ANTHROPIC_KEY_PREFIX = 'sk-ant-';
 
 // session is the default so a shared computer forgets the key when the tab closes
