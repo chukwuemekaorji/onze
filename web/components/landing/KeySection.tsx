@@ -16,8 +16,8 @@ export function KeySection() {
       <ImageSlot
         className="key-section__image"
         src="landing-key.jpg"
-        alt="A matchday programme and a pen on a wooden bench"
-        aspect="landscape"
+        alt="An analyst in a stadium press box with a laptop and the team sheet, the match below"
+        aspect="portrait"
       />
       <div className="key-section__copy">
         <p className="eyebrow">Privacy</p>

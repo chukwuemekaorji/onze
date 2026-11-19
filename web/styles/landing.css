@@ -315,6 +315,13 @@
   align-items: center;
 }
 
+/* a portrait photo, kept to a sensible size beside the copy */
+.key-section__image {
+  justify-self: center;
+  width: 100%;
+  max-width: 24rem;
+}
+
 .key-section__copy {
   display: flex;
   flex-direction: column;

@@ -46,7 +46,7 @@ export function HowItWorks() {
         <ImageSlot
           className="how-it-works__image"
           src="landing-touchline.jpg"
-          alt="A coach's notebook open beside a training pitch"
+          alt="A tactics whiteboard with two formations drawn in marker, magnets for players and arrows for their runs"
           aspect="portrait"
         />
       </div>
