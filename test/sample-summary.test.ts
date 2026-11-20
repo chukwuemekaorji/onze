@@ -2,9 +2,19 @@ import { describe, expect, it } from 'vitest';
 import type { AnalysisSummary } from '../lib/analysis-summary.js';
 import type { Position } from '../lib/analysis/types.js';
 import { writeFallbackReport } from '../lib/fallback-writer.js';
+import {
+  HOW_ONZE_PREDICTS,
+  HOW_ONZE_PREDICTS_TITLE,
+  JARGON,
+} from '../lib/plain-labels.js';
 import sampleJson from '../web/fixtures/sample-summary.json';
 import { shirtNumbers } from '../web/pitch-layout.js';
-import { captainOptions, transferRows } from '../web/report-view.js';
+import {
+  captainHeadline,
+  captainOptions,
+  hitAdvice,
+  transferRows,
+} from '../web/report-view.js';
 import { SAMPLE_DEADLINE_LEAD_MS, withFreshDates } from '../web/sample-summary.js';
 
 const sample = sampleJson as unknown as AnalysisSummary;
@@ -31,7 +41,9 @@ describe('the bundled sample summary', () => {
     const report = writeFallbackReport(sample);
     for (const section of Object.values(report))
       expect(section.length).toBeGreaterThan(0);
-    expect(transferRows(sample.transfers).length).toBeGreaterThan(0);
+    expect(transferRows(sample.transfers, sample.currentEvent).length).toBeGreaterThan(
+      0,
+    );
     expect(
       captainOptions(sample.captaincy, sample.currentEvent).length,
     ).toBeGreaterThan(0);
@@ -66,5 +78,26 @@ describe('withFreshDates', () => {
 
     const broken = withFreshDates({ ...sample, currentEventDeadline: 'soon' }, NOW);
     expect(broken.generatedAt).toBe(new Date(NOW).toISOString());
+  });
+
+  it('shows no stats jargon anywhere the views put words on screen', () => {
+    const rows = transferRows(sample.transfers, sample.currentEvent);
+    const options = captainOptions(sample.captaincy, sample.currentEvent);
+    const shown = [
+      ...rows.flatMap((row) => [
+        row.sentence ?? '',
+        row.incoming?.line ?? '',
+        ...(row.incoming?.exact ?? []),
+      ]),
+      ...options.flatMap((option) => [option.card.line, ...option.card.exact]),
+      hitAdvice(sample),
+      captainHeadline(sample) ?? '',
+      HOW_ONZE_PREDICTS_TITLE,
+      HOW_ONZE_PREDICTS,
+      ...Object.values(writeFallbackReport(sample)),
+    ].join('\n');
+
+    expect(shown).toContain('Onze predicts');
+    for (const word of JARGON) expect(shown).not.toContain(word);
   });
 });

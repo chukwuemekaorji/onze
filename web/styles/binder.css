@@ -331,9 +331,54 @@
 }
 
 .captain-rank__reason {
+  /* the card runs long, so it gets its own line under the name */
+  grid-column: 3 / -1;
   font-size: var(--text-sm);
   color: var(--ink-muted);
-  white-space: nowrap;
+}
+
+/* a player's plain labels; a tap shows the exact numbers behind them */
+.player-card {
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+}
+
+.player-card__line {
+  cursor: pointer;
+  text-underline-offset: 3px;
+}
+
+.player-card__line:hover {
+  color: var(--ink);
+}
+
+.player-card__exact {
+  display: grid;
+  gap: var(--space-1);
+  margin: var(--space-2) 0 0;
+  padding-left: var(--space-5);
+  font-size: var(--text-xs);
+}
+
+.transfer-list__sentence {
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-sm);
+  color: var(--ink);
+}
+
+.transfer-list__item .player-card {
+  margin-top: var(--space-1);
+}
+
+/* "how does onze predict?", once under every page */
+.binder__how {
+  margin-top: var(--space-6);
+}
+
+/* it sits at the foot of the sheet, so the card opens upward to stay in view */
+.binder__how .id-help__panel {
+  top: auto;
+  bottom: calc(100% + var(--space-2));
 }
 
 /* chips timeline */

@@ -31,12 +31,13 @@ import { PLAY_FEATURES, playFeatures } from '../analysis/projection.js';
 import type { PlayFeature } from '../analysis/projection.js';
 import {
   fixtureGoalRates,
+  summariseTeamSeason,
   teamMatchesFrom,
   teamStrengths,
 } from '../analysis/team-strength.js';
 import type {
   FixtureGoalRates,
-  TeamMatch,
+  TeamSeasonSummary,
   TeamStrengths,
 } from '../analysis/team-strength.js';
 import type { Position } from '../analysis/types.js';
@@ -58,7 +59,7 @@ const NO_FINISHING = 1;
 // every gameweek of a season shares last season, and every player in a
 // gameweek shares its team strengths, so each is worked out once
 const leagueCache = new WeakMap<SeasonRows, EventLeaguePrior>();
-const lastTeamMatchesCache = new WeakMap<SeasonRows, TeamMatch[]>();
+const lastTeamSeasonCache = new WeakMap<SeasonRows, TeamSeasonSummary>();
 const strengthCache = new WeakMap<HistoryView, TeamStrengths>();
 
 function lastSeasonOf(history: HistoryView): SeasonRows {
@@ -83,12 +84,12 @@ function strengthsFor(history: HistoryView): TeamStrengths {
   const cached = strengthCache.get(history);
   if (cached !== undefined) return cached;
   const lastSeason = lastSeasonOf(history);
-  let lastMatches = lastTeamMatchesCache.get(lastSeason);
-  if (lastMatches === undefined) {
-    lastMatches = teamMatchesFrom(lastSeason.rows);
-    lastTeamMatchesCache.set(lastSeason, lastMatches);
+  let lastTeams = lastTeamSeasonCache.get(lastSeason);
+  if (lastTeams === undefined) {
+    lastTeams = summariseTeamSeason(teamMatchesFrom(lastSeason.rows));
+    lastTeamSeasonCache.set(lastSeason, lastTeams);
   }
-  const strengths = teamStrengths(teamMatchesFrom(history.thisSeason), lastMatches);
+  const strengths = teamStrengths(teamMatchesFrom(history.thisSeason), lastTeams);
   strengthCache.set(history, strengths);
   return strengths;
 }

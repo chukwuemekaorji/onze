@@ -8,8 +8,8 @@ import type { CoachReport } from './coach-prompt.js';
 import type { TransferReasonCode } from './analysis/transfers.js';
 import type { ChipName } from './analysis/chips.js';
 import type { LineupPlayer } from './analysis/lineup.js';
-import type { PlayerProjection } from './analysis/types.js';
 import { notableLeague } from './analysis/leagues.js';
+import { captainSentence, labelSentence, transferSentence } from './plain-labels.js';
 
 const REASON_CODE_TEXT: Record<TransferReasonCode, string> = {
   poor_form: 'poor recent form',
@@ -24,15 +24,6 @@ const CHIP_LABEL: Record<ChipName, string> = {
   free_hit: 'Free Hit',
   triple_captain: 'Triple Captain',
 };
-
-// onze's own projection, never fpl's: named that way wherever it's quoted
-function describeProjection(projection: PlayerProjection): string {
-  return (
-    `Onze projection ${projection.points.toFixed(1)}: ` +
-    `${Math.round(projection.chanceOfPlaying * 100)}% to play, ` +
-    `${projection.pointsIfPlaying.toFixed(1)} if he plays`
-  );
-}
 
 function formatMoney(tenths: number): string {
   return `£${(tenths / 10).toFixed(1)}m`;
@@ -79,6 +70,7 @@ function writeSummary(summary: AnalysisSummary): string {
 
 function describeSuggestion(
   suggestion: AnalysisSummary['transfers']['suggestions'][number],
+  event: number,
 ): string {
   const reasons = suggestion.reasonCodes
     .map((code) => REASON_CODE_TEXT[code])
@@ -95,9 +87,9 @@ function describeSuggestion(
   return (
     `Transfer out ${suggestion.outPlayer.webName} ` +
     `(${formatMoney(suggestion.outPlayer.nowCost)}, ${reasons}) for ` +
-    `${replacement.webName} (${formatMoney(replacement.nowCost)}), ` +
-    `+${suggestion.expectedPointsGain.toFixed(1)} on the Onze projection this gameweek ` +
-    `(${describeProjection(replacement.projection)}).`
+    `${replacement.webName} (${formatMoney(replacement.nowCost)}). ` +
+    transferSentence(replacement, suggestion.outPlayer, suggestion.expectedPointsGain) +
+    ` ${labelSentence(replacement, event)}`
   );
 }
 
@@ -110,7 +102,9 @@ function writeTransfers(summary: AnalysisSummary): string {
   }
 
   const recommended = suggestions.slice(0, recommendedCount);
-  const lines = recommended.map(describeSuggestion).join(' ');
+  const lines = recommended
+    .map((suggestion) => describeSuggestion(suggestion, summary.currentEvent))
+    .join(' ');
 
   if (pointsHitCost === 0) {
     return `You have ${freeTransfers} free transfer${freeTransfers === 1 ? '' : 's'} to use. ${lines}`;
@@ -125,7 +119,12 @@ function writeCaptaincy(summary: AnalysisSummary): string {
     return 'No eligible captaincy candidates found in your starting XI.';
   }
   const viceText = viceCaptain ? viceCaptain.player.webName : 'no clear second option';
-  return `Captain ${captain.player.webName} (${describeProjection(captain.player.projection)}), with ${viceText} as vice.`;
+  // the squad after the recommended transfers, the one the captain is picked from
+  const squad = [
+    ...summary.lineup.startingXI.map(({ player }) => player),
+    ...summary.lineup.bench.map(({ player }) => player),
+  ];
+  return `${captainSentence(captain.player, squad)} ${labelSentence(captain.player, summary.currentEvent)} Vice-captain: ${viceText}.`;
 }
 
 function writeChips(summary: AnalysisSummary): string {

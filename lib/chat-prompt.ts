@@ -1,6 +1,6 @@
 import type Anthropic from '@anthropic-ai/sdk';
 import { ONZE_PERSONA } from './persona.js';
-import { PROJECTION_GUIDE } from './coach-prompt.js';
+import { PLAIN_WORDS_GUIDE, plainContext } from './coach-prompt.js';
 import type { AnalysisSummary } from './analysis-summary.js';
 
 export interface ChatMessage {
@@ -23,7 +23,7 @@ Give your recommendation directly in 1-3 sentences unless the question
 genuinely needs more. Don't number out multiple transfer options or
 close with a question back to the user — just tell them what to do.
 
-${PROJECTION_GUIDE}`;
+${PLAIN_WORDS_GUIDE}`;
 
 const MAX_CHAT_TOKENS = 350;
 // caps tokens per message as a conversation grows
@@ -44,9 +44,10 @@ export function buildChatRequest(
   return {
     model: options.model,
     max_tokens: MAX_CHAT_TOKENS,
-    system: `${CHAT_SYSTEM_PROMPT}\n\nData summary:\n${JSON.stringify(
-      options.analysisSummary,
-    )}`,
+    system: `${CHAT_SYSTEM_PROMPT}\n\nData summary:\n${JSON.stringify({
+      ...options.analysisSummary,
+      ...plainContext(options.analysisSummary),
+    })}`,
     messages: [
       ...recentHistory.map((m) => ({ role: m.role, content: m.content })),
       { role: 'user' as const, content: options.question },

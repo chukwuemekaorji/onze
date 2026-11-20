@@ -1,8 +1,14 @@
 import type { AnalysisSummary } from '../lib/analysis-summary.js';
 import type { ChipName } from '../lib/analysis/chips.js';
 import type { PriceAlertStatus, PriceDirection } from '../lib/analysis/price-alerts.js';
-import type { PlayerProjection } from '../lib/analysis/types.js';
+import type { AnalysisPlayer } from '../lib/analysis/types.js';
 import { HIT_SAFETY_MARGIN, POINTS_PER_HIT } from '../lib/analysis/transfers.js';
+import {
+  captainSentence,
+  cardLine,
+  exactNumbers,
+  transferSentence,
+} from '../lib/plain-labels.js';
 import { fixtureLabel } from './pitch-layout.js';
 
 /** card-ready shapes for the binder pages, worked out from the analysis summary */
@@ -10,19 +16,29 @@ import { fixtureLabel } from './pitch-layout.js';
 /** free and hit moves are recommended; skip means weighed and left alone */
 export type TransferVerdict = 'free' | 'hit' | 'skip';
 
+/** one player's plain card: the line shown, and the exact numbers behind it on tap */
+export interface PlayerCard {
+  name: string;
+  /** "Onze predicts 5.4 pts · Nailed on · High goal threat · Easy fixture" */
+  line: string;
+  exact: string[];
+}
+
 export interface TransferRow {
   outName: string;
   /** the incoming player's id, for replaying the swap on the pitch */
   inId: number | null;
   /** null when nothing affordable beats the outgoing player */
   inName: string | null;
-  /** gain in the onze projection for the gameweek, before any hit */
+  /** how many more points onze predicts for the gameweek, before any hit */
   gain: number;
   verdict: TransferVerdict;
   /** the other replacements, best first, with prices */
   alternatives: string[];
-  /** the two onze projections behind the gain, null with no replacement */
-  projectionNote: string | null;
+  /** "Onze thinks Gabriel will score about 3 more points than Dasilva this week." */
+  sentence: string | null;
+  /** the incoming player's card, null with no replacement */
+  incoming: PlayerCard | null;
 }
 
 export interface CaptainOption {
@@ -30,14 +46,9 @@ export interface CaptainOption {
   id: number;
   name: string;
   fixture: string;
-  form: number;
-  pointsPerGame: number;
-  /** the onze projection for the gameweek */
-  projected: number;
-  /** fpl's own figure, shown only to compare */
-  fplExpected: number;
-  /** e.g. "Onze projection 6.1 · 85% to play, 7.2 if he plays · FPL's own 5.0" */
-  reason: string;
+  /** onze's predicted points for the gameweek */
+  predicted: number;
+  card: PlayerCard;
   role: 'captain' | 'vice' | null;
 }
 
@@ -108,9 +119,12 @@ export function formatPrice(nowCost: number): string {
   return `£${(nowCost / PRICE_UNITS_PER_MILLION).toFixed(1)}m`;
 }
 
-/** "85% to play, 6.1 if he plays": what a projection is made of */
-export function projectionBreakdown(projection: PlayerProjection): string {
-  return `${Math.round(projection.chanceOfPlaying * 100)}% to play, ${formatStat(projection.pointsIfPlaying)} if he plays`;
+export function playerCard(player: AnalysisPlayer, event: number): PlayerCard {
+  return {
+    name: player.webName,
+    line: cardLine(player, event),
+    exact: exactNumbers(player),
+  };
 }
 
 export function formatGain(points: number): string {
@@ -125,7 +139,10 @@ const plural = (count: number, word: string) =>
  * every suggestion, best gain first. the first recommendedCount are the moves
  * to make, spending free transfers before any hit
  */
-export function transferRows(transfers: AnalysisSummary['transfers']): TransferRow[] {
+export function transferRows(
+  transfers: AnalysisSummary['transfers'],
+  event: number,
+): TransferRow[] {
   return transfers.suggestions.map((suggestion, index) => {
     const [best, ...others] = suggestion.inCandidates;
     const verdict: TransferVerdict =
@@ -142,19 +159,20 @@ export function transferRows(transfers: AnalysisSummary['transfers']): TransferR
       gain: suggestion.expectedPointsGain,
       verdict,
       alternatives: others.map((p) => `${p.webName} ${formatPrice(p.nowCost)}`),
-      projectionNote: best
-        ? `Onze projection: ${best.webName} ${formatStat(best.projection.points)} (${projectionBreakdown(best.projection)}), ${out.webName} ${formatStat(out.projection.points)} (${projectionBreakdown(out.projection)})`
+      sentence: best
+        ? transferSentence(best, out, suggestion.expectedPointsGain)
         : null,
+      incoming: best ? playerCard(best, event) : null,
     };
   });
 }
 
 /** one plain line on why a hit is or isn't worth taking this week */
 export function hitAdvice(
-  summary: Pick<AnalysisSummary, 'transfers' | 'leagueStandings'>,
+  summary: Pick<AnalysisSummary, 'transfers' | 'leagueStandings' | 'currentEvent'>,
 ): string {
   const { transfers } = summary;
-  const rows = transferRows(transfers);
+  const rows = transferRows(transfers, summary.currentEvent);
   const free = plural(transfers.freeTransfers, 'free transfer');
 
   if (rows.length === 0)
@@ -163,7 +181,7 @@ export function hitAdvice(
   if (transfers.pointsHitCost > 0) {
     const hit = rows.find((row) => row.verdict === 'hit');
     if (hit) {
-      return `The ${HIT_LABEL} is worth it: ${hit.outName} for ${hit.inName ?? 'a replacement'} gains about ${hit.gain.toFixed(1)} projected pts, more than the ${POINTS_PER_HIT} it costs plus a ${HIT_SAFETY_MARGIN}-point safety margin.`;
+      return `The ${HIT_LABEL} is worth it: ${hit.outName} for ${hit.inName ?? 'a replacement'} gains about ${hit.gain.toFixed(1)} points, more than the ${POINTS_PER_HIT} it costs plus a ${HIT_SAFETY_MARGIN}-point safety margin.`;
     }
   }
 
@@ -172,9 +190,13 @@ export function hitAdvice(
 
   const leadingALeague = summary.leagueStandings.some((league) => league.rank === 1);
   if (next.gain > HIT_THRESHOLD && leadingALeague) {
-    return `${next.outName} for ${next.inName ?? 'a replacement'} would gain about ${next.gain.toFixed(1)} projected pts, but you lead a league, so Onze skips hits to protect it.`;
+    return `${next.outName} for ${next.inName ?? 'a replacement'} would gain about ${next.gain.toFixed(1)} points, but you lead a league, so Onze skips hits to protect it.`;
   }
-  return `A ${HIT_LABEL} for ${next.outName} isn't worth it: the swap gains about ${next.gain.toFixed(1)} projected pts, short of the ${HIT_THRESHOLD} needed to beat the hit with a margin.`;
+  // a swap onze predicts no gain for needs no maths about margins
+  if (next.gain <= 0) {
+    return `No other swap would gain you points this week, so a ${HIT_LABEL} isn't worth it.`;
+  }
+  return `A ${HIT_LABEL} for ${next.outName} isn't worth it: the swap gains about ${next.gain.toFixed(1)} points, short of the ${HIT_THRESHOLD} needed to beat the hit with a margin.`;
 }
 
 /** the top captain options, best first, with the chosen c and v marked */
@@ -186,28 +208,29 @@ export function captainOptions(
   const captainId = captaincy.captain?.player.id;
   const viceId = captaincy.viceCaptain?.player.id;
   return captaincy.candidates.slice(0, limit).map(({ player }, index) => {
-    const parts = [
-      `Onze projection ${formatStat(player.projection.points)}`,
-      projectionBreakdown(player.projection),
-      `FPL's own ${formatStat(player.epNext)}`,
-    ];
     return {
       rank: index + 1,
       id: player.id,
       name: player.webName,
       fixture: fixtureLabel(player.nextFixtures, event),
-      form: player.form,
-      pointsPerGame: player.pointsPerGame,
-      projected: player.projection.points,
-      fplExpected: player.epNext,
-      reason: parts.join(' · '),
+      predicted: player.projection.points,
+      card: playerCard(player, event),
       role: player.id === captainId ? 'captain' : player.id === viceId ? 'vice' : null,
     };
   });
 }
 
-function formatStat(value: number): string {
-  return value.toFixed(1);
+/** "Captain Haaland: Onze predicts 7.3 pts, the highest in your team.", or null */
+export function captainHeadline(
+  summary: Pick<AnalysisSummary, 'captaincy' | 'lineup'>,
+): string | null {
+  const captain = summary.captaincy.captain?.player;
+  if (captain === undefined) return null;
+  const squad = [
+    ...summary.lineup.startingXI.map(({ player }) => player),
+    ...summary.lineup.bench.map(({ player }) => player),
+  ];
+  return captainSentence(captain, squad);
 }
 
 /** every chip, so the card also shows what's been used */

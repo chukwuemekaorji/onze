@@ -6,6 +6,7 @@ import { useReportStage } from '../../report-stage.js';
 import { hasNavigated, HOME_ROUTE, useRoute } from '../../router.js';
 import type { RouteId } from '../../router.js';
 import type { ShownReport } from '../../use-report-flow.js';
+import { HowOnzePredicts } from '../HowOnzePredicts.js';
 import { CaptaincyPage } from './CaptaincyPage.js';
 import { ChipsPage } from './ChipsPage.js';
 import { LeaguesPage } from './LeaguesPage.js';
@@ -103,6 +104,7 @@ export function Binder({ shown, writing }: BinderProps) {
             <Page shown={shown} focusTitle={hasNavigated()} />
           </motion.div>
         </AnimatePresence>
+        <HowOnzePredicts className="binder__how" />
       </div>
     </div>
   );

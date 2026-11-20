@@ -16,7 +16,8 @@ export function makeProjection(
     points,
     chanceOfPlaying: 0.9,
     pointsIfPlaying: points / 0.9,
-    defensiveContributionIfPlaying: 0,
+    goalOrAssistChance: 0.3,
+    cleanSheetChance: null,
     // the same every week unless a test says otherwise
     horizonPoints: points * 3,
     horizonEvents: 3,

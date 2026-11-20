@@ -17,7 +17,7 @@ const FEATURES: Feature[] = [
   },
   {
     title: 'Captaincy',
-    body: 'Your top five armband options, ranked by the Onze projection: chance of playing times points if he plays.',
+    body: 'Your top five armband options, each with the points Onze predicts and a plain verdict: how sure he is to play, his goal threat and how easy his fixture is.',
     icon: (
       <>
         <circle cx="12" cy="12" r="8" />

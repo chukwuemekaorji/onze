@@ -29,10 +29,10 @@ export interface AnalysisPlayer {
   pointsPerGame: number;
   /**
    * fpl's own next-gameweek figure, in practice form scaled by availability.
-   * kept only to show next to onze's projection; nothing decides on it
+   * kept in the data for comparison only; nothing decides on it or shows it
    */
   epNext: number;
-  /** onze's projection, from lib/analysis/projection.ts with fpl's team news applied */
+  /** onze's prediction, built in lib/build-projections.ts */
   projection: PlayerProjection;
   totalPoints: number;
   selectedByPercent: number;
@@ -46,19 +46,25 @@ export interface AnalysisPlayer {
   nextFixtures: FixtureDifficulty[];
 }
 
-/** onze's numbers for one player, all for the gameweek being planned unless named */
+/**
+ * onze's numbers for one player, all for the gameweek being planned unless
+ * named. a blend of two models (see lib/build-projections.ts), each with
+ * fpl's team news on its chance of playing
+ */
 export interface PlayerProjection {
   /** the gameweek these are for */
   event: number;
-  /** projected points: chance of playing x points if playing, over the gameweek's fixtures */
+  /** predicted points over the gameweek's fixtures, 0 in a blank */
   points: number;
-  /** 0 to 1: the model's chance of any minutes, times fpl's team news */
+  /** 0 to 1: the chance of any minutes, times fpl's team news */
   chanceOfPlaying: number;
-  /** projected points if he plays, all of the gameweek's fixtures; 0 in a blank */
+  /** predicted points if he plays, all of the gameweek's fixtures; 0 in a blank */
   pointsIfPlaying: number;
-  /** the part of pointsIfPlaying from defensive contributions (2025-26 rules on) */
-  defensiveContributionIfPlaying: number;
-  /** projected points over the next horizonEvents gameweeks, for weighing transfers */
+  /** 0 to 1: the chance he scores or assists if he plays; null in a blank */
+  goalOrAssistChance: number | null;
+  /** 0 to 1: the chance his team keeps a clean sheet; null for midfielders, forwards and blanks */
+  cleanSheetChance: number | null;
+  /** predicted points over the next horizonEvents gameweeks, for weighing transfers */
   horizonPoints: number;
   horizonEvents: number;
 }

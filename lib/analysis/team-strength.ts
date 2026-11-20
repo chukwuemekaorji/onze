@@ -41,6 +41,21 @@ export interface TeamStrengths {
   newcomer: TeamStrength;
 }
 
+/**
+ * last season boiled down to what team strength reads from it: small enough
+ * to ship in the live prior, so the server never needs last season's rows
+ */
+export interface TeamSeasonSummary {
+  /** average expected goals per team per match */
+  goalsPerTeamMatch: number;
+  homeFactor: number;
+  awayFactor: number;
+  /** each team's average per match, by name */
+  teams: Readonly<Record<string, TeamStrength>>;
+  /** for a team that wasn't in the league: a promoted side */
+  newcomer: TeamStrength;
+}
+
 /** what a fixture means for scoring and conceding, relative to an average match */
 export interface FixtureGoalRates {
   /** how much easier than usual it is for the team to score: player attacking rates scale by it */
@@ -81,27 +96,37 @@ export function teamMatchesFrom(rows: readonly TeamRowFacts[]): TeamMatch[] {
   return matches;
 }
 
-/** this season's matches, each team blended with its own last season */
-export function teamStrengths(
-  thisSeason: readonly TeamMatch[],
+export function summariseTeamSeason(
   lastSeason: readonly TeamMatch[],
-): TeamStrengths {
+): TeamSeasonSummary {
   if (lastSeason.length === 0)
     throw new Error("team strengths need last season's matches");
   const goalsPerTeamMatch = meanOf(lastSeason, (match) => match.expectedGoalsFor);
   const home = lastSeason.filter((match) => match.wasHome);
   const away = lastSeason.filter((match) => !match.wasHome);
   const lastByTeam = averageByTeam(lastSeason);
-  const newcomer = newcomerPrior([...lastByTeam.values()]);
+  return {
+    goalsPerTeamMatch,
+    homeFactor: meanOf(home, (match) => match.expectedGoalsFor) / goalsPerTeamMatch,
+    awayFactor: meanOf(away, (match) => match.expectedGoalsFor) / goalsPerTeamMatch,
+    teams: Object.fromEntries(lastByTeam),
+    newcomer: newcomerPrior([...lastByTeam.values()]),
+  };
+}
 
+/** this season's matches, each team blended with its own last season */
+export function teamStrengths(
+  thisSeason: readonly TeamMatch[],
+  lastSeason: TeamSeasonSummary,
+): TeamStrengths {
   const teams = new Map<string, TeamStrength>();
   const names = new Set([
     ...thisSeason.map((match) => match.teamName),
-    ...lastByTeam.keys(),
+    ...Object.keys(lastSeason.teams),
   ]);
   for (const name of names) {
     const own = thisSeason.filter((match) => match.teamName === name);
-    const prior = lastByTeam.get(name) ?? newcomer;
+    const prior = lastSeason.teams[name] ?? lastSeason.newcomer;
     teams.set(name, {
       attack: shrink(
         sumOf(own, (match) => match.expectedGoalsFor),
@@ -118,11 +143,11 @@ export function teamStrengths(
     });
   }
   return {
-    goalsPerTeamMatch,
-    homeFactor: meanOf(home, (match) => match.expectedGoalsFor) / goalsPerTeamMatch,
-    awayFactor: meanOf(away, (match) => match.expectedGoalsFor) / goalsPerTeamMatch,
+    goalsPerTeamMatch: lastSeason.goalsPerTeamMatch,
+    homeFactor: lastSeason.homeFactor,
+    awayFactor: lastSeason.awayFactor,
     teams,
-    newcomer,
+    newcomer: lastSeason.newcomer,
   };
 }
 

@@ -2,6 +2,16 @@ import type Anthropic from '@anthropic-ai/sdk';
 import { ONZE_PERSONA } from './persona.js';
 import type { AnalysisSummary } from './analysis-summary.js';
 import { notableLeague } from './analysis/leagues.js';
+import {
+  CLEAN_SHEET_THRESHOLDS,
+  GOAL_THREAT_THRESHOLDS,
+  JARGON,
+  PLAYING_THRESHOLDS,
+  captainSentence,
+  plainPlayers,
+  transferSentence,
+} from './plain-labels.js';
+import type { PlainPlayer } from './plain-labels.js';
 
 export interface CoachReport {
   summary: string;
@@ -12,28 +22,62 @@ export interface CoachReport {
   formation: string;
 }
 
-/** how to read and name the numbers; shared with chat so both say the same */
-export const PROJECTION_GUIDE = `Projections: every player has a "projection". It is Onze's own
-projection from Onze's model, not FPL's. "projection.points" is the
-projected points for the gameweek being planned: the chance of playing
-times the points if he plays, summed over that gameweek's fixtures (two
-in a double, none in a blank), with FPL's injury and suspension news
-already applied. "projection.chanceOfPlaying" is 0 to 1;
-"projection.pointsIfPlaying" is points if he plays, of which
-"projection.defensiveContributionIfPlaying" comes from defensive
-contribution points; "projection.horizonPoints" covers the next
-"projection.horizonEvents" gameweeks. Call these "Onze's projection" or
-"projected points" and quote them to one decimal place, never as
-"expected points" and never as FPL's numbers. A short breakdown reads
-well: "85% to play, 6.1 if he plays". "epNext" is FPL's own figure,
-there only for comparison: never base a recommendation on it, and if
-you mention it, name it as FPL's.
+const percent = (chance: number) => `${Math.round(chance * 100)}%`;
+const below = (chance: number) => `${Math.round(chance * 100) - 1}%`;
 
-Transfer gains ("expectedPointsGain", "projectedNetGain") are
-differences in Onze's projection for the gameweek being planned, and
-the captaincy and lineup scores are the same projection. Weak links
-are ranked over the horizon, so a swap can be picked for the next few
-gameweeks while its gain is shown for this one.`;
+/**
+ * how to talk about onze's numbers; shared with chat so both say the same.
+ * the bands come from plain-labels.ts, the same ones the ui shows
+ */
+export const PLAIN_WORDS_GUIDE = `How to talk about the numbers: write for a casual FPL player, in plain
+words. "plainPlayers" lists every player in the data with Onze's labels
+already worked out: "predictedPoints", "playing", "goalThreat",
+"cleanSheet" and "fixture". Describe players with those labels inside a
+sentence ("Haaland is nailed on, with a high goal threat and an easy
+fixture") and quote points as "Onze predicts 7.3 pts". Say gains and
+differences in round numbers: "about 3 more points". "plainSentences"
+has the captain and transfer lines written out; reuse them where they
+fit. The labels mean:
+- playing: "Nailed on" is a ${percent(PLAYING_THRESHOLDS.nailedOn)}+ chance of playing, "Likely to play" ${percent(PLAYING_THRESHOLDS.likely)} to ${below(PLAYING_THRESHOLDS.nailedOn)}, "Rotation risk" ${percent(PLAYING_THRESHOLDS.rotationRisk)} to ${below(PLAYING_THRESHOLDS.likely)}, "Unlikely to play" under ${percent(PLAYING_THRESHOLDS.rotationRisk)}; "Injured" and "Suspended" come from FPL's news.
+- goalThreat: his chance to score or assist if he plays. High is ${percent(GOAL_THREAT_THRESHOLDS.high)}+, Medium ${percent(GOAL_THREAT_THRESHOLDS.medium)} to ${below(GOAL_THREAT_THRESHOLDS.high)}, Low under ${percent(GOAL_THREAT_THRESHOLDS.medium)}. Not given for keepers.
+- cleanSheet (keepers and defenders): his team's chance of a clean sheet. Good is ${percent(CLEAN_SHEET_THRESHOLDS.good)}+, Fair ${percent(CLEAN_SHEET_THRESHOLDS.fair)} to ${below(CLEAN_SHEET_THRESHOLDS.good)}, Poor under ${percent(CLEAN_SHEET_THRESHOLDS.fair)}.
+- fixture: from FPL's fixture difficulty, Easy, Medium or Tough; null means no match that week.
+
+Never use these words unless the user asks for stats in chat: ${JARGON.join(', ')}, expected points. If they do ask, the numbers behind the labels are in each player's "projection", which is Onze's own and never FPL's: "points", "chanceOfPlaying", "pointsIfPlaying", "goalOrAssistChance", "cleanSheetChance", and "horizonPoints" over "horizonEvents" gameweeks. Never invent a number that isn't in the data. "epNext" is FPL's own figure: never base advice on it, and only mention it, named as FPL's, if asked.
+
+Transfer gains ("expectedPointsGain", "projectedNetGain") are how many more points Onze predicts for the gameweek being planned, and the captaincy and lineup follow the same predictions. Weak links are picked over the next few gameweeks, so a swap can suit the coming run while its gain is shown for this week.`;
+
+export interface PlainContext {
+  plainPlayers: PlainPlayer[];
+  plainSentences: { captain: string | null; transfers: string[] };
+}
+
+/** the labels and ready-made sentences sent alongside the summary */
+export function plainContext(summary: AnalysisSummary): PlainContext {
+  const captain = summary.captaincy.captain?.player;
+  const squad = [
+    ...summary.lineup.startingXI.map(({ player }) => player),
+    ...summary.lineup.bench.map(({ player }) => player),
+  ];
+  return {
+    plainPlayers: plainPlayers(summary),
+    plainSentences: {
+      captain: captain === undefined ? null : captainSentence(captain, squad),
+      transfers: summary.transfers.suggestions.flatMap((suggestion) => {
+        const best = suggestion.inCandidates[0];
+        return best === undefined
+          ? []
+          : [
+              transferSentence(
+                best,
+                suggestion.outPlayer,
+                suggestion.expectedPointsGain,
+              ),
+            ];
+      }),
+    },
+  };
+}
 
 export const REPORT_SYSTEM_PROMPT = `${ONZE_PERSONA}
 
@@ -51,9 +95,9 @@ left before the deadline when it's relevant (e.g. a price-change alert
 or an unmade transfer), using plain phrasing like "the deadline is
 Saturday" rather than restating raw timestamps.
 
-${PROJECTION_GUIDE}
+${PLAIN_WORDS_GUIDE}
 
-Transfers: "transfers.suggestions" is ranked best-first by projected
+Transfers: "transfers.suggestions" is ranked best-first by predicted
 point gain; "transfers.recommendedCount" says how many of those leading
 entries are actually worth making this gameweek — already weighed
 against "transfers.freeTransfers" (free transfers banked) and
@@ -65,7 +109,7 @@ each of the first recommendedCount suggestions as a decision ("Transfer
 OUT_PLAYER for IN_PLAYER") using real names and prices, not "consider"
 or "you could." If pointsHitCost is greater than 0, say plainly that
 it's worth taking the hit and why (transfers.projectedNetGain is the
-projected points gain after the hit). Any suggestions beyond
+predicted points gain after the hit, so say it in round numbers). Any suggestions beyond
 recommendedCount are weak links you're watching but not recommending a
 transfer for yet — mention at most one, briefly, only if it adds real
 value.
@@ -113,6 +157,7 @@ export function buildCoachRequest(
         content: JSON.stringify({
           ...summary,
           notableLeague: notableLeague(summary.leagueStandings),
+          ...plainContext(summary),
         }),
       },
     ],

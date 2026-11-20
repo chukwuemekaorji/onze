@@ -77,17 +77,29 @@ const LEADING: AnalysisSummary['leagueStandings'] = [
 ];
 
 describe('transferRows', () => {
-  it('shows the two onze projections behind each gain', () => {
-    const [row] = transferRows({
-      suggestions: [suggestion('Mitoma', 'Mbeumo', 2)],
-      recommendedCount: 1,
-      freeTransfers: 1,
-      pointsHitCost: 0,
-      projectedNetGain: 2,
-    });
-    expect(row?.projectionNote).toBe(
-      'Onze projection: Mbeumo 5.0 (90% to play, 5.6 if he plays), Mitoma 5.0 (90% to play, 5.6 if he plays)',
+  it("says the gain in plain words, with the incoming player's card", () => {
+    const [row] = transferRows(
+      {
+        suggestions: [suggestion('Mitoma', 'Mbeumo', 2.6)],
+        recommendedCount: 1,
+        freeTransfers: 1,
+        pointsHitCost: 0,
+        projectedNetGain: 2.6,
+      },
+      EVENT,
     );
+    expect(row?.sentence).toBe(
+      'Onze thinks Mbeumo will score about 3 more points than Mitoma this week.',
+    );
+    expect(row?.incoming).toEqual({
+      name: 'Mbeumo',
+      line: 'Onze predicts 5.0 pts · Nailed on · Medium goal threat · Medium fixture',
+      exact: [
+        '90% chance of playing',
+        '5.6 pts if he plays',
+        '30% chance to score or assist if he plays',
+      ],
+    });
   });
 
   it('lists every suggestion: free first, then a hit, then the ones to skip', () => {
@@ -102,6 +114,7 @@ describe('transferRows', () => {
         freeTransfers: 1,
         pointsHitCost: 4,
       }),
+      EVENT,
     );
     expect(rows.map((r) => [r.outName, r.inName, r.verdict])).toEqual([
       ['Wissa', 'Watkins', 'free'],
@@ -115,6 +128,7 @@ describe('transferRows', () => {
   it('marks a suggestion with no affordable replacement', () => {
     const rows = transferRows(
       transfers({ suggestions: [suggestion('Wissa', null, 0)], recommendedCount: 0 }),
+      EVENT,
     );
     expect(rows[0]).toMatchObject({
       inId: null,
@@ -138,12 +152,13 @@ describe('transferRows', () => {
         ],
         recommendedCount: 1,
       }),
+      EVENT,
     );
     expect(rows[0]?.inId).toBe(watkins.id);
   });
 
   it('returns nothing when there are no suggestions', () => {
-    expect(transferRows(transfers({}))).toEqual([]);
+    expect(transferRows(transfers({}), EVENT)).toEqual([]);
   });
 });
 
@@ -159,9 +174,10 @@ describe('hitAdvice', () => {
         pointsHitCost: 4,
       }),
       leagueStandings: NOT_LEADING,
+      currentEvent: EVENT,
     });
     expect(advice).toMatch(
-      /^The -4 is worth it: Mitoma for Mbeumo gains about 7\.0 projected pts/,
+      /^The -4 is worth it: Mitoma for Mbeumo gains about 7\.0 points/,
     );
   });
 
@@ -175,9 +191,27 @@ describe('hitAdvice', () => {
         recommendedCount: 1,
       }),
       leagueStandings: NOT_LEADING,
+      currentEvent: EVENT,
     });
     expect(advice).toBe(
-      "A -4 for Mitoma isn't worth it: the swap gains about 4.5 projected pts, short of the 6 needed to beat the hit with a margin.",
+      "A -4 for Mitoma isn't worth it: the swap gains about 4.5 points, short of the 6 needed to beat the hit with a margin.",
+    );
+  });
+
+  it('says plainly when the next swap would gain nothing', () => {
+    const advice = hitAdvice({
+      transfers: transfers({
+        suggestions: [
+          suggestion('Wissa', 'Watkins', 3),
+          suggestion('Mitoma', 'Mbeumo', -0.1),
+        ],
+        recommendedCount: 1,
+      }),
+      leagueStandings: NOT_LEADING,
+      currentEvent: EVENT,
+    });
+    expect(advice).toBe(
+      "No other swap would gain you points this week, so a -4 isn't worth it.",
     );
   });
 
@@ -191,6 +225,7 @@ describe('hitAdvice', () => {
         recommendedCount: 1,
       }),
       leagueStandings: LEADING,
+      currentEvent: EVENT,
     });
     expect(advice).toMatch(/you lead a league/);
   });
@@ -203,12 +238,17 @@ describe('hitAdvice', () => {
         freeTransfers: 2,
       }),
       leagueStandings: NOT_LEADING,
+      currentEvent: EVENT,
     });
     expect(covered).toBe(
       'Your 2 free transfers cover every move worth making, so no hit is needed.',
     );
     expect(
-      hitAdvice({ transfers: transfers({}), leagueStandings: NOT_LEADING }),
+      hitAdvice({
+        transfers: transfers({}),
+        leagueStandings: NOT_LEADING,
+        currentEvent: EVENT,
+      }),
     ).toMatch(/No weak links/);
   });
 });
@@ -240,15 +280,20 @@ describe('captainOptions', () => {
     expect(options[0]?.fixture).toBe('LIV (H)');
   });
 
-  it("leads with the onze projection and its breakdown, fpl's own figure last", () => {
+  it("shows a plain card for each option, never fpl's own figure", () => {
     const jackson = player('N.Jackson', {
+      position: 'FWD',
       form: 11,
       epNext: 11,
+      nextFixtures: [
+        { event: EVENT, opponentShortName: 'BUR', isHome: true, difficulty: 2 },
+      ],
       projection: makeProjection({
         event: EVENT,
         points: 4.2,
         chanceOfPlaying: 0.8,
         pointsIfPlaying: 5.2,
+        goalOrAssistChance: 0.45,
       }),
     });
     const [option] = captainOptions(
@@ -259,11 +304,16 @@ describe('captainOptions', () => {
       },
       EVENT,
     );
-    expect(option?.reason).toBe(
-      "Onze projection 4.2 · 80% to play, 5.2 if he plays · FPL's own 11.0",
+    expect(option?.card.line).toBe(
+      'Onze predicts 4.2 pts · Likely to play · High goal threat · Easy fixture',
     );
-    expect(option?.projected).toBe(4.2);
-    expect(option?.fplExpected).toBe(11);
+    expect(option?.card.exact).toEqual([
+      '80% chance of playing',
+      '5.2 pts if he plays',
+      '45% chance to score or assist if he plays',
+    ]);
+    expect(option?.predicted).toBe(4.2);
+    expect(JSON.stringify(option)).not.toContain('11');
   });
 
   it('returns nothing without candidates', () => {

@@ -1,7 +1,18 @@
 import { describe, expect, it } from 'vitest';
+import { TWO_PART_SHARE } from '../lib/analysis/blend-weight.js';
+import {
+  projectEvents,
+  summariseEventSeason,
+} from '../lib/analysis/event-projection.js';
+import type { EventLeaguePrior } from '../lib/analysis/event-projection.js';
+import { EVENT_WEIGHTS } from '../lib/analysis/event-weights.js';
 import { PROJECTION_WEIGHTS } from '../lib/analysis/projection-weights.js';
-import { projectPlayer, summariseSeason } from '../lib/analysis/projection.js';
-import type { LeaguePrior } from '../lib/analysis/projection.js';
+import { projectPlayer } from '../lib/analysis/projection.js';
+import {
+  fixtureGoalRates,
+  summariseTeamSeason,
+  teamStrengths,
+} from '../lib/analysis/team-strength.js';
 import {
   StalePriorError,
   buildPlayerProjections,
@@ -14,7 +25,7 @@ import type { LastSeasonPrior } from '../lib/build-projections.js';
 import type { FplBootstrapStatic, FplElement, FplFixture } from '../lib/fpl-types.js';
 import { makeRow } from './helpers/player-gameweek-row.js';
 
-const LEAGUE: LeaguePrior = {
+const LEAGUE: EventLeaguePrior = {
   pointsPerAppearance: { GK: 3.3, DEF: 2.6, MID: 2.7, FWD: 2.9 },
   minutesPerAppearance: { GK: 89, DEF: 78, MID: 64, FWD: 61 },
   expectedGoalsPer90: { GK: 0, DEF: 0.05, MID: 0.15, FWD: 0.35 },
@@ -22,9 +33,33 @@ const LEAGUE: LeaguePrior = {
   defensiveContributionPer90: { GK: 0, DEF: 9, MID: 7, FWD: 3 },
   appearanceShare: 0.45,
   startShare: 0.35,
+  keeperSavesPer90: 2.8,
 };
 
-const LAST_SEASON = summariseSeason(
+// last season: arsenal strong, spurs and leeds weaker
+const TEAMS = summariseTeamSeason([
+  {
+    teamName: 'Arsenal',
+    wasHome: true,
+    expectedGoalsFor: 2,
+    expectedGoalsAgainst: 0.8,
+  },
+  { teamName: 'Spurs', wasHome: false, expectedGoalsFor: 0.8, expectedGoalsAgainst: 2 },
+  {
+    teamName: 'Leeds',
+    wasHome: true,
+    expectedGoalsFor: 1.2,
+    expectedGoalsAgainst: 1.5,
+  },
+  {
+    teamName: 'Spurs',
+    wasHome: false,
+    expectedGoalsFor: 1.5,
+    expectedGoalsAgainst: 1.2,
+  },
+]);
+
+const LAST_SEASON = summariseEventSeason(
   Array.from({ length: 30 }, (_, index) =>
     makeRow({
       gameweek: index + 1,
@@ -39,6 +74,7 @@ const LAST_SEASON = summariseSeason(
 const PRIOR: LastSeasonPrior = {
   season: '2025-26',
   league: LEAGUE,
+  teams: TEAMS,
   players: {
     501: encodeSeasonSummary(LAST_SEASON),
     502: encodeSeasonSummary(LAST_SEASON),
@@ -86,7 +122,11 @@ function bootstrap(elements: FplElement[], firstDeadline = '2026-08-15T10:00:00Z
         finished: true,
       },
     ],
-    teams: [],
+    teams: [
+      { id: 1, name: 'Arsenal' },
+      { id: 2, name: 'Spurs' },
+      { id: 3, name: 'Leeds' },
+    ] as FplBootstrapStatic['teams'],
     element_types: [],
     elements,
   } satisfies FplBootstrapStatic;
@@ -118,10 +158,42 @@ const OPTIONS = {
   event: 11,
   deadline: '2026-11-21T11:00:00Z',
   horizonEvents: 3,
-  history: new Map(),
+  history: { players: new Map(), teamMatches: [] },
   prior: PRIOR,
-  weights: PROJECTION_WEIGHTS,
+  weights: {
+    twoPart: PROJECTION_WEIGHTS,
+    event: EVENT_WEIGHTS,
+    twoPartShare: TWO_PART_SHARE,
+  },
 };
+
+/** both models run directly on what the builder should hand them */
+function direct(position: 'DEF' | 'MID') {
+  const input = {
+    season: '2026-27',
+    position,
+    nowCost: 50,
+    deadline: OPTIONS.deadline,
+    fixtures: [
+      {
+        wasHome: true,
+        fixtureDifficulty: 3,
+        ...fixtureGoalRates(teamStrengths([], TEAMS), 'Arsenal', 'Spurs', true),
+      },
+    ],
+    thisSeason: [],
+    lastSeason: LAST_SEASON,
+    league: LEAGUE,
+  };
+  return {
+    twoPart: projectPlayer(input, PROJECTION_WEIGHTS),
+    event: projectEvents(input, EVENT_WEIGHTS),
+  };
+}
+
+function withShare(twoPartShare: number) {
+  return { ...OPTIONS, weights: { ...OPTIONS.weights, twoPartShare } };
+}
 
 describe('season labels', () => {
   it('names the season from its first deadline, and the one before it', () => {
@@ -134,36 +206,77 @@ describe('season labels', () => {
 describe('season summary storage', () => {
   it('round-trips, and fails loudly on a row of the wrong length', () => {
     expect(decodeSeasonSummary(encodeSeasonSummary(LAST_SEASON))).toEqual(LAST_SEASON);
-    expect(() => decodeSeasonSummary([1, 2, 3])).toThrow('has 11 numbers');
+    expect(() => decodeSeasonSummary([1, 2, 3])).toThrow('has 13 numbers');
   });
 });
 
 describe('buildPlayerProjections', () => {
-  it('runs the model for the planned gameweek, with defensive contributions in 2026-27', () => {
+  it('is the two-part model at share 1, the event model at 0, and a straight mix between', () => {
+    const run = (share: number) =>
+      buildPlayerProjections(
+        bootstrap([element(1)]),
+        FIXTURES,
+        () => 'a',
+        withShare(share),
+      ).get(1);
+    const { twoPart, event } = direct('DEF');
+
+    expect(run(1)?.points).toBeCloseTo(twoPart.expectedPoints, 10);
+    expect(run(0)?.points).toBeCloseTo(event.expectedPoints, 10);
+    expect(run(TWO_PART_SHARE)?.points).toBeCloseTo(
+      TWO_PART_SHARE * twoPart.expectedPoints +
+        (1 - TWO_PART_SHARE) * event.expectedPoints,
+      10,
+    );
+    expect(run(TWO_PART_SHARE)?.chanceOfPlaying).toBeCloseTo(
+      TWO_PART_SHARE * twoPart.chanceOfPlaying +
+        (1 - TWO_PART_SHARE) * event.chanceOfPlaying,
+      10,
+    );
+  });
+
+  it('refuses a share outside 0 to 1', () => {
+    expect(() =>
+      buildPlayerProjections(
+        bootstrap([element(1)]),
+        FIXTURES,
+        () => 'a',
+        withShare(1.2),
+      ),
+    ).toThrow('from 0 to 1');
+  });
+
+  it('gives the labels a scoring chance, and a clean sheet chance for defenders only', () => {
     const projections = buildPlayerProjections(
-      bootstrap([element(1)]),
+      bootstrap([element(1), element(2, { element_type: 3 })]),
       FIXTURES,
       () => 'a',
       OPTIONS,
     );
-    const projection = projections.get(1);
-    const direct = projectPlayer(
-      {
-        season: '2026-27',
-        position: 'DEF',
-        nowCost: 50,
-        deadline: OPTIONS.deadline,
-        fixtures: [{ wasHome: true, fixtureDifficulty: 3 }],
-        thisSeason: [],
-        lastSeason: LAST_SEASON,
-        league: LEAGUE,
-      },
-      PROJECTION_WEIGHTS,
-    );
+    const defender = projections.get(1);
+    const midfielder = projections.get(2);
+    const goals = direct('MID').event.fixtures[0];
 
-    expect(projection?.points).toBeCloseTo(direct.expectedPoints);
-    expect(projection?.chanceOfPlaying).toBeCloseTo(direct.chanceOfPlaying);
-    expect(projection?.defensiveContributionIfPlaying).toBeGreaterThan(0);
+    expect(midfielder?.goalOrAssistChance).toBeCloseTo(
+      1 - Math.exp(-((goals?.goals ?? 0) + (goals?.assists ?? 0))),
+      10,
+    );
+    expect(midfielder?.cleanSheetChance).toBeNull();
+    // arsenal at home to spurs: a better than even chance of a clean sheet
+    expect(defender?.cleanSheetChance).toBeGreaterThan(0.3);
+    expect(defender?.cleanSheetChance).toBeLessThan(1);
+  });
+
+  it('has no scoring or clean sheet chance in a blank', () => {
+    const blank = buildPlayerProjections(bootstrap([element(1)]), FIXTURES, () => 'a', {
+      ...OPTIONS,
+      event: 13,
+      horizonEvents: 1,
+    }).get(1);
+
+    expect(blank?.points).toBe(0);
+    expect(blank?.goalOrAssistChance).toBeNull();
+    expect(blank?.cleanSheetChance).toBeNull();
   });
 
   it('sums a double into the horizon and counts a blank as 0', () => {
@@ -193,7 +306,7 @@ describe('buildPlayerProjections', () => {
     );
   });
 
-  it("multiplies in fpl's team news: a 25% doubt and an injury", () => {
+  it("multiplies fpl's team news into both models: a 25% doubt and an injury", () => {
     const fit = buildPlayerProjections(
       bootstrap([element(1)]),
       FIXTURES,

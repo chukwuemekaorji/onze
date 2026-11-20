@@ -3,6 +3,7 @@ import {
   TEAM_PRIOR_MATCHES,
   fixtureGoalRates,
   teamMatchesFrom,
+  summariseTeamSeason,
   teamStrengths,
 } from '../../lib/analysis/team-strength.js';
 import type { TeamMatch, TeamRowFacts } from '../../lib/analysis/team-strength.js';
@@ -83,7 +84,10 @@ describe('teamMatchesFrom', () => {
 
 describe('teamStrengths', () => {
   it("blends this season with the team's own last season", () => {
-    const strengths = teamStrengths([match('Arsenal', 3, 1)], LAST_SEASON);
+    const strengths = teamStrengths(
+      [match('Arsenal', 3, 1)],
+      summariseTeamSeason(LAST_SEASON),
+    );
     const arsenal = strengths.teams.get('Arsenal');
 
     expect(strengths.goalsPerTeamMatch).toBeCloseTo(1.5);
@@ -96,20 +100,20 @@ describe('teamStrengths', () => {
   });
 
   it("starts a promoted side from last season's weakest", () => {
-    const strengths = teamStrengths([], LAST_SEASON);
+    const strengths = teamStrengths([], summariseTeamSeason(LAST_SEASON));
     // with three teams, the weakest three are all of them
     expect(strengths.newcomer.attack).toBeCloseTo(1.5);
     expect(strengths.teams.get('Ipswich')).toBeUndefined();
   });
 
   it('fails loudly with no last season', () => {
-    expect(() => teamStrengths([match('Arsenal', 1, 1)], [])).toThrow("last season's");
+    expect(() => summariseTeamSeason([])).toThrow("last season's");
   });
 });
 
 describe('fixtureGoalRates', () => {
   it('is league average x attack x the opponent defence x home or away', () => {
-    const strengths = teamStrengths([], LAST_SEASON);
+    const strengths = teamStrengths([], summariseTeamSeason(LAST_SEASON));
     // spurs defence 2.1 against a 1.5 average, at home (1.2)
     const arsenalHome = fixtureGoalRates(strengths, 'Arsenal', 'Spurs', true);
 
@@ -120,7 +124,7 @@ describe('fixtureGoalRates', () => {
   });
 
   it('rates a team it has never seen as a promoted side', () => {
-    const strengths = teamStrengths([], LAST_SEASON);
+    const strengths = teamStrengths([], summariseTeamSeason(LAST_SEASON));
     const rates = fixtureGoalRates(strengths, 'Arsenal', 'Ipswich', true);
     expect(rates.scoringMultiplier).toBeCloseTo(
       (strengths.newcomer.defence / 1.5) * 1.2,

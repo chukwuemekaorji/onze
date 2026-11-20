@@ -7,7 +7,7 @@
     "id": 12,
     "deadline": "2026-11-27T18:30:00Z"
   },
-  "generatedAt": "2026-11-20T13:26:39.157Z",
+  "generatedAt": "2026-11-20T15:40:30.631Z",
   "squad": {
     "currentEvent": 11,
     "bank": 11,
@@ -25,11 +25,12 @@
         "epNext": 6,
         "projection": {
           "event": 11,
-          "points": 4.262575763381165,
-          "chanceOfPlaying": 0.9536130364001058,
-          "pointsIfPlaying": 4.469921866286992,
-          "defensiveContributionIfPlaying": 0,
-          "horizonPoints": 12.106847582153822,
+          "points": 4.1414823292729785,
+          "chanceOfPlaying": 0.9536130364001056,
+          "pointsIfPlaying": 4.342938037956251,
+          "goalOrAssistChance": 0.0010049339005537838,
+          "cleanSheetChance": 0.42316939962240974,
+          "horizonPoints": 11.856656863995333,
           "horizonEvents": 3
         },
         "totalPoints": 60,
@@ -84,11 +85,12 @@
         "epNext": 5.3,
         "projection": {
           "event": 11,
-          "points": 4.392611300273556,
-          "chanceOfPlaying": 0.9373694400406009,
-          "pointsIfPlaying": 4.686104659101427,
-          "defensiveContributionIfPlaying": 0.025068013897511343,
-          "horizonPoints": 12.121231068006901,
+          "points": 4.407398232774071,
+          "chanceOfPlaying": 0.9373694400406007,
+          "pointsIfPlaying": 4.701879583980431,
+          "goalOrAssistChance": 0.30693564915063765,
+          "cleanSheetChance": 0.3272768190598693,
+          "horizonPoints": 12.066750976933438,
           "horizonEvents": 3
         },
         "totalPoints": 75,
@@ -143,11 +145,12 @@
         "epNext": 4.3,
         "projection": {
           "event": 11,
-          "points": 2.876753885697437,
+          "points": 2.835048971379676,
           "chanceOfPlaying": 0.9463212034686053,
-          "pointsIfPlaying": 3.0399338777923464,
-          "defensiveContributionIfPlaying": 0.01325077567601555,
-          "horizonPoints": 9.12764808163541,
+          "pointsIfPlaying": 2.995863308344153,
+          "goalOrAssistChance": 0.18056807837638977,
+          "cleanSheetChance": 0.1690148643094952,
+          "horizonPoints": 9.25411235462137,
           "horizonEvents": 3
         },
         "totalPoints": 58,
@@ -202,11 +205,12 @@
         "epNext": 4.3,
         "projection": {
           "event": 11,
-          "points": 3.651188804438656,
+          "points": 3.8971423506812197,
           "chanceOfPlaying": 0.9246384934486349,
-          "pointsIfPlaying": 3.9487743916228,
-          "defensiveContributionIfPlaying": 0.09479779478691604,
-          "horizonPoints": 10.293374528993644,
+          "pointsIfPlaying": 4.214774074726224,
+          "goalOrAssistChance": 0.1699472320741805,
+          "cleanSheetChance": 0.42316939962240974,
+          "horizonPoints": 10.995826892739114,
           "horizonEvents": 3
         },
         "totalPoints": 57,
@@ -261,11 +265,12 @@
         "epNext": 4,
         "projection": {
           "event": 11,
-          "points": 2.46045842142041,
-          "chanceOfPlaying": 0.8874093271295272,
-          "pointsIfPlaying": 2.7726307873945513,
-          "defensiveContributionIfPlaying": 0.5407872217870016,
-          "horizonPoints": 8.381663057801633,
+          "points": 2.4276218016476463,
+          "chanceOfPlaying": 0.8874093271295271,
+          "pointsIfPlaying": 2.7356279987502408,
+          "goalOrAssistChance": 0.06834069847364121,
+          "cleanSheetChance": 0.14221787928632723,
+          "horizonPoints": 8.012422743662452,
           "horizonEvents": 3
         },
         "totalPoints": 42,
@@ -320,11 +325,12 @@
         "epNext": 1.3,
         "projection": {
           "event": 11,
-          "points": 1.9310199343170409,
-          "chanceOfPlaying": 0.8796319378105558,
-          "pointsIfPlaying": 2.1952590069926723,
-          "defensiveContributionIfPlaying": 0.5712113629326884,
-          "horizonPoints": 6.255394349464351,
+          "points": 2.1269453296826284,
+          "chanceOfPlaying": 0.8796319378105557,
+          "pointsIfPlaying": 2.4179946614679464,
+          "goalOrAssistChance": 0.03945808855896005,
+          "cleanSheetChance": 0.14697324001756495,
+          "horizonPoints": 6.977096861416084,
           "horizonEvents": 3
         },
         "totalPoints": 21,
@@ -379,11 +385,12 @@
         "epNext": 4,
         "projection": {
           "event": 11,
-          "points": 4.419285291342323,
+          "points": 4.182261692877088,
           "chanceOfPlaying": 0.9516789087620291,
-          "pointsIfPlaying": 4.643672619677003,
-          "defensiveContributionIfPlaying": 0.09148391706296544,
-          "horizonPoints": 12.510597594867024,
+          "pointsIfPlaying": 4.394614248956607,
+          "goalOrAssistChance": 0.3617834708896118,
+          "cleanSheetChance": null,
+          "horizonPoints": 12.153007198452368,
           "horizonEvents": 3
         },
         "totalPoints": 70,
@@ -438,11 +445,12 @@
         "epNext": 5.3,
         "projection": {
           "event": 11,
-          "points": 4.293449487348622,
-          "chanceOfPlaying": 0.9481825892935213,
-          "pointsIfPlaying": 4.528083025177267,
-          "defensiveContributionIfPlaying": 0.13966080762232366,
-          "horizonPoints": 12.490076508292653,
+          "points": 4.351469660025375,
+          "chanceOfPlaying": 0.9481825892935212,
+          "pointsIfPlaying": 4.589273953308506,
+          "goalOrAssistChance": 0.37277408415478686,
+          "cleanSheetChance": null,
+          "horizonPoints": 12.7875144828163,
           "horizonEvents": 3
         },
         "totalPoints": 58,
@@ -497,11 +505,12 @@
         "epNext": 3.3,
         "projection": {
           "event": 11,
-          "points": 4.42251740436959,
+          "points": 4.292201696340583,
           "chanceOfPlaying": 0.9360423131374771,
-          "pointsIfPlaying": 4.724698170476886,
-          "defensiveContributionIfPlaying": 0.01459274701098486,
-          "horizonPoints": 12.042085616749187,
+          "pointsIfPlaying": 4.585478280307383,
+          "goalOrAssistChance": 0.42016163017114294,
+          "cleanSheetChance": null,
+          "horizonPoints": 11.49695526774839,
           "horizonEvents": 3
         },
         "totalPoints": 54,
@@ -556,11 +565,12 @@
         "epNext": 4,
         "projection": {
           "event": 11,
-          "points": 4.402147771302349,
+          "points": 4.204976990914892,
           "chanceOfPlaying": 0.9553762709170068,
-          "pointsIfPlaying": 4.6077633549313495,
-          "defensiveContributionIfPlaying": 0.22134411686982028,
-          "horizonPoints": 13.670756181572713,
+          "pointsIfPlaying": 4.401383118798621,
+          "goalOrAssistChance": 0.3034814821836296,
+          "cleanSheetChance": null,
+          "horizonPoints": 12.983064808030965,
           "horizonEvents": 3
         },
         "totalPoints": 52,
@@ -615,11 +625,12 @@
         "epNext": 1.7,
         "projection": {
           "event": 11,
-          "points": 3.5957228518888287,
-          "chanceOfPlaying": 0.947430502570377,
-          "pointsIfPlaying": 3.7952365288363,
-          "defensiveContributionIfPlaying": 0.0011595552837959655,
-          "horizonPoints": 11.460602156893511,
+          "points": 3.609116930639103,
+          "chanceOfPlaying": 0.9474305025703769,
+          "pointsIfPlaying": 3.8093737966506005,
+          "goalOrAssistChance": 0.3123660728248272,
+          "cleanSheetChance": null,
+          "horizonPoints": 11.774447519910318,
           "horizonEvents": 3
         },
         "totalPoints": 46,
@@ -674,11 +685,12 @@
         "epNext": 6.3,
         "projection": {
           "event": 11,
-          "points": 4.191596119546873,
-          "chanceOfPlaying": 0.9540720772182759,
-          "pointsIfPlaying": 4.393374693207697,
-          "defensiveContributionIfPlaying": 0,
-          "horizonPoints": 11.499358313200178,
+          "points": 3.8521026585520635,
+          "chanceOfPlaying": 0.9540720772182758,
+          "pointsIfPlaying": 4.0375384109169,
+          "goalOrAssistChance": 0.0021249275220196484,
+          "cleanSheetChance": 0.3272768190598693,
+          "horizonPoints": 10.607243456456583,
           "horizonEvents": 3
         },
         "totalPoints": 57,
@@ -733,11 +745,12 @@
         "epNext": 4,
         "projection": {
           "event": 11,
-          "points": 7.307281263204335,
+          "points": 6.416085567358278,
           "chanceOfPlaying": 0.9583157324528362,
-          "pointsIfPlaying": 7.625129188374214,
-          "defensiveContributionIfPlaying": 0.000059938228649617877,
-          "horizonPoints": 20.667216832685753,
+          "pointsIfPlaying": 6.695168773798721,
+          "goalOrAssistChance": 0.5448244169937684,
+          "cleanSheetChance": null,
+          "horizonPoints": 17.478244323236687,
           "horizonEvents": 3
         },
         "totalPoints": 70,
@@ -792,11 +805,12 @@
         "epNext": 1.3,
         "projection": {
           "event": 11,
-          "points": 2.286793496720973,
+          "points": 2.274127931190061,
           "chanceOfPlaying": 0.8776634627713422,
-          "pointsIfPlaying": 2.6055471074301195,
-          "defensiveContributionIfPlaying": 0.05119069689291311,
-          "horizonPoints": 6.499134208886235,
+          "pointsIfPlaying": 2.591116102759014,
+          "goalOrAssistChance": 0.2155845342538355,
+          "cleanSheetChance": null,
+          "horizonPoints": 6.404554840611416,
           "horizonEvents": 3
         },
         "totalPoints": 23,
@@ -851,11 +865,12 @@
         "epNext": 1.3,
         "projection": {
           "event": 11,
-          "points": 2.094048019756764,
+          "points": 1.9870133824969587,
           "chanceOfPlaying": 0.8957973873788965,
-          "pointsIfPlaying": 2.337635774853005,
-          "defensiveContributionIfPlaying": 0.0035627491131920617,
-          "horizonPoints": 6.44947901123267,
+          "pointsIfPlaying": 2.2181504551056577,
+          "goalOrAssistChance": 0.14630085113046798,
+          "cleanSheetChance": null,
+          "horizonPoints": 6.588466270068119,
           "horizonEvents": 3
         },
         "totalPoints": 22,
@@ -1033,11 +1048,12 @@
           "epNext": 1.3,
           "projection": {
             "event": 11,
-            "points": 2.094048019756764,
+            "points": 1.9870133824969587,
             "chanceOfPlaying": 0.8957973873788965,
-            "pointsIfPlaying": 2.337635774853005,
-            "defensiveContributionIfPlaying": 0.0035627491131920617,
-            "horizonPoints": 6.44947901123267,
+            "pointsIfPlaying": 2.2181504551056577,
+            "goalOrAssistChance": 0.14630085113046798,
+            "cleanSheetChance": null,
+            "horizonPoints": 6.588466270068119,
             "horizonEvents": 3
           },
           "totalPoints": 22,
@@ -1096,11 +1112,12 @@
             "epNext": 8,
             "projection": {
               "event": 11,
-              "points": 4.469818222318556,
+              "points": 4.232764087268525,
               "chanceOfPlaying": 0.9518093933114455,
-              "pointsIfPlaying": 4.696127453383903,
-              "defensiveContributionIfPlaying": 0.03932947066249889,
-              "horizonPoints": 13.017689920668676,
+              "pointsIfPlaying": 4.447071143669103,
+              "goalOrAssistChance": 0.38446561101392507,
+              "cleanSheetChance": null,
+              "horizonPoints": 12.492051508061998,
               "horizonEvents": 3
             },
             "totalPoints": 61,
@@ -1144,7 +1161,7 @@
             ]
           }
         ],
-        "expectedPointsGain": 2.3757702025617915
+        "expectedPointsGain": 2.2457507047715666
       },
       {
         "outPlayer": {
@@ -1159,11 +1176,12 @@
           "epNext": 1.3,
           "projection": {
             "event": 11,
-            "points": 1.9310199343170409,
-            "chanceOfPlaying": 0.8796319378105558,
-            "pointsIfPlaying": 2.1952590069926723,
-            "defensiveContributionIfPlaying": 0.5712113629326884,
-            "horizonPoints": 6.255394349464351,
+            "points": 2.1269453296826284,
+            "chanceOfPlaying": 0.8796319378105557,
+            "pointsIfPlaying": 2.4179946614679464,
+            "goalOrAssistChance": 0.03945808855896005,
+            "cleanSheetChance": 0.14697324001756495,
+            "horizonPoints": 6.977096861416084,
             "horizonEvents": 3
           },
           "totalPoints": 21,
@@ -1222,11 +1240,12 @@
             "epNext": 5.3,
             "projection": {
               "event": 11,
-              "points": 3.1510948416696083,
+              "points": 3.735663630826627,
               "chanceOfPlaying": 0.9087887185595467,
-              "pointsIfPlaying": 3.4673569085058342,
-              "defensiveContributionIfPlaying": 0.009622958102236531,
-              "horizonPoints": 8.975625174533928,
+              "pointsIfPlaying": 4.110596395549177,
+              "goalOrAssistChance": 0.33814481085959214,
+              "cleanSheetChance": 0.3447852068079543,
+              "horizonPoints": 10.072635209660824,
               "horizonEvents": 3
             },
             "totalPoints": 38,
@@ -1270,7 +1289,7 @@
             ]
           }
         ],
-        "expectedPointsGain": 1.2200749073525674
+        "expectedPointsGain": 1.6087183011439987
       },
       {
         "outPlayer": {
@@ -1285,11 +1304,12 @@
           "epNext": 1.3,
           "projection": {
             "event": 11,
-            "points": 2.286793496720973,
+            "points": 2.274127931190061,
             "chanceOfPlaying": 0.8776634627713422,
-            "pointsIfPlaying": 2.6055471074301195,
-            "defensiveContributionIfPlaying": 0.05119069689291311,
-            "horizonPoints": 6.499134208886235,
+            "pointsIfPlaying": 2.591116102759014,
+            "goalOrAssistChance": 0.2155845342538355,
+            "cleanSheetChance": null,
+            "horizonPoints": 6.404554840611416,
             "horizonEvents": 3
           },
           "totalPoints": 23,
@@ -1348,11 +1368,12 @@
             "epNext": 1.3,
             "projection": {
               "event": 11,
-              "points": 2.2325799991326205,
-              "chanceOfPlaying": 0.8055580736535058,
-              "pointsIfPlaying": 2.77146995623424,
-              "defensiveContributionIfPlaying": 0.00010238078236413095,
-              "horizonPoints": 6.366172294282078,
+              "points": 2.146987997616332,
+              "chanceOfPlaying": 0.8055580736535057,
+              "pointsIfPlaying": 2.6652181485550033,
+              "goalOrAssistChance": 0.2331642855090723,
+              "cleanSheetChance": null,
+              "horizonPoints": 6.03590205431917,
               "horizonEvents": 3
             },
             "totalPoints": 18,
@@ -1407,11 +1428,12 @@
             "epNext": 1,
             "projection": {
               "event": 11,
-              "points": 1.6558447043820153,
-              "chanceOfPlaying": 0.8376430317194151,
-              "pointsIfPlaying": 1.9767904007785895,
-              "defensiveContributionIfPlaying": 2.2574372001334572e-10,
-              "horizonPoints": 5.312307985001757,
+              "points": 1.6216162196589994,
+              "chanceOfPlaying": 0.837643031719415,
+              "pointsIfPlaying": 1.9359275470009418,
+              "goalOrAssistChance": 0.14878092396807419,
+              "cleanSheetChance": null,
+              "horizonPoints": 5.344458262435364,
               "horizonEvents": 3
             },
             "totalPoints": 12,
@@ -1466,11 +1488,12 @@
             "epNext": 0.3,
             "projection": {
               "event": 11,
-              "points": 0.5276375170193699,
+              "points": 0.5583201094508372,
               "chanceOfPlaying": 0.3001775977046481,
-              "pointsIfPlaying": 1.7577511481670431,
-              "defensiveContributionIfPlaying": 5.7496986283211985e-9,
-              "horizonPoints": 1.818612000775799,
+              "pointsIfPlaying": 1.859965945893743,
+              "goalOrAssistChance": 0.1644899825869972,
+              "cleanSheetChance": null,
+              "horizonPoints": 1.7983948213071144,
               "horizonEvents": 3
             },
             "totalPoints": 5,
@@ -1514,13 +1537,13 @@
             ]
           }
         ],
-        "expectedPointsGain": -0.05421349758835259
+        "expectedPointsGain": -0.1271399335737291
       }
     ],
     "recommendedCount": 2,
     "freeTransfers": 2,
     "pointsHitCost": 0,
-    "projectedNetGain": 3.595845109914359
+    "projectedNetGain": 3.8544690059155653
   },
   "captaincy": {
     "captain": {
@@ -1536,11 +1559,12 @@
         "epNext": 4,
         "projection": {
           "event": 11,
-          "points": 7.307281263204335,
+          "points": 6.416085567358278,
           "chanceOfPlaying": 0.9583157324528362,
-          "pointsIfPlaying": 7.625129188374214,
-          "defensiveContributionIfPlaying": 0.000059938228649617877,
-          "horizonPoints": 20.667216832685753,
+          "pointsIfPlaying": 6.695168773798721,
+          "goalOrAssistChance": 0.5448244169937684,
+          "cleanSheetChance": null,
+          "horizonPoints": 17.478244323236687,
           "horizonEvents": 3
         },
         "totalPoints": 70,
@@ -1583,69 +1607,70 @@
           }
         ]
       },
-      "score": 7.307281263204335
+      "score": 6.416085567358278
     },
     "viceCaptain": {
       "player": {
-        "id": 79,
-        "webName": "Evanilson",
-        "teamId": 3,
-        "teamShortName": "BOU",
-        "position": "FWD",
-        "nowCost": 65,
-        "form": 8,
-        "pointsPerGame": 6.1,
-        "epNext": 8,
+        "id": 115,
+        "webName": "De Cuyper",
+        "teamId": 5,
+        "teamShortName": "BHA",
+        "position": "DEF",
+        "nowCost": 55,
+        "form": 5.3,
+        "pointsPerGame": 7.5,
+        "epNext": 5.3,
         "projection": {
           "event": 11,
-          "points": 4.469818222318556,
-          "chanceOfPlaying": 0.9518093933114455,
-          "pointsIfPlaying": 4.696127453383903,
-          "defensiveContributionIfPlaying": 0.03932947066249889,
-          "horizonPoints": 13.017689920668676,
+          "points": 4.407398232774071,
+          "chanceOfPlaying": 0.9373694400406007,
+          "pointsIfPlaying": 4.701879583980431,
+          "goalOrAssistChance": 0.30693564915063765,
+          "cleanSheetChance": 0.3272768190598693,
+          "horizonPoints": 12.066750976933438,
           "horizonEvents": 3
         },
-        "totalPoints": 61,
-        "selectedByPercent": 24.8,
+        "totalPoints": 75,
+        "selectedByPercent": 48.7,
         "chanceOfPlayingNextRound": null,
         "status": "a",
         "costChangeEvent": 1,
-        "transfersInEvent": 330703,
-        "transfersOutEvent": 27726,
+        "transfersInEvent": 253491,
+        "transfersOutEvent": 13127,
         "nextFixtures": [
           {
             "event": 11,
-            "isHome": true,
-            "difficulty": 3,
-            "opponentShortName": "NFO"
-          },
-          {
-            "event": 12,
             "isHome": false,
-            "difficulty": 3,
-            "opponentShortName": "FUL"
-          },
-          {
-            "event": 13,
-            "isHome": true,
-            "difficulty": 4,
-            "opponentShortName": "BHA"
-          },
-          {
-            "event": 14,
-            "isHome": true,
             "difficulty": 2,
             "opponentShortName": "HUL"
           },
           {
-            "event": 15,
+            "event": 12,
+            "isHome": true,
+            "difficulty": 3,
+            "opponentShortName": "NEW"
+          },
+          {
+            "event": 13,
             "isHome": false,
-            "difficulty": 5,
-            "opponentShortName": "ARS"
+            "difficulty": 4,
+            "opponentShortName": "BOU"
+          },
+          {
+            "event": 14,
+            "isHome": false,
+            "difficulty": 2,
+            "opponentShortName": "NFO"
+          },
+          {
+            "event": 15,
+            "isHome": true,
+            "difficulty": 3,
+            "opponentShortName": "EVE"
           }
         ]
       },
-      "score": 4.469818222318556
+      "score": 4.407398232774071
     },
     "candidates": [
       {
@@ -1661,11 +1686,12 @@
           "epNext": 4,
           "projection": {
             "event": 11,
-            "points": 7.307281263204335,
+            "points": 6.416085567358278,
             "chanceOfPlaying": 0.9583157324528362,
-            "pointsIfPlaying": 7.625129188374214,
-            "defensiveContributionIfPlaying": 0.000059938228649617877,
-            "horizonPoints": 20.667216832685753,
+            "pointsIfPlaying": 6.695168773798721,
+            "goalOrAssistChance": 0.5448244169937684,
+            "cleanSheetChance": null,
+            "horizonPoints": 17.478244323236687,
             "horizonEvents": 3
           },
           "totalPoints": 70,
@@ -1708,255 +1734,7 @@
             }
           ]
         },
-        "score": 7.307281263204335
-      },
-      {
-        "player": {
-          "id": 79,
-          "webName": "Evanilson",
-          "teamId": 3,
-          "teamShortName": "BOU",
-          "position": "FWD",
-          "nowCost": 65,
-          "form": 8,
-          "pointsPerGame": 6.1,
-          "epNext": 8,
-          "projection": {
-            "event": 11,
-            "points": 4.469818222318556,
-            "chanceOfPlaying": 0.9518093933114455,
-            "pointsIfPlaying": 4.696127453383903,
-            "defensiveContributionIfPlaying": 0.03932947066249889,
-            "horizonPoints": 13.017689920668676,
-            "horizonEvents": 3
-          },
-          "totalPoints": 61,
-          "selectedByPercent": 24.8,
-          "chanceOfPlayingNextRound": null,
-          "status": "a",
-          "costChangeEvent": 1,
-          "transfersInEvent": 330703,
-          "transfersOutEvent": 27726,
-          "nextFixtures": [
-            {
-              "event": 11,
-              "isHome": true,
-              "difficulty": 3,
-              "opponentShortName": "NFO"
-            },
-            {
-              "event": 12,
-              "isHome": false,
-              "difficulty": 3,
-              "opponentShortName": "FUL"
-            },
-            {
-              "event": 13,
-              "isHome": true,
-              "difficulty": 4,
-              "opponentShortName": "BHA"
-            },
-            {
-              "event": 14,
-              "isHome": true,
-              "difficulty": 2,
-              "opponentShortName": "HUL"
-            },
-            {
-              "event": 15,
-              "isHome": false,
-              "difficulty": 5,
-              "opponentShortName": "ARS"
-            }
-          ]
-        },
-        "score": 4.469818222318556
-      },
-      {
-        "player": {
-          "id": 399,
-          "webName": "Cherki",
-          "teamId": 15,
-          "teamShortName": "MCI",
-          "position": "MID",
-          "nowCost": 79,
-          "form": 3.3,
-          "pointsPerGame": 6,
-          "epNext": 3.3,
-          "projection": {
-            "event": 11,
-            "points": 4.42251740436959,
-            "chanceOfPlaying": 0.9360423131374771,
-            "pointsIfPlaying": 4.724698170476886,
-            "defensiveContributionIfPlaying": 0.01459274701098486,
-            "horizonPoints": 12.042085616749187,
-            "horizonEvents": 3
-          },
-          "totalPoints": 54,
-          "selectedByPercent": 33.6,
-          "chanceOfPlayingNextRound": null,
-          "status": "a",
-          "costChangeEvent": 0,
-          "transfersInEvent": 94357,
-          "transfersOutEvent": 65529,
-          "nextFixtures": [
-            {
-              "event": 11,
-              "isHome": true,
-              "difficulty": 2,
-              "opponentShortName": "FUL"
-            },
-            {
-              "event": 12,
-              "isHome": false,
-              "difficulty": 5,
-              "opponentShortName": "ARS"
-            },
-            {
-              "event": 13,
-              "isHome": true,
-              "difficulty": 3,
-              "opponentShortName": "LEE"
-            },
-            {
-              "event": 14,
-              "isHome": false,
-              "difficulty": 4,
-              "opponentShortName": "BRE"
-            },
-            {
-              "event": 15,
-              "isHome": true,
-              "difficulty": 4,
-              "opponentShortName": "CHE"
-            }
-          ]
-        },
-        "score": 4.42251740436959
-      },
-      {
-        "player": {
-          "id": 124,
-          "webName": "Groß",
-          "teamId": 5,
-          "teamShortName": "BHA",
-          "position": "MID",
-          "nowCost": 63,
-          "form": 4,
-          "pointsPerGame": 7,
-          "epNext": 4,
-          "projection": {
-            "event": 11,
-            "points": 4.419285291342323,
-            "chanceOfPlaying": 0.9516789087620291,
-            "pointsIfPlaying": 4.643672619677003,
-            "defensiveContributionIfPlaying": 0.09148391706296544,
-            "horizonPoints": 12.510597594867024,
-            "horizonEvents": 3
-          },
-          "totalPoints": 70,
-          "selectedByPercent": 48.6,
-          "chanceOfPlayingNextRound": null,
-          "status": "a",
-          "costChangeEvent": 1,
-          "transfersInEvent": 176494,
-          "transfersOutEvent": 18818,
-          "nextFixtures": [
-            {
-              "event": 11,
-              "isHome": false,
-              "difficulty": 2,
-              "opponentShortName": "HUL"
-            },
-            {
-              "event": 12,
-              "isHome": true,
-              "difficulty": 3,
-              "opponentShortName": "NEW"
-            },
-            {
-              "event": 13,
-              "isHome": false,
-              "difficulty": 4,
-              "opponentShortName": "BOU"
-            },
-            {
-              "event": 14,
-              "isHome": false,
-              "difficulty": 2,
-              "opponentShortName": "NFO"
-            },
-            {
-              "event": 15,
-              "isHome": true,
-              "difficulty": 3,
-              "opponentShortName": "EVE"
-            }
-          ]
-        },
-        "score": 4.419285291342323
-      },
-      {
-        "player": {
-          "id": 40,
-          "webName": "Rogers",
-          "teamId": 6,
-          "teamShortName": "CHE",
-          "position": "MID",
-          "nowCost": 82,
-          "form": 4,
-          "pointsPerGame": 5.2,
-          "epNext": 4,
-          "projection": {
-            "event": 11,
-            "points": 4.402147771302349,
-            "chanceOfPlaying": 0.9553762709170068,
-            "pointsIfPlaying": 4.6077633549313495,
-            "defensiveContributionIfPlaying": 0.22134411686982028,
-            "horizonPoints": 13.670756181572713,
-            "horizonEvents": 3
-          },
-          "totalPoints": 52,
-          "selectedByPercent": 54.2,
-          "chanceOfPlayingNextRound": null,
-          "status": "a",
-          "costChangeEvent": 0,
-          "transfersInEvent": 109340,
-          "transfersOutEvent": 43105,
-          "nextFixtures": [
-            {
-              "event": 11,
-              "isHome": true,
-              "difficulty": 3,
-              "opponentShortName": "LEE"
-            },
-            {
-              "event": 12,
-              "isHome": false,
-              "difficulty": 2,
-              "opponentShortName": "NFO"
-            },
-            {
-              "event": 13,
-              "isHome": true,
-              "difficulty": 2,
-              "opponentShortName": "CRY"
-            },
-            {
-              "event": 14,
-              "isHome": true,
-              "difficulty": 4,
-              "opponentShortName": "LIV"
-            },
-            {
-              "event": 15,
-              "isHome": false,
-              "difficulty": 5,
-              "opponentShortName": "MCI"
-            }
-          ]
-        },
-        "score": 4.402147771302349
+        "score": 6.416085567358278
       },
       {
         "player": {
@@ -1971,11 +1749,12 @@
           "epNext": 5.3,
           "projection": {
             "event": 11,
-            "points": 4.392611300273556,
-            "chanceOfPlaying": 0.9373694400406009,
-            "pointsIfPlaying": 4.686104659101427,
-            "defensiveContributionIfPlaying": 0.025068013897511343,
-            "horizonPoints": 12.121231068006901,
+            "points": 4.407398232774071,
+            "chanceOfPlaying": 0.9373694400406007,
+            "pointsIfPlaying": 4.701879583980431,
+            "goalOrAssistChance": 0.30693564915063765,
+            "cleanSheetChance": 0.3272768190598693,
+            "horizonPoints": 12.066750976933438,
             "horizonEvents": 3
           },
           "totalPoints": 75,
@@ -2018,7 +1797,7 @@
             }
           ]
         },
-        "score": 4.392611300273556
+        "score": 4.407398232774071
       },
       {
         "player": {
@@ -2033,11 +1812,12 @@
           "epNext": 5.3,
           "projection": {
             "event": 11,
-            "points": 4.293449487348622,
-            "chanceOfPlaying": 0.9481825892935213,
-            "pointsIfPlaying": 4.528083025177267,
-            "defensiveContributionIfPlaying": 0.13966080762232366,
-            "horizonPoints": 12.490076508292653,
+            "points": 4.351469660025375,
+            "chanceOfPlaying": 0.9481825892935212,
+            "pointsIfPlaying": 4.589273953308506,
+            "goalOrAssistChance": 0.37277408415478686,
+            "cleanSheetChance": null,
+            "horizonPoints": 12.7875144828163,
             "horizonEvents": 3
           },
           "totalPoints": 58,
@@ -2080,7 +1860,259 @@
             }
           ]
         },
-        "score": 4.293449487348622
+        "score": 4.351469660025375
+      },
+      {
+        "player": {
+          "id": 399,
+          "webName": "Cherki",
+          "teamId": 15,
+          "teamShortName": "MCI",
+          "position": "MID",
+          "nowCost": 79,
+          "form": 3.3,
+          "pointsPerGame": 6,
+          "epNext": 3.3,
+          "projection": {
+            "event": 11,
+            "points": 4.292201696340583,
+            "chanceOfPlaying": 0.9360423131374771,
+            "pointsIfPlaying": 4.585478280307383,
+            "goalOrAssistChance": 0.42016163017114294,
+            "cleanSheetChance": null,
+            "horizonPoints": 11.49695526774839,
+            "horizonEvents": 3
+          },
+          "totalPoints": 54,
+          "selectedByPercent": 33.6,
+          "chanceOfPlayingNextRound": null,
+          "status": "a",
+          "costChangeEvent": 0,
+          "transfersInEvent": 94357,
+          "transfersOutEvent": 65529,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "FUL"
+            },
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 5,
+              "opponentShortName": "ARS"
+            },
+            {
+              "event": 13,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "LEE"
+            },
+            {
+              "event": 14,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BRE"
+            },
+            {
+              "event": 15,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "CHE"
+            }
+          ]
+        },
+        "score": 4.292201696340583
+      },
+      {
+        "player": {
+          "id": 79,
+          "webName": "Evanilson",
+          "teamId": 3,
+          "teamShortName": "BOU",
+          "position": "FWD",
+          "nowCost": 65,
+          "form": 8,
+          "pointsPerGame": 6.1,
+          "epNext": 8,
+          "projection": {
+            "event": 11,
+            "points": 4.232764087268525,
+            "chanceOfPlaying": 0.9518093933114455,
+            "pointsIfPlaying": 4.447071143669103,
+            "goalOrAssistChance": 0.38446561101392507,
+            "cleanSheetChance": null,
+            "horizonPoints": 12.492051508061998,
+            "horizonEvents": 3
+          },
+          "totalPoints": 61,
+          "selectedByPercent": 24.8,
+          "chanceOfPlayingNextRound": null,
+          "status": "a",
+          "costChangeEvent": 1,
+          "transfersInEvent": 330703,
+          "transfersOutEvent": 27726,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "NFO"
+            },
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "FUL"
+            },
+            {
+              "event": 13,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "BHA"
+            },
+            {
+              "event": 14,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "HUL"
+            },
+            {
+              "event": 15,
+              "isHome": false,
+              "difficulty": 5,
+              "opponentShortName": "ARS"
+            }
+          ]
+        },
+        "score": 4.232764087268525
+      },
+      {
+        "player": {
+          "id": 40,
+          "webName": "Rogers",
+          "teamId": 6,
+          "teamShortName": "CHE",
+          "position": "MID",
+          "nowCost": 82,
+          "form": 4,
+          "pointsPerGame": 5.2,
+          "epNext": 4,
+          "projection": {
+            "event": 11,
+            "points": 4.204976990914892,
+            "chanceOfPlaying": 0.9553762709170068,
+            "pointsIfPlaying": 4.401383118798621,
+            "goalOrAssistChance": 0.3034814821836296,
+            "cleanSheetChance": null,
+            "horizonPoints": 12.983064808030965,
+            "horizonEvents": 3
+          },
+          "totalPoints": 52,
+          "selectedByPercent": 54.2,
+          "chanceOfPlayingNextRound": null,
+          "status": "a",
+          "costChangeEvent": 0,
+          "transfersInEvent": 109340,
+          "transfersOutEvent": 43105,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "LEE"
+            },
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "NFO"
+            },
+            {
+              "event": 13,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "CRY"
+            },
+            {
+              "event": 14,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "LIV"
+            },
+            {
+              "event": 15,
+              "isHome": false,
+              "difficulty": 5,
+              "opponentShortName": "MCI"
+            }
+          ]
+        },
+        "score": 4.204976990914892
+      },
+      {
+        "player": {
+          "id": 124,
+          "webName": "Groß",
+          "teamId": 5,
+          "teamShortName": "BHA",
+          "position": "MID",
+          "nowCost": 63,
+          "form": 4,
+          "pointsPerGame": 7,
+          "epNext": 4,
+          "projection": {
+            "event": 11,
+            "points": 4.182261692877088,
+            "chanceOfPlaying": 0.9516789087620291,
+            "pointsIfPlaying": 4.394614248956607,
+            "goalOrAssistChance": 0.3617834708896118,
+            "cleanSheetChance": null,
+            "horizonPoints": 12.153007198452368,
+            "horizonEvents": 3
+          },
+          "totalPoints": 70,
+          "selectedByPercent": 48.6,
+          "chanceOfPlayingNextRound": null,
+          "status": "a",
+          "costChangeEvent": 1,
+          "transfersInEvent": 176494,
+          "transfersOutEvent": 18818,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "HUL"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "NEW"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BOU"
+            },
+            {
+              "event": 14,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "NFO"
+            },
+            {
+              "event": 15,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "EVE"
+            }
+          ]
+        },
+        "score": 4.182261692877088
       },
       {
         "player": {
@@ -2095,11 +2127,12 @@
           "epNext": 6,
           "projection": {
             "event": 11,
-            "points": 4.262575763381165,
-            "chanceOfPlaying": 0.9536130364001058,
-            "pointsIfPlaying": 4.469921866286992,
-            "defensiveContributionIfPlaying": 0,
-            "horizonPoints": 12.106847582153822,
+            "points": 4.1414823292729785,
+            "chanceOfPlaying": 0.9536130364001056,
+            "pointsIfPlaying": 4.342938037956251,
+            "goalOrAssistChance": 0.0010049339005537838,
+            "cleanSheetChance": 0.42316939962240974,
+            "horizonPoints": 11.856656863995333,
             "horizonEvents": 3
           },
           "totalPoints": 60,
@@ -2142,7 +2175,7 @@
             }
           ]
         },
-        "score": 4.262575763381165
+        "score": 4.1414823292729785
       },
       {
         "player": {
@@ -2157,11 +2190,12 @@
           "epNext": 4.3,
           "projection": {
             "event": 11,
-            "points": 3.651188804438656,
+            "points": 3.8971423506812197,
             "chanceOfPlaying": 0.9246384934486349,
-            "pointsIfPlaying": 3.9487743916228,
-            "defensiveContributionIfPlaying": 0.09479779478691604,
-            "horizonPoints": 10.293374528993644,
+            "pointsIfPlaying": 4.214774074726224,
+            "goalOrAssistChance": 0.1699472320741805,
+            "cleanSheetChance": 0.42316939962240974,
+            "horizonPoints": 10.995826892739114,
             "horizonEvents": 3
           },
           "totalPoints": 57,
@@ -2204,69 +2238,7 @@
             }
           ]
         },
-        "score": 3.651188804438656
-      },
-      {
-        "player": {
-          "id": 427,
-          "webName": "Mbeumo",
-          "teamId": 16,
-          "teamShortName": "MUN",
-          "position": "MID",
-          "nowCost": 79,
-          "form": 1.7,
-          "pointsPerGame": 4.6,
-          "epNext": 1.7,
-          "projection": {
-            "event": 11,
-            "points": 3.5957228518888287,
-            "chanceOfPlaying": 0.947430502570377,
-            "pointsIfPlaying": 3.7952365288363,
-            "defensiveContributionIfPlaying": 0.0011595552837959655,
-            "horizonPoints": 11.460602156893511,
-            "horizonEvents": 3
-          },
-          "totalPoints": 46,
-          "selectedByPercent": 18.6,
-          "chanceOfPlayingNextRound": null,
-          "status": "a",
-          "costChangeEvent": 0,
-          "transfersInEvent": 13820,
-          "transfersOutEvent": 136230,
-          "nextFixtures": [
-            {
-              "event": 11,
-              "isHome": false,
-              "difficulty": 4,
-              "opponentShortName": "LIV"
-            },
-            {
-              "event": 12,
-              "isHome": true,
-              "difficulty": 3,
-              "opponentShortName": "BRE"
-            },
-            {
-              "event": 13,
-              "isHome": false,
-              "difficulty": 3,
-              "opponentShortName": "NEW"
-            },
-            {
-              "event": 14,
-              "isHome": true,
-              "difficulty": 2,
-              "opponentShortName": "COV"
-            },
-            {
-              "event": 15,
-              "isHome": false,
-              "difficulty": 2,
-              "opponentShortName": "CRY"
-            }
-          ]
-        },
-        "score": 3.5957228518888287
+        "score": 3.8971423506812197
       },
       {
         "player": {
@@ -2281,11 +2253,12 @@
           "epNext": 5.3,
           "projection": {
             "event": 11,
-            "points": 3.1510948416696083,
+            "points": 3.735663630826627,
             "chanceOfPlaying": 0.9087887185595467,
-            "pointsIfPlaying": 3.4673569085058342,
-            "defensiveContributionIfPlaying": 0.009622958102236531,
-            "horizonPoints": 8.975625174533928,
+            "pointsIfPlaying": 4.110596395549177,
+            "goalOrAssistChance": 0.33814481085959214,
+            "cleanSheetChance": 0.3447852068079543,
+            "horizonPoints": 10.072635209660824,
             "horizonEvents": 3
           },
           "totalPoints": 38,
@@ -2328,7 +2301,70 @@
             }
           ]
         },
-        "score": 3.1510948416696083
+        "score": 3.735663630826627
+      },
+      {
+        "player": {
+          "id": 427,
+          "webName": "Mbeumo",
+          "teamId": 16,
+          "teamShortName": "MUN",
+          "position": "MID",
+          "nowCost": 79,
+          "form": 1.7,
+          "pointsPerGame": 4.6,
+          "epNext": 1.7,
+          "projection": {
+            "event": 11,
+            "points": 3.609116930639103,
+            "chanceOfPlaying": 0.9474305025703769,
+            "pointsIfPlaying": 3.8093737966506005,
+            "goalOrAssistChance": 0.3123660728248272,
+            "cleanSheetChance": null,
+            "horizonPoints": 11.774447519910318,
+            "horizonEvents": 3
+          },
+          "totalPoints": 46,
+          "selectedByPercent": 18.6,
+          "chanceOfPlayingNextRound": null,
+          "status": "a",
+          "costChangeEvent": 0,
+          "transfersInEvent": 13820,
+          "transfersOutEvent": 136230,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "LIV"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "BRE"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "NEW"
+            },
+            {
+              "event": 14,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "COV"
+            },
+            {
+              "event": 15,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "CRY"
+            }
+          ]
+        },
+        "score": 3.609116930639103
       }
     ]
   },
@@ -2368,11 +2404,12 @@
           "epNext": 5.3,
           "projection": {
             "event": 11,
-            "points": 4.392611300273556,
-            "chanceOfPlaying": 0.9373694400406009,
-            "pointsIfPlaying": 4.686104659101427,
-            "defensiveContributionIfPlaying": 0.025068013897511343,
-            "horizonPoints": 12.121231068006901,
+            "points": 4.407398232774071,
+            "chanceOfPlaying": 0.9373694400406007,
+            "pointsIfPlaying": 4.701879583980431,
+            "goalOrAssistChance": 0.30693564915063765,
+            "cleanSheetChance": 0.3272768190598693,
+            "horizonPoints": 12.066750976933438,
             "horizonEvents": 3
           },
           "totalPoints": 75,
@@ -2431,11 +2468,12 @@
           "epNext": 4,
           "projection": {
             "event": 11,
-            "points": 4.419285291342323,
+            "points": 4.182261692877088,
             "chanceOfPlaying": 0.9516789087620291,
-            "pointsIfPlaying": 4.643672619677003,
-            "defensiveContributionIfPlaying": 0.09148391706296544,
-            "horizonPoints": 12.510597594867024,
+            "pointsIfPlaying": 4.394614248956607,
+            "goalOrAssistChance": 0.3617834708896118,
+            "cleanSheetChance": null,
+            "horizonPoints": 12.153007198452368,
             "horizonEvents": 3
           },
           "totalPoints": 70,
@@ -2494,11 +2532,12 @@
           "epNext": 5.3,
           "projection": {
             "event": 11,
-            "points": 4.293449487348622,
-            "chanceOfPlaying": 0.9481825892935213,
-            "pointsIfPlaying": 4.528083025177267,
-            "defensiveContributionIfPlaying": 0.13966080762232366,
-            "horizonPoints": 12.490076508292653,
+            "points": 4.351469660025375,
+            "chanceOfPlaying": 0.9481825892935212,
+            "pointsIfPlaying": 4.589273953308506,
+            "goalOrAssistChance": 0.37277408415478686,
+            "cleanSheetChance": null,
+            "horizonPoints": 12.7875144828163,
             "horizonEvents": 3
           },
           "totalPoints": 58,
@@ -2557,11 +2596,12 @@
           "epNext": 6.3,
           "projection": {
             "event": 11,
-            "points": 4.191596119546873,
-            "chanceOfPlaying": 0.9540720772182759,
-            "pointsIfPlaying": 4.393374693207697,
-            "defensiveContributionIfPlaying": 0,
-            "horizonPoints": 11.499358313200178,
+            "points": 3.8521026585520635,
+            "chanceOfPlaying": 0.9540720772182758,
+            "pointsIfPlaying": 4.0375384109169,
+            "goalOrAssistChance": 0.0021249275220196484,
+            "cleanSheetChance": 0.3272768190598693,
+            "horizonPoints": 10.607243456456583,
             "horizonEvents": 3
           },
           "totalPoints": 57,
@@ -2620,11 +2660,12 @@
           "epNext": 1.3,
           "projection": {
             "event": 11,
-            "points": 2.094048019756764,
+            "points": 1.9870133824969587,
             "chanceOfPlaying": 0.8957973873788965,
-            "pointsIfPlaying": 2.337635774853005,
-            "defensiveContributionIfPlaying": 0.0035627491131920617,
-            "horizonPoints": 6.44947901123267,
+            "pointsIfPlaying": 2.2181504551056577,
+            "goalOrAssistChance": 0.14630085113046798,
+            "cleanSheetChance": null,
+            "horizonPoints": 6.588466270068119,
             "horizonEvents": 3
           },
           "totalPoints": 22,
@@ -2688,11 +2729,12 @@
           "epNext": 6,
           "projection": {
             "event": 11,
-            "points": 4.262575763381165,
-            "chanceOfPlaying": 0.9536130364001058,
-            "pointsIfPlaying": 4.469921866286992,
-            "defensiveContributionIfPlaying": 0,
-            "horizonPoints": 12.106847582153822,
+            "points": 4.1414823292729785,
+            "chanceOfPlaying": 0.9536130364001056,
+            "pointsIfPlaying": 4.342938037956251,
+            "goalOrAssistChance": 0.0010049339005537838,
+            "cleanSheetChance": 0.42316939962240974,
+            "horizonPoints": 11.856656863995333,
             "horizonEvents": 3
           },
           "totalPoints": 60,
@@ -2735,7 +2777,7 @@
             }
           ]
         },
-        "score": 4.262575763381165
+        "score": 4.1414823292729785
       },
       {
         "player": {
@@ -2750,11 +2792,12 @@
           "epNext": 5.3,
           "projection": {
             "event": 11,
-            "points": 4.392611300273556,
-            "chanceOfPlaying": 0.9373694400406009,
-            "pointsIfPlaying": 4.686104659101427,
-            "defensiveContributionIfPlaying": 0.025068013897511343,
-            "horizonPoints": 12.121231068006901,
+            "points": 4.407398232774071,
+            "chanceOfPlaying": 0.9373694400406007,
+            "pointsIfPlaying": 4.701879583980431,
+            "goalOrAssistChance": 0.30693564915063765,
+            "cleanSheetChance": 0.3272768190598693,
+            "horizonPoints": 12.066750976933438,
             "horizonEvents": 3
           },
           "totalPoints": 75,
@@ -2797,7 +2840,7 @@
             }
           ]
         },
-        "score": 4.392611300273556
+        "score": 4.407398232774071
       },
       {
         "player": {
@@ -2812,11 +2855,12 @@
           "epNext": 4.3,
           "projection": {
             "event": 11,
-            "points": 3.651188804438656,
+            "points": 3.8971423506812197,
             "chanceOfPlaying": 0.9246384934486349,
-            "pointsIfPlaying": 3.9487743916228,
-            "defensiveContributionIfPlaying": 0.09479779478691604,
-            "horizonPoints": 10.293374528993644,
+            "pointsIfPlaying": 4.214774074726224,
+            "goalOrAssistChance": 0.1699472320741805,
+            "cleanSheetChance": 0.42316939962240974,
+            "horizonPoints": 10.995826892739114,
             "horizonEvents": 3
           },
           "totalPoints": 57,
@@ -2859,7 +2903,7 @@
             }
           ]
         },
-        "score": 3.651188804438656
+        "score": 3.8971423506812197
       },
       {
         "player": {
@@ -2874,11 +2918,12 @@
           "epNext": 5.3,
           "projection": {
             "event": 11,
-            "points": 3.1510948416696083,
+            "points": 3.735663630826627,
             "chanceOfPlaying": 0.9087887185595467,
-            "pointsIfPlaying": 3.4673569085058342,
-            "defensiveContributionIfPlaying": 0.009622958102236531,
-            "horizonPoints": 8.975625174533928,
+            "pointsIfPlaying": 4.110596395549177,
+            "goalOrAssistChance": 0.33814481085959214,
+            "cleanSheetChance": 0.3447852068079543,
+            "horizonPoints": 10.072635209660824,
             "horizonEvents": 3
           },
           "totalPoints": 38,
@@ -2921,193 +2966,7 @@
             }
           ]
         },
-        "score": 3.1510948416696083
-      },
-      {
-        "player": {
-          "id": 399,
-          "webName": "Cherki",
-          "teamId": 15,
-          "teamShortName": "MCI",
-          "position": "MID",
-          "nowCost": 79,
-          "form": 3.3,
-          "pointsPerGame": 6,
-          "epNext": 3.3,
-          "projection": {
-            "event": 11,
-            "points": 4.42251740436959,
-            "chanceOfPlaying": 0.9360423131374771,
-            "pointsIfPlaying": 4.724698170476886,
-            "defensiveContributionIfPlaying": 0.01459274701098486,
-            "horizonPoints": 12.042085616749187,
-            "horizonEvents": 3
-          },
-          "totalPoints": 54,
-          "selectedByPercent": 33.6,
-          "chanceOfPlayingNextRound": null,
-          "status": "a",
-          "costChangeEvent": 0,
-          "transfersInEvent": 94357,
-          "transfersOutEvent": 65529,
-          "nextFixtures": [
-            {
-              "event": 11,
-              "isHome": true,
-              "difficulty": 2,
-              "opponentShortName": "FUL"
-            },
-            {
-              "event": 12,
-              "isHome": false,
-              "difficulty": 5,
-              "opponentShortName": "ARS"
-            },
-            {
-              "event": 13,
-              "isHome": true,
-              "difficulty": 3,
-              "opponentShortName": "LEE"
-            },
-            {
-              "event": 14,
-              "isHome": false,
-              "difficulty": 4,
-              "opponentShortName": "BRE"
-            },
-            {
-              "event": 15,
-              "isHome": true,
-              "difficulty": 4,
-              "opponentShortName": "CHE"
-            }
-          ]
-        },
-        "score": 4.42251740436959
-      },
-      {
-        "player": {
-          "id": 124,
-          "webName": "Groß",
-          "teamId": 5,
-          "teamShortName": "BHA",
-          "position": "MID",
-          "nowCost": 63,
-          "form": 4,
-          "pointsPerGame": 7,
-          "epNext": 4,
-          "projection": {
-            "event": 11,
-            "points": 4.419285291342323,
-            "chanceOfPlaying": 0.9516789087620291,
-            "pointsIfPlaying": 4.643672619677003,
-            "defensiveContributionIfPlaying": 0.09148391706296544,
-            "horizonPoints": 12.510597594867024,
-            "horizonEvents": 3
-          },
-          "totalPoints": 70,
-          "selectedByPercent": 48.6,
-          "chanceOfPlayingNextRound": null,
-          "status": "a",
-          "costChangeEvent": 1,
-          "transfersInEvent": 176494,
-          "transfersOutEvent": 18818,
-          "nextFixtures": [
-            {
-              "event": 11,
-              "isHome": false,
-              "difficulty": 2,
-              "opponentShortName": "HUL"
-            },
-            {
-              "event": 12,
-              "isHome": true,
-              "difficulty": 3,
-              "opponentShortName": "NEW"
-            },
-            {
-              "event": 13,
-              "isHome": false,
-              "difficulty": 4,
-              "opponentShortName": "BOU"
-            },
-            {
-              "event": 14,
-              "isHome": false,
-              "difficulty": 2,
-              "opponentShortName": "NFO"
-            },
-            {
-              "event": 15,
-              "isHome": true,
-              "difficulty": 3,
-              "opponentShortName": "EVE"
-            }
-          ]
-        },
-        "score": 4.419285291342323
-      },
-      {
-        "player": {
-          "id": 40,
-          "webName": "Rogers",
-          "teamId": 6,
-          "teamShortName": "CHE",
-          "position": "MID",
-          "nowCost": 82,
-          "form": 4,
-          "pointsPerGame": 5.2,
-          "epNext": 4,
-          "projection": {
-            "event": 11,
-            "points": 4.402147771302349,
-            "chanceOfPlaying": 0.9553762709170068,
-            "pointsIfPlaying": 4.6077633549313495,
-            "defensiveContributionIfPlaying": 0.22134411686982028,
-            "horizonPoints": 13.670756181572713,
-            "horizonEvents": 3
-          },
-          "totalPoints": 52,
-          "selectedByPercent": 54.2,
-          "chanceOfPlayingNextRound": null,
-          "status": "a",
-          "costChangeEvent": 0,
-          "transfersInEvent": 109340,
-          "transfersOutEvent": 43105,
-          "nextFixtures": [
-            {
-              "event": 11,
-              "isHome": true,
-              "difficulty": 3,
-              "opponentShortName": "LEE"
-            },
-            {
-              "event": 12,
-              "isHome": false,
-              "difficulty": 2,
-              "opponentShortName": "NFO"
-            },
-            {
-              "event": 13,
-              "isHome": true,
-              "difficulty": 2,
-              "opponentShortName": "CRY"
-            },
-            {
-              "event": 14,
-              "isHome": true,
-              "difficulty": 4,
-              "opponentShortName": "LIV"
-            },
-            {
-              "event": 15,
-              "isHome": false,
-              "difficulty": 5,
-              "opponentShortName": "MCI"
-            }
-          ]
-        },
-        "score": 4.402147771302349
+        "score": 3.735663630826627
       },
       {
         "player": {
@@ -3122,11 +2981,12 @@
           "epNext": 5.3,
           "projection": {
             "event": 11,
-            "points": 4.293449487348622,
-            "chanceOfPlaying": 0.9481825892935213,
-            "pointsIfPlaying": 4.528083025177267,
-            "defensiveContributionIfPlaying": 0.13966080762232366,
-            "horizonPoints": 12.490076508292653,
+            "points": 4.351469660025375,
+            "chanceOfPlaying": 0.9481825892935212,
+            "pointsIfPlaying": 4.589273953308506,
+            "goalOrAssistChance": 0.37277408415478686,
+            "cleanSheetChance": null,
+            "horizonPoints": 12.7875144828163,
             "horizonEvents": 3
           },
           "totalPoints": 58,
@@ -3169,7 +3029,196 @@
             }
           ]
         },
-        "score": 4.293449487348622
+        "score": 4.351469660025375
+      },
+      {
+        "player": {
+          "id": 399,
+          "webName": "Cherki",
+          "teamId": 15,
+          "teamShortName": "MCI",
+          "position": "MID",
+          "nowCost": 79,
+          "form": 3.3,
+          "pointsPerGame": 6,
+          "epNext": 3.3,
+          "projection": {
+            "event": 11,
+            "points": 4.292201696340583,
+            "chanceOfPlaying": 0.9360423131374771,
+            "pointsIfPlaying": 4.585478280307383,
+            "goalOrAssistChance": 0.42016163017114294,
+            "cleanSheetChance": null,
+            "horizonPoints": 11.49695526774839,
+            "horizonEvents": 3
+          },
+          "totalPoints": 54,
+          "selectedByPercent": 33.6,
+          "chanceOfPlayingNextRound": null,
+          "status": "a",
+          "costChangeEvent": 0,
+          "transfersInEvent": 94357,
+          "transfersOutEvent": 65529,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "FUL"
+            },
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 5,
+              "opponentShortName": "ARS"
+            },
+            {
+              "event": 13,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "LEE"
+            },
+            {
+              "event": 14,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BRE"
+            },
+            {
+              "event": 15,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "CHE"
+            }
+          ]
+        },
+        "score": 4.292201696340583
+      },
+      {
+        "player": {
+          "id": 40,
+          "webName": "Rogers",
+          "teamId": 6,
+          "teamShortName": "CHE",
+          "position": "MID",
+          "nowCost": 82,
+          "form": 4,
+          "pointsPerGame": 5.2,
+          "epNext": 4,
+          "projection": {
+            "event": 11,
+            "points": 4.204976990914892,
+            "chanceOfPlaying": 0.9553762709170068,
+            "pointsIfPlaying": 4.401383118798621,
+            "goalOrAssistChance": 0.3034814821836296,
+            "cleanSheetChance": null,
+            "horizonPoints": 12.983064808030965,
+            "horizonEvents": 3
+          },
+          "totalPoints": 52,
+          "selectedByPercent": 54.2,
+          "chanceOfPlayingNextRound": null,
+          "status": "a",
+          "costChangeEvent": 0,
+          "transfersInEvent": 109340,
+          "transfersOutEvent": 43105,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "LEE"
+            },
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "NFO"
+            },
+            {
+              "event": 13,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "CRY"
+            },
+            {
+              "event": 14,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "LIV"
+            },
+            {
+              "event": 15,
+              "isHome": false,
+              "difficulty": 5,
+              "opponentShortName": "MCI"
+            }
+          ]
+        },
+        "score": 4.204976990914892
+      },
+      {
+        "player": {
+          "id": 124,
+          "webName": "Groß",
+          "teamId": 5,
+          "teamShortName": "BHA",
+          "position": "MID",
+          "nowCost": 63,
+          "form": 4,
+          "pointsPerGame": 7,
+          "epNext": 4,
+          "projection": {
+            "event": 11,
+            "points": 4.182261692877088,
+            "chanceOfPlaying": 0.9516789087620291,
+            "pointsIfPlaying": 4.394614248956607,
+            "goalOrAssistChance": 0.3617834708896118,
+            "cleanSheetChance": null,
+            "horizonPoints": 12.153007198452368,
+            "horizonEvents": 3
+          },
+          "totalPoints": 70,
+          "selectedByPercent": 48.6,
+          "chanceOfPlayingNextRound": null,
+          "status": "a",
+          "costChangeEvent": 1,
+          "transfersInEvent": 176494,
+          "transfersOutEvent": 18818,
+          "nextFixtures": [
+            {
+              "event": 11,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "HUL"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "NEW"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BOU"
+            },
+            {
+              "event": 14,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "NFO"
+            },
+            {
+              "event": 15,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "EVE"
+            }
+          ]
+        },
+        "score": 4.182261692877088
       },
       {
         "player": {
@@ -3184,11 +3233,12 @@
           "epNext": 1.7,
           "projection": {
             "event": 11,
-            "points": 3.5957228518888287,
-            "chanceOfPlaying": 0.947430502570377,
-            "pointsIfPlaying": 3.7952365288363,
-            "defensiveContributionIfPlaying": 0.0011595552837959655,
-            "horizonPoints": 11.460602156893511,
+            "points": 3.609116930639103,
+            "chanceOfPlaying": 0.9474305025703769,
+            "pointsIfPlaying": 3.8093737966506005,
+            "goalOrAssistChance": 0.3123660728248272,
+            "cleanSheetChance": null,
+            "horizonPoints": 11.774447519910318,
             "horizonEvents": 3
           },
           "totalPoints": 46,
@@ -3231,7 +3281,7 @@
             }
           ]
         },
-        "score": 3.5957228518888287
+        "score": 3.609116930639103
       },
       {
         "player": {
@@ -3246,11 +3296,12 @@
           "epNext": 4,
           "projection": {
             "event": 11,
-            "points": 7.307281263204335,
+            "points": 6.416085567358278,
             "chanceOfPlaying": 0.9583157324528362,
-            "pointsIfPlaying": 7.625129188374214,
-            "defensiveContributionIfPlaying": 0.000059938228649617877,
-            "horizonPoints": 20.667216832685753,
+            "pointsIfPlaying": 6.695168773798721,
+            "goalOrAssistChance": 0.5448244169937684,
+            "cleanSheetChance": null,
+            "horizonPoints": 17.478244323236687,
             "horizonEvents": 3
           },
           "totalPoints": 70,
@@ -3293,7 +3344,7 @@
             }
           ]
         },
-        "score": 7.307281263204335
+        "score": 6.416085567358278
       },
       {
         "player": {
@@ -3308,11 +3359,12 @@
           "epNext": 8,
           "projection": {
             "event": 11,
-            "points": 4.469818222318556,
+            "points": 4.232764087268525,
             "chanceOfPlaying": 0.9518093933114455,
-            "pointsIfPlaying": 4.696127453383903,
-            "defensiveContributionIfPlaying": 0.03932947066249889,
-            "horizonPoints": 13.017689920668676,
+            "pointsIfPlaying": 4.447071143669103,
+            "goalOrAssistChance": 0.38446561101392507,
+            "cleanSheetChance": null,
+            "horizonPoints": 12.492051508061998,
             "horizonEvents": 3
           },
           "totalPoints": 61,
@@ -3355,7 +3407,7 @@
             }
           ]
         },
-        "score": 4.469818222318556
+        "score": 4.232764087268525
       }
     ],
     "bench": [
@@ -3372,11 +3424,12 @@
           "epNext": 4.3,
           "projection": {
             "event": 11,
-            "points": 2.876753885697437,
+            "points": 2.835048971379676,
             "chanceOfPlaying": 0.9463212034686053,
-            "pointsIfPlaying": 3.0399338777923464,
-            "defensiveContributionIfPlaying": 0.01325077567601555,
-            "horizonPoints": 9.12764808163541,
+            "pointsIfPlaying": 2.995863308344153,
+            "goalOrAssistChance": 0.18056807837638977,
+            "cleanSheetChance": 0.1690148643094952,
+            "horizonPoints": 9.25411235462137,
             "horizonEvents": 3
           },
           "totalPoints": 58,
@@ -3419,7 +3472,7 @@
             }
           ]
         },
-        "score": 2.876753885697437
+        "score": 2.835048971379676
       },
       {
         "player": {
@@ -3434,11 +3487,12 @@
           "epNext": 4,
           "projection": {
             "event": 11,
-            "points": 2.46045842142041,
-            "chanceOfPlaying": 0.8874093271295272,
-            "pointsIfPlaying": 2.7726307873945513,
-            "defensiveContributionIfPlaying": 0.5407872217870016,
-            "horizonPoints": 8.381663057801633,
+            "points": 2.4276218016476463,
+            "chanceOfPlaying": 0.8874093271295271,
+            "pointsIfPlaying": 2.7356279987502408,
+            "goalOrAssistChance": 0.06834069847364121,
+            "cleanSheetChance": 0.14221787928632723,
+            "horizonPoints": 8.012422743662452,
             "horizonEvents": 3
           },
           "totalPoints": 42,
@@ -3481,7 +3535,7 @@
             }
           ]
         },
-        "score": 2.46045842142041
+        "score": 2.4276218016476463
       },
       {
         "player": {
@@ -3496,11 +3550,12 @@
           "epNext": 1.3,
           "projection": {
             "event": 11,
-            "points": 2.286793496720973,
+            "points": 2.274127931190061,
             "chanceOfPlaying": 0.8776634627713422,
-            "pointsIfPlaying": 2.6055471074301195,
-            "defensiveContributionIfPlaying": 0.05119069689291311,
-            "horizonPoints": 6.499134208886235,
+            "pointsIfPlaying": 2.591116102759014,
+            "goalOrAssistChance": 0.2155845342538355,
+            "cleanSheetChance": null,
+            "horizonPoints": 6.404554840611416,
             "horizonEvents": 3
           },
           "totalPoints": 23,
@@ -3543,7 +3598,7 @@
             }
           ]
         },
-        "score": 2.286793496720973
+        "score": 2.274127931190061
       },
       {
         "player": {
@@ -3558,11 +3613,12 @@
           "epNext": 6.3,
           "projection": {
             "event": 11,
-            "points": 4.191596119546873,
-            "chanceOfPlaying": 0.9540720772182759,
-            "pointsIfPlaying": 4.393374693207697,
-            "defensiveContributionIfPlaying": 0,
-            "horizonPoints": 11.499358313200178,
+            "points": 3.8521026585520635,
+            "chanceOfPlaying": 0.9540720772182758,
+            "pointsIfPlaying": 4.0375384109169,
+            "goalOrAssistChance": 0.0021249275220196484,
+            "cleanSheetChance": 0.3272768190598693,
+            "horizonPoints": 10.607243456456583,
             "horizonEvents": 3
           },
           "totalPoints": 57,
@@ -3605,7 +3661,7 @@
             }
           ]
         },
-        "score": 4.191596119546873
+        "score": 3.8521026585520635
       }
     ]
   }

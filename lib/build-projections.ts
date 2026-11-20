@@ -1,19 +1,27 @@
 /**
- * pure: the step 3 projection model run for every player in fpl's bootstrap,
- * with fpl's team news on top. runs on the server only, inside /api/summary;
- * the browser never loads the model, its weights or last season's prior
+ * pure: onze's live prediction for every player in fpl's bootstrap. the
+ * two-part model (projection.ts) and the event model (event-projection.ts)
+ * each run with fpl's team news on their chance of playing, then blend by a
+ * frozen share. runs on the server only, inside /api/summary; the browser
+ * never loads the models, their weights or last season's prior
  */
 
 import { availabilityFactor } from './analysis/availability.js';
-import { projectPlayer } from './analysis/projection.js';
+import { projectEvents } from './analysis/event-projection.js';
 import type {
-  FixtureContext,
-  LeaguePrior,
-  MatchRecord,
-  ProjectionWeights,
-  SeasonSummary,
-} from './analysis/projection.js';
+  EventFixture,
+  EventLeaguePrior,
+  EventSeasonSummary,
+  EventWeights,
+} from './analysis/event-projection.js';
+import { concedesPoints } from './analysis/fpl-scoring.js';
+import { poissonZero } from './analysis/poisson.js';
+import { projectPlayer } from './analysis/projection.js';
+import type { ProjectionWeights } from './analysis/projection.js';
+import { fixtureGoalRates, teamStrengths } from './analysis/team-strength.js';
+import type { TeamSeasonSummary, TeamStrengths } from './analysis/team-strength.js';
 import type { PlayerProjection, PlayerStatus, Position } from './analysis/types.js';
+import type { MatchHistory } from './build-match-history.js';
 import type { FplBootstrapStatic, FplElement, FplFixture } from './fpl-types.js';
 
 /** the order a SeasonSummary is stored in, one short row per player */
@@ -29,20 +37,23 @@ export const SEASON_SUMMARY_FIELDS = [
   'expectedAssistsMinutes',
   'defensiveContribution',
   'defensiveContributionMinutes',
-] as const satisfies readonly (keyof SeasonSummary)[];
+  'goalsWhereExpected',
+  'saves',
+] as const satisfies readonly (keyof EventSeasonSummary)[];
 
-/** last season, boiled down to what the model reads, keyed by fpl's stable player code */
+/** last season, boiled down to what the models read, keyed by fpl's stable player code */
 export interface LastSeasonPrior {
   season: string;
-  league: LeaguePrior;
+  league: EventLeaguePrior;
+  teams: TeamSeasonSummary;
   players: Readonly<Record<number, readonly number[]>>;
 }
 
-export function encodeSeasonSummary(summary: SeasonSummary): number[] {
+export function encodeSeasonSummary(summary: EventSeasonSummary): number[] {
   return SEASON_SUMMARY_FIELDS.map((field) => summary[field]);
 }
 
-export function decodeSeasonSummary(values: readonly number[]): SeasonSummary {
+export function decodeSeasonSummary(values: readonly number[]): EventSeasonSummary {
   if (values.length !== SEASON_SUMMARY_FIELDS.length) {
     throw new Error(
       `a season summary has ${SEASON_SUMMARY_FIELDS.length} numbers, got ${values.length}`,
@@ -61,10 +72,12 @@ export function decodeSeasonSummary(values: readonly number[]): SeasonSummary {
     expectedAssistsMinutes: read(8),
     defensiveContribution: read(9),
     defensiveContributionMinutes: read(10),
+    goalsWhereExpected: read(11),
+    saves: read(12),
   };
 }
 
-const NEW_TO_THE_LEAGUE: SeasonSummary = decodeSeasonSummary(
+const NEW_TO_THE_LEAGUE: EventSeasonSummary = decodeSeasonSummary(
   SEASON_SUMMARY_FIELDS.map(() => 0),
 );
 
@@ -91,10 +104,17 @@ function seasonLabel(startYear: number): string {
 export class StalePriorError extends Error {
   constructor(prior: string, season: string) {
     super(
-      `the projection's last-season prior is ${prior}, but ${season} needs ${previousSeason(season)}. run npm run data:prior and redeploy`,
+      `the prediction's last-season prior is ${prior}, but ${season} needs ${previousSeason(season)}. run npm run data:prior and redeploy`,
     );
     this.name = 'StalePriorError';
   }
+}
+
+export interface ModelWeights {
+  twoPart: ProjectionWeights;
+  event: EventWeights;
+  /** the two-part model's share of the blend, the event model's is the rest */
+  twoPartShare: number;
 }
 
 export interface ProjectionOptions {
@@ -104,10 +124,10 @@ export interface ProjectionOptions {
   deadline: string;
   /** gameweeks summed into horizonPoints, the planned one first */
   horizonEvents: number;
-  /** this season's matches before the deadline, by element id */
-  history: ReadonlyMap<number, readonly MatchRecord[]>;
+  /** this season's matches before the deadline */
+  history: MatchHistory;
   prior: LastSeasonPrior;
-  weights: ProjectionWeights;
+  weights: ModelWeights;
 }
 
 const POSITION_BY_ELEMENT_TYPE: Record<number, Position> = {
@@ -116,6 +136,15 @@ const POSITION_BY_ELEMENT_TYPE: Record<number, Position> = {
   3: 'MID',
   4: 'FWD',
 };
+
+/** one gameweek for one player: the blended points and what the labels read */
+interface GameweekPrediction {
+  points: number;
+  chanceOfPlaying: number;
+  pointsIfPlaying: number;
+  goalOrAssistChance: number | null;
+  cleanSheetChance: number | null;
+}
 
 /** every player in the bootstrap, by element id */
 export function buildPlayerProjections(
@@ -129,6 +158,12 @@ export function buildPlayerProjections(
   if (options.prior.season !== previousSeason(season)) {
     throw new StalePriorError(options.prior.season, season);
   }
+  const share = options.weights.twoPartShare;
+  if (!(share >= 0 && share <= 1)) {
+    throw new Error(`the two-part share must be from 0 to 1, got ${share}`);
+  }
+  const strengths = teamStrengths(options.history.teamMatches, options.prior.teams);
+  const teamName = new Map(bootstrap.teams.map((team) => [team.id, team.name]));
   const projections = new Map<number, PlayerProjection>();
   for (const element of bootstrap.elements) {
     const position = POSITION_BY_ELEMENT_TYPE[element.element_type];
@@ -141,7 +176,7 @@ export function buildPlayerProjections(
       position,
       nowCost: element.now_cost,
       deadline: options.deadline,
-      thisSeason: options.history.get(element.id) ?? [],
+      thisSeason: options.history.players.get(element.id) ?? [],
       lastSeason:
         encoded === undefined ? NEW_TO_THE_LEAGUE : decodeSeasonSummary(encoded),
       league: options.prior.league,
@@ -150,26 +185,54 @@ export function buildPlayerProjections(
       status(element),
       element.chance_of_playing_next_round,
     );
-    const projectEvent = (event: number) =>
-      projectPlayer(
-        { ...base, fixtures: fixturesFor(element.team, event, fixtures) },
-        options.weights,
+    const predict = (event: number): GameweekPrediction => {
+      const eventFixtures = fixturesFor(
+        element.team,
+        event,
+        fixtures,
+        strengths,
+        teamName,
       );
+      const input = { ...base, fixtures: eventFixtures };
+      const twoPart = projectPlayer(input, options.weights.twoPart);
+      const events = projectEvents(input, options.weights.event);
+      // team news goes on each model's chance of playing before they blend
+      const twoPartChance = twoPart.chanceOfPlaying * news;
+      const eventChance = events.chanceOfPlaying * news;
+      const twoPartIfPlaying = sum(twoPart.pointsIfPlaying);
+      const eventIfPlaying = sum(
+        events.fixtures.map((fixture) => fixture.pointsIfPlaying),
+      );
+      const blend = (a: number, b: number) => share * a + (1 - share) * b;
+      const blank = eventFixtures.length === 0;
+      return {
+        points: blend(twoPartChance * twoPartIfPlaying, eventChance * eventIfPlaying),
+        chanceOfPlaying: blend(twoPartChance, eventChance),
+        pointsIfPlaying: blend(twoPartIfPlaying, eventIfPlaying),
+        // the labels read the event model, the one that counts goals and clean sheets
+        goalOrAssistChance: blank
+          ? null
+          : 1 -
+            poissonZero(
+              sum(events.fixtures.map((fixture) => fixture.goals + fixture.assists)),
+            ),
+        cleanSheetChance:
+          blank || !concedesPoints(position)
+            ? null
+            : teamCleanSheetChance(eventFixtures, options.weights.event),
+      };
+    };
 
-    const planned = projectEvent(options.event);
-    let horizonPoints = planned.expectedPoints * news;
+    const planned = predict(options.event);
+    let horizonPoints = planned.points;
     for (let offset = 1; offset < options.horizonEvents; offset += 1) {
       // team news is applied to every week of the horizon: an injury rarely
       // lasts exactly one gameweek, and a doubt is still a doubt next week
-      horizonPoints += projectEvent(options.event + offset).expectedPoints * news;
+      horizonPoints += predict(options.event + offset).points;
     }
     projections.set(element.id, {
       event: options.event,
-      points: planned.expectedPoints * news,
-      chanceOfPlaying: planned.chanceOfPlaying * news,
-      pointsIfPlaying: planned.pointsIfPlaying.reduce((sum, points) => sum + points, 0),
-      defensiveContributionIfPlaying:
-        planned.defensiveContributionIfPlaying * planned.pointsIfPlaying.length,
+      ...planned,
       horizonPoints,
       horizonEvents: options.horizonEvents,
     });
@@ -177,12 +240,32 @@ export function buildPlayerProjections(
   return projections;
 }
 
+/**
+ * the chance the team keeps at least one clean sheet in the gameweek, the
+ * whole match rather than the player's minutes: it's the team's that a
+ * manager weighs. goals against are scaled as the event model's clean sheets are
+ */
+function teamCleanSheetChance(
+  fixtures: readonly EventFixture[],
+  weights: EventWeights,
+): number {
+  const noneKept = fixtures.reduce(
+    (product, fixture) =>
+      product *
+      (1 - poissonZero(fixture.expectedGoalsAgainst * weights.scales.cleanSheet)),
+    1,
+  );
+  return 1 - noneKept;
+}
+
 /** the team's fixtures in one gameweek: two in a double, none in a blank */
 function fixturesFor(
   teamId: number,
   event: number,
   fixtures: readonly FplFixture[],
-): FixtureContext[] {
+  strengths: TeamStrengths,
+  teamName: ReadonlyMap<number, string>,
+): EventFixture[] {
   return fixtures
     .filter(
       (fixture) =>
@@ -191,11 +274,22 @@ function fixturesFor(
     )
     .map((fixture) => {
       const wasHome = fixture.team_h === teamId;
+      const opponentId = wasHome ? fixture.team_a : fixture.team_h;
+      const own = teamName.get(teamId);
+      const opponent = teamName.get(opponentId);
+      if (own === undefined || opponent === undefined) {
+        throw new Error(`fixture ${fixture.id} names a team fpl doesn't list`);
+      }
       return {
         wasHome,
         fixtureDifficulty: wasHome
           ? fixture.team_h_difficulty
           : fixture.team_a_difficulty,
+        ...fixtureGoalRates(strengths, own, opponent, wasHome),
       };
     });
+}
+
+function sum(values: readonly number[]): number {
+  return values.reduce((total, value) => total + value, 0);
 }

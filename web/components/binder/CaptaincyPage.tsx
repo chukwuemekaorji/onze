@@ -1,8 +1,9 @@
-import { captainOptions } from '../../report-view.js';
+import { captainHeadline, captainOptions } from '../../report-view.js';
 import { CoachNote } from '../report/CoachNote.js';
 import { DealtCard } from '../report/DealtCard.js';
 import { PaperCard } from '../ui/PaperCard.js';
 import { BinderPage } from './BinderPage.js';
+import { PlayerCardDetails } from './PlayerCardDetails.js';
 import { aiNote } from './page-props.js';
 import type { BinderPageProps } from './page-props.js';
 
@@ -10,12 +11,13 @@ export function CaptaincyPage({ shown, focusTitle }: BinderPageProps) {
   const { summary } = shown;
   const options = captainOptions(summary.captaincy, summary.currentEvent);
   const note = aiNote(shown, 'captaincy');
+  const headline = captainHeadline(summary);
 
   return (
     <BinderPage title="Captaincy" focusTitle={focusTitle} className="captaincy-page">
       <p className="page-lede">
-        The best armband options in your lineup, ranked by the Onze projection for
-        gameweek {summary.currentEvent}.
+        {headline ?? 'No clear captain in this lineup.'} Tap a player to see the
+        numbers.
       </p>
       <DealtCard cardKey="captain-options" order={0} dealt={false}>
         <PaperCard as="section" className="report-card" aria-label="Captain options">
@@ -46,7 +48,9 @@ export function CaptaincyPage({ shown, focusTitle }: BinderPageProps) {
                   </span>
                   <span className="captain-rank__name">{option.name}</span>
                   <span className="captain-rank__fixture">{option.fixture}</span>
-                  <span className="captain-rank__reason">{option.reason}</span>
+                  <div className="captain-rank__reason">
+                    <PlayerCardDetails card={option.card} />
+                  </div>
                 </li>
               ))}
             </ol>

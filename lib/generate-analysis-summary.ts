@@ -19,6 +19,8 @@ import {
 import { buildMatchHistory } from './build-match-history.js';
 import { buildPlayerProjections } from './build-projections.js';
 import { PROJECTION_WEIGHTS } from './analysis/projection-weights.js';
+import { EVENT_WEIGHTS } from './analysis/event-weights.js';
+import { TWO_PART_SHARE } from './analysis/blend-weight.js';
 import { LAST_SEASON_PRIOR } from './projection-prior.js';
 import { analyzeTransfers } from './analysis/transfers.js';
 import { analyzeCaptaincy } from './analysis/captaincy.js';
@@ -103,9 +105,13 @@ export async function generateAnalysisSummary(
       event: planningEvent,
       deadline: planningEventInfo?.deadline_time ?? new Date(now).toISOString(),
       horizonEvents: PROJECTION_HORIZON_EVENTS,
-      history: buildMatchHistory(pastLive, fixtures),
+      history: buildMatchHistory(pastLive, fixtures, bootstrap),
       prior: LAST_SEASON_PRIOR,
-      weights: PROJECTION_WEIGHTS,
+      weights: {
+        twoPart: PROJECTION_WEIGHTS,
+        event: EVENT_WEIGHTS,
+        twoPartShare: TWO_PART_SHARE,
+      },
     },
   );
   const playerPool = buildPlayerPool(bootstrap, fixtures, {

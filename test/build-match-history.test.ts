@@ -21,28 +21,61 @@ function fixture(
   };
 }
 
+interface ExplainEntry {
+  fixture: number;
+  minutes: number;
+  points: number;
+  goals?: number;
+  saves?: number;
+}
+
 function element(
   id: number,
-  explain: { fixture: number; minutes: number; points: number }[],
+  explain: ExplainEntry[],
   stats: Partial<FplLiveElement['stats']> = {},
 ): FplLiveElement {
+  const sum = (read: (entry: ExplainEntry) => number) =>
+    explain.reduce((total, entry) => total + read(entry), 0);
   return {
     id,
     stats: {
-      minutes: explain.reduce((sum, entry) => sum + entry.minutes, 0),
+      minutes: sum((entry) => entry.minutes),
       starts: 1,
-      total_points: explain.reduce((sum, entry) => sum + entry.points, 0),
+      total_points: sum((entry) => entry.points),
       expected_goals: '0.60',
       expected_assists: '0.30',
       defensive_contribution: 12,
+      goals_scored: sum((entry) => entry.goals ?? 0),
+      saves: sum((entry) => entry.saves ?? 0),
       ...stats,
     },
     explain: explain.map((entry) => ({
       fixture: entry.fixture,
-      stats: [{ identifier: 'minutes', points: entry.points, value: entry.minutes }],
+      stats: [
+        { identifier: 'minutes', points: entry.points, value: entry.minutes },
+        ...(entry.goals === undefined
+          ? []
+          : [{ identifier: 'goals_scored', points: 0, value: entry.goals }]),
+        ...(entry.saves === undefined
+          ? []
+          : [{ identifier: 'saves', points: 0, value: entry.saves }]),
+      ],
     })),
   };
 }
+
+// players 7 and 8 play for team 1 (Arsenal), 9 for team 2 (Spurs)
+const BOOTSTRAP = {
+  elements: [
+    { id: 7, team: 1 },
+    { id: 8, team: 1 },
+    { id: 9, team: 2 },
+  ],
+  teams: [
+    { id: 1, name: 'Arsenal' },
+    { id: 2, name: 'Spurs' },
+  ],
+} as Parameters<typeof buildMatchHistory>[2];
 
 describe('buildMatchHistory', () => {
   it("turns each gameweek's live stats into one record per match, oldest first", () => {
@@ -50,7 +83,7 @@ describe('buildMatchHistory', () => {
       fixture(1, '2026-08-15T14:00:00Z'),
       fixture(2, '2026-08-22T14:00:00Z'),
     ];
-    const history = buildMatchHistory(
+    const { players } = buildMatchHistory(
       [
         {
           event: 2,
@@ -62,13 +95,16 @@ describe('buildMatchHistory', () => {
         },
         {
           event: 1,
-          live: { elements: [element(7, [{ fixture: 1, minutes: 90, points: 6 }])] },
+          live: {
+            elements: [element(7, [{ fixture: 1, minutes: 90, points: 6, goals: 1 }])],
+          },
         },
       ],
       fixtures,
+      BOOTSTRAP,
     );
 
-    expect(history.get(7)).toEqual([
+    expect(players.get(7)).toEqual([
       {
         gameweek: 1,
         kickoffTime: '2026-08-15T14:00:00Z',
@@ -78,39 +114,44 @@ describe('buildMatchHistory', () => {
         expectedGoals: 0.6,
         expectedAssists: 0.3,
         defensiveContribution: 12,
+        goalsScored: 1,
+        saves: 0,
       },
       expect.objectContaining({ gameweek: 2, minutes: 0, starts: 0 }),
     ]);
   });
 
-  it('splits a double gameweek by fixture, sharing the summed stats by minutes', () => {
+  it('splits a double gameweek by fixture: goals and saves exactly, the rest by minutes', () => {
     const fixtures = [
       fixture(1, '2026-08-15T14:00:00Z'),
       fixture(2, '2026-08-18T19:00:00Z'),
     ];
-    const history = buildMatchHistory(
+    const { players } = buildMatchHistory(
       [
         {
           event: 1,
           live: {
             elements: [
               element(7, [
-                { fixture: 1, minutes: 90, points: 8 },
-                { fixture: 2, minutes: 30, points: 1 },
+                { fixture: 1, minutes: 90, points: 8, goals: 1, saves: 0 },
+                { fixture: 2, minutes: 30, points: 1, goals: 0, saves: 2 },
               ]),
             ],
           },
         },
       ],
       fixtures,
+      BOOTSTRAP,
     );
-    const [first, second] = history.get(7) ?? [];
+    const [first, second] = players.get(7) ?? [];
 
     expect(first).toMatchObject({
       minutes: 90,
       totalPoints: 8,
       starts: 1,
       defensiveContribution: 9,
+      goalsScored: 1,
+      saves: 0,
     });
     expect(first?.expectedGoals).toBeCloseTo(0.45);
     expect(second).toMatchObject({
@@ -118,7 +159,56 @@ describe('buildMatchHistory', () => {
       totalPoints: 1,
       starts: 0,
       defensiveContribution: 3,
+      goalsScored: 0,
+      saves: 2,
     });
+  });
+
+  it("sums each side's xg into its matches, for team strength", () => {
+    const { teamMatches } = buildMatchHistory(
+      [
+        {
+          event: 1,
+          live: {
+            elements: [
+              element(7, [{ fixture: 1, minutes: 90, points: 2 }], {
+                expected_goals: '0.50',
+              }),
+              element(8, [{ fixture: 1, minutes: 90, points: 2 }], {
+                expected_goals: '0.70',
+              }),
+              element(9, [{ fixture: 1, minutes: 90, points: 2 }], {
+                expected_goals: '0.40',
+              }),
+            ],
+          },
+        },
+      ],
+      [fixture(1, '2026-08-15T14:00:00Z')],
+      BOOTSTRAP,
+    );
+
+    expect(teamMatches).toHaveLength(2);
+    const arsenal = teamMatches.find((match) => match.teamName === 'Arsenal');
+    expect(arsenal).toMatchObject({ wasHome: true, expectedGoalsAgainst: 0.4 });
+    expect(arsenal?.expectedGoalsFor).toBeCloseTo(1.2);
+  });
+
+  it("leaves a match out of team strength when it wasn't the player's current club's", () => {
+    // player 9 is at spurs now, but this match was arsenal against team 3
+    const { players, teamMatches } = buildMatchHistory(
+      [
+        {
+          event: 1,
+          live: { elements: [element(9, [{ fixture: 1, minutes: 90, points: 2 }])] },
+        },
+      ],
+      [fixture(1, '2026-08-15T14:00:00Z', { team_a: 3 })],
+      BOOTSTRAP,
+    );
+
+    expect(players.get(9)).toHaveLength(1);
+    expect(teamMatches).toEqual([]);
   });
 
   it('leaves out a match still being played, and a gameweek the player missed entirely', () => {
@@ -128,7 +218,7 @@ describe('buildMatchHistory', () => {
         finished_provisional: false,
       }),
     ];
-    const history = buildMatchHistory(
+    const { players, teamMatches } = buildMatchHistory(
       [
         {
           event: 1,
@@ -141,7 +231,9 @@ describe('buildMatchHistory', () => {
         },
       ],
       fixtures,
+      BOOTSTRAP,
     );
-    expect(history.size).toBe(0);
+    expect(players.size).toBe(0);
+    expect(teamMatches).toEqual([]);
   });
 });

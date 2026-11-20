@@ -162,6 +162,8 @@ export interface FplLiveStats {
   expected_goals: string;
   expected_assists: string;
   defensive_contribution: number;
+  goals_scored: number;
+  saves: number;
 }
 
 export interface FplLiveExplain {

@@ -6,6 +6,7 @@ import { CoachNote } from '../report/CoachNote.js';
 import { DealtCard } from '../report/DealtCard.js';
 import { PaperCard } from '../ui/PaperCard.js';
 import { BinderPage } from './BinderPage.js';
+import { PlayerCardDetails } from './PlayerCardDetails.js';
 import { aiNote } from './page-props.js';
 import type { BinderPageProps } from './page-props.js';
 
@@ -33,7 +34,7 @@ export function TransfersPage({ shown, focusTitle }: BinderPageProps) {
   }
 
   const { transfers } = shown.summary;
-  const rows = transferRows(transfers);
+  const rows = transferRows(transfers, shown.summary.currentEvent);
   const note = aiNote(shown, 'transfers');
   const free = transfers.freeTransfers;
 
@@ -42,8 +43,7 @@ export function TransfersPage({ shown, focusTitle }: BinderPageProps) {
       <p className="page-lede">
         {free} free transfer{free === 1 ? '' : 's'}
         {transfers.recommendedCount > 0 &&
-          ` · net ${formatGain(transfers.projectedNetGain)} from the recommended moves`}
-        {` · gains are Onze projections for gameweek ${shown.summary.currentEvent}`}
+          ` · Onze predicts ${formatGain(transfers.projectedNetGain)} this week from the recommended moves`}
       </p>
       <p className="hit-advice">{hitAdvice(shown.summary)}</p>
 
@@ -93,8 +93,11 @@ export function TransfersPage({ shown, focusTitle }: BinderPageProps) {
                       </span>
                     </span>
                   </div>
-                  {row.projectionNote !== null && (
-                    <p className="transfer-list__alternatives">{row.projectionNote}</p>
+                  {row.sentence !== null && (
+                    <p className="transfer-list__sentence">{row.sentence}</p>
+                  )}
+                  {row.incoming !== null && (
+                    <PlayerCardDetails card={row.incoming} named />
                   )}
                   {row.alternatives.length > 0 && (
                     <p className="transfer-list__alternatives">
