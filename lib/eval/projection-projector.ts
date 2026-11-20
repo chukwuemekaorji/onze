@@ -5,6 +5,7 @@ import {
   playFeatures,
   pointsFeatures,
   projectPlayer,
+  summariseSeason,
 } from '../analysis/projection.js';
 import type {
   LeaguePrior,
@@ -47,12 +48,16 @@ export function projectionInputFor(
   history: HistoryView,
 ): ProjectionInput {
   return {
+    season: history.season,
     position: target.position,
     nowCost: target.nowCost,
     deadline: history.firstKickoff,
     fixtures: target.fixtures,
     thisSeason: history.playerRows(target.playerId),
-    lastSeason: history.lastSeasonRows(target.playerCode),
+    lastSeason: summariseSeason(
+      history.lastSeasonRows(target.playerCode),
+      target.position,
+    ),
     league: leaguePriorFor(history),
   };
 }

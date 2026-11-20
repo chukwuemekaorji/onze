@@ -42,6 +42,11 @@ export interface PlayerGameweekRow {
   expectedGoals: number | null;
   expectedAssists: number | null;
   expectedGoalsConceded: number | null;
+  /**
+   * fpl's defensive contribution count for the player's position. null in
+   * seasons that didn't score it (before 2025-26), so 0 always means a real 0
+   */
+  defensiveContribution: number | null;
   /** fpl cost units at kickoff: 55 means £5.5m */
   nowCost: number;
 

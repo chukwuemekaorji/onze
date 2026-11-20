@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { poissonExpectedFloor, poissonZero } from '../../lib/analysis/poisson.js';
+import {
+  poissonAtLeast,
+  poissonExpectedFloor,
+  poissonZero,
+} from '../../lib/analysis/poisson.js';
 
 /** the same expectation by brute force over the probabilities */
 function bruteExpectedFloor(mean: number, divisor: number): number {
@@ -39,5 +43,19 @@ describe('poissonExpectedFloor', () => {
   it('rejects a divisor that is not a whole number from 1', () => {
     expect(() => poissonExpectedFloor(1, 0)).toThrow('divisor');
     expect(() => poissonExpectedFloor(1, 2.5)).toThrow('divisor');
+  });
+});
+
+describe('poissonAtLeast', () => {
+  it('is one minus the chance of fewer', () => {
+    // mean 2: p(0) + p(1) = 3 e^-2
+    expect(poissonAtLeast(2, 2)).toBeCloseTo(1 - 3 * Math.exp(-2));
+    expect(poissonAtLeast(5, 0)).toBe(1);
+    expect(poissonAtLeast(0, 1)).toBe(0);
+  });
+
+  it('rejects a count that is not a whole number from 0', () => {
+    expect(() => poissonAtLeast(1, -1)).toThrow('count');
+    expect(() => poissonAtLeast(1, 1.5)).toThrow('count');
   });
 });

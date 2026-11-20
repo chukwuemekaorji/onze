@@ -15,6 +15,21 @@ export function poissonZero(mean: number): number {
   return Math.exp(-mean);
 }
 
+/** chance of at least `count` */
+export function poissonAtLeast(mean: number, count: number): number {
+  assertMean(mean);
+  if (!Number.isInteger(count) || count < 0) {
+    throw new Error(`count must be a whole number from 0, got ${count}`);
+  }
+  let probability = Math.exp(-mean);
+  let below = 0;
+  for (let k = 0; k < count; k += 1) {
+    below += probability;
+    probability *= mean / (k + 1);
+  }
+  return Math.max(0, 1 - below);
+}
+
 /**
  * expected value of floor(count / divisor): fpl's "1 point per 3 saves" and
  * "-1 per 2 goals conceded" are steps, so the mean count alone isn't enough

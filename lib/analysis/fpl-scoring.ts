@@ -1,10 +1,10 @@
 import type { Position } from './types.js';
 
 /**
- * fpl's scoring rules for the seasons the models are fitted and scored on
- * (2022-23 to 2024-25). 2025-26 added defensive contribution points (and
- * tweaked assists), which nothing here counts yet: update this file before
- * scoring a season under the new rules
+ * fpl's scoring rules. the event model (event-projection.ts) uses the rules of
+ * the seasons it was fitted on, 2022-23 to 2024-25. 2025-26 added defensive
+ * contribution points; those are the separate rule below, used by the live
+ * projection for the seasons that score them
  */
 
 export const GOAL_POINTS: Record<Position, number> = { GK: 6, DEF: 6, MID: 5, FWD: 4 };
@@ -105,4 +105,32 @@ export function pointsFromEvents(position: Position, events: MatchEvents): numbe
     (sum, value) => sum + value,
     0,
   );
+}
+
+// defensive contributions, from 2025-26: 2 points for reaching a count in one
+// match. defenders count clearances, blocks, interceptions and tackles;
+// midfielders and forwards count recoveries too. fpl's defensive_contribution
+// stat is already the right count for the player's position. keepers can't earn them
+export const FIRST_DEFENSIVE_CONTRIBUTION_SEASON = '2025-26';
+export const DEFENSIVE_CONTRIBUTION_POINTS = 2;
+export const DEFENSIVE_CONTRIBUTION_THRESHOLD: Record<Position, number | null> = {
+  GK: null,
+  DEF: 10,
+  MID: 12,
+  FWD: 12,
+};
+
+/** season labels like "2025-26" sort in time order as plain strings */
+export function scoresDefensiveContributions(season: string): boolean {
+  return season >= FIRST_DEFENSIVE_CONTRIBUTION_SEASON;
+}
+
+/** points one match's count earned; null means the season didn't score them */
+export function defensiveContributionPoints(
+  position: Position,
+  count: number | null,
+): number {
+  const threshold = DEFENSIVE_CONTRIBUTION_THRESHOLD[position];
+  if (count === null || threshold === null) return 0;
+  return count >= threshold ? DEFENSIVE_CONTRIBUTION_POINTS : 0;
 }

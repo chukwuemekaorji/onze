@@ -4,6 +4,7 @@ import {
   eventLeaguePriorFrom,
   finishing,
   projectEvents,
+  summariseEventSeason,
 } from '../../lib/analysis/event-projection.js';
 import type {
   EventFixture,
@@ -20,6 +21,7 @@ const LEAGUE: EventLeaguePrior = {
   minutesPerAppearance: { GK: 90, DEF: 80, MID: 70, FWD: 70 },
   expectedGoalsPer90: { GK: 0, DEF: 0.06, MID: 0.3, FWD: 0.45 },
   expectedAssistsPer90: { GK: 0, DEF: 0.06, MID: 0.15, FWD: 0.15 },
+  defensiveContributionPer90: { GK: 0, DEF: 0, MID: 0, FWD: 0 },
   appearanceShare: 0.5,
   startShare: 0.4,
   keeperSavesPer90: 3,
@@ -71,12 +73,13 @@ const AVERAGE_FIXTURE: EventFixture = {
 /** a newcomer with no history: every rate is the league's */
 function input(overrides: Partial<EventInput> = {}): EventInput {
   return {
+    season: '2024-25',
     position: 'MID',
     nowCost: 60,
     deadline: '2024-10-19T11:30:00Z',
     fixtures: [AVERAGE_FIXTURE],
     thisSeason: [],
-    lastSeason: [],
+    lastSeason: summariseEventSeason([], 'MID'),
     league: LEAGUE,
     ...overrides,
   };
@@ -152,7 +155,7 @@ describe('projectEvents', () => {
       }),
     );
     const proven = projectEvents(
-      input({ position: 'FWD', lastSeason: scorer }),
+      input({ position: 'FWD', lastSeason: summariseEventSeason(scorer, 'FWD') }),
       SIMPLE,
     );
     const newcomer = projectEvents(input({ position: 'FWD' }), SIMPLE);

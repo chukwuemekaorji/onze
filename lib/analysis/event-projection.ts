@@ -14,13 +14,16 @@ import {
   PLAY_FEATURES,
   RECENT_APPEARANCES_FOR_XGI,
   appeared,
-  blendedRatePer90,
   dot,
   leaguePriorFrom,
   leagueRatePer90,
   logistic,
   playFeatures,
+  priorRatePer90,
+  ratePer90,
   shrink,
+  sumOf,
+  summariseSeason,
 } from './projection.js';
 import type {
   FixtureContext,
@@ -28,6 +31,7 @@ import type {
   MatchRecord,
   PlayFeatures,
   ProjectionInput,
+  SeasonSummary,
 } from './projection.js';
 import type { FixtureGoalRates } from './team-strength.js';
 import type { Position } from './types.js';
@@ -47,6 +51,12 @@ export interface EventMatchRecord extends MatchRecord {
   saves: number;
 }
 
+export interface EventSeasonSummary extends SeasonSummary {
+  /** goals in the matches that recorded xg, for finishing */
+  goalsWhereExpected: number;
+  saves: number;
+}
+
 export interface EventFixture extends FixtureContext, FixtureGoalRates {}
 
 export interface EventLeaguePrior extends LeaguePrior {
@@ -57,7 +67,7 @@ export interface EventLeaguePrior extends LeaguePrior {
 export interface EventInput extends ProjectionInput {
   fixtures: readonly EventFixture[];
   thisSeason: readonly EventMatchRecord[];
-  lastSeason: readonly EventMatchRecord[];
+  lastSeason: EventSeasonSummary;
   league: EventLeaguePrior;
 }
 
@@ -182,30 +192,39 @@ export function playerRates(input: EventInput, finishingStrength: number): Playe
   return {
     goalsPer90:
       expectedGoalsPer90(input) * finishing(goals, expectedGoals, finishingStrength),
-    assistsPer90: blendedRatePer90(
+    assistsPer90: ratePer90(
       recentAppearances(input),
-      input.lastSeason.filter(appeared),
       (match) => match.expectedAssists,
-      input.league.expectedAssistsPer90[input.position],
+      priorRatePer90(
+        input.lastSeason.expectedAssists,
+        input.lastSeason.expectedAssistsMinutes,
+        input.league.expectedAssistsPer90[input.position],
+      ),
     ),
     savesPer90:
       input.position === 'GK'
-        ? blendedRatePer90(
+        ? ratePer90(
             input.thisSeason.filter(appeared),
-            input.lastSeason.filter(appeared),
             (match) => match.saves,
-            input.league.keeperSavesPer90,
+            priorRatePer90(
+              input.lastSeason.saves,
+              input.lastSeason.minutes,
+              input.league.keeperSavesPer90,
+            ),
           )
         : 0,
   };
 }
 
 export function expectedGoalsPer90(input: EventInput): number {
-  return blendedRatePer90(
+  return ratePer90(
     recentAppearances(input),
-    input.lastSeason.filter(appeared),
     (match) => match.expectedGoals,
-    input.league.expectedGoalsPer90[input.position],
+    priorRatePer90(
+      input.lastSeason.expectedGoals,
+      input.lastSeason.expectedGoalsMinutes,
+      input.league.expectedGoalsPer90[input.position],
+    ),
   );
 }
 
@@ -214,9 +233,9 @@ export function finishingEvidence(input: EventInput): {
   goals: number;
   expectedGoals: number;
 } {
-  let goals = 0;
-  let expectedGoals = 0;
-  for (const match of [...input.lastSeason, ...input.thisSeason]) {
+  let goals = input.lastSeason.goalsWhereExpected;
+  let expectedGoals = input.lastSeason.expectedGoals;
+  for (const match of input.thisSeason) {
     if (match.expectedGoals === null) continue;
     goals += match.goalsScored;
     expectedGoals += match.expectedGoals;
@@ -351,6 +370,22 @@ export function eventRatesPer90(
 
 function recentAppearances(input: EventInput): EventMatchRecord[] {
   return input.thisSeason.filter(appeared).slice(-RECENT_APPEARANCES_FOR_XGI);
+}
+
+/** last season as the totals the event model reads */
+export function summariseEventSeason(
+  matches: readonly EventMatchRecord[],
+  position: Position,
+): EventSeasonSummary {
+  const apps = matches.filter(appeared);
+  return {
+    ...summariseSeason(matches, position),
+    goalsWhereExpected: sumOf(
+      apps.filter((match) => match.expectedGoals !== null),
+      (match) => match.goalsScored,
+    ),
+    saves: sumOf(apps, (match) => match.saves),
+  };
 }
 
 /** last season's league averages, with keepers' saves on top */

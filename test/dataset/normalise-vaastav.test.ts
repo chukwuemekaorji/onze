@@ -59,6 +59,8 @@ describe('normaliseVaastavSeason', () => {
       expectedGoals: 0.45,
       expectedAssists: 0.04,
       expectedGoalsConceded: 0.47,
+      // 2024-25 didn't score defensive contributions
+      defensiveContribution: null,
       nowCost: 80,
       source: 'vaastav',
       leaky: { fplExpectedPoints: 3.5 },

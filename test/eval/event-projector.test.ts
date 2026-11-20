@@ -86,7 +86,7 @@ describe('eventInputFor', () => {
     const attack = eventInputFor(arsenal, history);
     const defence = eventInputFor(villa, history);
 
-    expect(attack.lastSeason).toHaveLength(4);
+    expect(attack.lastSeason.matches).toBe(4);
     // last season villa conceded 0.9 a match against a 0.6 average, and arsenal were at home
     expect(attack.fixtures[0]?.scoringMultiplier).toBeGreaterThan(1);
     expect(defence.fixtures[0]?.expectedGoalsAgainst).toBeGreaterThan(

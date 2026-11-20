@@ -10,6 +10,7 @@ import {
   fullGameFeatures,
   playerRates,
   projectEvents,
+  summariseEventSeason,
 } from '../analysis/event-projection.js';
 import type {
   BonusFeature,
@@ -96,6 +97,7 @@ function strengthsFor(history: HistoryView): TeamStrengths {
 export function eventInputFor(target: PlayerTarget, history: HistoryView): EventInput {
   const strengths = strengthsFor(history);
   return {
+    season: history.season,
     position: target.position,
     nowCost: target.nowCost,
     deadline: history.firstKickoff,
@@ -110,7 +112,10 @@ export function eventInputFor(target: PlayerTarget, history: HistoryView): Event
       ),
     })),
     thisSeason: history.playerRows(target.playerId),
-    lastSeason: history.lastSeasonRows(target.playerCode),
+    lastSeason: summariseEventSeason(
+      history.lastSeasonRows(target.playerCode),
+      target.position,
+    ),
     league: leaguePriorFor(history),
   };
 }

@@ -34,6 +34,8 @@ describe('normaliseFplApiSeason', () => {
       minutes: 90,
       cleanSheets: 1,
       expectedGoalsConceded: 0.2,
+      // 2026-27 scores defensive contributions, so the count is kept, 0 included
+      defensiveContribution: 0,
       nowCost: 60,
       leaky: { fplExpectedPoints: null },
     });

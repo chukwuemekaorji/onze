@@ -38,6 +38,8 @@ export function makeRow(overrides: Partial<PlayerGameweekRow> = {}): PlayerGamew
     expectedGoals: 0.1,
     expectedAssists: 0.1,
     expectedGoalsConceded: 1,
+    // the default season (2024-25) didn't score defensive contributions
+    defensiveContribution: null,
     nowCost: 55,
     leaky: { fplExpectedPoints: 2.5 },
     source: 'vaastav',

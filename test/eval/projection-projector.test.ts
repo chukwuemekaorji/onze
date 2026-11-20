@@ -49,8 +49,8 @@ describe('projectionInputFor', () => {
     const input = projectionInputFor(target, first.history);
 
     expect(input.thisSeason).toHaveLength(0);
-    expect(input.lastSeason).toHaveLength(3);
-    expect(input.lastSeason.every((match) => match.totalPoints === 7)).toBe(true);
+    expect(input.lastSeason.matches).toBe(3);
+    expect(input.lastSeason.points).toBe(21);
   });
 
   it('fails loudly when no last season was loaded', () => {

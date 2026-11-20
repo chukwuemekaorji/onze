@@ -35,6 +35,7 @@ const HISTORY_FIELDS = [
   'expected_goals',
   'expected_assists',
   'expected_goals_conceded',
+  'defensive_contribution',
   'value',
 ];
 const FIXTURE_FIELDS = [

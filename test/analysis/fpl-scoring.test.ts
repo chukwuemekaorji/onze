@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { eventPoints, pointsFromEvents } from '../../lib/analysis/fpl-scoring.js';
+import {
+  defensiveContributionPoints,
+  eventPoints,
+  pointsFromEvents,
+  scoresDefensiveContributions,
+} from '../../lib/analysis/fpl-scoring.js';
 import type { MatchEvents } from '../../lib/analysis/fpl-scoring.js';
 
 function events(overrides: Partial<MatchEvents> = {}): MatchEvents {
@@ -46,5 +51,22 @@ describe('pointsFromEvents', () => {
       'goalsScored must be a whole number',
     );
     expect(() => pointsFromEvents('MID', events({ saves: 1.5 }))).toThrow('saves');
+  });
+});
+
+describe('defensive contributions', () => {
+  it('scores 2 at 10 for a defender and 12 for a midfielder or forward, never a keeper', () => {
+    expect(defensiveContributionPoints('DEF', 10)).toBe(2);
+    expect(defensiveContributionPoints('DEF', 9)).toBe(0);
+    expect(defensiveContributionPoints('MID', 11)).toBe(0);
+    expect(defensiveContributionPoints('FWD', 12)).toBe(2);
+    expect(defensiveContributionPoints('GK', 30)).toBe(0);
+  });
+
+  it('gives nothing for a season that did not score them', () => {
+    expect(defensiveContributionPoints('DEF', null)).toBe(0);
+    expect(scoresDefensiveContributions('2024-25')).toBe(false);
+    expect(scoresDefensiveContributions('2025-26')).toBe(true);
+    expect(scoresDefensiveContributions('2026-27')).toBe(true);
   });
 });

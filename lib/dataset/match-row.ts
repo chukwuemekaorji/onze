@@ -1,3 +1,4 @@
+import { scoresDefensiveContributions } from '../analysis/fpl-scoring.js';
 import {
   readBoolean,
   readDifficulty,
@@ -92,6 +93,11 @@ export function readMatchRow(
     expectedGoals: readOptionalNumber(record, 'expected_goals', where),
     expectedAssists: readOptionalNumber(record, 'expected_assists', where),
     expectedGoalsConceded: readOptionalNumber(record, 'expected_goals_conceded', where),
+    // fpl's element-summary backfills old seasons with 0; only a season that
+    // scored the stat keeps it
+    defensiveContribution: scoresDefensiveContributions(season)
+      ? readOptionalInteger(record, 'defensive_contribution', where)
+      : null,
     nowCost: readInteger(record, 'value', where),
     source,
   };
