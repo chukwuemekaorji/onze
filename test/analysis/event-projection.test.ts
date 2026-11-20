@@ -14,6 +14,7 @@ import type {
 } from '../../lib/analysis/event-projection.js';
 import { EVENT_WEIGHTS } from '../../lib/analysis/event-weights.js';
 import { poissonExpectedFloor } from '../../lib/analysis/poisson.js';
+import { expectedDefensiveContributionPoints } from '../../lib/analysis/projection.js';
 import { makeRow } from '../helpers/player-gameweek-row.js';
 
 const LEAGUE: EventLeaguePrior = {
@@ -184,6 +185,53 @@ describe('projectEvents', () => {
 
     expect(nailed.fullGameChance).toBeGreaterThan(0.8);
     expect(nailed.expectedPoints).toBeGreaterThan(benched.expectedPoints);
+  });
+});
+
+describe('projectEvents, defensive contributions', () => {
+  function defender(count: number, season: string): EventInput {
+    return input({
+      season,
+      position: 'DEF',
+      thisSeason: Array.from({ length: 6 }, (_, index) =>
+        makeRow({
+          gameweek: index + 1,
+          position: 'DEF',
+          minutes: 90,
+          starts: 1,
+          defensiveContribution: count,
+        }),
+      ),
+    });
+  }
+
+  it("adds the two-part model's rule-based term to every fixture, outside the fitted breakdown", () => {
+    const scored = defender(14, '2025-26');
+    const projection = projectEvents(scored, SIMPLE);
+    const without = projectEvents(defender(14, '2024-25'), SIMPLE);
+    const term = expectedDefensiveContributionPoints(scored);
+
+    // the league prior here is 0, as in 2025-26, so 6 games at 14 shrink to 8.4 per 90
+    expect(term).toBeGreaterThan(0.5);
+    expect(projection.fixtures[0]?.defensiveContribution).toBeCloseTo(term);
+    expect(projection.fixtures[0]?.points).toEqual(without.fixtures[0]?.points);
+    expect(projection.expectedPoints - without.expectedPoints).toBeCloseTo(
+      projection.chanceOfPlaying * term,
+    );
+  });
+
+  it('adds nothing before 2025-26, for a keeper, or in a blank', () => {
+    expect(
+      projectEvents(defender(14, '2024-25'), SIMPLE).fixtures[0]?.defensiveContribution,
+    ).toBe(0);
+    expect(
+      projectEvents({ ...defender(14, '2025-26'), position: 'GK' }, SIMPLE).fixtures[0]
+        ?.defensiveContribution,
+    ).toBe(0);
+    expect(
+      projectEvents({ ...defender(14, '2025-26'), fixtures: [] }, SIMPLE)
+        .expectedPoints,
+    ).toBe(0);
   });
 });
 

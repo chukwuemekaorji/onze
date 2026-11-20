@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   defensiveContributionPoints,
   eventPoints,
+  otherPoints,
   pointsFromEvents,
   scoresDefensiveContributions,
 } from '../../lib/analysis/fpl-scoring.js';
@@ -68,5 +69,41 @@ describe('defensive contributions', () => {
     expect(scoresDefensiveContributions('2024-25')).toBe(false);
     expect(scoresDefensiveContributions('2025-26')).toBe(true);
     expect(scoresDefensiveContributions('2026-27')).toBe(true);
+  });
+});
+
+describe('otherPoints', () => {
+  const quiet: MatchEvents = {
+    minutes: 90,
+    goalsScored: 0,
+    assists: 0,
+    cleanSheets: 0,
+    goalsConceded: 0,
+    saves: 0,
+    bonus: 0,
+  };
+
+  it('is what the total has beyond the events and defensive contributions', () => {
+    // 2 for 90 minutes, 2 for the count, -1 for a yellow card
+    expect(
+      otherPoints('DEF', { ...quiet, totalPoints: 3, defensiveContribution: 11 }),
+    ).toBe(-1);
+  });
+
+  it('leaves defensive contributions alone in seasons without them', () => {
+    expect(
+      otherPoints('DEF', { ...quiet, totalPoints: 1, defensiveContribution: null }),
+    ).toBe(-1);
+  });
+
+  it('fails on a broken event count', () => {
+    expect(() =>
+      otherPoints('MID', {
+        ...quiet,
+        goalsScored: -1,
+        totalPoints: 2,
+        defensiveContribution: null,
+      }),
+    ).toThrow('whole number');
   });
 });

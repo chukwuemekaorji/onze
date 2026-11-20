@@ -7,6 +7,7 @@ import {
   SAVES_PER_POINT,
   SUB_APPEARANCE_POINTS,
   concedesPoints,
+  scoresDefensiveContributions,
 } from './fpl-scoring.js';
 import type { EventPoints } from './fpl-scoring.js';
 import { poissonExpectedFloor, poissonZero } from './poisson.js';
@@ -15,6 +16,7 @@ import {
   RECENT_APPEARANCES_FOR_XGI,
   appeared,
   dot,
+  expectedDefensiveContributionPoints,
   leaguePriorFrom,
   leagueRatePer90,
   logistic,
@@ -43,7 +45,11 @@ import type { Position } from './types.js';
  * each expected count put through fpl's real scoring rules. goals, assists,
  * goals conceded and saves are poisson (see poisson.ts). the chance of playing
  * is the same model as projection.ts; the rest adds minutes, so that 60+
- * minutes (2 appearance points, clean sheets) is told apart from a cameo
+ * minutes (2 appearance points, clean sheets) is told apart from a cameo.
+ *
+ * defensive contribution points (2025-26 on) were never in the fitted seasons,
+ * so they are projection.ts's rule-based term, added on top for seasons that
+ * score them, and kept out of the fitted breakdown
  */
 
 export interface EventMatchRecord extends MatchRecord {
@@ -138,6 +144,8 @@ export interface FixtureEvents {
   goalsConceded: number;
   saves: number;
   points: PointsBreakdown;
+  /** the rule-based term, outside the fitted breakdown; 0 before 2025-26 */
+  defensiveContribution: number;
   pointsIfPlaying: number;
 }
 
@@ -167,8 +175,18 @@ export function projectEvents(
   const chanceOfPlaying = logistic(dot(weights.chanceOfPlaying, playFeatures(input)));
   const fullGameChance = logistic(dot(weights.fullGame, fullGameFeatures(input)));
   const rates = playerRates(input, weights.finishingStrength);
+  const defensiveContribution = scoresDefensiveContributions(input.season)
+    ? expectedDefensiveContributionPoints(input)
+    : 0;
   const fixtures = input.fixtures.map((fixture) =>
-    fixtureEvents(input.position, fixture, rates, fullGameChance, weights),
+    fixtureEvents(
+      input.position,
+      fixture,
+      rates,
+      fullGameChance,
+      weights,
+      defensiveContribution,
+    ),
   );
   const expectedPoints = fixtures.reduce(
     (sum, fixture) => sum + chanceOfPlaying * fixture.pointsIfPlaying,
@@ -286,6 +304,7 @@ function fixtureEvents(
   rates: PlayerRates,
   fullGameChance: number,
   weights: EventWeights,
+  defensiveContribution: number,
 ): FixtureEvents {
   const { full, short } = weights.minutes;
   const { scales } = weights;
@@ -341,7 +360,9 @@ function fixtureEvents(
     bonus,
     other: weights.otherPoints[position],
   };
-  const pointsIfPlaying = Object.values(points).reduce((sum, value) => sum + value, 0);
+  const pointsIfPlaying =
+    Object.values(points).reduce((sum, value) => sum + value, 0) +
+    defensiveContribution;
   return {
     expectedMinutes,
     goals,
@@ -350,6 +371,7 @@ function fixtureEvents(
     goalsConceded,
     saves,
     points,
+    defensiveContribution,
     pointsIfPlaying,
   };
 }

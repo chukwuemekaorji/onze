@@ -101,7 +101,7 @@ export function blendProjector(
     id: 'blend',
     label,
     describe:
-      'w x the two-part model + (1 - w) x the event model, w chosen out of fold',
+      'w x the two-part model + (1 - w) x the event model, w chosen on the tune seasons, never the season scored',
     project: (target, history) => {
       const a = twoPart.project(target, history);
       const b = event.project(target, history);
@@ -213,6 +213,18 @@ export function decide(differences: Record<DecisionMeasureId, Difference>): Deci
     readings,
     ship: values.includes('better') && !values.includes('worse'),
   };
+}
+
+/**
+ * the final exam's rule: the candidate ships unless it is clearly worse on a
+ * decision measure. a lower bar than decide, as the tune seasons already
+ * showed the gain; the test season only has to not contradict it
+ */
+export function decideNotWorse(
+  differences: Record<DecisionMeasureId, Difference>,
+): Decision {
+  const { readings } = decide(differences);
+  return { readings, ship: !Object.values(readings).includes('worse') };
 }
 
 /** a model's scored gameweeks, on the harness metrics and the haul measures */

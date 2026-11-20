@@ -1,6 +1,6 @@
 import { projectEvents } from '../analysis/event-projection.js';
 import type { EventWeights, PointsBreakdown } from '../analysis/event-projection.js';
-import { eventPoints, pointsFromEvents } from '../analysis/fpl-scoring.js';
+import { eventPoints, otherPoints } from '../analysis/fpl-scoring.js';
 import type { Position } from '../analysis/types.js';
 import type { PlayerGameweekRow } from '../dataset/player-gameweek.js';
 import { eventInputFor } from './event-projector.js';
@@ -75,7 +75,7 @@ function addFold(
         if (row.minutes === 0) return;
         const actual: PointsBreakdown = {
           ...eventPoints(target.position, row),
-          other: row.totalPoints - pointsFromEvents(target.position, row),
+          other: otherPoints(target.position, row),
         };
         const total = totals[target.position];
         total.appearances += 1;

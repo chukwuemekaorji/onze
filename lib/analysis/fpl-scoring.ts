@@ -1,10 +1,10 @@
 import type { Position } from './types.js';
 
 /**
- * fpl's scoring rules. the event model (event-projection.ts) uses the rules of
- * the seasons it was fitted on, 2022-23 to 2024-25. 2025-26 added defensive
- * contribution points; those are the separate rule below, used by the live
- * projection for the seasons that score them
+ * fpl's scoring rules. eventPoints is the rules of the seasons the models were
+ * fitted on, 2022-23 to 2024-25. 2025-26 added defensive contribution points;
+ * those are the separate rule below, which both projection models add on top
+ * for the seasons that score them
  */
 
 export const GOAL_POINTS: Record<Position, number> = { GK: 6, DEF: 6, MID: 5, FWD: 4 };
@@ -97,8 +97,9 @@ export function eventPoints(position: Position, events: MatchEvents): EventPoint
 }
 
 /**
- * the total of eventPoints. what's left of totalPoints after this is cards,
- * own goals and penalties saved or missed, which the data doesn't split out
+ * the total of eventPoints. what's left of totalPoints after this and any
+ * defensive contribution points is cards, own goals and penalties saved or
+ * missed, which the data doesn't split out
  */
 export function pointsFromEvents(position: Position, events: MatchEvents): number {
   return Object.values(eventPoints(position, events)).reduce(
@@ -133,4 +134,16 @@ export function defensiveContributionPoints(
   const threshold = DEFENSIVE_CONTRIBUTION_THRESHOLD[position];
   if (count === null || threshold === null) return 0;
   return count >= threshold ? DEFENSIVE_CONTRIBUTION_POINTS : 0;
+}
+
+/** cards, own goals and penalties: what a match's total has beyond the scored events */
+export function otherPoints(
+  position: Position,
+  match: MatchEvents & { totalPoints: number; defensiveContribution: number | null },
+): number {
+  return (
+    match.totalPoints -
+    pointsFromEvents(position, match) -
+    defensiveContributionPoints(position, match.defensiveContribution)
+  );
 }

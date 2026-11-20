@@ -40,3 +40,17 @@ export function assertTuneSeasons(
     }
   }
 }
+
+export type TestSeason = (typeof EVAL_SPLITS.test)[number];
+
+/**
+ * the one way into the test season: the final exam script. everything it
+ * scores must already be fitted on the tune seasons
+ */
+export function assertTestSeason(season: string): asserts season is TestSeason {
+  if (!(EVAL_SPLITS.test as readonly string[]).includes(season)) {
+    throw new Error(
+      `${season} is not the test season (${EVAL_SPLITS.test.join(', ')})`,
+    );
+  }
+}

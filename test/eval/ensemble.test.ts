@@ -8,6 +8,7 @@ import {
   bestBlendWeightsByPosition,
   blendProjector,
   decide,
+  decideNotWorse,
   decisionDifferences,
   memoised,
   readDifference,
@@ -258,5 +259,30 @@ describe('decide', () => {
       decide({ topFive: unclear, haulsShortlisted: unclear, captainRegret: unclear })
         .ship,
     ).toBe(false);
+  });
+});
+
+describe('decideNotWorse', () => {
+  const unclear = difference(-1, 1);
+
+  it('ships when nothing is clearly worse, even with no clear win', () => {
+    expect(
+      decideNotWorse({
+        topFive: unclear,
+        haulsShortlisted: unclear,
+        captainRegret: unclear,
+      }).ship,
+    ).toBe(true);
+  });
+
+  it('does not ship when any one measure is clearly worse', () => {
+    const decision = decideNotWorse({
+      topFive: difference(0.2, 0.6),
+      haulsShortlisted: difference(-0.05, -0.01),
+      captainRegret: unclear,
+    });
+
+    expect(decision.ship).toBe(false);
+    expect(decision.readings.haulsShortlisted).toBe('worse');
   });
 });

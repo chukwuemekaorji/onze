@@ -5,6 +5,7 @@ import { buildGameweekCases } from '../../lib/eval/snapshot.js';
 import {
   EVAL_SPLITS,
   LockedSeasonError,
+  assertTestSeason,
   assertTuneSeasons,
 } from '../../lib/eval/splits.js';
 import { makeRow } from '../helpers/player-gameweek-row.js';
@@ -67,5 +68,11 @@ describe('splits', () => {
     expect(() => assertTuneSeasons([...EVAL_SPLITS.tune])).not.toThrow();
     expect(() => assertTuneSeasons(['2025-26'])).toThrow(LockedSeasonError);
     expect(() => assertTuneSeasons(['2026-27'])).toThrow('not a tune season');
+  });
+
+  it('lets only the test season into the final exam', () => {
+    expect(() => assertTestSeason('2025-26')).not.toThrow();
+    expect(() => assertTestSeason('2024-25')).toThrow('not the test season');
+    expect(() => assertTestSeason('2026-27')).toThrow('not the test season');
   });
 });

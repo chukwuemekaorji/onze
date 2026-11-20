@@ -24,7 +24,7 @@ import type {
 import {
   FULL_APPEARANCE_MINUTES,
   concedesPoints,
-  pointsFromEvents,
+  otherPoints,
 } from '../analysis/fpl-scoring.js';
 import { poissonZero } from '../analysis/poisson.js';
 import { PLAY_FEATURES, playFeatures } from '../analysis/projection.js';
@@ -238,10 +238,7 @@ export function eventTrainingSet(
             cleanSheet: row.cleanSheets,
           },
         });
-        add(
-          set.other[target.position],
-          row.totalPoints - pointsFromEvents(target.position, row),
-        );
+        add(set.other[target.position], otherPoints(target.position, row));
       });
     }
   }

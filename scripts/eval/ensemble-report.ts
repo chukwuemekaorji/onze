@@ -221,7 +221,7 @@ function weightsTable(folds: readonly FoldWeights[]): string {
   );
 }
 
-function readingCell(
+export function readingCell(
   difference: Difference,
   reading: Reading,
   id: DecisionMeasureId,
@@ -246,7 +246,7 @@ function scaled(difference: Difference, factor: number): Difference {
   };
 }
 
-function signed(difference: Difference, unit: string): string {
+export function signed(difference: Difference, unit: string): string {
   const decimals = unit === '' ? 2 : 1;
   const sign = (value: number) =>
     `${value >= 0 ? '+' : '-'}${Math.abs(value).toFixed(decimals)}${unit}`;
@@ -257,7 +257,7 @@ function signed(difference: Difference, unit: string): string {
     : `${sign(difference.value)} [${sign(interval.low)}, ${sign(interval.high)}]`;
 }
 
-function percentCell(
+export function percentCell(
   summary: { value: number | null; interval: Interval | null } | undefined,
 ): string {
   if (summary === undefined || summary.value === null) return 'n/a';
@@ -268,7 +268,7 @@ function percentCell(
     : `${percent(summary.value)} [${percent(interval.low)}, ${percent(interval.high)}]`;
 }
 
-function valueCell(
+export function valueCell(
   summary: { value: number | null; interval: Interval | null } | undefined,
 ): string {
   if (summary === undefined || summary.value === null) return 'n/a';
