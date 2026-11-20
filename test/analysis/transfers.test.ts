@@ -3,15 +3,16 @@ import {
   analyzeTransfers,
   isAvailableToBuy,
   MAX_PLAYERS_PER_CLUB,
+  ROTATION_RISK_CHANCE,
 } from '../../lib/analysis/transfers.js';
-import { makePlayer, makeSquadContext } from '../helpers/fixtures.js';
+import { makePlayer, makeProjection, makeSquadContext } from '../helpers/fixtures.js';
 
 describe('analyzeTransfers', () => {
   it('flags a poor-form squad player and ranks affordable replacements', () => {
     const weak = makePlayer({
       id: 1,
       form: 1,
-      epNext: 1,
+      projection: makeProjection({ points: 1 }),
       nowCost: 50,
       position: 'MID',
     });
@@ -20,21 +21,21 @@ describe('analyzeTransfers', () => {
     const goodReplacement = makePlayer({
       id: 2,
       form: 8,
-      epNext: 8,
+      projection: makeProjection({ points: 8 }),
       nowCost: 55,
       position: 'MID',
     });
     const tooExpensive = makePlayer({
       id: 3,
       form: 9,
-      epNext: 9,
+      projection: makeProjection({ points: 9 }),
       nowCost: 100,
       position: 'MID',
     });
     const wrongPosition = makePlayer({
       id: 4,
       form: 9,
-      epNext: 9,
+      projection: makeProjection({ points: 9 }),
       nowCost: 50,
       position: 'FWD',
     });
@@ -79,7 +80,7 @@ describe('analyzeTransfers', () => {
     const strong = makePlayer({
       id: 1,
       form: 9,
-      epNext: 9,
+      projection: makeProjection({ points: 9 }),
       chanceOfPlayingNextRound: 100,
     });
     const squad = makeSquadContext({ squad: [strong] });
@@ -93,7 +94,7 @@ describe('analyzeTransfers', () => {
     const weak = makePlayer({
       id: 1,
       form: 1,
-      epNext: 5,
+      projection: makeProjection({ points: 5 }),
       nowCost: 50,
       position: 'MID',
     });
@@ -102,7 +103,7 @@ describe('analyzeTransfers', () => {
     const smallUpgrade = makePlayer({
       id: 2,
       form: 8,
-      epNext: 7, // only +2, not worth a 4-point hit
+      projection: makeProjection({ points: 7 }), // only +2, not worth a 4-point hit
       nowCost: 50,
       position: 'MID',
     });
@@ -120,7 +121,7 @@ describe('analyzeTransfers', () => {
     const weak = makePlayer({
       id: 1,
       form: 1,
-      epNext: 2,
+      projection: makeProjection({ points: 2 }),
       nowCost: 50,
       position: 'MID',
     });
@@ -129,7 +130,7 @@ describe('analyzeTransfers', () => {
     const bigUpgrade = makePlayer({
       id: 2,
       form: 9,
-      epNext: 10, // +8 clears the 4-point hit
+      projection: makeProjection({ points: 10 }), // +8 clears the 4-point hit
       nowCost: 50,
       position: 'MID',
     });
@@ -145,7 +146,7 @@ describe('analyzeTransfers', () => {
     const weak = makePlayer({
       id: 1,
       form: 1,
-      epNext: 2,
+      projection: makeProjection({ points: 2 }),
       nowCost: 50,
       position: 'MID',
     });
@@ -154,7 +155,7 @@ describe('analyzeTransfers', () => {
     const bigUpgrade = makePlayer({
       id: 2,
       form: 9,
-      epNext: 10, // +8 would normally clear the hit
+      projection: makeProjection({ points: 10 }), // +8 would normally clear the hit
       nowCost: 50,
       position: 'MID',
     });
@@ -170,7 +171,7 @@ describe('analyzeTransfers', () => {
     const weak = makePlayer({
       id: 1,
       form: 1,
-      epNext: 2,
+      projection: makeProjection({ points: 2 }),
       nowCost: 50,
       position: 'MID',
     });
@@ -179,7 +180,7 @@ describe('analyzeTransfers', () => {
     const goodReplacement = makePlayer({
       id: 2,
       form: 8,
-      epNext: 8,
+      projection: makeProjection({ points: 8 }),
       nowCost: 55,
       position: 'MID',
     });
@@ -196,12 +197,24 @@ describe('analyzeTransfers', () => {
     // five +5 swaps is +25 for -16, net +9 on paper, but stacking hits is a
     // gamble, so at most one hit is ever recommended
     const weakLinks = [1, 2, 3, 4, 5].map((id) =>
-      makePlayer({ id, form: 1, epNext: 2, nowCost: 50, position: 'MID' }),
+      makePlayer({
+        id,
+        form: 1,
+        projection: makeProjection({ points: 2 }),
+        nowCost: 50,
+        position: 'MID',
+      }),
     );
     const squad = makeSquadContext({ squad: weakLinks, bank: 100, freeTransfers: 0 });
 
     const replacements = [6, 7, 8, 9, 10].map((id) =>
-      makePlayer({ id, form: 8, epNext: 7, nowCost: 50, position: 'MID' }),
+      makePlayer({
+        id,
+        form: 8,
+        projection: makeProjection({ points: 7 }),
+        nowCost: 50,
+        position: 'MID',
+      }),
     );
 
     const result = analyzeTransfers(squad, replacements);
@@ -215,7 +228,7 @@ describe('analyzeTransfers', () => {
     const weak = makePlayer({
       id: 1,
       form: 1,
-      epNext: 2,
+      projection: makeProjection({ points: 2 }),
       nowCost: 50,
       position: 'MID',
     });
@@ -223,7 +236,7 @@ describe('analyzeTransfers', () => {
     const thinUpgrade = makePlayer({
       id: 2,
       form: 8,
-      epNext: 7,
+      projection: makeProjection({ points: 7 }),
       nowCost: 50,
       position: 'MID',
     });
@@ -238,14 +251,14 @@ describe('analyzeTransfers', () => {
     const weakOne = makePlayer({
       id: 1,
       form: 1,
-      epNext: 2,
+      projection: makeProjection({ points: 2 }),
       nowCost: 50,
       position: 'MID',
     });
     const weakTwo = makePlayer({
       id: 2,
       form: 1,
-      epNext: 3,
+      projection: makeProjection({ points: 3 }),
       nowCost: 45,
       position: 'DEF',
     });
@@ -258,14 +271,14 @@ describe('analyzeTransfers', () => {
     const replacementOne = makePlayer({
       id: 3,
       form: 8,
-      epNext: 7,
+      projection: makeProjection({ points: 7 }),
       nowCost: 55,
       position: 'MID',
     });
     const replacementTwo = makePlayer({
       id: 4,
       form: 8,
-      epNext: 6,
+      projection: makeProjection({ points: 6 }),
       nowCost: 50,
       position: 'DEF',
     });
@@ -286,7 +299,7 @@ describe('analyzeTransfers', () => {
     const weak = makePlayer({
       id: 1,
       form: 1,
-      epNext: 1,
+      projection: makeProjection({ points: 1 }),
       nowCost: 50,
       position: 'MID',
     });
@@ -296,21 +309,21 @@ describe('analyzeTransfers', () => {
       const injured = makePlayer({
         id: 2,
         form: 9,
-        epNext: 9,
+        projection: makeProjection({ points: 9 }),
         status: 'i',
         chanceOfPlayingNextRound: 0,
       });
       const doubtful = makePlayer({
         id: 3,
         form: 9,
-        epNext: 9,
+        projection: makeProjection({ points: 9 }),
         status: 'd',
         chanceOfPlayingNextRound: 75,
       });
       const fit = makePlayer({
         id: 4,
         form: 6,
-        epNext: 6,
+        projection: makeProjection({ points: 6 }),
         status: 'a',
         chanceOfPlayingNextRound: null,
       });
@@ -338,7 +351,12 @@ describe('analyzeTransfers', () => {
     });
 
     it('recommends nothing when every upgrade is unavailable', () => {
-      const suspended = makePlayer({ id: 2, form: 9, epNext: 9, status: 's' });
+      const suspended = makePlayer({
+        id: 2,
+        form: 9,
+        projection: makeProjection({ points: 9 }),
+        status: 's',
+      });
 
       const result = analyzeTransfers(squad, [suspended]);
 
@@ -357,7 +375,7 @@ describe('analyzeTransfers', () => {
           id,
           teamId: CLUB,
           form: 9,
-          epNext: 9,
+          projection: makeProjection({ points: 9 }),
           chanceOfPlayingNextRound: 100,
         }),
       );
@@ -365,7 +383,7 @@ describe('analyzeTransfers', () => {
         id: 1,
         teamId: 1,
         form: 1,
-        epNext: 1,
+        projection: makeProjection({ points: 1 }),
         nowCost: 50,
         position: 'MID',
       });
@@ -373,7 +391,7 @@ describe('analyzeTransfers', () => {
         id: 2,
         teamId: 2,
         form: 1,
-        epNext: 2,
+        projection: makeProjection({ points: 2 }),
         nowCost: 50,
         position: 'MID',
       });
@@ -387,21 +405,21 @@ describe('analyzeTransfers', () => {
         id: 20,
         teamId: CLUB,
         form: 9,
-        epNext: 9,
+        projection: makeProjection({ points: 9 }),
         nowCost: 50,
       });
       const clubStarB = makePlayer({
         id: 21,
         teamId: CLUB,
         form: 9,
-        epNext: 8.9,
+        projection: makeProjection({ points: 8.9 }),
         nowCost: 50,
       });
       const elsewhere = makePlayer({
         id: 22,
         teamId: 3,
         form: 7,
-        epNext: 7,
+        projection: makeProjection({ points: 7 }),
         nowCost: 50,
       });
 
@@ -423,7 +441,7 @@ describe('analyzeTransfers', () => {
           id,
           teamId: CLUB,
           form: 9,
-          epNext: 9,
+          projection: makeProjection({ points: 9 }),
           chanceOfPlayingNextRound: 100,
         }),
       );
@@ -431,7 +449,7 @@ describe('analyzeTransfers', () => {
         id: 1,
         teamId: CLUB,
         form: 1,
-        epNext: 1,
+        projection: makeProjection({ points: 1 }),
         nowCost: 50,
         position: 'MID',
       });
@@ -440,7 +458,7 @@ describe('analyzeTransfers', () => {
         id: 20,
         teamId: CLUB,
         form: 9,
-        epNext: 9,
+        projection: makeProjection({ points: 9 }),
         nowCost: 50,
       });
 
@@ -458,7 +476,7 @@ describe('analyzeTransfers', () => {
         id: 1,
         teamId: 1,
         form: 1,
-        epNext: 1,
+        projection: makeProjection({ points: 1 }),
         nowCost: 50,
         position: 'MID',
       });
@@ -466,7 +484,7 @@ describe('analyzeTransfers', () => {
         id: 2,
         teamId: 2,
         form: 1,
-        epNext: 1,
+        projection: makeProjection({ points: 1 }),
         nowCost: 50,
         position: 'MID',
       });
@@ -476,19 +494,25 @@ describe('analyzeTransfers', () => {
         freeTransfers: 2,
       });
 
-      const pricyA = makePlayer({ id: 20, teamId: 3, form: 9, epNext: 9, nowCost: 58 });
+      const pricyA = makePlayer({
+        id: 20,
+        teamId: 3,
+        form: 9,
+        projection: makeProjection({ points: 9 }),
+        nowCost: 58,
+      });
       const pricyB = makePlayer({
         id: 21,
         teamId: 4,
         form: 9,
-        epNext: 8.9,
+        projection: makeProjection({ points: 8.9 }),
         nowCost: 58,
       });
       const cheaper = makePlayer({
         id: 22,
         teamId: 5,
         form: 6,
-        epNext: 6,
+        projection: makeProjection({ points: 6 }),
         nowCost: 52,
       });
 
@@ -507,7 +531,7 @@ describe('analyzeTransfers', () => {
         id: 1,
         teamId: 1,
         form: 1,
-        epNext: 1,
+        projection: makeProjection({ points: 1 }),
         nowCost: 50,
         position: 'MID',
       });
@@ -515,7 +539,7 @@ describe('analyzeTransfers', () => {
         id: 2,
         teamId: 2,
         form: 1,
-        epNext: 1,
+        projection: makeProjection({ points: 1 }),
         nowCost: 50,
         position: 'MID',
       });
@@ -525,12 +549,18 @@ describe('analyzeTransfers', () => {
         freeTransfers: 2,
       });
 
-      const pricyA = makePlayer({ id: 20, teamId: 3, form: 9, epNext: 9, nowCost: 58 });
+      const pricyA = makePlayer({
+        id: 20,
+        teamId: 3,
+        form: 9,
+        projection: makeProjection({ points: 9 }),
+        nowCost: 58,
+      });
       const pricyB = makePlayer({
         id: 21,
         teamId: 4,
         form: 9,
-        epNext: 8.9,
+        projection: makeProjection({ points: 8.9 }),
         nowCost: 58,
       });
 
@@ -547,7 +577,7 @@ describe('analyzeTransfers', () => {
       id: 1,
       teamId: 1,
       form: 1,
-      epNext: 2,
+      projection: makeProjection({ points: 2 }),
       nowCost: 50,
       position: 'MID',
     });
@@ -555,7 +585,7 @@ describe('analyzeTransfers', () => {
       id: 2,
       teamId: 2,
       form: 1.5,
-      epNext: 2,
+      projection: makeProjection({ points: 2 }),
       nowCost: 50,
       position: 'MID',
     });
@@ -565,7 +595,13 @@ describe('analyzeTransfers', () => {
       freeTransfers: 0,
     });
     const pool = [20, 21, 22, 23, 24].map((id) =>
-      makePlayer({ id, teamId: id, form: 5, epNext: 5, nowCost: 50 }),
+      makePlayer({
+        id,
+        teamId: id,
+        form: 5,
+        projection: makeProjection({ points: 5 }),
+        nowCost: 50,
+      }),
     );
 
     const result = analyzeTransfers(squad, pool);
@@ -576,5 +612,67 @@ describe('analyzeTransfers', () => {
     expect(result.recommendedCount).toBe(0);
     expect(result.suggestions).toHaveLength(2);
     expect(new Set(listedIds).size).toBe(listedIds.length);
+  });
+
+  describe("decides on the onze projection, not fpl's ep_next", () => {
+    it("ignores fpl's figure entirely", () => {
+      const weak = makePlayer({
+        id: 1,
+        form: 1,
+        epNext: 1,
+        projection: makeProjection({ points: 2 }),
+      });
+      const squad = makeSquadContext({ squad: [weak], bank: 20 });
+      // fpl rates this one 9, onze 2.5: the gain is onze's +0.5, not fpl's +8
+      const hyped = makePlayer({
+        id: 2,
+        epNext: 9,
+        projection: makeProjection({ points: 2.5 }),
+      });
+
+      const result = analyzeTransfers(squad, [hyped]);
+
+      expect(result.suggestions[0]?.expectedPointsGain).toBeCloseTo(0.5);
+    });
+
+    it('picks by the horizon but shows the gain for the gameweek being planned', () => {
+      const weak = makePlayer({
+        id: 1,
+        form: 1,
+        projection: makeProjection({ points: 2 }),
+      });
+      const squad = makeSquadContext({ squad: [weak], bank: 20 });
+      // a great week now, then two blanks, against a steady three weeks
+      const oneWeek = makePlayer({
+        id: 2,
+        projection: makeProjection({ points: 6, horizonPoints: 6 }),
+      });
+      const steady = makePlayer({
+        id: 3,
+        projection: makeProjection({ points: 5, horizonPoints: 15 }),
+      });
+
+      const result = analyzeTransfers(squad, [oneWeek, steady]);
+
+      expect(result.suggestions[0]?.inCandidates[0]?.id).toBe(3);
+      expect(result.suggestions[0]?.expectedPointsGain).toBeCloseTo(3);
+    });
+
+    it('calls a player the model expects to sit out a rotation risk, with no fpl flag', () => {
+      const benched = makePlayer({
+        id: 1,
+        form: 5,
+        chanceOfPlayingNextRound: null,
+        projection: makeProjection({
+          points: 1,
+          chanceOfPlaying: ROTATION_RISK_CHANCE - 0.1,
+        }),
+      });
+      const squad = makeSquadContext({ squad: [benched], bank: 20 });
+
+      const result = analyzeTransfers(squad, []);
+
+      expect(result.suggestions[0]?.reasonCodes).toEqual(['rotation_risk']);
+    });
   });
 });

@@ -13,7 +13,10 @@ export function CaptaincyPage({ shown, focusTitle }: BinderPageProps) {
 
   return (
     <BinderPage title="Captaincy" focusTitle={focusTitle} className="captaincy-page">
-      <p className="page-lede">The best armband options in your lineup, ranked.</p>
+      <p className="page-lede">
+        The best armband options in your lineup, ranked by the Onze projection for
+        gameweek {summary.currentEvent}.
+      </p>
       <DealtCard cardKey="captain-options" order={0} dealt={false}>
         <PaperCard as="section" className="report-card" aria-label="Captain options">
           {options.length === 0 ? (

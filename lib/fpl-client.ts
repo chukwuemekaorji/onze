@@ -1,5 +1,6 @@
 import type {
   FplBootstrapStatic,
+  FplEventLive,
   FplFixture,
   FplEntry,
   FplEntryPicksResponse,
@@ -11,10 +12,12 @@ export const FPL_BASE_URL = 'https://fantasy.premierleague.com/api';
 export const FPL_USER_AGENT =
   'Onze-FPL-Coach/1.0 (+https://github.com/chukwuemekaorji/onze)';
 
-// only these two are cached: large and rarely change. the rest is per-manager
-// and cheap to fetch fresh.
+// only the shared, large responses are cached: bootstrap, fixtures and each
+// gameweek's live stats (one call per past gameweek for the projection). the
+// rest is per-manager and cheap to fetch fresh.
 const BOOTSTRAP_CACHE_TTL_MS = 10 * 60 * 1000;
 const FIXTURES_CACHE_TTL_MS = 10 * 60 * 1000;
+const EVENT_LIVE_CACHE_TTL_MS = 10 * 60 * 1000;
 
 interface CacheEntry<T> {
   data: T;
@@ -23,6 +26,7 @@ interface CacheEntry<T> {
 
 let bootstrapCache: CacheEntry<FplBootstrapStatic> | null = null;
 let fixturesCache: CacheEntry<FplFixture[]> | null = null;
+const eventLiveCache = new Map<number, CacheEntry<FplEventLive>>();
 
 async function fplFetch<T>(path: string): Promise<T> {
   const response = await fetch(`${FPL_BASE_URL}${path}`, {
@@ -68,6 +72,17 @@ export async function getFixtures(): Promise<FplFixture[]> {
 
   const data = await fplFetch<FplFixture[]>('/fixtures/');
   fixturesCache = { data, expiresAt: now + FIXTURES_CACHE_TTL_MS };
+  return data;
+}
+
+/** every registered player's stats for one gameweek */
+export async function getEventLive(event: number): Promise<FplEventLive> {
+  const now = Date.now();
+  const cached = eventLiveCache.get(event);
+  if (cached && cached.expiresAt > now) return cached.data;
+
+  const data = await fplFetch<FplEventLive>(`/event/${event}/live/`);
+  eventLiveCache.set(event, { data, expiresAt: now + EVENT_LIVE_CACHE_TTL_MS });
   return data;
 }
 

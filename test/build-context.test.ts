@@ -2,8 +2,10 @@ import { describe, it, expect } from 'vitest';
 import {
   buildAnalysisPlayer,
   buildLeagueStandings,
+  buildPlayerPool,
   computeFreeTransfers,
 } from '../lib/build-context.js';
+import { makeProjection } from './helpers/fixtures.js';
 import type {
   FplBootstrapStatic,
   FplClassicLeague,
@@ -154,6 +156,7 @@ describe('buildLeagueStandings', () => {
 function makeElement(overrides: Partial<FplElement> = {}): FplElement {
   return {
     id: 7,
+    code: 7007,
     web_name: 'Jackson',
     first_name: 'Nicolas',
     second_name: 'Jackson',
@@ -185,24 +188,30 @@ const BOOTSTRAP = {
   teams: [{ id: 1, name: 'Aston Villa', short_name: 'AVL' }],
 } as unknown as FplBootstrapStatic;
 
+const PROJECTION = makeProjection({ event: 11 });
+
 describe('buildAnalysisPlayer', () => {
   it("reads form, points per game and fpl's projection as separate numbers", () => {
     const player = buildAnalysisPlayer(
       makeElement({ form: '11.0', points_per_game: '6.0', ep_next: '8.3' }),
       BOOTSTRAP,
       [],
+      PROJECTION,
       { fromEvent: 11 },
     );
     expect(player.form).toBe(11);
     expect(player.pointsPerGame).toBe(6);
     expect(player.epNext).toBe(8.3);
+    // onze's projection rides alongside, never mixed with fpl's figure
+    expect(player.projection).toBe(PROJECTION);
   });
 
   it("keeps fpl's availability status", () => {
     for (const status of ['a', 'd', 'i', 's', 'u', 'n'] as const) {
       expect(
-        buildAnalysisPlayer(makeElement({ status }), BOOTSTRAP, [], { fromEvent: 11 })
-          .status,
+        buildAnalysisPlayer(makeElement({ status }), BOOTSTRAP, [], PROJECTION, {
+          fromEvent: 11,
+        }).status,
       ).toBe(status);
     }
   });
@@ -212,9 +221,25 @@ describe('buildAnalysisPlayer', () => {
       makeElement({ status: 'x', points_per_game: 'n/a' }),
       BOOTSTRAP,
       [],
+      PROJECTION,
       { fromEvent: 11 },
     );
     expect(player.status).toBe('u');
     expect(player.pointsPerGame).toBe(0);
+  });
+});
+
+describe('buildPlayerPool', () => {
+  it('fails loudly when an element has no projection', () => {
+    const bootstrap = { ...BOOTSTRAP, elements: [makeElement()] };
+    expect(() =>
+      buildPlayerPool(bootstrap, [], { fromEvent: 11, projections: new Map() }),
+    ).toThrow('no projection for FPL element 7');
+    expect(
+      buildPlayerPool(bootstrap, [], {
+        fromEvent: 11,
+        projections: new Map([[7, PROJECTION]]),
+      })[0]?.projection,
+    ).toBe(PROJECTION);
   });
 });

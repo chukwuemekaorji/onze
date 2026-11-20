@@ -27,8 +27,13 @@ export interface AnalysisPlayer {
   form: number;
   /** season average, steadier than form */
   pointsPerGame: number;
-  /** fpl's own next-gameweek figure; in practice form scaled by availability */
+  /**
+   * fpl's own next-gameweek figure, in practice form scaled by availability.
+   * kept only to show next to onze's projection; nothing decides on it
+   */
   epNext: number;
+  /** onze's projection, from lib/analysis/projection.ts with fpl's team news applied */
+  projection: PlayerProjection;
   totalPoints: number;
   selectedByPercent: number;
   /** 0-100, or null when fpl reports no fitness doubt */
@@ -39,6 +44,23 @@ export interface AnalysisPlayer {
   transfersOutEvent: number;
   /** soonest first, limited to the next few gameweeks */
   nextFixtures: FixtureDifficulty[];
+}
+
+/** onze's numbers for one player, all for the gameweek being planned unless named */
+export interface PlayerProjection {
+  /** the gameweek these are for */
+  event: number;
+  /** projected points: chance of playing x points if playing, over the gameweek's fixtures */
+  points: number;
+  /** 0 to 1: the model's chance of any minutes, times fpl's team news */
+  chanceOfPlaying: number;
+  /** projected points if he plays, all of the gameweek's fixtures; 0 in a blank */
+  pointsIfPlaying: number;
+  /** the part of pointsIfPlaying from defensive contributions (2025-26 rules on) */
+  defensiveContributionIfPlaying: number;
+  /** projected points over the next horizonEvents gameweeks, for weighing transfers */
+  horizonPoints: number;
+  horizonEvents: number;
 }
 
 export interface SquadPick {

@@ -12,6 +12,29 @@ export interface CoachReport {
   formation: string;
 }
 
+/** how to read and name the numbers; shared with chat so both say the same */
+export const PROJECTION_GUIDE = `Projections: every player has a "projection". It is Onze's own
+projection from Onze's model, not FPL's. "projection.points" is the
+projected points for the gameweek being planned: the chance of playing
+times the points if he plays, summed over that gameweek's fixtures (two
+in a double, none in a blank), with FPL's injury and suspension news
+already applied. "projection.chanceOfPlaying" is 0 to 1;
+"projection.pointsIfPlaying" is points if he plays, of which
+"projection.defensiveContributionIfPlaying" comes from defensive
+contribution points; "projection.horizonPoints" covers the next
+"projection.horizonEvents" gameweeks. Call these "Onze's projection" or
+"projected points" and quote them to one decimal place, never as
+"expected points" and never as FPL's numbers. A short breakdown reads
+well: "85% to play, 6.1 if he plays". "epNext" is FPL's own figure,
+there only for comparison: never base a recommendation on it, and if
+you mention it, name it as FPL's.
+
+Transfer gains ("expectedPointsGain", "projectedNetGain") are
+differences in Onze's projection for the gameweek being planned, and
+the captaincy and lineup scores are the same projection. Weak links
+are ranked over the horizon, so a swap can be picked for the next few
+gameweeks while its gain is shown for this one.`;
+
 export const REPORT_SYSTEM_PROMPT = `${ONZE_PERSONA}
 
 You are writing a gameweek coaching report from a pre-computed data
@@ -28,6 +51,8 @@ left before the deadline when it's relevant (e.g. a price-change alert
 or an unmade transfer), using plain phrasing like "the deadline is
 Saturday" rather than restating raw timestamps.
 
+${PROJECTION_GUIDE}
+
 Transfers: "transfers.suggestions" is ranked best-first by projected
 point gain; "transfers.recommendedCount" says how many of those leading
 entries are actually worth making this gameweek — already weighed
@@ -40,7 +65,7 @@ each of the first recommendedCount suggestions as a decision ("Transfer
 OUT_PLAYER for IN_PLAYER") using real names and prices, not "consider"
 or "you could." If pointsHitCost is greater than 0, say plainly that
 it's worth taking the hit and why (transfers.projectedNetGain is the
-expected points gain after the hit). Any suggestions beyond
+projected points gain after the hit). Any suggestions beyond
 recommendedCount are weak links you're watching but not recommending a
 transfer for yet — mention at most one, briefly, only if it adds real
 value.

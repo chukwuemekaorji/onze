@@ -12,6 +12,7 @@ import {
   priceRows,
   transferRows,
 } from '../web/report-view.js';
+import { makeProjection } from './helpers/fixtures.js';
 
 const EVENT = 12;
 
@@ -30,6 +31,7 @@ function player(
     form: 5,
     pointsPerGame: 5,
     epNext: 5,
+    projection: makeProjection({ event: EVENT }),
     totalPoints: 50,
     selectedByPercent: 10,
     chanceOfPlayingNextRound: null,
@@ -75,6 +77,19 @@ const LEADING: AnalysisSummary['leagueStandings'] = [
 ];
 
 describe('transferRows', () => {
+  it('shows the two onze projections behind each gain', () => {
+    const [row] = transferRows({
+      suggestions: [suggestion('Mitoma', 'Mbeumo', 2)],
+      recommendedCount: 1,
+      freeTransfers: 1,
+      pointsHitCost: 0,
+      projectedNetGain: 2,
+    });
+    expect(row?.projectionNote).toBe(
+      'Onze projection: Mbeumo 5.0 (90% to play, 5.6 if he plays), Mitoma 5.0 (90% to play, 5.6 if he plays)',
+    );
+  });
+
   it('lists every suggestion: free first, then a hit, then the ones to skip', () => {
     const rows = transferRows(
       transfers({
@@ -146,7 +161,7 @@ describe('hitAdvice', () => {
       leagueStandings: NOT_LEADING,
     });
     expect(advice).toMatch(
-      /^The -4 is worth it: Mitoma for Mbeumo gains about 7\.0 pts/,
+      /^The -4 is worth it: Mitoma for Mbeumo gains about 7\.0 projected pts/,
     );
   });
 
@@ -162,7 +177,7 @@ describe('hitAdvice', () => {
       leagueStandings: NOT_LEADING,
     });
     expect(advice).toBe(
-      "A -4 for Mitoma isn't worth it: the swap gains about 4.5 pts, short of the 6 needed to beat the hit with a margin.",
+      "A -4 for Mitoma isn't worth it: the swap gains about 4.5 projected pts, short of the 6 needed to beat the hit with a margin.",
     );
   });
 
@@ -225,36 +240,30 @@ describe('captainOptions', () => {
     expect(options[0]?.fixture).toBe('LIV (H)');
   });
 
-  it('gives form and points per game, never the same number twice', () => {
-    const jackson = player('N.Jackson', { form: 11, epNext: 11, pointsPerGame: 6 });
-    const [option] = captainOptions(
-      {
-        captain: { player: jackson, score: 15 },
-        viceCaptain: null,
-        candidates: [{ player: jackson, score: 15 }],
-      },
-      EVENT,
-    );
-    expect(option?.reason).toBe('form 11.0 · 6.0 per game');
-    expect(option?.projected).toBeNull();
-  });
-
-  it('adds the projection only when it differs from form, as with a fitness doubt', () => {
-    const doubtful = player('Calvert-Lewin', {
-      form: 2,
-      epNext: 1.5,
-      pointsPerGame: 3.9,
+  it("leads with the onze projection and its breakdown, fpl's own figure last", () => {
+    const jackson = player('N.Jackson', {
+      form: 11,
+      epNext: 11,
+      projection: makeProjection({
+        event: EVENT,
+        points: 4.2,
+        chanceOfPlaying: 0.8,
+        pointsIfPlaying: 5.2,
+      }),
     });
     const [option] = captainOptions(
       {
-        captain: { player: doubtful, score: 5 },
+        captain: { player: jackson, score: 4.2 },
         viceCaptain: null,
-        candidates: [{ player: doubtful, score: 5 }],
+        candidates: [{ player: jackson, score: 4.2 }],
       },
       EVENT,
     );
-    expect(option?.reason).toBe('form 2.0 · 3.9 per game · 1.5 projected');
-    expect(option?.projected).toBe(1.5);
+    expect(option?.reason).toBe(
+      "Onze projection 4.2 · 80% to play, 5.2 if he plays · FPL's own 11.0",
+    );
+    expect(option?.projected).toBe(4.2);
+    expect(option?.fplExpected).toBe(11);
   });
 
   it('returns nothing without candidates', () => {

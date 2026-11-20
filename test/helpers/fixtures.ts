@@ -1,6 +1,28 @@
-import type { AnalysisPlayer, SquadContext } from '../../lib/analysis/types.js';
+import type {
+  AnalysisPlayer,
+  PlayerProjection,
+  SquadContext,
+} from '../../lib/analysis/types.js';
 
 let nextId = 1;
+
+/** a projection for gameweek 1, the default fixture's gameweek */
+export function makeProjection(
+  overrides: Partial<PlayerProjection> = {},
+): PlayerProjection {
+  const points = overrides.points ?? 5;
+  return {
+    event: 1,
+    points,
+    chanceOfPlaying: 0.9,
+    pointsIfPlaying: points / 0.9,
+    defensiveContributionIfPlaying: 0,
+    // the same every week unless a test says otherwise
+    horizonPoints: points * 3,
+    horizonEvents: 3,
+    ...overrides,
+  };
+}
 
 export function makePlayer(overrides: Partial<AnalysisPlayer> = {}): AnalysisPlayer {
   const id = overrides.id ?? nextId++;
@@ -14,6 +36,7 @@ export function makePlayer(overrides: Partial<AnalysisPlayer> = {}): AnalysisPla
     form: 5,
     pointsPerGame: 5,
     epNext: 5,
+    projection: makeProjection(),
     totalPoints: 50,
     selectedByPercent: 10,
     chanceOfPlayingNextRound: null,

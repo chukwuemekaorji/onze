@@ -34,6 +34,8 @@ export interface FplElementType {
 
 export interface FplElement {
   id: number;
+  /** stable across seasons, unlike id; joins a player to last season */
+  code: number;
   web_name: string;
   first_name: string;
   second_name: string;
@@ -71,6 +73,8 @@ export interface FplFixture {
   team_h_difficulty: number;
   team_a_difficulty: number;
   finished: boolean;
+  /** set at full time; finished waits for bonus to be confirmed */
+  finished_provisional: boolean;
   kickoff_time: string | null;
 }
 
@@ -135,4 +139,32 @@ export interface FplEntryHistoryResponse {
     event_transfers_cost: number;
   }>;
   chips: FplEntryHistoryChip[];
+}
+
+/** one gameweek's stats for every player registered at the time */
+export interface FplEventLive {
+  elements: FplLiveElement[];
+}
+
+export interface FplLiveElement {
+  id: number;
+  /** summed over the gameweek's fixtures */
+  stats: FplLiveStats;
+  /** one entry per fixture the player's team played, even with 0 minutes */
+  explain: FplLiveExplain[];
+}
+
+export interface FplLiveStats {
+  minutes: number;
+  starts: number;
+  total_points: number;
+  /** sent as strings, like "0.45" */
+  expected_goals: string;
+  expected_assists: string;
+  defensive_contribution: number;
+}
+
+export interface FplLiveExplain {
+  fixture: number;
+  stats: { identifier: string; points: number; value: number }[];
 }

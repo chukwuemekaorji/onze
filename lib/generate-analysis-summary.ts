@@ -6,6 +6,7 @@ import {
   getEntry,
   getEntryPicks,
   getEntryHistory,
+  getEventLive,
 } from './fpl-client.js';
 import {
   buildPlayerPool,
@@ -13,7 +14,12 @@ import {
   buildLeagueStandings,
   applyRecommendedTransfers,
   computeFreeTransfers,
+  toPlayerStatus,
 } from './build-context.js';
+import { buildMatchHistory } from './build-match-history.js';
+import { buildPlayerProjections } from './build-projections.js';
+import { PROJECTION_WEIGHTS } from './analysis/projection-weights.js';
+import { LAST_SEASON_PRIOR } from './projection-prior.js';
 import { analyzeTransfers } from './analysis/transfers.js';
 import { analyzeCaptaincy } from './analysis/captaincy.js';
 import { analyzeChips } from './analysis/chips.js';
@@ -23,6 +29,8 @@ import { analyzeLineup } from './analysis/lineup.js';
 import type { AnalysisSummary } from './analysis-summary.js';
 
 const LOOKAHEAD_EVENTS = 5;
+// transfers are weighed over this many gameweeks, the planned one first
+const PROJECTION_HORIZON_EVENTS = 3;
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
 
 // fpl's chip codes as they appear in /entry/{id}/history/
@@ -73,15 +81,37 @@ export async function generateAnalysisSummary(
   const picksEventInfo = bootstrap.events.find((e) => e.id === picksEvent);
   const followingEventInfo = bootstrap.events.find((e) => e.id === planningEvent + 1);
 
-  const [entry, picks, history] = await Promise.all([
+  // every gameweek before the planned one has passed its deadline; its live
+  // stats are the season so far, one call each
+  const pastEvents = bootstrap.events
+    .filter((e) => e.id < planningEvent)
+    .map((e) => e.id);
+  const [entry, picks, history, pastLive] = await Promise.all([
     getEntry(managerId),
     getEntryPicks(managerId, picksEvent),
     getEntryHistory(managerId),
+    Promise.all(
+      pastEvents.map(async (event) => ({ event, live: await getEventLive(event) })),
+    ),
   ]);
 
+  const projections = buildPlayerProjections(
+    bootstrap,
+    fixtures,
+    (element) => toPlayerStatus(element.status),
+    {
+      event: planningEvent,
+      deadline: planningEventInfo?.deadline_time ?? new Date(now).toISOString(),
+      horizonEvents: PROJECTION_HORIZON_EVENTS,
+      history: buildMatchHistory(pastLive, fixtures),
+      prior: LAST_SEASON_PRIOR,
+      weights: PROJECTION_WEIGHTS,
+    },
+  );
   const playerPool = buildPlayerPool(bootstrap, fixtures, {
     fromEvent: planningEvent,
     lookaheadEvents: LOOKAHEAD_EVENTS,
+    projections,
   });
   const freeTransfers = computeFreeTransfers(history, planningEvent);
   const squad = buildSquadContext(

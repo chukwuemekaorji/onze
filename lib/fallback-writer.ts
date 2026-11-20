@@ -8,6 +8,7 @@ import type { CoachReport } from './coach-prompt.js';
 import type { TransferReasonCode } from './analysis/transfers.js';
 import type { ChipName } from './analysis/chips.js';
 import type { LineupPlayer } from './analysis/lineup.js';
+import type { PlayerProjection } from './analysis/types.js';
 import { notableLeague } from './analysis/leagues.js';
 
 const REASON_CODE_TEXT: Record<TransferReasonCode, string> = {
@@ -23,6 +24,15 @@ const CHIP_LABEL: Record<ChipName, string> = {
   free_hit: 'Free Hit',
   triple_captain: 'Triple Captain',
 };
+
+// onze's own projection, never fpl's: named that way wherever it's quoted
+function describeProjection(projection: PlayerProjection): string {
+  return (
+    `Onze projection ${projection.points.toFixed(1)}: ` +
+    `${Math.round(projection.chanceOfPlaying * 100)}% to play, ` +
+    `${projection.pointsIfPlaying.toFixed(1)} if he plays`
+  );
+}
 
 function formatMoney(tenths: number): string {
   return `£${(tenths / 10).toFixed(1)}m`;
@@ -85,7 +95,9 @@ function describeSuggestion(
   return (
     `Transfer out ${suggestion.outPlayer.webName} ` +
     `(${formatMoney(suggestion.outPlayer.nowCost)}, ${reasons}) for ` +
-    `${replacement.webName} (${formatMoney(replacement.nowCost)}).`
+    `${replacement.webName} (${formatMoney(replacement.nowCost)}), ` +
+    `+${suggestion.expectedPointsGain.toFixed(1)} on the Onze projection this gameweek ` +
+    `(${describeProjection(replacement.projection)}).`
   );
 }
 
@@ -113,7 +125,7 @@ function writeCaptaincy(summary: AnalysisSummary): string {
     return 'No eligible captaincy candidates found in your starting XI.';
   }
   const viceText = viceCaptain ? viceCaptain.player.webName : 'no clear second option';
-  return `Captain ${captain.player.webName}, with ${viceText} as vice.`;
+  return `Captain ${captain.player.webName} (${describeProjection(captain.player.projection)}), with ${viceText} as vice.`;
 }
 
 function writeChips(summary: AnalysisSummary): string {

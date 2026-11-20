@@ -8,7 +8,10 @@ export interface TransferSuggestion {
   reasonCodes: TransferReasonCode[];
   /** best first, capped to a handful */
   inCandidates: AnalysisPlayer[];
-  /** ep_next gain before any hit; 0 when nothing affordable exists */
+  /**
+   * gain in onze's projection for the gameweek being planned, before any hit;
+   * 0 when nothing affordable exists
+   */
   expectedPointsGain: number;
 }
 
@@ -25,22 +28,12 @@ export interface TransfersAnalysis {
   projectedNetGain: number;
 }
 
-const FORM_WEIGHT = 2;
-const FIXTURE_DIFFICULTY_WEIGHT = 1.5;
-const EP_NEXT_WEIGHT = 1;
-
 export const POINTS_PER_HIT = 4;
 
-// ep_next is a one-week estimate, so stacking hits stacks risk. allow one hit
-// at most, and only when the gain clears the cost by a margin.
+// the gain is next gameweek's projection, so stacking hits stacks risk. allow
+// one hit at most, and only when the gain clears the cost by a margin.
 const MAX_HITS_PER_WEEK = 1;
 export const HIT_SAFETY_MARGIN = 2;
-
-// fpl gives 0-100, or null when there's no doubt (treated as 100)
-function rotationRiskPenalty(player: AnalysisPlayer): number {
-  if (player.chanceOfPlayingNextRound === null) return 0;
-  return (100 - player.chanceOfPlayingNextRound) / 10;
-}
 
 function avgFixtureDifficulty(player: AnalysisPlayer): number {
   if (player.nextFixtures.length === 0) return 3; // neutral when unknown
@@ -48,15 +41,21 @@ function avgFixtureDifficulty(player: AnalysisPlayer): number {
   return sum / player.nextFixtures.length;
 }
 
-/** higher means keep, lower means sell */
+/**
+ * higher means keep, lower means sell: onze's projection over the next few
+ * gameweeks, so one kind fixture doesn't decide who to buy. the gain shown is
+ * still next gameweek's alone: the horizon picks who, the week decides whether
+ */
 export function scorePlayer(player: AnalysisPlayer): number {
-  return (
-    player.form * FORM_WEIGHT -
-    avgFixtureDifficulty(player) * FIXTURE_DIFFICULTY_WEIGHT +
-    player.epNext * EP_NEXT_WEIGHT -
-    rotationRiskPenalty(player)
-  );
+  return player.projection.horizonPoints;
 }
+
+function gameweekGain(inPlayer: AnalysisPlayer, outPlayer: AnalysisPlayer): number {
+  return inPlayer.projection.points - outPlayer.projection.points;
+}
+
+// below this chance of any minutes, onze calls it rotation risk even without fpl news
+export const ROTATION_RISK_CHANCE = 0.6;
 
 function reasonCodesFor(player: AnalysisPlayer): TransferReasonCode[] {
   const codes: TransferReasonCode[] = [];
@@ -64,11 +63,16 @@ function reasonCodesFor(player: AnalysisPlayer): TransferReasonCode[] {
   if (avgFixtureDifficulty(player) >= 4) codes.push('difficult_fixtures');
   if (
     player.chanceOfPlayingNextRound !== null &&
-    player.chanceOfPlayingNextRound < 75
+    player.chanceOfPlayingNextRound <= 25
   ) {
-    codes.push(
-      player.chanceOfPlayingNextRound <= 25 ? 'injury_doubt' : 'rotation_risk',
-    );
+    codes.push('injury_doubt');
+  } else if (
+    (player.chanceOfPlayingNextRound !== null &&
+      player.chanceOfPlayingNextRound < 75) ||
+    // the model reads recent minutes, so it sees a benching fpl has no flag for
+    player.projection.chanceOfPlaying < ROTATION_RISK_CHANCE
+  ) {
+    codes.push('rotation_risk');
   }
   return codes;
 }
@@ -200,7 +204,7 @@ export function analyzeTransfers(
   const startState = stateOf(squad);
   const firstLookGain = (outPlayer: AnalysisPlayer) => {
     const best = rankedFor(outPlayer).find((c) => canBuy(c, outPlayer, startState));
-    return best ? best.epNext - outPlayer.epNext : 0;
+    return best ? gameweekGain(best, outPlayer) : 0;
   };
   const byGain = weakLinks
     .map((link) => ({ ...link, gain: firstLookGain(link.outPlayer) }))
@@ -216,7 +220,7 @@ export function analyzeTransfers(
     const replacement = rankedFor(outPlayer).find(
       (c) => !bought.has(c.id) && canBuy(c, outPlayer, running),
     );
-    if (!replacement || replacement.epNext - outPlayer.epNext <= 0) continue;
+    if (!replacement || gameweekGain(replacement, outPlayer) <= 0) continue;
     applySwap(running, outPlayer, replacement);
     bought.add(replacement.id);
     actionable.push({
@@ -224,7 +228,7 @@ export function analyzeTransfers(
       reasonCodes,
       // one candidate only, or the writer may pick the same player twice
       inCandidates: [replacement],
-      expectedPointsGain: replacement.epNext - outPlayer.epNext,
+      expectedPointsGain: gameweekGain(replacement, outPlayer),
     });
   }
 
@@ -256,7 +260,7 @@ export function analyzeTransfers(
         outPlayer,
         reasonCodes,
         inCandidates,
-        expectedPointsGain: best ? best.epNext - outPlayer.epNext : 0,
+        expectedPointsGain: best ? gameweekGain(best, outPlayer) : 0,
       };
     });
 

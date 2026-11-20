@@ -16,6 +16,7 @@ function fixture(overrides: Partial<FplFixture>): FplFixture {
     team_h_difficulty: 3,
     team_a_difficulty: 3,
     finished: false,
+    finished_provisional: false,
     kickoff_time: null,
     ...overrides,
   };

@@ -1,5 +1,6 @@
 import type Anthropic from '@anthropic-ai/sdk';
 import { ONZE_PERSONA } from './persona.js';
+import { PROJECTION_GUIDE } from './coach-prompt.js';
 import type { AnalysisSummary } from './analysis-summary.js';
 
 export interface ChatMessage {
@@ -20,7 +21,9 @@ anything you can't ground — say so plainly instead of guessing.
 
 Give your recommendation directly in 1-3 sentences unless the question
 genuinely needs more. Don't number out multiple transfer options or
-close with a question back to the user — just tell them what to do.`;
+close with a question back to the user — just tell them what to do.
+
+${PROJECTION_GUIDE}`;
 
 const MAX_CHAT_TOKENS = 350;
 // caps tokens per message as a conversation grows

@@ -18,9 +18,11 @@
     "check": "npm run typecheck && npm run lint && npm run format:check && npm test && npm run build:web",
     "data:build": "tsx scripts/data/build.ts",
     "data:fixture": "tsx scripts/data/make-fixture.ts",
+    "data:prior": "tsx scripts/data/live-prior.ts && prettier --write lib/projection-prior.ts",
     "eval:baselines": "tsx scripts/eval/baselines.ts && prettier --write results/baselines.md",
     "eval:projection": "tsx scripts/eval/projection.ts && prettier --write results/projection.md lib/analysis/projection-weights.ts",
-    "eval:events": "tsx scripts/eval/events.ts && prettier --write results/events.md lib/analysis/event-weights.ts"
+    "eval:events": "tsx scripts/eval/events.ts && prettier --write results/events.md lib/analysis/event-weights.ts",
+    "eval:defensive": "tsx scripts/eval/defensive-contributions.ts && prettier --write results/defensive-contributions.md"
   },
   "dependencies": {
     "@fontsource-variable/bricolage-grotesque": "^5.3.0",

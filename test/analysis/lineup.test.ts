@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { analyzeLineup } from '../../lib/analysis/lineup.js';
-import { makePlayer } from '../helpers/fixtures.js';
+import { makePlayer, makeProjection } from '../helpers/fixtures.js';
 import type { AnalysisPlayer } from '../../lib/analysis/types.js';
 
 function fixture(event: number, difficulty = 3) {
@@ -10,13 +10,13 @@ function fixture(event: number, difficulty = 3) {
 function standardSquad(): AnalysisPlayer[] {
   const players: AnalysisPlayer[] = [];
   let id = 1;
-  const add = (position: AnalysisPlayer['position'], count: number, epNext: number) => {
+  const add = (position: AnalysisPlayer['position'], count: number, points: number) => {
     for (let i = 0; i < count; i++) {
       players.push(
         makePlayer({
           id: id++,
           position,
-          epNext,
+          projection: makeProjection({ points }),
           nextFixtures: fixture(1),
         }),
       );
@@ -60,7 +60,8 @@ describe('analyzeLineup', () => {
     squad[12] = makePlayer({
       id: squad[12]!.id,
       position: 'FWD',
-      epNext: 2,
+      // the projection sums both fixtures: two lots of 2.5
+      projection: makeProjection({ points: 5 }),
       nextFixtures: [
         { event: 1, isHome: true, difficulty: 3, opponentShortName: 'AAA' },
         { event: 1, isHome: false, difficulty: 3, opponentShortName: 'BBB' },
@@ -69,7 +70,8 @@ describe('analyzeLineup', () => {
     squad[11] = makePlayer({
       id: squad[11]!.id,
       position: 'FWD',
-      epNext: 2,
+      // a blank projects 0
+      projection: makeProjection({ points: 0 }),
       nextFixtures: [],
     });
 

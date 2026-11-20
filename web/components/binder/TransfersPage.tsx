@@ -43,6 +43,7 @@ export function TransfersPage({ shown, focusTitle }: BinderPageProps) {
         {free} free transfer{free === 1 ? '' : 's'}
         {transfers.recommendedCount > 0 &&
           ` · net ${formatGain(transfers.projectedNetGain)} from the recommended moves`}
+        {` · gains are Onze projections for gameweek ${shown.summary.currentEvent}`}
       </p>
       <p className="hit-advice">{hitAdvice(shown.summary)}</p>
 
@@ -92,6 +93,9 @@ export function TransfersPage({ shown, focusTitle }: BinderPageProps) {
                       </span>
                     </span>
                   </div>
+                  {row.projectionNote !== null && (
+                    <p className="transfer-list__alternatives">{row.projectionNote}</p>
+                  )}
                   {row.alternatives.length > 0 && (
                     <p className="transfer-list__alternatives">
                       Alternatives: {row.alternatives.join(', ')}

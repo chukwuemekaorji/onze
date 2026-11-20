@@ -15,6 +15,7 @@ import type {
   AnalysisPlayer,
   FixtureDifficulty,
   LeagueStanding,
+  PlayerProjection,
   PlayerStatus,
   Position,
   SquadContext,
@@ -48,7 +49,7 @@ const PLAYER_STATUSES: readonly PlayerStatus[] = ['a', 'd', 'i', 's', 'u', 'n'];
 
 // an unknown flag is treated as unavailable, so a player fpl marks in some new
 // way is never recommended by accident
-function toPlayerStatus(value: string): PlayerStatus {
+export function toPlayerStatus(value: string): PlayerStatus {
   return PLAYER_STATUSES.find((status) => status === value) ?? 'u';
 }
 
@@ -88,10 +89,16 @@ export interface BuildAnalysisPlayerOptions {
   lookaheadEvents?: number;
 }
 
+export interface BuildPlayerPoolOptions extends BuildAnalysisPlayerOptions {
+  /** onze's projection for every element, from build-projections.ts */
+  projections: ReadonlyMap<number, PlayerProjection>;
+}
+
 export function buildAnalysisPlayer(
   element: FplElement,
   bootstrap: FplBootstrapStatic,
   fixtures: FplFixture[],
+  projection: PlayerProjection,
   options: BuildAnalysisPlayerOptions,
 ): AnalysisPlayer {
   const teamShortNameById = new Map(bootstrap.teams.map((t) => [t.id, t.short_name]));
@@ -108,6 +115,7 @@ export function buildAnalysisPlayer(
     form: parseFplFloat(element.form),
     pointsPerGame: parseFplFloat(element.points_per_game),
     epNext: parseFplFloat(element.ep_next),
+    projection,
     totalPoints: element.total_points,
     selectedByPercent: parseFplFloat(element.selected_by_percent),
     chanceOfPlayingNextRound: element.chance_of_playing_next_round,
@@ -128,11 +136,16 @@ export function buildAnalysisPlayer(
 export function buildPlayerPool(
   bootstrap: FplBootstrapStatic,
   fixtures: FplFixture[],
-  options: BuildAnalysisPlayerOptions,
+  options: BuildPlayerPoolOptions,
 ): AnalysisPlayer[] {
-  return bootstrap.elements.map((element) =>
-    buildAnalysisPlayer(element, bootstrap, fixtures, options),
-  );
+  return bootstrap.elements.map((element) => {
+    const projection = options.projections.get(element.id);
+    // every element is projected; a gap means the two were built from different data
+    if (projection === undefined) {
+      throw new Error(`no projection for FPL element ${element.id}`);
+    }
+    return buildAnalysisPlayer(element, bootstrap, fixtures, projection, options);
+  });
 }
 
 export function buildSquadContext(
