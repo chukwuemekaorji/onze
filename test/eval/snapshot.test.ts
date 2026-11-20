@@ -105,6 +105,7 @@ describe('buildGameweekCases', () => {
         'position',
         'season',
         'teamId',
+        'teamName',
       ].sort(),
     );
     expect(Object.keys(target?.fixtures[0] ?? {}).sort()).toEqual(
@@ -113,6 +114,7 @@ describe('buildGameweekCases', () => {
         'fixtureId',
         'kickoffTime',
         'opponentTeamId',
+        'opponentTeamName',
         'wasHome',
       ].sort(),
     );

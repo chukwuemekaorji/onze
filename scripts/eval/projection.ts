@@ -1,6 +1,5 @@
 import { join } from 'node:path';
 import { runBacktest } from '../../lib/eval/backtest.js';
-import type { BacktestRun } from '../../lib/eval/backtest.js';
 import { BASELINES } from '../../lib/eval/baselines.js';
 import {
   fitProjection,
@@ -19,6 +18,7 @@ import {
   BOOTSTRAP,
   RESULTS_DIR,
   failLoudly,
+  mergeRuns,
   printTable,
   readSeasons,
   readVaastavCommit,
@@ -81,6 +81,7 @@ async function main(): Promise<void> {
     weights: fitProjection(trainingOf(otherSeason(held)), best.penalty),
   }));
   const outOfFold = mergeRuns(
+    'projection',
     folds.map((fold) =>
       runBacktest(casesOf(fold.scoredOn), projectionProjector(fold.weights, 'fold')),
     ),
@@ -140,16 +141,6 @@ async function main(): Promise<void> {
   console.log(
     'written: results/projection.md, lib/analysis/projection-weights.ts, data/derived/eval/',
   );
-}
-
-/** the folds in tune-season order, so gameweeks line up with the baselines' runs */
-function mergeRuns(runs: readonly BacktestRun[]): BacktestRun {
-  return {
-    projectorId: 'projection',
-    gameweeks: runs.flatMap((run) => run.gameweeks),
-    unscoredGameweeks: runs.reduce((sum, run) => sum + run.unscoredGameweeks, 0),
-    projections: runs.flatMap((run) => run.projections),
-  };
 }
 
 /** how many players who played could be found in last season by stable code */

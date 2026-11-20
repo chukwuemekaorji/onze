@@ -111,6 +111,19 @@ export async function writeFullOutput(
   );
 }
 
+/** fold runs in tune-season order, so gameweeks line up with the baselines' runs */
+export function mergeRuns(
+  projectorId: string,
+  runs: readonly BacktestRun[],
+): BacktestRun {
+  return {
+    projectorId,
+    gameweeks: runs.flatMap((run) => run.gameweeks),
+    unscoredGameweeks: runs.reduce((sum, run) => sum + run.unscoredGameweeks, 0),
+    projections: runs.flatMap((run) => run.projections),
+  };
+}
+
 export function printTable(reports: readonly BaselineReport[]): void {
   console.table(
     Object.fromEntries(

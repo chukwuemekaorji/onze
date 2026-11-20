@@ -5,6 +5,8 @@ import type { PlayerGameweekRow } from '../dataset/player-gameweek.js';
 export interface FixtureOutlook {
   fixtureId: number;
   opponentTeamId: number;
+  /** team ids are renumbered each season; names are how last season is found */
+  opponentTeamName: string;
   wasHome: boolean;
   fixtureDifficulty: number;
   kickoffTime: string;
@@ -23,6 +25,7 @@ export interface PlayerTarget {
   playerName: string;
   position: Position;
   teamId: number;
+  teamName: string;
   /** fpl cost units at the gameweek: 55 means £5.5m */
   nowCost: number;
   /** two in a double gameweek */
@@ -171,6 +174,7 @@ function targetsFor(current: readonly PlayerGameweekRow[]): PlayerTarget[] {
     const fixture: FixtureOutlook = Object.freeze({
       fixtureId: row.fixtureId,
       opponentTeamId: row.opponentTeamId,
+      opponentTeamName: row.opponentTeamName,
       wasHome: row.wasHome,
       fixtureDifficulty: row.fixtureDifficulty,
       kickoffTime: row.kickoffTime,
@@ -191,6 +195,7 @@ function targetsFor(current: readonly PlayerGameweekRow[]): PlayerTarget[] {
       playerName: row.playerName,
       position: row.position,
       teamId: row.teamId,
+      teamName: row.teamName,
       nowCost: row.nowCost,
       fixtures: [fixture],
       // fpl's xP is per gameweek: a double gameweek repeats it on both rows, so

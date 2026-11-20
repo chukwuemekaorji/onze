@@ -1,3 +1,4 @@
+import { ASSIST_POINTS, FULL_APPEARANCE_MINUTES, GOAL_POINTS } from './fpl-scoring.js';
 import type { Position } from './types.js';
 
 /**
@@ -106,10 +107,6 @@ const RECENT_PRIOR_WEIGHT = 1;
 const DAY_MS = 24 * 60 * 60 * 1000;
 const COST_UNITS_PER_MILLION = 10;
 const NEUTRAL_DIFFICULTY = 3;
-// fpl scoring: a goal is worth 6 to a keeper or defender, 5 to a midfielder,
-// 4 to a forward; an assist is 3 for everyone
-const GOAL_POINTS: Record<Position, number> = { GK: 6, DEF: 6, MID: 5, FWD: 4 };
-const ASSIST_POINTS = 3;
 
 /** the full projection for one player and gameweek */
 export function projectPlayer(
@@ -250,15 +247,15 @@ function attackingPointsPerAppearance(
     PRIOR_APPEARANCES,
   );
   const recentApps = apps.slice(-RECENT_APPEARANCES_FOR_XGI);
-  const per90 = (read: (match: MatchRecord) => number | null, leaguePer90: number) => {
-    const prior = ratePer90(lastApps, read, leaguePer90);
-    return ratePer90(recentApps, read, prior);
-  };
-  const goalsPer90 = per90(
+  const goalsPer90 = blendedRatePer90(
+    recentApps,
+    lastApps,
     (match) => match.expectedGoals,
     league.expectedGoalsPer90[position],
   );
-  const assistsPer90 = per90(
+  const assistsPer90 = blendedRatePer90(
+    recentApps,
+    lastApps,
     (match) => match.expectedAssists,
     league.expectedAssistsPer90[position],
   );
@@ -268,10 +265,20 @@ function attackingPointsPerAppearance(
   );
 }
 
+/** a per 90 rate: recent matches, blended with last season, blended with the league */
+export function blendedRatePer90<M extends MatchRecord>(
+  recent: readonly M[],
+  lastSeason: readonly M[],
+  read: (match: M) => number | null,
+  leaguePer90: number,
+): number {
+  return ratePer90(recent, read, ratePer90(lastSeason, read, leaguePer90));
+}
+
 /** per 90, blended with a prior */
-function ratePer90(
-  matches: readonly MatchRecord[],
-  read: (match: MatchRecord) => number | null,
+function ratePer90<M extends MatchRecord>(
+  matches: readonly M[],
+  read: (match: M) => number | null,
   prior: number,
 ): number {
   const { total, nineties } = per90Totals(matches, read);
@@ -279,18 +286,18 @@ function ratePer90(
 }
 
 /** a plain per 90 over a whole league season: enough minutes that no prior is needed */
-function leagueRatePer90(
-  matches: readonly MatchRecord[],
-  read: (match: MatchRecord) => number | null,
+export function leagueRatePer90<M extends MatchRecord>(
+  matches: readonly M[],
+  read: (match: M) => number | null,
 ): number {
   const { total, nineties } = per90Totals(matches, read);
   return nineties === 0 ? 0 : total / nineties;
 }
 
 /** matches with no expected stats are skipped, minutes and all */
-function per90Totals(
-  matches: readonly MatchRecord[],
-  read: (match: MatchRecord) => number | null,
+function per90Totals<M extends MatchRecord>(
+  matches: readonly M[],
+  read: (match: M) => number | null,
 ): { total: number; nineties: number } {
   let total = 0;
   let minutes = 0;
@@ -358,13 +365,11 @@ export function dot<K extends string>(
   return total;
 }
 
-function appeared(match: MatchRecord): boolean {
+export function appeared(match: MatchRecord): boolean {
   return match.minutes > 0;
 }
 
 // data without starts: 60 minutes is fpl's own line for a full appearance
-const FULL_APPEARANCE_MINUTES = 60;
-
 function started(match: MatchRecord): boolean {
   return match.starts === null
     ? match.minutes >= FULL_APPEARANCE_MINUTES
@@ -375,6 +380,6 @@ function countWhere<T>(items: readonly T[], test: (item: T) => boolean): number 
   return items.reduce((count, item) => count + (test(item) ? 1 : 0), 0);
 }
 
-function sumOf<T>(items: readonly T[], read: (item: T) => number): number {
+export function sumOf<T>(items: readonly T[], read: (item: T) => number): number {
   return items.reduce((sum, item) => sum + read(item), 0);
 }
