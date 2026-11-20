@@ -2,9 +2,12 @@
  * fixed before any result was looked at. tuning (choosing features, weights,
  * baselines to beat) only ever sees the tune seasons. the test season is
  * scored once, at the end, so its number is an honest out-of-sample estimate.
+ * the prior season is read as history and never scored.
  * the live season is tracked as it happens
  */
 export const EVAL_SPLITS = {
+  // history only: last season for 2023-24's priors, never scored
+  prior: ['2022-23'],
   tune: ['2023-24', '2024-25'],
   test: ['2025-26'],
   live: ['2026-27'],

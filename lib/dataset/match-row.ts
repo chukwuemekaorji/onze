@@ -22,6 +22,7 @@ export interface FixtureFacts {
 /** what the source knows about the player, outside the match row itself */
 export interface PlayerFacts {
   playerId: number;
+  playerCode: number;
   playerName: string;
   position: PlayerGameweekRow['position'];
 }
@@ -68,6 +69,7 @@ export function readMatchRow(
     gameweek: readInteger(record, 'round', where),
     fixtureId: readInteger(record, 'fixture', where),
     playerId: player.playerId,
+    playerCode: player.playerCode,
     playerName: player.playerName,
     position: player.position,
     teamId,

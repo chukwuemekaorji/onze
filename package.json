@@ -18,7 +18,8 @@
     "check": "npm run typecheck && npm run lint && npm run format:check && npm test && npm run build:web",
     "data:build": "tsx scripts/data/build.ts",
     "data:fixture": "tsx scripts/data/make-fixture.ts",
-    "eval:baselines": "tsx scripts/eval/baselines.ts && prettier --write results/baselines.md"
+    "eval:baselines": "tsx scripts/eval/baselines.ts && prettier --write results/baselines.md",
+    "eval:projection": "tsx scripts/eval/projection.ts && prettier --write results/projection.md lib/analysis/projection-weights.ts"
   },
   "dependencies": {
     "@fontsource-variable/bricolage-grotesque": "^5.3.0",

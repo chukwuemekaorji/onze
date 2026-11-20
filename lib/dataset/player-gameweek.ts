@@ -14,6 +14,8 @@ export interface PlayerGameweekRow {
   fixtureId: number;
   /** fpl's element id. ids are reused each season, so only unique within one */
   playerId: number;
+  /** fpl's stable player code: the same person in every season, unlike playerId */
+  playerCode: number;
   playerName: string;
   position: Position;
   teamId: number;

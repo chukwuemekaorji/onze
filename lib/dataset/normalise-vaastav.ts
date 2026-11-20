@@ -9,10 +9,12 @@ import {
 } from './player-gameweek.js';
 import type { NormalisedSeason, PlayerGameweekRow } from './player-gameweek.js';
 
-/** the three csv files vaastav keeps per season, already parsed */
+/** the csv files vaastav keeps per season, already parsed */
 export interface VaastavSeasonFiles {
   season: string;
   mergedGw: readonly RawRecord[];
+  /** one row per player that season; the only place the archive keeps fpl's stable code */
+  playersRaw: readonly RawRecord[];
   fixtures: readonly RawRecord[];
   teams: readonly RawRecord[];
 }
@@ -24,6 +26,10 @@ export function normaliseVaastavSeason(files: VaastavSeasonFiles): NormalisedSea
   const { season } = files;
   const teamNames = indexTeams(files.teams, `vaastav ${season} teams.csv`);
   const fixtures = indexFixtures(files.fixtures, `vaastav ${season} fixtures.csv`);
+  const playerCodes = indexPlayerCodes(
+    files.playersRaw,
+    `vaastav ${season} players_raw.csv`,
+  );
   const rows: PlayerGameweekRow[] = [];
   const dropped: NormalisedSeason['dropped'] = {};
 
@@ -47,11 +53,19 @@ export function normaliseVaastavSeason(files: VaastavSeasonFiles): NormalisedSea
       return;
     }
 
+    const playerId = readInteger(record, 'element', where);
+    const playerCode = playerCodes.get(playerId);
+    if (playerCode === undefined) {
+      throw new DatasetValidationError(
+        `${where}: player ${playerId} isn't in players_raw.csv`,
+      );
+    }
     const row = readMatchRow(record, {
       season,
       source: 'vaastav',
       player: {
-        playerId: readInteger(record, 'element', where),
+        playerId,
+        playerCode,
         playerName: readString(record, 'name', where),
         position: readPosition(record, 'position', where),
       },
@@ -73,6 +87,18 @@ function indexTeams(teams: readonly RawRecord[], where: string): Map<number, str
     teams.map((team, index) => {
       const line = `${where} line ${index + 2}`;
       return [readInteger(team, 'id', line), readString(team, 'name', line)];
+    }),
+  );
+}
+
+function indexPlayerCodes(
+  players: readonly RawRecord[],
+  where: string,
+): Map<number, number> {
+  return new Map(
+    players.map((player, index) => {
+      const line = `${where} line ${index + 2}`;
+      return [readInteger(player, 'id', line), readInteger(player, 'code', line)];
     }),
   );
 }

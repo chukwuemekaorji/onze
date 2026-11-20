@@ -35,6 +35,7 @@ function everythingReachable(
     ...history.thisSeason,
     ...history.earlierSeasons.flatMap((season) => season.rows),
     ...playerIds.flatMap((id) => history.playerRows(id)),
+    ...(history.lastSeason?.rows ?? []),
   ];
 }
 
@@ -98,6 +99,7 @@ describe('buildGameweekCases', () => {
         'gameweek',
         'leaky',
         'nowCost',
+        'playerCode',
         'playerId',
         'playerName',
         'position',

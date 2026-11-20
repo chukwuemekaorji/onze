@@ -24,6 +24,7 @@ describe('normaliseFplApiSeason', () => {
     // raya, arsenal v coventry, 2026-27 gameweek 1
     expect(rows.find((row) => row.playerId === 1 && row.gameweek === 1)).toMatchObject({
       playerName: 'David Raya Martín',
+      playerCode: 154561,
       position: 'GK',
       teamName: 'Arsenal',
       opponentTeamName: 'Coventry City',

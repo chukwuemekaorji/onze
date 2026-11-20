@@ -18,6 +18,8 @@ export interface PlayerTarget {
   season: string;
   gameweek: number;
   playerId: number;
+  /** fpl's stable code, for finding the same person in last season */
+  playerCode: number;
   playerName: string;
   position: Position;
   teamId: number;
@@ -54,6 +56,10 @@ export interface HistoryView {
   readonly earlierSeasons: readonly SeasonRows[];
   /** one player's rows from earlier gameweeks this season, oldest first */
   playerRows(playerId: number): readonly PlayerGameweekRow[];
+  /** the season just before this one, or null when none was loaded */
+  readonly lastSeason: SeasonRows | null;
+  /** one person's rows from last season, found by stable code, oldest first */
+  lastSeasonRows(playerCode: number): readonly PlayerGameweekRow[];
 }
 
 export interface SeasonRows {
@@ -91,6 +97,11 @@ export function buildGameweekCases(
         Object.freeze({ season: entry.season, rows: Object.freeze([...entry.rows]) }),
       ),
   );
+  const lastSeason = earlierSeasons.at(-1) ?? null;
+  const lastSeasonByCode = indexBy(
+    lastSeason === null ? [] : [...lastSeason.rows].sort(byKickoff),
+    (row) => row.playerCode,
+  );
   const ordered = [...thisSeasonRows].sort(byKickoff);
   const gameweeks = [...new Set(ordered.map((row) => row.gameweek))].sort(
     (a, b) => a - b,
@@ -100,7 +111,11 @@ export function buildGameweekCases(
     const current = ordered.filter((row) => row.gameweek === gameweek);
     const before = ordered.filter((row) => row.gameweek < gameweek);
     return {
-      history: historyView(season, gameweek, current, before, earlierSeasons),
+      history: historyView(season, gameweek, current, before, {
+        earlierSeasons,
+        lastSeason,
+        lastSeasonByCode,
+      }),
       targets: Object.freeze(targetsFor(current)),
       outcomes: outcomesFor(current),
     };
@@ -112,15 +127,13 @@ function historyView(
   gameweek: number,
   current: readonly PlayerGameweekRow[],
   before: readonly PlayerGameweekRow[],
-  earlierSeasons: readonly SeasonRows[],
+  past: {
+    earlierSeasons: readonly SeasonRows[];
+    lastSeason: SeasonRows | null;
+    lastSeasonByCode: ReadonlyMap<number, readonly PlayerGameweekRow[]>;
+  },
 ): HistoryView {
-  const byPlayer = new Map<number, PlayerGameweekRow[]>();
-  for (const row of before) {
-    const rows = byPlayer.get(row.playerId);
-    if (rows === undefined) byPlayer.set(row.playerId, [row]);
-    else rows.push(row);
-  }
-  for (const rows of byPlayer.values()) Object.freeze(rows);
+  const byPlayer = indexBy(before, (row) => row.playerId);
 
   return Object.freeze({
     season,
@@ -129,9 +142,27 @@ function historyView(
     // fixture list is public long before the deadline
     firstKickoff: current.map((row) => row.kickoffTime).sort()[0] ?? '',
     thisSeason: Object.freeze([...before]),
-    earlierSeasons,
+    earlierSeasons: past.earlierSeasons,
     playerRows: (playerId: number) => byPlayer.get(playerId) ?? NO_ROWS,
+    lastSeason: past.lastSeason,
+    lastSeasonRows: (playerCode: number) =>
+      past.lastSeasonByCode.get(playerCode) ?? NO_ROWS,
   });
+}
+
+/** rows grouped by a key, each group frozen and in the order given */
+function indexBy(
+  rows: readonly PlayerGameweekRow[],
+  key: (row: PlayerGameweekRow) => number,
+): Map<number, readonly PlayerGameweekRow[]> {
+  const groups = new Map<number, PlayerGameweekRow[]>();
+  for (const row of rows) {
+    const group = groups.get(key(row));
+    if (group === undefined) groups.set(key(row), [row]);
+    else group.push(row);
+  }
+  for (const group of groups.values()) Object.freeze(group);
+  return groups;
 }
 
 function targetsFor(current: readonly PlayerGameweekRow[]): PlayerTarget[] {
@@ -156,6 +187,7 @@ function targetsFor(current: readonly PlayerGameweekRow[]): PlayerTarget[] {
       season: row.season,
       gameweek: row.gameweek,
       playerId: row.playerId,
+      playerCode: row.playerCode,
       playerName: row.playerName,
       position: row.position,
       teamId: row.teamId,

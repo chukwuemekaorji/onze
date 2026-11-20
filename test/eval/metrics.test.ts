@@ -117,4 +117,15 @@ describe('scoreGameweek and metricValue', () => {
     expect(parts.spearman.count).toBe(2);
     expect(metricValue('spearman', [parts])).toBeCloseTo(0);
   });
+
+  it('keeps a played-only spearman that ignores who sat out', () => {
+    const parts = scoreGameweek([
+      { position: 'MID', projected: 3, actual: 2, minutes: 90 },
+      { position: 'MID', projected: 2, actual: 9, minutes: 90 },
+      { position: 'MID', projected: 1, actual: 0, minutes: 0 },
+    ]);
+
+    expect(metricValue('spearmanPlayed', [parts])).toBeCloseTo(-1);
+    expect(metricValue('spearman', [parts])).toBeCloseTo(0.5);
+  });
 });

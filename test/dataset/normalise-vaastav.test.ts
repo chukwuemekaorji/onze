@@ -36,6 +36,7 @@ describe('normaliseVaastavSeason', () => {
       gameweek: 1,
       fixtureId: 2,
       playerId: 4,
+      playerCode: 219847,
       playerName: 'Kai Havertz',
       position: 'FWD',
       teamId: 1,
@@ -118,6 +119,19 @@ describe('normaliseVaastavSeason', () => {
         'vaastav 2024-25 merged_gw.csv line 2: field "minutes" is "abc", expected a number',
       ),
     );
+  });
+
+  it('gives each player the stable code from players_raw.csv, and fails when there is none', () => {
+    const files = vaastavSlice();
+    const { rows } = normaliseVaastavSeason(files);
+    expect(rows.every((row) => row.playerCode > 0)).toBe(true);
+
+    const withoutHavertz = files.playersRaw.filter(
+      (player) => player.id !== HAVERTZ_ID,
+    );
+    expect(() =>
+      normaliseVaastavSeason({ ...files, playersRaw: withoutHavertz }),
+    ).toThrow("player 4 isn't in players_raw.csv");
   });
 
   it('fails loudly on a missing column, an unknown fixture or a mismatched opponent', () => {

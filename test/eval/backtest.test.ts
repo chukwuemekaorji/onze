@@ -56,7 +56,7 @@ describe('runBacktest', () => {
     );
     const mae = summary.find((metric) => metric.id === 'maeAll');
 
-    expect(summary).toHaveLength(7);
+    expect(summary).toHaveLength(8);
     expect(mae?.value).toBeCloseTo((0 + 4 + 2 + 0) / 4);
     expect(mae?.interval).not.toBeNull();
   });

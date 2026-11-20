@@ -1,6 +1,7 @@
 import type { PlayerGameweekRow } from '../../lib/dataset/player-gameweek.js';
 
 const GAMEWEEK_ONE_KICKOFF = Date.parse('2024-08-17T14:00:00Z');
+const CODE_OFFSET = 10_000;
 const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
 
 /** a synthetic row: one fixture per gameweek, a week apart, unless overridden */
@@ -11,6 +12,8 @@ export function makeRow(overrides: Partial<PlayerGameweekRow> = {}): PlayerGamew
     gameweek,
     fixtureId: gameweek * 100,
     playerId: 1,
+    // a code that differs from the id, so a test that mixes them up fails
+    playerCode: (overrides.playerId ?? 1) + CODE_OFFSET,
     playerName: 'Test Player',
     position: 'MID',
     teamId: 1,

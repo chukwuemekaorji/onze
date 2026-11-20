@@ -9,11 +9,12 @@ const SEASON_FILES = {
   mergedGw: 'gws/merged_gw.csv',
   fixtures: 'fixtures.csv',
   teams: 'teams.csv',
+  playersRaw: 'players_raw.csv',
 } as const;
 
 /** downloads (or reuses) one season's csvs at the pinned commit and normalises them */
 export async function buildVaastavSeason(season: string): Promise<NormalisedSeason> {
-  const [mergedGw, fixtures, teams] = await Promise.all(
+  const [mergedGw, fixtures, teams, playersRaw] = await Promise.all(
     Object.values(SEASON_FILES).map(async (file) => {
       const { text } = await cachedDownload(
         `${VAASTAV_RAW_BASE}/${season}/${file}`,
@@ -22,8 +23,13 @@ export async function buildVaastavSeason(season: string): Promise<NormalisedSeas
       return parseCsv(text, `vaastav ${season} ${file}`);
     }),
   );
-  if (mergedGw === undefined || fixtures === undefined || teams === undefined) {
+  if (
+    mergedGw === undefined ||
+    fixtures === undefined ||
+    teams === undefined ||
+    playersRaw === undefined
+  ) {
     throw new Error(`vaastav ${season}: a season file is missing`);
   }
-  return normaliseVaastavSeason({ season, mergedGw, fixtures, teams });
+  return normaliseVaastavSeason({ season, mergedGw, fixtures, teams, playersRaw });
 }

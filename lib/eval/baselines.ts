@@ -15,9 +15,9 @@ export interface Projector {
 
 /**
  * the prior when a player has no rows yet this season: every player in
- * gameweek 1, and anyone who signs mid-season. earlier seasons can't fill the
- * gap because fpl reuses player ids each season and the archive has no stable
- * id to join on. so in gameweek 1 every history baseline equals the constant
+ * gameweek 1, and anyone who signs mid-season. the baselines stay simple on
+ * purpose and ignore last season (the projection model starts from it), so in
+ * gameweek 1 every history baseline equals the constant
  */
 export const NO_HISTORY_POINTS_PER_FIXTURE = 2;
 

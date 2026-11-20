@@ -52,6 +52,7 @@ export function normaliseFplApiSeason(input: FplApiSeasonInput): NormalisedSeaso
     }
     const player: PlayerFacts = {
       playerId,
+      playerCode: readInteger(element, 'code', where),
       // full names, to match vaastav's name column
       playerName: `${readString(element, 'first_name', where)} ${readString(element, 'second_name', where)}`,
       position: readPosition(

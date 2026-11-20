@@ -16,6 +16,7 @@ export function vaastavSlice(): VaastavSeasonFiles {
   return {
     season: '2024-25',
     mergedGw: csv('merged_gw.csv'),
+    playersRaw: csv('players_raw.csv'),
     fixtures: csv('fixtures.csv'),
     teams: csv('teams.csv'),
   };

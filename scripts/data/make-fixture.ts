@@ -48,6 +48,8 @@ const FIXTURE_FIELDS = [
   'kickoff_time',
 ];
 const TEAM_FIELDS = ['id', 'name', 'short_name'];
+// players_raw.csv has about 100 columns; the normaliser needs the id and code
+const PLAYERS_RAW_FIELDS = ['id', 'code', 'first_name', 'second_name'];
 
 function pick(record: Readonly<Record<string, unknown>>, fields: readonly string[]) {
   return Object.fromEntries(fields.map((field) => [field, record[field]]));
@@ -83,6 +85,10 @@ async function sliceVaastav(): Promise<void> {
     join(targetDir, 'teams.csv'),
     toCsv(await read('teams.csv')),
   );
+  const players = (await read('players_raw.csv'))
+    .filter((row) => keep.has(Number(row.id)))
+    .map((row) => pick(row, PLAYERS_RAW_FIELDS) as Record<string, string>);
+  await writeFileAtomically(join(targetDir, 'players_raw.csv'), toCsv(players));
 }
 
 async function sliceFplApi(): Promise<void> {
@@ -104,8 +110,9 @@ async function sliceFplApi(): Promise<void> {
     .sort((a, b) => readInteger(a, 'id', 'element') - readInteger(b, 'id', 'element'))
     .slice(0, SLICE_PLAYERS)
     // only the fields the normaliser reads, to keep the fixture small
-    .map(({ id, first_name, second_name, element_type }) => ({
+    .map(({ id, code, first_name, second_name, element_type }) => ({
       id,
+      code,
       first_name,
       second_name,
       element_type,

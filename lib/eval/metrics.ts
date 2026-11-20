@@ -17,6 +17,7 @@ export type MetricId =
   | 'maeAll'
   | 'rmseAll'
   | 'spearman'
+  | 'spearmanPlayed'
   | 'topFive'
   | 'captainRegret';
 
@@ -32,6 +33,8 @@ export const METRICS: readonly MetricDefinition[] = [
   { id: 'maeAll', label: 'MAE, everyone', better: 'lower' },
   { id: 'rmseAll', label: 'RMSE, everyone', better: 'lower' },
   { id: 'spearman', label: 'Spearman, by position', better: 'higher' },
+  // the same, only over players who got on: who scores, without who plays
+  { id: 'spearmanPlayed', label: 'Spearman, played', better: 'higher' },
   { id: 'topFive', label: `Top-${TOP_PICKS} hit`, better: 'higher' },
   { id: 'captainRegret', label: 'Captain regret', better: 'lower' },
 ];
@@ -135,12 +138,17 @@ export function captainRegret(
 export function scoreGameweek(players: readonly ScoredPlayer[]): GameweekParts {
   const played = players.filter((player) => player.minutes > 0);
   const spearman = spearmanByPosition(players);
+  const spearmanPlayed = spearmanByPosition(played);
   return {
     maePlayed: { sum: sumAbsoluteError(played), count: played.length },
     rmsePlayed: { sum: sumSquaredError(played), count: played.length },
     maeAll: { sum: sumAbsoluteError(players), count: players.length },
     rmseAll: { sum: sumSquaredError(players), count: players.length },
     spearman: { sum: spearman.reduce((a, b) => a + b, 0), count: spearman.length },
+    spearmanPlayed: {
+      sum: spearmanPlayed.reduce((a, b) => a + b, 0),
+      count: spearmanPlayed.length,
+    },
     topFive: single(topProjectedMeanActual(players, TOP_PICKS)),
     captainRegret: single(captainRegret(players, CAPTAIN_POOL)),
   };
