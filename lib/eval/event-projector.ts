@@ -304,6 +304,18 @@ export function fitEvents(
   };
 }
 
+// xg of evidence a player's finishing is blended with; 1,000 is close to pure xg
+export const FINISHING_STRENGTHS: readonly number[] = [2, 5, 10, 20, 50, 1_000];
+
+/** the finishing strength that predicts the training set's goals best */
+export function bestFinishingStrength(set: EventTrainingSet): number {
+  return FINISHING_STRENGTHS.reduce((best, strength) =>
+    goalLogLoss(set.appearances, strength) < goalLogLoss(set.appearances, best)
+      ? strength
+      : best,
+  );
+}
+
 const UNSCALED: EventScales = {
   goals: 1,
   assists: 1,

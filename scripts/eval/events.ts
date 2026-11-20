@@ -19,6 +19,8 @@ import {
 } from '../../lib/eval/compare.js';
 import { calibrationByPosition } from '../../lib/eval/event-calibration.js';
 import {
+  FINISHING_STRENGTHS,
+  bestFinishingStrength,
   eventProjector,
   eventTrainingSet,
   fitEvents,
@@ -58,8 +60,6 @@ const WEIGHTS_FILE = join(
   'analysis',
   'event-weights.ts',
 );
-// xg of evidence a player's finishing is blended with; 1,000 is close to pure xg
-const FINISHING_STRENGTHS = [2, 5, 10, 20, 50, 1_000];
 const TOP_CAPTAINS_SHOWN = 5;
 
 // npm run eval:events: leave-one-season-out on the tune seasons, the event
@@ -90,12 +90,6 @@ async function main(): Promise<void> {
   };
   const otherSeason = (season: string) =>
     tune.find((other) => other !== season) ?? season;
-  const bestStrength = (set: EventTrainingSet) =>
-    FINISHING_STRENGTHS.reduce((best, strength) =>
-      goalLogLoss(set.appearances, strength) < goalLogLoss(set.appearances, best)
-        ? strength
-        : best,
-    );
 
   // each season is scored by numbers that never saw it
   const folds = tune.map((held) => {
@@ -103,7 +97,7 @@ async function main(): Promise<void> {
     return {
       trainedOn: otherSeason(held),
       scoredOn: held,
-      weights: fitEvents(train, bestStrength(train)),
+      weights: fitEvents(train, bestFinishingStrength(train)),
     };
   });
   const eventRun = mergeRuns(
@@ -129,7 +123,7 @@ async function main(): Promise<void> {
     ),
   );
   const both = mergeTrainingSets(tune.map((season) => pick(eventSets, season)));
-  const finalWeights = fitEvents(both, bestStrength(both));
+  const finalWeights = fitEvents(both, bestFinishingStrength(both));
   const allCases = tune.flatMap((season) => pick(cases, season));
 
   // the rows are scored out of fold; the projectors here only name them
