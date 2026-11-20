@@ -8,7 +8,7 @@ Each cell is the value over both seasons and a 95% bootstrap interval (2000 resa
 
 | Model            | MAE, played ↓     | RMSE, played ↓    | MAE, everyone ↓   | RMSE, everyone ↓  | Spearman, by position ↑ | Spearman, played ↑ | Top-5 hit ↑       | Captain regret ↓     |
 | ---------------- | ----------------- | ----------------- | ----------------- | ----------------- | ----------------------- | ------------------ | ----------------- | -------------------- |
-| Projection model | 1.86 [1.83, 1.90] | 2.91 [2.85, 2.98] | 1.02 [1.00, 1.04] | 1.95 [1.92, 1.99] | 0.67 [0.66, 0.68]       | 0.32 [0.30, 0.34]  | 6.18 [5.58, 6.76] | 8.47 [6.93, 9.87]    |
+| Projection model | 1.86 [1.83, 1.90] | 2.91 [2.85, 2.98] | 1.02 [1.00, 1.04] | 1.95 [1.92, 1.99] | 0.67 [0.66, 0.68]       | 0.32 [0.30, 0.34]  | 6.21 [5.62, 6.76] | 8.47 [6.93, 9.87]    |
 | FPL's xP (leaky) | 1.73 [1.67, 1.80] | 2.54 [2.42, 2.67] | 0.86 [0.83, 0.89] | 1.68 [1.61, 1.76] | 0.74 [0.73, 0.75]       | 0.55 [0.53, 0.57]  | 8.86 [8.10, 9.62] | 6.76 [5.44, 8.20]    |
 | Form (30 days)   | 2.18 [2.14, 2.23] | 3.24 [3.17, 3.31] | 1.07 [1.04, 1.11] | 2.17 [2.13, 2.22] | 0.71 [0.70, 0.71]       | 0.24 [0.22, 0.26]  | 5.10 [4.57, 5.65] | 8.15 [6.84, 9.59]    |
 | Points per game  | 2.05 [2.01, 2.09] | 3.00 [2.93, 3.07] | 1.32 [1.30, 1.35] | 2.22 [2.18, 2.26] | 0.63 [0.62, 0.63]       | 0.27 [0.24, 0.29]  | 5.03 [4.44, 5.65] | 8.22 [6.86, 9.67]    |
@@ -21,8 +21,8 @@ The model's row is out of fold: 2023-24 is scored with weights fitted on 2024-25
 
 | Model            | Season  | MAE, played ↓ | RMSE, played ↓ | MAE, everyone ↓ | RMSE, everyone ↓ | Spearman, by position ↑ | Spearman, played ↑ | Top-5 hit ↑ | Captain regret ↓ |
 | ---------------- | ------- | ------------- | -------------- | --------------- | ---------------- | ----------------------- | ------------------ | ----------- | ---------------- |
-| Projection model | 2023-24 | 1.91          | 3.00           | 1.01            | 1.97             | 0.66                    | 0.32               | 5.70        | 9.39             |
-| Projection model | 2024-25 | 1.82          | 2.83           | 1.02            | 1.94             | 0.68                    | 0.32               | 6.66        | 7.55             |
+| Projection model | 2023-24 | 1.91          | 2.99           | 1.02            | 1.97             | 0.66                    | 0.32               | 5.72        | 9.39             |
+| Projection model | 2024-25 | 1.82          | 2.83           | 1.01            | 1.94             | 0.68                    | 0.32               | 6.71        | 7.55             |
 | FPL's xP (leaky) | 2023-24 | 1.72          | 2.50           | 0.83            | 1.63             | 0.73                    | 0.56               | 9.37        | 7.21             |
 | FPL's xP (leaky) | 2024-25 | 1.74          | 2.57           | 0.89            | 1.74             | 0.74                    | 0.55               | 8.35        | 6.32             |
 | Form (30 days)   | 2023-24 | 2.24          | 3.33           | 1.05            | 2.19             | 0.70                    | 0.23               | 4.97        | 9.06             |
@@ -71,12 +71,12 @@ The final weights, fitted on both tune seasons together. These are the numbers s
 | ------------------------------------------------- | ------ | ------------- | -------------------------------------------------- |
 | Base, goalkeeper                                  | +0.62  |               | Where this position starts, before the terms below |
 | Base, defender                                    | +0.05  |               | Where this position starts, before the terms below |
-| Base, midfielder                                  | -0.11  |               | Where this position starts, before the terms below |
-| Base, forward                                     | -0.15  |               | Where this position starts, before the terms below |
+| Base, midfielder                                  | -0.13  |               | Where this position starts, before the terms below |
+| Base, forward                                     | -0.18  |               | Where this position starts, before the terms below |
 | Points per appearance, this season                | +0.29  | +0.31         | Each extra point here adds 0.29                    |
 | Points per appearance, last 30 days               | +0.05  | +0.08         | Each extra point here adds 0.05                    |
 | Points per appearance, last 3 gameweeks           | +0.07  | +0.11         | Each extra point here adds 0.07                    |
-| xG and xA per appearance, as FPL points           | +0.34  | +0.19         | Each extra point here adds 0.34                    |
+| xG and xA per appearance, as FPL points           | +0.33  | +0.19         | Each extra point here adds 0.33                    |
 | Price, per £1m                                    | +0.25  | +0.30         | Each £1m adds 0.25                                 |
 | Fixture difficulty above 3, keeper or defender    | -0.41  | -0.28         | Each step harder costs 0.41                        |
 | Fixture difficulty above 3, midfielder or forward | -0.30  | -0.25         | Each step harder costs 0.30                        |
@@ -92,7 +92,7 @@ The penalty on points if playing, chosen by leave-one-season-out error:
 | 10                | 2.80                                    |
 | 100               | 2.80                                    |
 | **1000** (chosen) | 2.80                                    |
-| 10000             | 2.82                                    |
+| 10000             | 2.81                                    |
 
 The weights from each fold next to the final fit. If a weight changes sign between folds, don't read much into it.
 
@@ -103,15 +103,15 @@ The weights from each fold next to the final fit. If a weight changes sign betwe
 | Play: Share of the last 3 club matches with any minutes    | +4.40          | +4.47          | +4.45        |
 | Play: Share of this season's club matches with any minutes | +1.83          | +2.01          | +1.92        |
 | Play: Price, per £1m                                       | +0.06          | -0.01          | +0.02        |
-| Points: Base, goalkeeper                                   | +0.90          | +0.28          | +0.62        |
-| Points: Base, defender                                     | +0.30          | -0.22          | +0.05        |
-| Points: Base, midfielder                                   | +0.08          | -0.30          | -0.11        |
-| Points: Base, forward                                      | +0.04          | -0.32          | -0.15        |
-| Points: Points per appearance, this season                 | +0.32          | +0.25          | +0.29        |
+| Points: Base, goalkeeper                                   | +0.90          | +0.24          | +0.62        |
+| Points: Base, defender                                     | +0.30          | -0.25          | +0.05        |
+| Points: Base, midfielder                                   | +0.08          | -0.33          | -0.13        |
+| Points: Base, forward                                      | +0.04          | -0.35          | -0.18        |
+| Points: Points per appearance, this season                 | +0.32          | +0.26          | +0.29        |
 | Points: Points per appearance, last 30 days                | +0.05          | +0.07          | +0.05        |
 | Points: Points per appearance, last 3 gameweeks            | +0.06          | +0.08          | +0.07        |
-| Points: xG and xA per appearance, as FPL points            | +0.32          | +0.25          | +0.34        |
-| Points: Price, per £1m                                     | +0.21          | +0.30          | +0.25        |
+| Points: xG and xA per appearance, as FPL points            | +0.32          | +0.20          | +0.33        |
+| Points: Price, per £1m                                     | +0.21          | +0.31          | +0.25        |
 | Points: Fixture difficulty above 3, keeper or defender     | -0.40          | -0.37          | -0.41        |
 | Points: Fixture difficulty above 3, midfielder or forward  | -0.28          | -0.28          | -0.30        |
 | Points: Playing at home                                    | +0.00          | +0.21          | +0.11        |

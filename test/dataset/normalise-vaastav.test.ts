@@ -134,6 +134,31 @@ describe('normaliseVaastavSeason', () => {
     ).toThrow("player 4 isn't in players_raw.csv");
   });
 
+  it('blanks the expected stats of a gameweek fpl never published them for', () => {
+    // as in 2022-23 before gameweek 16: goals scored, every expected stat 0
+    const files = withMerged((records) =>
+      records.map((record) =>
+        record.GW === '1'
+          ? {
+              ...record,
+              expected_goals: '0',
+              expected_assists: '0',
+              expected_goal_involvements: '0',
+              expected_goals_conceded: '0',
+            }
+          : record,
+      ),
+    );
+    const { rows } = normaliseVaastavSeason(files);
+    const first = rows.filter((row) => row.gameweek === 1);
+    const second = rows.filter((row) => row.gameweek === 2);
+
+    expect(first.some((row) => row.goalsScored > 0)).toBe(true);
+    expect(first.every((row) => row.expectedGoals === null)).toBe(true);
+    expect(first.every((row) => row.expectedGoalsConceded === null)).toBe(true);
+    expect(second.some((row) => (row.expectedGoals ?? 0) > 0)).toBe(true);
+  });
+
   it('fails loudly on a missing column, an unknown fixture or a mismatched opponent', () => {
     const { minutes: _minutes, ...withoutMinutes } = firstRow();
     expect(() =>

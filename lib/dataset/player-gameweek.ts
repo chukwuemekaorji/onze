@@ -109,6 +109,39 @@ export function dropExactDuplicates(
   return unique;
 }
 
+/**
+ * fpl only began publishing expected stats in gameweek 16 of 2022-23, and
+ * vaastav keeps the gameweeks before that as 0 rather than blank. a gameweek
+ * where goals were scored but every expected stat is 0 had none published, so
+ * its expected stats become null instead of a false 0
+ */
+export function blankUnpublishedExpectedStats(
+  rows: readonly PlayerGameweekRow[],
+): PlayerGameweekRow[] {
+  const published = new Set<number>();
+  const scored = new Set<number>();
+  for (const row of rows) {
+    if (row.goalsScored > 0) scored.add(row.gameweek);
+    if (
+      (row.expectedGoals ?? 0) !== 0 ||
+      (row.expectedAssists ?? 0) !== 0 ||
+      (row.expectedGoalsConceded ?? 0) !== 0
+    ) {
+      published.add(row.gameweek);
+    }
+  }
+  return rows.map((row) =>
+    published.has(row.gameweek) || !scored.has(row.gameweek)
+      ? row
+      : {
+          ...row,
+          expectedGoals: null,
+          expectedAssists: null,
+          expectedGoalsConceded: null,
+        },
+  );
+}
+
 export function countDrop(
   dropped: Partial<Record<DropReason, number>>,
   reason: DropReason,

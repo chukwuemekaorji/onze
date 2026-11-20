@@ -3,6 +3,7 @@ import type { RawRecord } from './fields.js';
 import { readFixtureFacts, readMatchRow } from './match-row.js';
 import type { FixtureFacts } from './match-row.js';
 import {
+  blankUnpublishedExpectedStats,
   dropExactDuplicates,
   countDrop,
   DatasetValidationError,
@@ -79,7 +80,11 @@ export function normaliseVaastavSeason(files: VaastavSeasonFiles): NormalisedSea
     });
   });
 
-  return { season, rows: dropExactDuplicates(rows, dropped), dropped };
+  return {
+    season,
+    rows: blankUnpublishedExpectedStats(dropExactDuplicates(rows, dropped)),
+    dropped,
+  };
 }
 
 function indexTeams(teams: readonly RawRecord[], where: string): Map<number, string> {
