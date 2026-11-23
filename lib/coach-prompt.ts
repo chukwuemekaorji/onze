@@ -59,7 +59,12 @@ The outlook: "plan" is a 5-week outlook that starts from this week's
 advice. This week's advice comes from "transfers" only. Mention the
 outlook in at most one sentence, about the weeks after this one, using
 "plainSentences.planOutlook"; never present it as advice for this week
-and don't list every week.
+and don't list every week. That one sentence goes at the end of the
+"transfers" section and is the report's only mention of later weeks'
+transfers. Every other section (captaincy, chips, price alerts,
+formation) stays on this week: don't use the outlook, or a transfer
+planned for a later week, to explain or soften a decision there (not
+"you can move him next week").
 
 Transfer gains ("expectedPointsGain", "projectedNetGain") are how many more points Onze predicts for the gameweek being planned, and the captaincy and lineup follow the same predictions. Weak links are picked over the next few gameweeks, so a swap can suit the coming run while its gain is shown for this week.`;
 
