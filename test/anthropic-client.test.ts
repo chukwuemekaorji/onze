@@ -57,6 +57,29 @@ describe('sendMessage', () => {
     expect(JSON.parse(init.body as string)).toEqual(REQUEST);
   });
 
+  it('ignores thinking blocks and returns only the text', async () => {
+    stubFetch(async () =>
+      jsonResponse(200, {
+        stop_reason: 'end_turn',
+        content: [
+          { type: 'thinking', thinking: '' },
+          { type: 'text', text: 'Captain Haaland.' },
+        ],
+      }),
+    );
+    await expect(sendMessage('sk-ant-test', REQUEST)).resolves.toBe('Captain Haaland.');
+  });
+
+  it('fails loudly on a reply cut off at max_tokens, even with text in it', async () => {
+    stubFetch(async () =>
+      jsonResponse(200, {
+        stop_reason: 'max_tokens',
+        content: [{ type: 'text', text: '{"summary": "Gameweek 12 is a tid' }],
+      }),
+    );
+    expect(await kindOf(sendMessage('sk-ant-test', REQUEST))).toBe('truncated');
+  });
+
   it('maps 401 to invalid_key', async () => {
     stubFetch(async () =>
       jsonResponse(401, errorBody('authentication_error', 'invalid x-api-key')),

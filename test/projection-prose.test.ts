@@ -7,6 +7,8 @@ import {
   buildCoachRequest,
 } from '../lib/coach-prompt.js';
 import { writeFallbackReport } from '../lib/fallback-writer.js';
+import { COACH_EFFORT } from '../lib/model.js';
+import { ONZE_PERSONA } from '../lib/persona.js';
 import { JARGON } from '../lib/plain-labels.js';
 import sampleJson from '../web/fixtures/sample-summary.json';
 
@@ -58,6 +60,33 @@ describe('how the prose talks about the numbers', () => {
     for (const section of Object.values(report)) {
       for (const word of JARGON) expect(section).not.toContain(word);
       expect(section).not.toContain('expected points');
+    }
+  });
+
+  it('sends low effort with room for the reply, so thinking never eats the answer', () => {
+    // eval:live found every report cut off at the old 1500-token cap
+    const report = buildCoachRequest(sample, 'test-model');
+    const chat = buildChatRequest({
+      analysisSummary: sample,
+      history: [],
+      question: 'Who should I captain?',
+      model: 'test-model',
+    });
+    for (const request of [report, chat]) {
+      expect(request.output_config).toEqual({ effort: COACH_EFFORT });
+      expect(request.max_tokens).toBeGreaterThanOrEqual(8_000);
+    }
+  });
+
+  it('follows its own no-em-dash rule in every prompt', () => {
+    const chat = buildChatRequest({
+      analysisSummary: sample,
+      history: [],
+      question: 'Who should I captain?',
+      model: 'test-model',
+    });
+    for (const prompt of [ONZE_PERSONA, REPORT_SYSTEM_PROMPT, String(chat.system)]) {
+      expect(prompt).not.toContain('—');
     }
   });
 });

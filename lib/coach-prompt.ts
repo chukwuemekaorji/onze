@@ -1,4 +1,5 @@
-import type Anthropic from '@anthropic-ai/sdk';
+import { COACH_EFFORT } from './model.js';
+import type { ClaudeRequest } from './model.js';
 import { ONZE_PERSONA } from './persona.js';
 import type { AnalysisSummary } from './analysis-summary.js';
 import { notableLeague } from './analysis/leagues.js';
@@ -119,7 +120,7 @@ ${PLAIN_WORDS_GUIDE}
 
 Transfers: "transfers.suggestions" is ranked best-first by predicted
 point gain; "transfers.recommendedCount" says how many of those leading
-entries are actually worth making this gameweek — already weighed
+entries are actually worth making this gameweek, already weighed
 against "transfers.freeTransfers" (free transfers banked) and
 "transfers.pointsHitCost" (total -4-per-transfer cost of any transfers
 beyond the free ones), so don't re-derive that math yourself. If
@@ -131,7 +132,7 @@ or "you could." If pointsHitCost is greater than 0, say plainly that
 it's worth taking the hit and why (transfers.projectedNetGain is the
 predicted points gain after the hit, so say it in round numbers). Any suggestions beyond
 recommendedCount are weak links you're watching but not recommending a
-transfer for yet — mention at most one, briefly, only if it adds real
+transfer for yet. Mention at most one, briefly, only if it adds real
 value.
 
 Formation: "lineup" holds the recommended starting XI, bench order, and
@@ -148,7 +149,7 @@ mini-leagues; never name one of those or quote its rank unless it is
 "notableLeague". League context never changes the transfer or hit
 numbers above, which are already final.
 
-Respond with ONLY a JSON object matching this exact shape — no markdown
+Respond with ONLY a JSON object matching this exact shape, with no markdown
 fences, no commentary outside the JSON:
 {
   "summary": string,
@@ -159,15 +160,17 @@ fences, no commentary outside the JSON:
   "formation": string
 }`;
 
-const MAX_REPORT_TOKENS = 1500;
+// room for the json plus some thinking; effort keeps the thinking short
+const MAX_REPORT_TOKENS = 16_000;
 
 export function buildCoachRequest(
   summary: AnalysisSummary,
   model: string,
-): Anthropic.MessageCreateParamsNonStreaming {
+): ClaudeRequest {
   return {
     model,
     max_tokens: MAX_REPORT_TOKENS,
+    output_config: { effort: COACH_EFFORT },
     system: REPORT_SYSTEM_PROMPT,
     // the notable league is decided here, not by the model, so the report never
     // singles out an arbitrary league

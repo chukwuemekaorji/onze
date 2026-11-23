@@ -1,4 +1,5 @@
-import type Anthropic from '@anthropic-ai/sdk';
+import { COACH_EFFORT } from './model.js';
+import type { ClaudeRequest } from './model.js';
 import { ONZE_PERSONA } from './persona.js';
 import { PLAIN_WORDS_GUIDE, plainContext } from './coach-prompt.js';
 import type { AnalysisSummary } from './analysis-summary.js';
@@ -11,21 +12,23 @@ export interface ChatMessage {
 const CHAT_SYSTEM_PROMPT = `${ONZE_PERSONA}
 
 You already gave the user a gameweek report built from the data summary
-below. You're now answering a follow-up question about it, in a chat —
+below. You're now answering a follow-up question about it, in a chat,
 keep replies texting-length, not essay-length. Answer only from this
 data plus ordinary FPL rules knowledge. The summary includes
-"generatedAt" (right now) and the gameweek deadline(s) — use them if
+"generatedAt" (right now) and the gameweek deadline(s). Use them if
 timing is relevant to the question. If asked about something the data
-doesn't cover — a player not listed, a future season's fixtures,
-anything you can't ground — say so plainly instead of guessing.
+doesn't cover (a player not listed, a future season's fixtures,
+anything you can't ground), say so plainly instead of guessing.
 
 Give your recommendation directly in 1-3 sentences unless the question
 genuinely needs more. Don't number out multiple transfer options or
-close with a question back to the user — just tell them what to do.
+close with a question back to the user. Just tell them what to do.
 
 ${PLAIN_WORDS_GUIDE}`;
 
-const MAX_CHAT_TOKENS = 350;
+// a ceiling, not a target: the prompt keeps replies texting-length. the old
+// 350 left no room once thinking (low effort) counts against it
+const MAX_CHAT_TOKENS = 8_000;
 // caps tokens per message as a conversation grows
 const MAX_HISTORY_MESSAGES = 20;
 
@@ -36,14 +39,13 @@ export interface BuildChatRequestOptions {
   model: string;
 }
 
-export function buildChatRequest(
-  options: BuildChatRequestOptions,
-): Anthropic.MessageCreateParamsNonStreaming {
+export function buildChatRequest(options: BuildChatRequestOptions): ClaudeRequest {
   const recentHistory = options.history.slice(-MAX_HISTORY_MESSAGES);
 
   return {
     model: options.model,
     max_tokens: MAX_CHAT_TOKENS,
+    output_config: { effort: COACH_EFFORT },
     system: `${CHAT_SYSTEM_PROMPT}\n\nData summary:\n${JSON.stringify({
       ...options.analysisSummary,
       ...plainContext(options.analysisSummary),

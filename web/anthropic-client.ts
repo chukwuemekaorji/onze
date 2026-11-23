@@ -14,6 +14,7 @@ export type AnthropicErrorKind =
   | 'overloaded'
   | 'timeout'
   | 'network'
+  | 'truncated'
   | 'unknown';
 
 const MESSAGE_BY_KIND: Record<Exclude<AnthropicErrorKind, 'unknown'>, string> = {
@@ -23,6 +24,7 @@ const MESSAGE_BY_KIND: Record<Exclude<AnthropicErrorKind, 'unknown'>, string> = 
   overloaded: 'Anthropic is overloaded right now. Try again shortly.',
   timeout: 'Anthropic took too long to respond. Try again.',
   network: "Couldn't reach Anthropic. Check your connection and try again.",
+  truncated: "Anthropic's reply was cut off before it finished. Try again.",
 };
 
 export class AnthropicCallError extends Error {
@@ -104,6 +106,11 @@ export async function sendMessage(
   if (controller.signal.aborted) throw errorOf('timeout');
   if (!response.ok) throw classifyAnthropicError(response.status, body);
 
+  // a reply that hit max_tokens is unfinished: half a report or half an
+  // answer must fail loudly, never show as if it were complete
+  if ((body as Partial<Anthropic.Message> | null)?.stop_reason === 'max_tokens') {
+    throw errorOf('truncated');
+  }
   const text = extractText(body);
   if (!text) {
     throw new AnthropicCallError('unknown', 'Anthropic sent back an empty reply.');
