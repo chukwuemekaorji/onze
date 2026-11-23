@@ -29,7 +29,9 @@
     "eval:test": "tsx scripts/eval/test-season.ts score && prettier --write results/test-2025-26.md",
     "backtest:register": "tsx scripts/backtest/run.ts register && prettier --write results/decision-backtest.md",
     "backtest:rehearse": "tsx scripts/backtest/run.ts rehearse",
-    "backtest": "tsx scripts/backtest/run.ts run && prettier --write results/decision-backtest.md"
+    "backtest": "tsx scripts/backtest/run.ts run && prettier --write results/decision-backtest.md",
+    "eval:golden": "tsx scripts/eval/llm/build-golden.ts && prettier --write test/fixtures/golden",
+    "eval:live": "tsx scripts/eval/llm/live.ts"
   },
   "dependencies": {
     "@fontsource-variable/bricolage-grotesque": "^5.3.0",

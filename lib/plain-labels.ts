@@ -308,7 +308,7 @@ export function planOutlook(plan: TransferPlan): string {
   const lead = `Looking ahead, the ${plan.weeks.length}-week outlook`;
   const firstMove = later.find((week) => week.swaps.length > 0);
   if (firstMove === undefined) {
-    return `${lead} has no transfer worth making after this week.`;
+    return `${lead} has no transfer worth making in the weeks after.`;
   }
   const saved = later.filter((week) => week.event < firstMove.event);
   const moves = joinWithAnd(

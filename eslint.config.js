@@ -18,6 +18,20 @@ export default [
           ],
         },
       ],
+      // the server and the browser never read an anthropic key from the
+      // environment; only scripts/ may (npm run eval:live, run by hand)
+      'no-restricted-syntax': [
+        'error',
+        ...[
+          "Identifier[name='ANTHROPIC_API_KEY']",
+          "Literal[value='ANTHROPIC_API_KEY']",
+          'TemplateElement[value.raw=/ANTHROPIC_API_KEY/]',
+        ].map((selector) => ({
+          selector,
+          message:
+            'ANTHROPIC_API_KEY is for scripts/ only (eval:live). Users bring their own key in the browser.',
+        })),
+      ],
     },
   },
   {

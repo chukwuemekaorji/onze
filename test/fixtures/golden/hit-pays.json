@@ -1,0 +1,4213 @@
+{
+  "id": "hit-pays",
+  "title": "A -4 hit that pays",
+  "description": "The real squad with its two dearest outfield players injured, £3.0m in the bank and 1 free transfer, in a gameweek where most clubs play twice.",
+  "recordedAt": "2026-11-23T10:28:36.775Z",
+  "summary": {
+    "managerName": "Golden Manager",
+    "teamName": "Golden XI",
+    "currentEvent": 12,
+    "currentEventDeadline": "2026-11-27T18:30:00Z",
+    "nextEvent": {
+      "id": 13,
+      "deadline": "2026-12-01T18:30:00Z"
+    },
+    "generatedAt": "2026-11-23T11:12:36.775Z",
+    "squad": {
+      "currentEvent": 12,
+      "bank": 30,
+      "freeTransfers": 1,
+      "squad": [
+        {
+          "id": 1,
+          "webName": "Raya",
+          "teamId": 1,
+          "teamShortName": "ARS",
+          "teamName": "Arsenal",
+          "position": "GK",
+          "nowCost": 63,
+          "form": 4.8,
+          "pointsPerGame": 5.5,
+          "epNext": 3.6,
+          "projection": {
+            "event": 12,
+            "points": 5.73033832774802,
+            "chanceOfPlaying": 0.7153766749061707,
+            "pointsIfPlaying": 8.010239261015347,
+            "goalOrAssistChance": 0.0017723769372802733,
+            "cleanSheetChance": 0.5947577743125849,
+            "horizonPoints": 8.468701814024906,
+            "horizonEvents": 3,
+            "weeklyPoints": [
+              5.73033832774802, 2.738363486276885, 0, 2.9415635387845165,
+              2.9722578118493517
+            ]
+          },
+          "totalPoints": 61,
+          "selectedByPercent": 46.7,
+          "chanceOfPlayingNextRound": 75,
+          "status": "d",
+          "costChangeEvent": 0,
+          "transfersInEvent": 4862,
+          "transfersOutEvent": 115297,
+          "nextFixtures": [
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "MCI"
+            },
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "TOT"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BRE"
+            },
+            {
+              "event": 15,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "BOU"
+            },
+            {
+              "event": 16,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "MUN"
+            }
+          ]
+        },
+        {
+          "id": 250,
+          "webName": "Leno",
+          "teamId": 10,
+          "teamShortName": "FUL",
+          "teamName": "Fulham",
+          "position": "GK",
+          "nowCost": 45,
+          "form": 3.8,
+          "pointsPerGame": 3.7,
+          "epNext": 3.8,
+          "projection": {
+            "event": 12,
+            "points": 5.946568352699176,
+            "chanceOfPlaying": 0.9539878969198334,
+            "pointsIfPlaying": 6.233379240867753,
+            "goalOrAssistChance": 0.000681201284503441,
+            "cleanSheetChance": 0.3285512297502755,
+            "horizonPoints": 8.943998750783482,
+            "horizonEvents": 3,
+            "weeklyPoints": [
+              5.946568352699176, 2.9974303980843056, 0, 3.065148993757079,
+              2.92170998781544
+            ]
+          },
+          "totalPoints": 41,
+          "selectedByPercent": 4.3,
+          "chanceOfPlayingNextRound": null,
+          "status": "a",
+          "costChangeEvent": 0,
+          "transfersInEvent": 1403,
+          "transfersOutEvent": 3033,
+          "nextFixtures": [
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "BOU"
+            },
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "EVE"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "TOT"
+            },
+            {
+              "event": 15,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "BRE"
+            },
+            {
+              "event": 16,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "LEE"
+            }
+          ]
+        },
+        {
+          "id": 31,
+          "webName": "Konsa",
+          "teamId": 1,
+          "teamShortName": "ARS",
+          "teamName": "Arsenal",
+          "position": "DEF",
+          "nowCost": 49,
+          "form": 8.2,
+          "pointsPerGame": 5.8,
+          "epNext": 8.2,
+          "projection": {
+            "event": 12,
+            "points": 7.024288194793261,
+            "chanceOfPlaying": 0.9400108095881787,
+            "pointsIfPlaying": 7.472561084558825,
+            "goalOrAssistChance": 0.10289035163153859,
+            "cleanSheetChance": 0.5947577743125849,
+            "horizonPoints": 10.36282891276386,
+            "horizonEvents": 3,
+            "weeklyPoints": [
+              7.024288194793261, 3.3385407179705977, 0, 3.6360264402890197,
+              3.7646482841404976
+            ]
+          },
+          "totalPoints": 58,
+          "selectedByPercent": 25.4,
+          "chanceOfPlayingNextRound": 100,
+          "status": "a",
+          "costChangeEvent": 0,
+          "transfersInEvent": 15576,
+          "transfersOutEvent": 20189,
+          "nextFixtures": [
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "MCI"
+            },
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "TOT"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BRE"
+            },
+            {
+              "event": 15,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "BOU"
+            },
+            {
+              "event": 16,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "MUN"
+            }
+          ]
+        },
+        {
+          "id": 115,
+          "webName": "De Cuyper",
+          "teamId": 5,
+          "teamShortName": "BHA",
+          "teamName": "Brighton",
+          "position": "DEF",
+          "nowCost": 55,
+          "form": 4.2,
+          "pointsPerGame": 6.9,
+          "epNext": 4.2,
+          "projection": {
+            "event": 12,
+            "points": 8.181185555760713,
+            "chanceOfPlaying": 0.9379023228356014,
+            "pointsIfPlaying": 8.722854562323903,
+            "goalOrAssistChance": 0.5682990715456795,
+            "cleanSheetChance": 0.4000335561378665,
+            "horizonPoints": 11.409117014746089,
+            "horizonEvents": 3,
+            "weeklyPoints": [
+              8.181185555760713, 3.2279314589853763, 0, 4.250377070026931,
+              4.90243154177988
+            ]
+          },
+          "totalPoints": 76,
+          "selectedByPercent": 50,
+          "chanceOfPlayingNextRound": null,
+          "status": "a",
+          "costChangeEvent": 0,
+          "transfersInEvent": 31343,
+          "transfersOutEvent": 5297,
+          "nextFixtures": [
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "NEW"
+            },
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "NFO"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BOU"
+            },
+            {
+              "event": 15,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "EVE"
+            },
+            {
+              "event": 16,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "IPS"
+            }
+          ]
+        },
+        {
+          "id": 330,
+          "webName": "Bogle",
+          "teamId": 13,
+          "teamShortName": "LEE",
+          "teamName": "Leeds",
+          "position": "DEF",
+          "nowCost": 48,
+          "form": 4.2,
+          "pointsPerGame": 5.6,
+          "epNext": 4.2,
+          "projection": {
+            "event": 12,
+            "points": 8.169918887296229,
+            "chanceOfPlaying": 0.9466063144918928,
+            "pointsIfPlaying": 8.630746237607312,
+            "goalOrAssistChance": 0.46377276248370614,
+            "cleanSheetChance": 0.6080746883074786,
+            "horizonPoints": 10.525217212002543,
+            "horizonEvents": 3,
+            "weeklyPoints": [
+              8.169918887296229, 2.3552983247063146, 0, 2.676052882678338,
+              3.7412296602360176
+            ]
+          },
+          "totalPoints": 62,
+          "selectedByPercent": 11.6,
+          "chanceOfPlayingNextRound": null,
+          "status": "a",
+          "costChangeEvent": 0,
+          "transfersInEvent": 35589,
+          "transfersOutEvent": 3563,
+          "nextFixtures": [
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "COV"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "IPS"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 5,
+              "opponentShortName": "MCI"
+            },
+            {
+              "event": 15,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "LIV"
+            },
+            {
+              "event": 16,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "FUL"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "webName": "Gabriel",
+          "teamId": 1,
+          "teamShortName": "ARS",
+          "teamName": "Arsenal",
+          "position": "DEF",
+          "nowCost": 81,
+          "form": 8,
+          "pointsPerGame": 6.1,
+          "epNext": 8,
+          "projection": {
+            "event": 12,
+            "points": 9.510111761576779,
+            "chanceOfPlaying": 0.9459444198980758,
+            "pointsIfPlaying": 10.053562938297663,
+            "goalOrAssistChance": 0.2319398200141113,
+            "cleanSheetChance": 0.5947577743125849,
+            "horizonPoints": 14.109976093031378,
+            "horizonEvents": 3,
+            "weeklyPoints": [
+              9.510111761576779, 4.599864331454598, 0, 4.923837576670735,
+              5.152742976356988
+            ]
+          },
+          "totalPoints": 67,
+          "selectedByPercent": 26.7,
+          "chanceOfPlayingNextRound": null,
+          "status": "a",
+          "costChangeEvent": 0,
+          "transfersInEvent": 21314,
+          "transfersOutEvent": 9451,
+          "nextFixtures": [
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "MCI"
+            },
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "TOT"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BRE"
+            },
+            {
+              "event": 15,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "BOU"
+            },
+            {
+              "event": 16,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "MUN"
+            }
+          ]
+        },
+        {
+          "id": 449,
+          "webName": "Hall",
+          "teamId": 17,
+          "teamShortName": "NEW",
+          "teamName": "Newcastle",
+          "position": "DEF",
+          "nowCost": 52,
+          "form": 3,
+          "pointsPerGame": 4.3,
+          "epNext": 2.2,
+          "projection": {
+            "event": 12,
+            "points": 4.279394241168388,
+            "chanceOfPlaying": 0.7035620426682205,
+            "pointsIfPlaying": 6.082468896330763,
+            "goalOrAssistChance": 0.2338781359197687,
+            "cleanSheetChance": 0.30325112878121496,
+            "horizonPoints": 6.513803038677274,
+            "horizonEvents": 3,
+            "weeklyPoints": [
+              4.279394241168388, 2.2344087975088858, 0, 2.4388830103423222,
+              1.8802649032767969
+            ]
+          },
+          "totalPoints": 47,
+          "selectedByPercent": 16.5,
+          "chanceOfPlayingNextRound": 75,
+          "status": "d",
+          "costChangeEvent": 0,
+          "transfersInEvent": 1523,
+          "transfersOutEvent": 47488,
+          "nextFixtures": [
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BHA"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "SUN"
+            },
+            {
+              "event": 13,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "MUN"
+            },
+            {
+              "event": 15,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "IPS"
+            },
+            {
+              "event": 16,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BRE"
+            }
+          ]
+        },
+        {
+          "id": 399,
+          "webName": "Cherki",
+          "teamId": 15,
+          "teamShortName": "MCI",
+          "teamName": "Man City",
+          "position": "MID",
+          "nowCost": 78,
+          "form": 2.8,
+          "pointsPerGame": 5.5,
+          "epNext": 2.8,
+          "projection": {
+            "event": 12,
+            "points": 6.4155926590934715,
+            "chanceOfPlaying": 0.9335105374791519,
+            "pointsIfPlaying": 6.872544445420092,
+            "goalOrAssistChance": 0.46952021225880824,
+            "cleanSheetChance": null,
+            "horizonPoints": 10.18277200013113,
+            "horizonEvents": 3,
+            "weeklyPoints": [
+              6.4155926590934715, 3.76717934103766, 0, 3.8337564667097497,
+              4.164358105596698
+            ]
+          },
+          "totalPoints": 55,
+          "selectedByPercent": 32.4,
+          "chanceOfPlayingNextRound": null,
+          "status": "a",
+          "costChangeEvent": -1,
+          "transfersInEvent": 6338,
+          "transfersOutEvent": 142121,
+          "nextFixtures": [
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 5,
+              "opponentShortName": "ARS"
+            },
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BRE"
+            },
+            {
+              "event": 13,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "LEE"
+            },
+            {
+              "event": 15,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "CHE"
+            },
+            {
+              "event": 16,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "HUL"
+            }
+          ]
+        },
+        {
+          "id": 40,
+          "webName": "Rogers",
+          "teamId": 6,
+          "teamShortName": "CHE",
+          "teamName": "Chelsea",
+          "position": "MID",
+          "nowCost": 83,
+          "form": 4.2,
+          "pointsPerGame": 5.2,
+          "epNext": 4.2,
+          "projection": {
+            "event": 12,
+            "points": 0,
+            "chanceOfPlaying": 0,
+            "pointsIfPlaying": 8.399359952120045,
+            "goalOrAssistChance": 0.45509720242792195,
+            "cleanSheetChance": null,
+            "horizonPoints": 0,
+            "horizonEvents": 3,
+            "weeklyPoints": [0, 0, 0, 0, 0]
+          },
+          "totalPoints": 57,
+          "selectedByPercent": 54.7,
+          "chanceOfPlayingNextRound": 0,
+          "status": "i",
+          "costChangeEvent": 1,
+          "transfersInEvent": 30081,
+          "transfersOutEvent": 15890,
+          "nextFixtures": [
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "NFO"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "LIV"
+            },
+            {
+              "event": 13,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "CRY"
+            },
+            {
+              "event": 15,
+              "isHome": false,
+              "difficulty": 5,
+              "opponentShortName": "MCI"
+            },
+            {
+              "event": 16,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "AVL"
+            }
+          ]
+        },
+        {
+          "id": 124,
+          "webName": "Groß",
+          "teamId": 5,
+          "teamShortName": "BHA",
+          "teamName": "Brighton",
+          "position": "MID",
+          "nowCost": 63,
+          "form": 4,
+          "pointsPerGame": 6.7,
+          "epNext": 4,
+          "projection": {
+            "event": 12,
+            "points": 8.448567486776193,
+            "chanceOfPlaying": 0.9518583449138907,
+            "pointsIfPlaying": 8.875866384866846,
+            "goalOrAssistChance": 0.6261859916205249,
+            "cleanSheetChance": null,
+            "horizonPoints": 12.177859117450387,
+            "horizonEvents": 3,
+            "weeklyPoints": [
+              8.448567486776193, 3.7292916306741932, 0, 4.282896875838228,
+              4.8191436367217095
+            ]
+          },
+          "totalPoints": 74,
+          "selectedByPercent": 49.5,
+          "chanceOfPlayingNextRound": null,
+          "status": "a",
+          "costChangeEvent": 0,
+          "transfersInEvent": 27677,
+          "transfersOutEvent": 9401,
+          "nextFixtures": [
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "NEW"
+            },
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "NFO"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BOU"
+            },
+            {
+              "event": 15,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "EVE"
+            },
+            {
+              "event": 16,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "IPS"
+            }
+          ]
+        },
+        {
+          "id": 101,
+          "webName": "Henderson",
+          "teamId": 6,
+          "teamShortName": "CHE",
+          "teamName": "Chelsea",
+          "position": "MID",
+          "nowCost": 49,
+          "form": 1.5,
+          "pointsPerGame": 4.8,
+          "epNext": 1.5,
+          "projection": {
+            "event": 12,
+            "points": 3.4365505115867103,
+            "chanceOfPlaying": 0.7157000423627995,
+            "pointsIfPlaying": 4.801663138430651,
+            "goalOrAssistChance": 0.20975922446382766,
+            "cleanSheetChance": null,
+            "horizonPoints": 5.406540769783275,
+            "horizonEvents": 3,
+            "weeklyPoints": [
+              3.4365505115867103, 1.9699902581965647, 0, 1.444952273014811,
+              1.8243898346327323
+            ]
+          },
+          "totalPoints": 29,
+          "selectedByPercent": 1.3,
+          "chanceOfPlayingNextRound": 100,
+          "status": "a",
+          "costChangeEvent": 0,
+          "transfersInEvent": 279,
+          "transfersOutEvent": 3583,
+          "nextFixtures": [
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "NFO"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "LIV"
+            },
+            {
+              "event": 13,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "CRY"
+            },
+            {
+              "event": 15,
+              "isHome": false,
+              "difficulty": 5,
+              "opponentShortName": "MCI"
+            },
+            {
+              "event": 16,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "AVL"
+            }
+          ]
+        },
+        {
+          "id": 94,
+          "webName": "Schade",
+          "teamId": 4,
+          "teamShortName": "BRE",
+          "teamName": "Brentford",
+          "position": "MID",
+          "nowCost": 61,
+          "form": 1.5,
+          "pointsPerGame": 4.6,
+          "epNext": 1.5,
+          "projection": {
+            "event": 12,
+            "points": 6.818570762264741,
+            "chanceOfPlaying": 0.9495745161458504,
+            "pointsIfPlaying": 7.180658964964724,
+            "goalOrAssistChance": 0.46888622198214935,
+            "cleanSheetChance": null,
+            "horizonPoints": 9.872822841813964,
+            "horizonEvents": 3,
+            "weeklyPoints": [
+              6.818570762264741, 3.0542520795492223, 0, 3.3643555043564257,
+              3.7271553260702475
+            ]
+          },
+          "totalPoints": 46,
+          "selectedByPercent": 12,
+          "chanceOfPlayingNextRound": 100,
+          "status": "a",
+          "costChangeEvent": 0,
+          "transfersInEvent": 2711,
+          "transfersOutEvent": 27401,
+          "nextFixtures": [
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "MUN"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "MCI"
+            },
+            {
+              "event": 13,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "ARS"
+            },
+            {
+              "event": 15,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "FUL"
+            },
+            {
+              "event": 16,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "NEW"
+            }
+          ]
+        },
+        {
+          "id": 166,
+          "webName": "N.Jackson",
+          "teamId": 2,
+          "teamShortName": "AVL",
+          "teamName": "Aston Villa",
+          "position": "FWD",
+          "nowCost": 73,
+          "form": 8.8,
+          "pointsPerGame": 5.6,
+          "epNext": 8.8,
+          "projection": {
+            "event": 12,
+            "points": 7.812306423340896,
+            "chanceOfPlaying": 0.8084981677298251,
+            "pointsIfPlaying": 9.662738562880115,
+            "goalOrAssistChance": 0.7316541612374661,
+            "cleanSheetChance": null,
+            "horizonPoints": 11.391482708370166,
+            "horizonEvents": 3,
+            "weeklyPoints": [
+              7.812306423340896, 3.5791762850292703, 0, 3.54150273365369,
+              3.2886873687638865
+            ]
+          },
+          "totalPoints": 56,
+          "selectedByPercent": 36.2,
+          "chanceOfPlayingNextRound": null,
+          "status": "a",
+          "costChangeEvent": 1,
+          "transfersInEvent": 70937,
+          "transfersOutEvent": 13859,
+          "nextFixtures": [
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "IPS"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "CRY"
+            },
+            {
+              "event": 13,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "EVE"
+            },
+            {
+              "event": 15,
+              "isHome": false,
+              "difficulty": 2,
+              "opponentShortName": "COV"
+            },
+            {
+              "event": 16,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "CHE"
+            }
+          ]
+        },
+        {
+          "id": 411,
+          "webName": "Haaland",
+          "teamId": 15,
+          "teamShortName": "MCI",
+          "teamName": "Man City",
+          "position": "FWD",
+          "nowCost": 158,
+          "form": 3.5,
+          "pointsPerGame": 6.5,
+          "epNext": 3.5,
+          "projection": {
+            "event": 12,
+            "points": 0,
+            "chanceOfPlaying": 0,
+            "pointsIfPlaying": 10.874130330043531,
+            "goalOrAssistChance": 0.6439592542943451,
+            "cleanSheetChance": null,
+            "horizonPoints": 0,
+            "horizonEvents": 3,
+            "weeklyPoints": [0, 0, 0, 0, 0]
+          },
+          "totalPoints": 72,
+          "selectedByPercent": 78.1,
+          "chanceOfPlayingNextRound": 0,
+          "status": "i",
+          "costChangeEvent": 0,
+          "transfersInEvent": 4702,
+          "transfersOutEvent": 73458,
+          "nextFixtures": [
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 5,
+              "opponentShortName": "ARS"
+            },
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BRE"
+            },
+            {
+              "event": 13,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "LEE"
+            },
+            {
+              "event": 15,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "CHE"
+            },
+            {
+              "event": 16,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "HUL"
+            }
+          ]
+        },
+        {
+          "id": 79,
+          "webName": "Evanilson",
+          "teamId": 3,
+          "teamShortName": "BOU",
+          "teamName": "Bournemouth",
+          "position": "FWD",
+          "nowCost": 66,
+          "form": 7.5,
+          "pointsPerGame": 6.1,
+          "epNext": 7.5,
+          "projection": {
+            "event": 12,
+            "points": 9.309755245997925,
+            "chanceOfPlaying": 0.9520799205443398,
+            "pointsIfPlaying": 9.778333777562695,
+            "goalOrAssistChance": 0.7051875961037655,
+            "cleanSheetChance": null,
+            "horizonPoints": 13.80205546530588,
+            "horizonEvents": 3,
+            "weeklyPoints": [
+              9.309755245997925, 4.492300219307955, 0, 3.5315867193040864,
+              4.983128786222108
+            ]
+          },
+          "totalPoints": 67,
+          "selectedByPercent": 26.9,
+          "chanceOfPlayingNextRound": null,
+          "status": "a",
+          "costChangeEvent": 1,
+          "transfersInEvent": 105333,
+          "transfersOutEvent": 4704,
+          "nextFixtures": [
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "FUL"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "HUL"
+            },
+            {
+              "event": 13,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "BHA"
+            },
+            {
+              "event": 15,
+              "isHome": false,
+              "difficulty": 5,
+              "opponentShortName": "ARS"
+            },
+            {
+              "event": 16,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "COV"
+            }
+          ]
+        }
+      ],
+      "picks": [
+        {
+          "elementId": 1,
+          "isCaptain": false,
+          "isViceCaptain": false,
+          "multiplier": 1
+        },
+        {
+          "elementId": 250,
+          "isCaptain": false,
+          "isViceCaptain": false,
+          "multiplier": 1
+        },
+        {
+          "elementId": 31,
+          "isCaptain": false,
+          "isViceCaptain": false,
+          "multiplier": 1
+        },
+        {
+          "elementId": 115,
+          "isCaptain": false,
+          "isViceCaptain": false,
+          "multiplier": 1
+        },
+        {
+          "elementId": 330,
+          "isCaptain": false,
+          "isViceCaptain": false,
+          "multiplier": 1
+        },
+        {
+          "elementId": 4,
+          "isCaptain": false,
+          "isViceCaptain": false,
+          "multiplier": 1
+        },
+        {
+          "elementId": 449,
+          "isCaptain": false,
+          "isViceCaptain": false,
+          "multiplier": 1
+        },
+        {
+          "elementId": 399,
+          "isCaptain": false,
+          "isViceCaptain": false,
+          "multiplier": 1
+        },
+        {
+          "elementId": 40,
+          "isCaptain": false,
+          "isViceCaptain": false,
+          "multiplier": 1
+        },
+        {
+          "elementId": 124,
+          "isCaptain": false,
+          "isViceCaptain": false,
+          "multiplier": 1
+        },
+        {
+          "elementId": 101,
+          "isCaptain": false,
+          "isViceCaptain": false,
+          "multiplier": 1
+        },
+        {
+          "elementId": 94,
+          "isCaptain": false,
+          "isViceCaptain": false,
+          "multiplier": 1
+        },
+        {
+          "elementId": 166,
+          "isCaptain": false,
+          "isViceCaptain": false,
+          "multiplier": 1
+        },
+        {
+          "elementId": 411,
+          "isCaptain": false,
+          "isViceCaptain": false,
+          "multiplier": 1
+        },
+        {
+          "elementId": 79,
+          "isCaptain": true,
+          "isViceCaptain": false,
+          "multiplier": 2
+        }
+      ]
+    },
+    "leagueStandings": [
+      {
+        "id": 1,
+        "name": "Mini-league 1",
+        "rank": 240,
+        "previousRank": 231,
+        "totalEntries": 394
+      },
+      {
+        "id": 2,
+        "name": "Mini-league 2",
+        "rank": 710,
+        "previousRank": 672,
+        "totalEntries": 1236
+      },
+      {
+        "id": 3,
+        "name": "Mini-league 3",
+        "rank": 7368,
+        "previousRank": 6992,
+        "totalEntries": 10599
+      },
+      {
+        "id": 4,
+        "name": "Mini-league 4",
+        "rank": 1454,
+        "previousRank": 1361,
+        "totalEntries": 2470
+      },
+      {
+        "id": 5,
+        "name": "Mini-league 5",
+        "rank": 444,
+        "previousRank": 428,
+        "totalEntries": 555
+      },
+      {
+        "id": 6,
+        "name": "Mini-league 6",
+        "rank": 273,
+        "previousRank": 251,
+        "totalEntries": 509
+      },
+      {
+        "id": 7,
+        "name": "Mini-league 7",
+        "rank": 9,
+        "previousRank": 9,
+        "totalEntries": 23
+      },
+      {
+        "id": 8,
+        "name": "Mini-league 8",
+        "rank": 155,
+        "previousRank": 151,
+        "totalEntries": 244
+      }
+    ],
+    "chipsUsed": [],
+    "transfers": {
+      "suggestions": [
+        {
+          "outPlayer": {
+            "id": 40,
+            "webName": "Rogers",
+            "teamId": 6,
+            "teamShortName": "CHE",
+            "teamName": "Chelsea",
+            "position": "MID",
+            "nowCost": 83,
+            "form": 4.2,
+            "pointsPerGame": 5.2,
+            "epNext": 4.2,
+            "projection": {
+              "event": 12,
+              "points": 0,
+              "chanceOfPlaying": 0,
+              "pointsIfPlaying": 8.399359952120045,
+              "goalOrAssistChance": 0.45509720242792195,
+              "cleanSheetChance": null,
+              "horizonPoints": 0,
+              "horizonEvents": 3,
+              "weeklyPoints": [0, 0, 0, 0, 0]
+            },
+            "totalPoints": 57,
+            "selectedByPercent": 54.7,
+            "chanceOfPlayingNextRound": 0,
+            "status": "i",
+            "costChangeEvent": 1,
+            "transfersInEvent": 30081,
+            "transfersOutEvent": 15890,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 2,
+                "opponentShortName": "NFO"
+              },
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 4,
+                "opponentShortName": "LIV"
+              },
+              {
+                "event": 13,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "CRY"
+              },
+              {
+                "event": 15,
+                "isHome": false,
+                "difficulty": 5,
+                "opponentShortName": "MCI"
+              },
+              {
+                "event": 16,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "AVL"
+              }
+            ]
+          },
+          "reasonCodes": ["injury_doubt"],
+          "inCandidates": [
+            {
+              "id": 68,
+              "webName": "Tavernier",
+              "teamId": 3,
+              "teamShortName": "BOU",
+              "teamName": "Bournemouth",
+              "position": "MID",
+              "nowCost": 67,
+              "form": 6,
+              "pointsPerGame": 6,
+              "epNext": 6,
+              "projection": {
+                "event": 12,
+                "points": 9.49824360720752,
+                "chanceOfPlaying": 0.9484583521786545,
+                "pointsIfPlaying": 10.014402409330465,
+                "goalOrAssistChance": 0.7070697831186131,
+                "cleanSheetChance": null,
+                "horizonPoints": 14.031746990187141,
+                "horizonEvents": 3,
+                "weeklyPoints": [
+                  9.49824360720752, 4.533503382979621, 0, 3.5505806344047253,
+                  5.11709117543438
+                ]
+              },
+              "totalPoints": 66,
+              "selectedByPercent": 33.2,
+              "chanceOfPlayingNextRound": null,
+              "status": "a",
+              "costChangeEvent": 0,
+              "transfersInEvent": 80785,
+              "transfersOutEvent": 6513,
+              "nextFixtures": [
+                {
+                  "event": 12,
+                  "isHome": false,
+                  "difficulty": 3,
+                  "opponentShortName": "FUL"
+                },
+                {
+                  "event": 12,
+                  "isHome": true,
+                  "difficulty": 2,
+                  "opponentShortName": "HUL"
+                },
+                {
+                  "event": 13,
+                  "isHome": true,
+                  "difficulty": 4,
+                  "opponentShortName": "BHA"
+                },
+                {
+                  "event": 15,
+                  "isHome": false,
+                  "difficulty": 5,
+                  "opponentShortName": "ARS"
+                },
+                {
+                  "event": 16,
+                  "isHome": true,
+                  "difficulty": 2,
+                  "opponentShortName": "COV"
+                }
+              ]
+            }
+          ],
+          "expectedPointsGain": 9.49824360720752
+        },
+        {
+          "outPlayer": {
+            "id": 411,
+            "webName": "Haaland",
+            "teamId": 15,
+            "teamShortName": "MCI",
+            "teamName": "Man City",
+            "position": "FWD",
+            "nowCost": 158,
+            "form": 3.5,
+            "pointsPerGame": 6.5,
+            "epNext": 3.5,
+            "projection": {
+              "event": 12,
+              "points": 0,
+              "chanceOfPlaying": 0,
+              "pointsIfPlaying": 10.874130330043531,
+              "goalOrAssistChance": 0.6439592542943451,
+              "cleanSheetChance": null,
+              "horizonPoints": 0,
+              "horizonEvents": 3,
+              "weeklyPoints": [0, 0, 0, 0, 0]
+            },
+            "totalPoints": 72,
+            "selectedByPercent": 78.1,
+            "chanceOfPlayingNextRound": 0,
+            "status": "i",
+            "costChangeEvent": 0,
+            "transfersInEvent": 4702,
+            "transfersOutEvent": 73458,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 5,
+                "opponentShortName": "ARS"
+              },
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "BRE"
+              },
+              {
+                "event": 13,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "LEE"
+              },
+              {
+                "event": 15,
+                "isHome": true,
+                "difficulty": 4,
+                "opponentShortName": "CHE"
+              },
+              {
+                "event": 16,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "HUL"
+              }
+            ]
+          },
+          "reasonCodes": ["injury_doubt"],
+          "inCandidates": [
+            {
+              "id": 249,
+              "webName": "Barry",
+              "teamId": 9,
+              "teamShortName": "EVE",
+              "teamName": "Everton",
+              "position": "FWD",
+              "nowCost": 57,
+              "form": 6.8,
+              "pointsPerGame": 5.5,
+              "epNext": 6.8,
+              "projection": {
+                "event": 12,
+                "points": 8.578446038923083,
+                "chanceOfPlaying": 0.953983367545018,
+                "pointsIfPlaying": 8.992238576442762,
+                "goalOrAssistChance": 0.6685465092357443,
+                "cleanSheetChance": null,
+                "horizonPoints": 12.79079289244611,
+                "horizonEvents": 3,
+                "weeklyPoints": [
+                  8.578446038923083, 4.212346853523027, 0, 3.879757159991285,
+                  4.129464783313956
+                ]
+              },
+              "totalPoints": 55,
+              "selectedByPercent": 11.5,
+              "chanceOfPlayingNextRound": null,
+              "status": "a",
+              "costChangeEvent": 0,
+              "transfersInEvent": 16541,
+              "transfersOutEvent": 15663,
+              "nextFixtures": [
+                {
+                  "event": 12,
+                  "isHome": true,
+                  "difficulty": 4,
+                  "opponentShortName": "LIV"
+                },
+                {
+                  "event": 12,
+                  "isHome": true,
+                  "difficulty": 2,
+                  "opponentShortName": "FUL"
+                },
+                {
+                  "event": 13,
+                  "isHome": false,
+                  "difficulty": 3,
+                  "opponentShortName": "AVL"
+                },
+                {
+                  "event": 15,
+                  "isHome": false,
+                  "difficulty": 4,
+                  "opponentShortName": "BHA"
+                },
+                {
+                  "event": 16,
+                  "isHome": false,
+                  "difficulty": 2,
+                  "opponentShortName": "NFO"
+                }
+              ]
+            }
+          ],
+          "expectedPointsGain": 8.578446038923083
+        },
+        {
+          "outPlayer": {
+            "id": 101,
+            "webName": "Henderson",
+            "teamId": 6,
+            "teamShortName": "CHE",
+            "teamName": "Chelsea",
+            "position": "MID",
+            "nowCost": 49,
+            "form": 1.5,
+            "pointsPerGame": 4.8,
+            "epNext": 1.5,
+            "projection": {
+              "event": 12,
+              "points": 3.4365505115867103,
+              "chanceOfPlaying": 0.7157000423627995,
+              "pointsIfPlaying": 4.801663138430651,
+              "goalOrAssistChance": 0.20975922446382766,
+              "cleanSheetChance": null,
+              "horizonPoints": 5.406540769783275,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                3.4365505115867103, 1.9699902581965647, 0, 1.444952273014811,
+                1.8243898346327323
+              ]
+            },
+            "totalPoints": 29,
+            "selectedByPercent": 1.3,
+            "chanceOfPlayingNextRound": 100,
+            "status": "a",
+            "costChangeEvent": 0,
+            "transfersInEvent": 279,
+            "transfersOutEvent": 3583,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 2,
+                "opponentShortName": "NFO"
+              },
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 4,
+                "opponentShortName": "LIV"
+              },
+              {
+                "event": 13,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "CRY"
+              },
+              {
+                "event": 15,
+                "isHome": false,
+                "difficulty": 5,
+                "opponentShortName": "MCI"
+              },
+              {
+                "event": 16,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "AVL"
+              }
+            ]
+          },
+          "reasonCodes": ["poor_form"],
+          "inCandidates": [
+            {
+              "id": 426,
+              "webName": "B.Fernandes",
+              "teamId": 16,
+              "teamShortName": "MUN",
+              "teamName": "Man Utd",
+              "position": "MID",
+              "nowCost": 116,
+              "form": 3.5,
+              "pointsPerGame": 4.7,
+              "epNext": 3.5,
+              "projection": {
+                "event": 12,
+                "points": 10.803443842819135,
+                "chanceOfPlaying": 0.9492009016725973,
+                "pointsIfPlaying": 11.381619869705421,
+                "goalOrAssistChance": 0.7551976648137844,
+                "cleanSheetChance": null,
+                "horizonPoints": 15.777990522883018,
+                "horizonEvents": 3,
+                "weeklyPoints": [
+                  10.803443842819135, 4.974546680063883, 0, 5.395004427143256,
+                  4.030879997448805
+                ]
+              },
+              "totalPoints": 47,
+              "selectedByPercent": 20,
+              "chanceOfPlayingNextRound": null,
+              "status": "a",
+              "costChangeEvent": 0,
+              "transfersInEvent": 13445,
+              "transfersOutEvent": 17166,
+              "nextFixtures": [
+                {
+                  "event": 12,
+                  "isHome": true,
+                  "difficulty": 3,
+                  "opponentShortName": "BRE"
+                },
+                {
+                  "event": 12,
+                  "isHome": true,
+                  "difficulty": 2,
+                  "opponentShortName": "COV"
+                },
+                {
+                  "event": 13,
+                  "isHome": false,
+                  "difficulty": 3,
+                  "opponentShortName": "NEW"
+                },
+                {
+                  "event": 15,
+                  "isHome": false,
+                  "difficulty": 2,
+                  "opponentShortName": "CRY"
+                },
+                {
+                  "event": 16,
+                  "isHome": false,
+                  "difficulty": 5,
+                  "opponentShortName": "ARS"
+                }
+              ]
+            },
+            {
+              "id": 366,
+              "webName": "Wirtz",
+              "teamId": 14,
+              "teamShortName": "LIV",
+              "teamName": "Liverpool",
+              "position": "MID",
+              "nowCost": 74,
+              "form": 8.8,
+              "pointsPerGame": 5.5,
+              "epNext": 8.8,
+              "projection": {
+                "event": 12,
+                "points": 8.449883237817229,
+                "chanceOfPlaying": 0.9469852598072568,
+                "pointsIfPlaying": 8.92293005652175,
+                "goalOrAssistChance": 0.6382579194023297,
+                "cleanSheetChance": null,
+                "horizonPoints": 13.26297883755257,
+                "horizonEvents": 3,
+                "weeklyPoints": [
+                  8.449883237817229, 4.813095599735341, 0, 4.437774814205689,
+                  4.393505835998994
+                ]
+              },
+              "totalPoints": 60,
+              "selectedByPercent": 8.5,
+              "chanceOfPlayingNextRound": 100,
+              "status": "a",
+              "costChangeEvent": 1,
+              "transfersInEvent": 170718,
+              "transfersOutEvent": 1911,
+              "nextFixtures": [
+                {
+                  "event": 12,
+                  "isHome": false,
+                  "difficulty": 3,
+                  "opponentShortName": "EVE"
+                },
+                {
+                  "event": 12,
+                  "isHome": false,
+                  "difficulty": 4,
+                  "opponentShortName": "CHE"
+                },
+                {
+                  "event": 13,
+                  "isHome": true,
+                  "difficulty": 2,
+                  "opponentShortName": "SUN"
+                },
+                {
+                  "event": 15,
+                  "isHome": true,
+                  "difficulty": 3,
+                  "opponentShortName": "LEE"
+                },
+                {
+                  "event": 16,
+                  "isHome": true,
+                  "difficulty": 3,
+                  "opponentShortName": "TOT"
+                }
+              ]
+            },
+            {
+              "id": 154,
+              "webName": "Palmer",
+              "teamId": 6,
+              "teamShortName": "CHE",
+              "teamName": "Chelsea",
+              "position": "MID",
+              "nowCost": 98,
+              "form": 2.8,
+              "pointsPerGame": 4.5,
+              "epNext": 2.8,
+              "projection": {
+                "event": 12,
+                "points": 7.95610621799486,
+                "chanceOfPlaying": 0.9344197858861414,
+                "pointsIfPlaying": 8.514488175622073,
+                "goalOrAssistChance": 0.5009021905559339,
+                "cleanSheetChance": null,
+                "horizonPoints": 12.675636918470877,
+                "horizonEvents": 3,
+                "weeklyPoints": [
+                  7.95610621799486, 4.719530700476017, 0, 3.499936004982085,
+                  4.376995986457027
+                ]
+              },
+              "totalPoints": 49,
+              "selectedByPercent": 27.6,
+              "chanceOfPlayingNextRound": 100,
+              "status": "a",
+              "costChangeEvent": 0,
+              "transfersInEvent": 9969,
+              "transfersOutEvent": 63838,
+              "nextFixtures": [
+                {
+                  "event": 12,
+                  "isHome": false,
+                  "difficulty": 2,
+                  "opponentShortName": "NFO"
+                },
+                {
+                  "event": 12,
+                  "isHome": true,
+                  "difficulty": 4,
+                  "opponentShortName": "LIV"
+                },
+                {
+                  "event": 13,
+                  "isHome": true,
+                  "difficulty": 2,
+                  "opponentShortName": "CRY"
+                },
+                {
+                  "event": 15,
+                  "isHome": false,
+                  "difficulty": 5,
+                  "opponentShortName": "MCI"
+                },
+                {
+                  "event": 16,
+                  "isHome": true,
+                  "difficulty": 3,
+                  "opponentShortName": "AVL"
+                }
+              ]
+            }
+          ],
+          "expectedPointsGain": 7.366893331232425
+        }
+      ],
+      "recommendedCount": 2,
+      "freeTransfers": 1,
+      "pointsHitCost": 4,
+      "projectedNetGain": 14.076689646130603
+    },
+    "plan": {
+      "weeks": [
+        {
+          "event": 12,
+          "swaps": [
+            {
+              "out": {
+                "id": 40,
+                "webName": "Rogers",
+                "teamName": "Chelsea",
+                "position": "MID",
+                "nowCost": 83
+              },
+              "in": {
+                "id": 68,
+                "webName": "Tavernier",
+                "teamName": "Bournemouth",
+                "position": "MID",
+                "nowCost": 67
+              },
+              "gain": 22.699418800026244,
+              "hit": false
+            },
+            {
+              "out": {
+                "id": 411,
+                "webName": "Haaland",
+                "teamName": "Man City",
+                "position": "FWD",
+                "nowCost": 158
+              },
+              "in": {
+                "id": 249,
+                "webName": "Barry",
+                "teamName": "Everton",
+                "position": "FWD",
+                "nowCost": 57
+              },
+              "gain": 20.80001483575135,
+              "hit": true
+            }
+          ],
+          "freeTransfers": 1,
+          "freeTransfersAfter": 1,
+          "hits": 1,
+          "bankAfter": 147,
+          "captain": {
+            "id": 4,
+            "webName": "Gabriel",
+            "teamName": "Arsenal",
+            "position": "DEF",
+            "nowCost": 81
+          },
+          "predictedPoints": 98.8080740782133,
+          "reason": {
+            "kind": "replaces_absent",
+            "outName": "Rogers",
+            "status": "injured"
+          }
+        },
+        {
+          "event": 13,
+          "swaps": [
+            {
+              "out": {
+                "id": 101,
+                "webName": "Henderson",
+                "teamName": "Chelsea",
+                "position": "MID",
+                "nowCost": 49
+              },
+              "in": {
+                "id": 426,
+                "webName": "B.Fernandes",
+                "teamName": "Man Utd",
+                "position": "MID",
+                "nowCost": 116
+              },
+              "gain": 9.161098738811836,
+              "hit": false
+            }
+          ],
+          "freeTransfers": 1,
+          "freeTransfersAfter": 1,
+          "hits": 0,
+          "bankAfter": 80,
+          "captain": {
+            "id": 426,
+            "webName": "B.Fernandes",
+            "teamName": "Man Utd",
+            "position": "MID",
+            "nowCost": 116
+          },
+          "predictedPoints": 48.42665797917437,
+          "reason": {
+            "kind": "easy_run",
+            "teamName": "Man Utd",
+            "fromEvent": 13,
+            "startsHere": false
+          }
+        },
+        {
+          "event": 14,
+          "swaps": [
+            {
+              "out": {
+                "id": 94,
+                "webName": "Schade",
+                "teamName": "Brentford",
+                "position": "MID",
+                "nowCost": 61
+              },
+              "in": {
+                "id": 366,
+                "webName": "Wirtz",
+                "teamName": "Liverpool",
+                "position": "MID",
+                "nowCost": 74
+              },
+              "gain": 1.7397698197780094,
+              "hit": false
+            }
+          ],
+          "freeTransfers": 1,
+          "freeTransfersAfter": 1,
+          "hits": 0,
+          "bankAfter": 67,
+          "captain": {
+            "id": 1,
+            "webName": "Raya",
+            "teamName": "Arsenal",
+            "position": "GK",
+            "nowCost": 63
+          },
+          "predictedPoints": 0,
+          "reason": {
+            "kind": "outscores",
+            "inName": "Wirtz",
+            "outName": "Schade",
+            "points": 1.7397698197780094,
+            "weeks": 3
+          }
+        },
+        {
+          "event": 15,
+          "swaps": [
+            {
+              "out": {
+                "id": 330,
+                "webName": "Bogle",
+                "teamName": "Leeds",
+                "position": "DEF",
+                "nowCost": 48
+              },
+              "in": {
+                "id": 112,
+                "webName": "Van Hecke",
+                "teamName": "Spurs",
+                "position": "DEF",
+                "nowCost": 52
+              },
+              "gain": 1.7000808028779852,
+              "hit": false
+            }
+          ],
+          "freeTransfers": 1,
+          "freeTransfersAfter": 1,
+          "hits": 0,
+          "bankAfter": 63,
+          "captain": {
+            "id": 426,
+            "webName": "B.Fernandes",
+            "teamName": "Man Utd",
+            "position": "MID",
+            "nowCost": 116
+          },
+          "predictedPoints": 51.24503933600311,
+          "reason": {
+            "kind": "outscores",
+            "inName": "Van Hecke",
+            "outName": "Bogle",
+            "points": 1.7000808028779852,
+            "weeks": 2
+          }
+        },
+        {
+          "event": 16,
+          "swaps": [
+            {
+              "out": {
+                "id": 449,
+                "webName": "Hall",
+                "teamName": "Newcastle",
+                "position": "DEF",
+                "nowCost": 52
+              },
+              "in": {
+                "id": 60,
+                "webName": "Hill",
+                "teamName": "Bournemouth",
+                "position": "DEF",
+                "nowCost": 56
+              },
+              "gain": 3.215130061648124,
+              "hit": false
+            }
+          ],
+          "freeTransfers": 1,
+          "freeTransfersAfter": 1,
+          "hits": 0,
+          "bankAfter": 59,
+          "captain": {
+            "id": 4,
+            "webName": "Gabriel",
+            "teamName": "Arsenal",
+            "position": "DEF",
+            "nowCost": 81
+          },
+          "predictedPoints": 54.91314259200479,
+          "reason": {
+            "kind": "easy_run",
+            "teamName": "Bournemouth",
+            "fromEvent": 16,
+            "startsHere": true
+          }
+        }
+      ],
+      "weekWeights": [
+        1, 0.85, 0.7224999999999999, 0.6141249999999999, 0.5220062499999999
+      ],
+      "weightedPoints": 200.1065967829021,
+      "hitCost": 4,
+      "objective": 196.1065967829021,
+      "beamWidth": 40
+    },
+    "captaincy": {
+      "captain": {
+        "player": {
+          "id": 4,
+          "webName": "Gabriel",
+          "teamId": 1,
+          "teamShortName": "ARS",
+          "teamName": "Arsenal",
+          "position": "DEF",
+          "nowCost": 81,
+          "form": 8,
+          "pointsPerGame": 6.1,
+          "epNext": 8,
+          "projection": {
+            "event": 12,
+            "points": 9.510111761576779,
+            "chanceOfPlaying": 0.9459444198980758,
+            "pointsIfPlaying": 10.053562938297663,
+            "goalOrAssistChance": 0.2319398200141113,
+            "cleanSheetChance": 0.5947577743125849,
+            "horizonPoints": 14.109976093031378,
+            "horizonEvents": 3,
+            "weeklyPoints": [
+              9.510111761576779, 4.599864331454598, 0, 4.923837576670735,
+              5.152742976356988
+            ]
+          },
+          "totalPoints": 67,
+          "selectedByPercent": 26.7,
+          "chanceOfPlayingNextRound": null,
+          "status": "a",
+          "costChangeEvent": 0,
+          "transfersInEvent": 21314,
+          "transfersOutEvent": 9451,
+          "nextFixtures": [
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "MCI"
+            },
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "TOT"
+            },
+            {
+              "event": 13,
+              "isHome": false,
+              "difficulty": 4,
+              "opponentShortName": "BRE"
+            },
+            {
+              "event": 15,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "BOU"
+            },
+            {
+              "event": 16,
+              "isHome": true,
+              "difficulty": 3,
+              "opponentShortName": "MUN"
+            }
+          ]
+        },
+        "score": 9.510111761576779
+      },
+      "viceCaptain": {
+        "player": {
+          "id": 68,
+          "webName": "Tavernier",
+          "teamId": 3,
+          "teamShortName": "BOU",
+          "teamName": "Bournemouth",
+          "position": "MID",
+          "nowCost": 67,
+          "form": 6,
+          "pointsPerGame": 6,
+          "epNext": 6,
+          "projection": {
+            "event": 12,
+            "points": 9.49824360720752,
+            "chanceOfPlaying": 0.9484583521786545,
+            "pointsIfPlaying": 10.014402409330465,
+            "goalOrAssistChance": 0.7070697831186131,
+            "cleanSheetChance": null,
+            "horizonPoints": 14.031746990187141,
+            "horizonEvents": 3,
+            "weeklyPoints": [
+              9.49824360720752, 4.533503382979621, 0, 3.5505806344047253,
+              5.11709117543438
+            ]
+          },
+          "totalPoints": 66,
+          "selectedByPercent": 33.2,
+          "chanceOfPlayingNextRound": null,
+          "status": "a",
+          "costChangeEvent": 0,
+          "transfersInEvent": 80785,
+          "transfersOutEvent": 6513,
+          "nextFixtures": [
+            {
+              "event": 12,
+              "isHome": false,
+              "difficulty": 3,
+              "opponentShortName": "FUL"
+            },
+            {
+              "event": 12,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "HUL"
+            },
+            {
+              "event": 13,
+              "isHome": true,
+              "difficulty": 4,
+              "opponentShortName": "BHA"
+            },
+            {
+              "event": 15,
+              "isHome": false,
+              "difficulty": 5,
+              "opponentShortName": "ARS"
+            },
+            {
+              "event": 16,
+              "isHome": true,
+              "difficulty": 2,
+              "opponentShortName": "COV"
+            }
+          ]
+        },
+        "score": 9.49824360720752
+      },
+      "candidates": [
+        {
+          "player": {
+            "id": 4,
+            "webName": "Gabriel",
+            "teamId": 1,
+            "teamShortName": "ARS",
+            "teamName": "Arsenal",
+            "position": "DEF",
+            "nowCost": 81,
+            "form": 8,
+            "pointsPerGame": 6.1,
+            "epNext": 8,
+            "projection": {
+              "event": 12,
+              "points": 9.510111761576779,
+              "chanceOfPlaying": 0.9459444198980758,
+              "pointsIfPlaying": 10.053562938297663,
+              "goalOrAssistChance": 0.2319398200141113,
+              "cleanSheetChance": 0.5947577743125849,
+              "horizonPoints": 14.109976093031378,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                9.510111761576779, 4.599864331454598, 0, 4.923837576670735,
+                5.152742976356988
+              ]
+            },
+            "totalPoints": 67,
+            "selectedByPercent": 26.7,
+            "chanceOfPlayingNextRound": null,
+            "status": "a",
+            "costChangeEvent": 0,
+            "transfersInEvent": 21314,
+            "transfersOutEvent": 9451,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 4,
+                "opponentShortName": "MCI"
+              },
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "TOT"
+              },
+              {
+                "event": 13,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "BRE"
+              },
+              {
+                "event": 15,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "BOU"
+              },
+              {
+                "event": 16,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "MUN"
+              }
+            ]
+          },
+          "score": 9.510111761576779
+        },
+        {
+          "player": {
+            "id": 68,
+            "webName": "Tavernier",
+            "teamId": 3,
+            "teamShortName": "BOU",
+            "teamName": "Bournemouth",
+            "position": "MID",
+            "nowCost": 67,
+            "form": 6,
+            "pointsPerGame": 6,
+            "epNext": 6,
+            "projection": {
+              "event": 12,
+              "points": 9.49824360720752,
+              "chanceOfPlaying": 0.9484583521786545,
+              "pointsIfPlaying": 10.014402409330465,
+              "goalOrAssistChance": 0.7070697831186131,
+              "cleanSheetChance": null,
+              "horizonPoints": 14.031746990187141,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                9.49824360720752, 4.533503382979621, 0, 3.5505806344047253,
+                5.11709117543438
+              ]
+            },
+            "totalPoints": 66,
+            "selectedByPercent": 33.2,
+            "chanceOfPlayingNextRound": null,
+            "status": "a",
+            "costChangeEvent": 0,
+            "transfersInEvent": 80785,
+            "transfersOutEvent": 6513,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "FUL"
+              },
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "HUL"
+              },
+              {
+                "event": 13,
+                "isHome": true,
+                "difficulty": 4,
+                "opponentShortName": "BHA"
+              },
+              {
+                "event": 15,
+                "isHome": false,
+                "difficulty": 5,
+                "opponentShortName": "ARS"
+              },
+              {
+                "event": 16,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "COV"
+              }
+            ]
+          },
+          "score": 9.49824360720752
+        },
+        {
+          "player": {
+            "id": 79,
+            "webName": "Evanilson",
+            "teamId": 3,
+            "teamShortName": "BOU",
+            "teamName": "Bournemouth",
+            "position": "FWD",
+            "nowCost": 66,
+            "form": 7.5,
+            "pointsPerGame": 6.1,
+            "epNext": 7.5,
+            "projection": {
+              "event": 12,
+              "points": 9.309755245997925,
+              "chanceOfPlaying": 0.9520799205443398,
+              "pointsIfPlaying": 9.778333777562695,
+              "goalOrAssistChance": 0.7051875961037655,
+              "cleanSheetChance": null,
+              "horizonPoints": 13.80205546530588,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                9.309755245997925, 4.492300219307955, 0, 3.5315867193040864,
+                4.983128786222108
+              ]
+            },
+            "totalPoints": 67,
+            "selectedByPercent": 26.9,
+            "chanceOfPlayingNextRound": null,
+            "status": "a",
+            "costChangeEvent": 1,
+            "transfersInEvent": 105333,
+            "transfersOutEvent": 4704,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "FUL"
+              },
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "HUL"
+              },
+              {
+                "event": 13,
+                "isHome": true,
+                "difficulty": 4,
+                "opponentShortName": "BHA"
+              },
+              {
+                "event": 15,
+                "isHome": false,
+                "difficulty": 5,
+                "opponentShortName": "ARS"
+              },
+              {
+                "event": 16,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "COV"
+              }
+            ]
+          },
+          "score": 9.309755245997925
+        },
+        {
+          "player": {
+            "id": 249,
+            "webName": "Barry",
+            "teamId": 9,
+            "teamShortName": "EVE",
+            "teamName": "Everton",
+            "position": "FWD",
+            "nowCost": 57,
+            "form": 6.8,
+            "pointsPerGame": 5.5,
+            "epNext": 6.8,
+            "projection": {
+              "event": 12,
+              "points": 8.578446038923083,
+              "chanceOfPlaying": 0.953983367545018,
+              "pointsIfPlaying": 8.992238576442762,
+              "goalOrAssistChance": 0.6685465092357443,
+              "cleanSheetChance": null,
+              "horizonPoints": 12.79079289244611,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                8.578446038923083, 4.212346853523027, 0, 3.879757159991285,
+                4.129464783313956
+              ]
+            },
+            "totalPoints": 55,
+            "selectedByPercent": 11.5,
+            "chanceOfPlayingNextRound": null,
+            "status": "a",
+            "costChangeEvent": 0,
+            "transfersInEvent": 16541,
+            "transfersOutEvent": 15663,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 4,
+                "opponentShortName": "LIV"
+              },
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "FUL"
+              },
+              {
+                "event": 13,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "AVL"
+              },
+              {
+                "event": 15,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "BHA"
+              },
+              {
+                "event": 16,
+                "isHome": false,
+                "difficulty": 2,
+                "opponentShortName": "NFO"
+              }
+            ]
+          },
+          "score": 8.578446038923083
+        },
+        {
+          "player": {
+            "id": 124,
+            "webName": "Groß",
+            "teamId": 5,
+            "teamShortName": "BHA",
+            "teamName": "Brighton",
+            "position": "MID",
+            "nowCost": 63,
+            "form": 4,
+            "pointsPerGame": 6.7,
+            "epNext": 4,
+            "projection": {
+              "event": 12,
+              "points": 8.448567486776193,
+              "chanceOfPlaying": 0.9518583449138907,
+              "pointsIfPlaying": 8.875866384866846,
+              "goalOrAssistChance": 0.6261859916205249,
+              "cleanSheetChance": null,
+              "horizonPoints": 12.177859117450387,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                8.448567486776193, 3.7292916306741932, 0, 4.282896875838228,
+                4.8191436367217095
+              ]
+            },
+            "totalPoints": 74,
+            "selectedByPercent": 49.5,
+            "chanceOfPlayingNextRound": null,
+            "status": "a",
+            "costChangeEvent": 0,
+            "transfersInEvent": 27677,
+            "transfersOutEvent": 9401,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "NEW"
+              },
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 2,
+                "opponentShortName": "NFO"
+              },
+              {
+                "event": 13,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "BOU"
+              },
+              {
+                "event": 15,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "EVE"
+              },
+              {
+                "event": 16,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "IPS"
+              }
+            ]
+          },
+          "score": 8.448567486776193
+        },
+        {
+          "player": {
+            "id": 115,
+            "webName": "De Cuyper",
+            "teamId": 5,
+            "teamShortName": "BHA",
+            "teamName": "Brighton",
+            "position": "DEF",
+            "nowCost": 55,
+            "form": 4.2,
+            "pointsPerGame": 6.9,
+            "epNext": 4.2,
+            "projection": {
+              "event": 12,
+              "points": 8.181185555760713,
+              "chanceOfPlaying": 0.9379023228356014,
+              "pointsIfPlaying": 8.722854562323903,
+              "goalOrAssistChance": 0.5682990715456795,
+              "cleanSheetChance": 0.4000335561378665,
+              "horizonPoints": 11.409117014746089,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                8.181185555760713, 3.2279314589853763, 0, 4.250377070026931,
+                4.90243154177988
+              ]
+            },
+            "totalPoints": 76,
+            "selectedByPercent": 50,
+            "chanceOfPlayingNextRound": null,
+            "status": "a",
+            "costChangeEvent": 0,
+            "transfersInEvent": 31343,
+            "transfersOutEvent": 5297,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "NEW"
+              },
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 2,
+                "opponentShortName": "NFO"
+              },
+              {
+                "event": 13,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "BOU"
+              },
+              {
+                "event": 15,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "EVE"
+              },
+              {
+                "event": 16,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "IPS"
+              }
+            ]
+          },
+          "score": 8.181185555760713
+        },
+        {
+          "player": {
+            "id": 330,
+            "webName": "Bogle",
+            "teamId": 13,
+            "teamShortName": "LEE",
+            "teamName": "Leeds",
+            "position": "DEF",
+            "nowCost": 48,
+            "form": 4.2,
+            "pointsPerGame": 5.6,
+            "epNext": 4.2,
+            "projection": {
+              "event": 12,
+              "points": 8.169918887296229,
+              "chanceOfPlaying": 0.9466063144918928,
+              "pointsIfPlaying": 8.630746237607312,
+              "goalOrAssistChance": 0.46377276248370614,
+              "cleanSheetChance": 0.6080746883074786,
+              "horizonPoints": 10.525217212002543,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                8.169918887296229, 2.3552983247063146, 0, 2.676052882678338,
+                3.7412296602360176
+              ]
+            },
+            "totalPoints": 62,
+            "selectedByPercent": 11.6,
+            "chanceOfPlayingNextRound": null,
+            "status": "a",
+            "costChangeEvent": 0,
+            "transfersInEvent": 35589,
+            "transfersOutEvent": 3563,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "COV"
+              },
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "IPS"
+              },
+              {
+                "event": 13,
+                "isHome": false,
+                "difficulty": 5,
+                "opponentShortName": "MCI"
+              },
+              {
+                "event": 15,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "LIV"
+              },
+              {
+                "event": 16,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "FUL"
+              }
+            ]
+          },
+          "score": 8.169918887296229
+        },
+        {
+          "player": {
+            "id": 166,
+            "webName": "N.Jackson",
+            "teamId": 2,
+            "teamShortName": "AVL",
+            "teamName": "Aston Villa",
+            "position": "FWD",
+            "nowCost": 73,
+            "form": 8.8,
+            "pointsPerGame": 5.6,
+            "epNext": 8.8,
+            "projection": {
+              "event": 12,
+              "points": 7.812306423340896,
+              "chanceOfPlaying": 0.8084981677298251,
+              "pointsIfPlaying": 9.662738562880115,
+              "goalOrAssistChance": 0.7316541612374661,
+              "cleanSheetChance": null,
+              "horizonPoints": 11.391482708370166,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                7.812306423340896, 3.5791762850292703, 0, 3.54150273365369,
+                3.2886873687638865
+              ]
+            },
+            "totalPoints": 56,
+            "selectedByPercent": 36.2,
+            "chanceOfPlayingNextRound": null,
+            "status": "a",
+            "costChangeEvent": 1,
+            "transfersInEvent": 70937,
+            "transfersOutEvent": 13859,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 2,
+                "opponentShortName": "IPS"
+              },
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "CRY"
+              },
+              {
+                "event": 13,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "EVE"
+              },
+              {
+                "event": 15,
+                "isHome": false,
+                "difficulty": 2,
+                "opponentShortName": "COV"
+              },
+              {
+                "event": 16,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "CHE"
+              }
+            ]
+          },
+          "score": 7.812306423340896
+        },
+        {
+          "player": {
+            "id": 31,
+            "webName": "Konsa",
+            "teamId": 1,
+            "teamShortName": "ARS",
+            "teamName": "Arsenal",
+            "position": "DEF",
+            "nowCost": 49,
+            "form": 8.2,
+            "pointsPerGame": 5.8,
+            "epNext": 8.2,
+            "projection": {
+              "event": 12,
+              "points": 7.024288194793261,
+              "chanceOfPlaying": 0.9400108095881787,
+              "pointsIfPlaying": 7.472561084558825,
+              "goalOrAssistChance": 0.10289035163153859,
+              "cleanSheetChance": 0.5947577743125849,
+              "horizonPoints": 10.36282891276386,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                7.024288194793261, 3.3385407179705977, 0, 3.6360264402890197,
+                3.7646482841404976
+              ]
+            },
+            "totalPoints": 58,
+            "selectedByPercent": 25.4,
+            "chanceOfPlayingNextRound": 100,
+            "status": "a",
+            "costChangeEvent": 0,
+            "transfersInEvent": 15576,
+            "transfersOutEvent": 20189,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 4,
+                "opponentShortName": "MCI"
+              },
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "TOT"
+              },
+              {
+                "event": 13,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "BRE"
+              },
+              {
+                "event": 15,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "BOU"
+              },
+              {
+                "event": 16,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "MUN"
+              }
+            ]
+          },
+          "score": 7.024288194793261
+        },
+        {
+          "player": {
+            "id": 94,
+            "webName": "Schade",
+            "teamId": 4,
+            "teamShortName": "BRE",
+            "teamName": "Brentford",
+            "position": "MID",
+            "nowCost": 61,
+            "form": 1.5,
+            "pointsPerGame": 4.6,
+            "epNext": 1.5,
+            "projection": {
+              "event": 12,
+              "points": 6.818570762264741,
+              "chanceOfPlaying": 0.9495745161458504,
+              "pointsIfPlaying": 7.180658964964724,
+              "goalOrAssistChance": 0.46888622198214935,
+              "cleanSheetChance": null,
+              "horizonPoints": 9.872822841813964,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                6.818570762264741, 3.0542520795492223, 0, 3.3643555043564257,
+                3.7271553260702475
+              ]
+            },
+            "totalPoints": 46,
+            "selectedByPercent": 12,
+            "chanceOfPlayingNextRound": 100,
+            "status": "a",
+            "costChangeEvent": 0,
+            "transfersInEvent": 2711,
+            "transfersOutEvent": 27401,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "MUN"
+              },
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 4,
+                "opponentShortName": "MCI"
+              },
+              {
+                "event": 13,
+                "isHome": true,
+                "difficulty": 4,
+                "opponentShortName": "ARS"
+              },
+              {
+                "event": 15,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "FUL"
+              },
+              {
+                "event": 16,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "NEW"
+              }
+            ]
+          },
+          "score": 6.818570762264741
+        },
+        {
+          "player": {
+            "id": 250,
+            "webName": "Leno",
+            "teamId": 10,
+            "teamShortName": "FUL",
+            "teamName": "Fulham",
+            "position": "GK",
+            "nowCost": 45,
+            "form": 3.8,
+            "pointsPerGame": 3.7,
+            "epNext": 3.8,
+            "projection": {
+              "event": 12,
+              "points": 5.946568352699176,
+              "chanceOfPlaying": 0.9539878969198334,
+              "pointsIfPlaying": 6.233379240867753,
+              "goalOrAssistChance": 0.000681201284503441,
+              "cleanSheetChance": 0.3285512297502755,
+              "horizonPoints": 8.943998750783482,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                5.946568352699176, 2.9974303980843056, 0, 3.065148993757079,
+                2.92170998781544
+              ]
+            },
+            "totalPoints": 41,
+            "selectedByPercent": 4.3,
+            "chanceOfPlayingNextRound": null,
+            "status": "a",
+            "costChangeEvent": 0,
+            "transfersInEvent": 1403,
+            "transfersOutEvent": 3033,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "BOU"
+              },
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "EVE"
+              },
+              {
+                "event": 13,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "TOT"
+              },
+              {
+                "event": 15,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "BRE"
+              },
+              {
+                "event": 16,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "LEE"
+              }
+            ]
+          },
+          "score": 5.946568352699176
+        }
+      ]
+    },
+    "chips": {
+      "doubleGameweeks": [
+        {
+          "event": 12,
+          "teamIds": [
+            18, 6, 13, 7, 16, 4, 12, 2, 9, 14, 5, 17, 8, 11, 10, 3, 20, 19, 1, 15
+          ]
+        }
+      ],
+      "blankGameweeks": [],
+      "suggestions": [
+        {
+          "chip": "bench_boost",
+          "recommendation": "play_now",
+          "reasonCodes": ["squad_double_gameweek_now"]
+        },
+        {
+          "chip": "triple_captain",
+          "recommendation": "play_now",
+          "reasonCodes": ["squad_double_gameweek_now"]
+        },
+        {
+          "chip": "free_hit",
+          "recommendation": "hold",
+          "reasonCodes": []
+        },
+        {
+          "chip": "wildcard",
+          "recommendation": "consider_soon",
+          "reasonCodes": ["fixture_swing_upcoming"]
+        }
+      ]
+    },
+    "priceAlerts": {
+      "alerts": [
+        {
+          "player": {
+            "id": 1,
+            "webName": "Raya",
+            "teamId": 1,
+            "teamShortName": "ARS",
+            "teamName": "Arsenal",
+            "position": "GK",
+            "nowCost": 63,
+            "form": 4.8,
+            "pointsPerGame": 5.5,
+            "epNext": 3.6,
+            "projection": {
+              "event": 12,
+              "points": 5.73033832774802,
+              "chanceOfPlaying": 0.7153766749061707,
+              "pointsIfPlaying": 8.010239261015347,
+              "goalOrAssistChance": 0.0017723769372802733,
+              "cleanSheetChance": 0.5947577743125849,
+              "horizonPoints": 8.468701814024906,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                5.73033832774802, 2.738363486276885, 0, 2.9415635387845165,
+                2.9722578118493517
+              ]
+            },
+            "totalPoints": 61,
+            "selectedByPercent": 46.7,
+            "chanceOfPlayingNextRound": 75,
+            "status": "d",
+            "costChangeEvent": 0,
+            "transfersInEvent": 4862,
+            "transfersOutEvent": 115297,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 4,
+                "opponentShortName": "MCI"
+              },
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "TOT"
+              },
+              {
+                "event": 13,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "BRE"
+              },
+              {
+                "event": 15,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "BOU"
+              },
+              {
+                "event": 16,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "MUN"
+              }
+            ]
+          },
+          "direction": "fall",
+          "status": "demand_this_gameweek"
+        },
+        {
+          "player": {
+            "id": 399,
+            "webName": "Cherki",
+            "teamId": 15,
+            "teamShortName": "MCI",
+            "teamName": "Man City",
+            "position": "MID",
+            "nowCost": 78,
+            "form": 2.8,
+            "pointsPerGame": 5.5,
+            "epNext": 2.8,
+            "projection": {
+              "event": 12,
+              "points": 6.4155926590934715,
+              "chanceOfPlaying": 0.9335105374791519,
+              "pointsIfPlaying": 6.872544445420092,
+              "goalOrAssistChance": 0.46952021225880824,
+              "cleanSheetChance": null,
+              "horizonPoints": 10.18277200013113,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                6.4155926590934715, 3.76717934103766, 0, 3.8337564667097497,
+                4.164358105596698
+              ]
+            },
+            "totalPoints": 55,
+            "selectedByPercent": 32.4,
+            "chanceOfPlayingNextRound": null,
+            "status": "a",
+            "costChangeEvent": -1,
+            "transfersInEvent": 6338,
+            "transfersOutEvent": 142121,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 5,
+                "opponentShortName": "ARS"
+              },
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "BRE"
+              },
+              {
+                "event": 13,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "LEE"
+              },
+              {
+                "event": 15,
+                "isHome": true,
+                "difficulty": 4,
+                "opponentShortName": "CHE"
+              },
+              {
+                "event": 16,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "HUL"
+              }
+            ]
+          },
+          "direction": "fall",
+          "status": "changed_this_gameweek"
+        },
+        {
+          "player": {
+            "id": 40,
+            "webName": "Rogers",
+            "teamId": 6,
+            "teamShortName": "CHE",
+            "teamName": "Chelsea",
+            "position": "MID",
+            "nowCost": 83,
+            "form": 4.2,
+            "pointsPerGame": 5.2,
+            "epNext": 4.2,
+            "projection": {
+              "event": 12,
+              "points": 0,
+              "chanceOfPlaying": 0,
+              "pointsIfPlaying": 8.399359952120045,
+              "goalOrAssistChance": 0.45509720242792195,
+              "cleanSheetChance": null,
+              "horizonPoints": 0,
+              "horizonEvents": 3,
+              "weeklyPoints": [0, 0, 0, 0, 0]
+            },
+            "totalPoints": 57,
+            "selectedByPercent": 54.7,
+            "chanceOfPlayingNextRound": 0,
+            "status": "i",
+            "costChangeEvent": 1,
+            "transfersInEvent": 30081,
+            "transfersOutEvent": 15890,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 2,
+                "opponentShortName": "NFO"
+              },
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 4,
+                "opponentShortName": "LIV"
+              },
+              {
+                "event": 13,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "CRY"
+              },
+              {
+                "event": 15,
+                "isHome": false,
+                "difficulty": 5,
+                "opponentShortName": "MCI"
+              },
+              {
+                "event": 16,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "AVL"
+              }
+            ]
+          },
+          "direction": "rise",
+          "status": "changed_this_gameweek"
+        },
+        {
+          "player": {
+            "id": 166,
+            "webName": "N.Jackson",
+            "teamId": 2,
+            "teamShortName": "AVL",
+            "teamName": "Aston Villa",
+            "position": "FWD",
+            "nowCost": 73,
+            "form": 8.8,
+            "pointsPerGame": 5.6,
+            "epNext": 8.8,
+            "projection": {
+              "event": 12,
+              "points": 7.812306423340896,
+              "chanceOfPlaying": 0.8084981677298251,
+              "pointsIfPlaying": 9.662738562880115,
+              "goalOrAssistChance": 0.7316541612374661,
+              "cleanSheetChance": null,
+              "horizonPoints": 11.391482708370166,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                7.812306423340896, 3.5791762850292703, 0, 3.54150273365369,
+                3.2886873687638865
+              ]
+            },
+            "totalPoints": 56,
+            "selectedByPercent": 36.2,
+            "chanceOfPlayingNextRound": null,
+            "status": "a",
+            "costChangeEvent": 1,
+            "transfersInEvent": 70937,
+            "transfersOutEvent": 13859,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 2,
+                "opponentShortName": "IPS"
+              },
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "CRY"
+              },
+              {
+                "event": 13,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "EVE"
+              },
+              {
+                "event": 15,
+                "isHome": false,
+                "difficulty": 2,
+                "opponentShortName": "COV"
+              },
+              {
+                "event": 16,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "CHE"
+              }
+            ]
+          },
+          "direction": "rise",
+          "status": "changed_this_gameweek"
+        },
+        {
+          "player": {
+            "id": 79,
+            "webName": "Evanilson",
+            "teamId": 3,
+            "teamShortName": "BOU",
+            "teamName": "Bournemouth",
+            "position": "FWD",
+            "nowCost": 66,
+            "form": 7.5,
+            "pointsPerGame": 6.1,
+            "epNext": 7.5,
+            "projection": {
+              "event": 12,
+              "points": 9.309755245997925,
+              "chanceOfPlaying": 0.9520799205443398,
+              "pointsIfPlaying": 9.778333777562695,
+              "goalOrAssistChance": 0.7051875961037655,
+              "cleanSheetChance": null,
+              "horizonPoints": 13.80205546530588,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                9.309755245997925, 4.492300219307955, 0, 3.5315867193040864,
+                4.983128786222108
+              ]
+            },
+            "totalPoints": 67,
+            "selectedByPercent": 26.9,
+            "chanceOfPlayingNextRound": null,
+            "status": "a",
+            "costChangeEvent": 1,
+            "transfersInEvent": 105333,
+            "transfersOutEvent": 4704,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "FUL"
+              },
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "HUL"
+              },
+              {
+                "event": 13,
+                "isHome": true,
+                "difficulty": 4,
+                "opponentShortName": "BHA"
+              },
+              {
+                "event": 15,
+                "isHome": false,
+                "difficulty": 5,
+                "opponentShortName": "ARS"
+              },
+              {
+                "event": 16,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "COV"
+              }
+            ]
+          },
+          "direction": "rise",
+          "status": "changed_this_gameweek"
+        }
+      ]
+    },
+    "lineup": {
+      "formation": "4-3-3",
+      "startingXI": [
+        {
+          "player": {
+            "id": 250,
+            "webName": "Leno",
+            "teamId": 10,
+            "teamShortName": "FUL",
+            "teamName": "Fulham",
+            "position": "GK",
+            "nowCost": 45,
+            "form": 3.8,
+            "pointsPerGame": 3.7,
+            "epNext": 3.8,
+            "projection": {
+              "event": 12,
+              "points": 5.946568352699176,
+              "chanceOfPlaying": 0.9539878969198334,
+              "pointsIfPlaying": 6.233379240867753,
+              "goalOrAssistChance": 0.000681201284503441,
+              "cleanSheetChance": 0.3285512297502755,
+              "horizonPoints": 8.943998750783482,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                5.946568352699176, 2.9974303980843056, 0, 3.065148993757079,
+                2.92170998781544
+              ]
+            },
+            "totalPoints": 41,
+            "selectedByPercent": 4.3,
+            "chanceOfPlayingNextRound": null,
+            "status": "a",
+            "costChangeEvent": 0,
+            "transfersInEvent": 1403,
+            "transfersOutEvent": 3033,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "BOU"
+              },
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "EVE"
+              },
+              {
+                "event": 13,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "TOT"
+              },
+              {
+                "event": 15,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "BRE"
+              },
+              {
+                "event": 16,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "LEE"
+              }
+            ]
+          },
+          "score": 5.946568352699176
+        },
+        {
+          "player": {
+            "id": 4,
+            "webName": "Gabriel",
+            "teamId": 1,
+            "teamShortName": "ARS",
+            "teamName": "Arsenal",
+            "position": "DEF",
+            "nowCost": 81,
+            "form": 8,
+            "pointsPerGame": 6.1,
+            "epNext": 8,
+            "projection": {
+              "event": 12,
+              "points": 9.510111761576779,
+              "chanceOfPlaying": 0.9459444198980758,
+              "pointsIfPlaying": 10.053562938297663,
+              "goalOrAssistChance": 0.2319398200141113,
+              "cleanSheetChance": 0.5947577743125849,
+              "horizonPoints": 14.109976093031378,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                9.510111761576779, 4.599864331454598, 0, 4.923837576670735,
+                5.152742976356988
+              ]
+            },
+            "totalPoints": 67,
+            "selectedByPercent": 26.7,
+            "chanceOfPlayingNextRound": null,
+            "status": "a",
+            "costChangeEvent": 0,
+            "transfersInEvent": 21314,
+            "transfersOutEvent": 9451,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 4,
+                "opponentShortName": "MCI"
+              },
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "TOT"
+              },
+              {
+                "event": 13,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "BRE"
+              },
+              {
+                "event": 15,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "BOU"
+              },
+              {
+                "event": 16,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "MUN"
+              }
+            ]
+          },
+          "score": 9.510111761576779
+        },
+        {
+          "player": {
+            "id": 115,
+            "webName": "De Cuyper",
+            "teamId": 5,
+            "teamShortName": "BHA",
+            "teamName": "Brighton",
+            "position": "DEF",
+            "nowCost": 55,
+            "form": 4.2,
+            "pointsPerGame": 6.9,
+            "epNext": 4.2,
+            "projection": {
+              "event": 12,
+              "points": 8.181185555760713,
+              "chanceOfPlaying": 0.9379023228356014,
+              "pointsIfPlaying": 8.722854562323903,
+              "goalOrAssistChance": 0.5682990715456795,
+              "cleanSheetChance": 0.4000335561378665,
+              "horizonPoints": 11.409117014746089,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                8.181185555760713, 3.2279314589853763, 0, 4.250377070026931,
+                4.90243154177988
+              ]
+            },
+            "totalPoints": 76,
+            "selectedByPercent": 50,
+            "chanceOfPlayingNextRound": null,
+            "status": "a",
+            "costChangeEvent": 0,
+            "transfersInEvent": 31343,
+            "transfersOutEvent": 5297,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "NEW"
+              },
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 2,
+                "opponentShortName": "NFO"
+              },
+              {
+                "event": 13,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "BOU"
+              },
+              {
+                "event": 15,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "EVE"
+              },
+              {
+                "event": 16,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "IPS"
+              }
+            ]
+          },
+          "score": 8.181185555760713
+        },
+        {
+          "player": {
+            "id": 330,
+            "webName": "Bogle",
+            "teamId": 13,
+            "teamShortName": "LEE",
+            "teamName": "Leeds",
+            "position": "DEF",
+            "nowCost": 48,
+            "form": 4.2,
+            "pointsPerGame": 5.6,
+            "epNext": 4.2,
+            "projection": {
+              "event": 12,
+              "points": 8.169918887296229,
+              "chanceOfPlaying": 0.9466063144918928,
+              "pointsIfPlaying": 8.630746237607312,
+              "goalOrAssistChance": 0.46377276248370614,
+              "cleanSheetChance": 0.6080746883074786,
+              "horizonPoints": 10.525217212002543,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                8.169918887296229, 2.3552983247063146, 0, 2.676052882678338,
+                3.7412296602360176
+              ]
+            },
+            "totalPoints": 62,
+            "selectedByPercent": 11.6,
+            "chanceOfPlayingNextRound": null,
+            "status": "a",
+            "costChangeEvent": 0,
+            "transfersInEvent": 35589,
+            "transfersOutEvent": 3563,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "COV"
+              },
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "IPS"
+              },
+              {
+                "event": 13,
+                "isHome": false,
+                "difficulty": 5,
+                "opponentShortName": "MCI"
+              },
+              {
+                "event": 15,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "LIV"
+              },
+              {
+                "event": 16,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "FUL"
+              }
+            ]
+          },
+          "score": 8.169918887296229
+        },
+        {
+          "player": {
+            "id": 31,
+            "webName": "Konsa",
+            "teamId": 1,
+            "teamShortName": "ARS",
+            "teamName": "Arsenal",
+            "position": "DEF",
+            "nowCost": 49,
+            "form": 8.2,
+            "pointsPerGame": 5.8,
+            "epNext": 8.2,
+            "projection": {
+              "event": 12,
+              "points": 7.024288194793261,
+              "chanceOfPlaying": 0.9400108095881787,
+              "pointsIfPlaying": 7.472561084558825,
+              "goalOrAssistChance": 0.10289035163153859,
+              "cleanSheetChance": 0.5947577743125849,
+              "horizonPoints": 10.36282891276386,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                7.024288194793261, 3.3385407179705977, 0, 3.6360264402890197,
+                3.7646482841404976
+              ]
+            },
+            "totalPoints": 58,
+            "selectedByPercent": 25.4,
+            "chanceOfPlayingNextRound": 100,
+            "status": "a",
+            "costChangeEvent": 0,
+            "transfersInEvent": 15576,
+            "transfersOutEvent": 20189,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 4,
+                "opponentShortName": "MCI"
+              },
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "TOT"
+              },
+              {
+                "event": 13,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "BRE"
+              },
+              {
+                "event": 15,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "BOU"
+              },
+              {
+                "event": 16,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "MUN"
+              }
+            ]
+          },
+          "score": 7.024288194793261
+        },
+        {
+          "player": {
+            "id": 68,
+            "webName": "Tavernier",
+            "teamId": 3,
+            "teamShortName": "BOU",
+            "teamName": "Bournemouth",
+            "position": "MID",
+            "nowCost": 67,
+            "form": 6,
+            "pointsPerGame": 6,
+            "epNext": 6,
+            "projection": {
+              "event": 12,
+              "points": 9.49824360720752,
+              "chanceOfPlaying": 0.9484583521786545,
+              "pointsIfPlaying": 10.014402409330465,
+              "goalOrAssistChance": 0.7070697831186131,
+              "cleanSheetChance": null,
+              "horizonPoints": 14.031746990187141,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                9.49824360720752, 4.533503382979621, 0, 3.5505806344047253,
+                5.11709117543438
+              ]
+            },
+            "totalPoints": 66,
+            "selectedByPercent": 33.2,
+            "chanceOfPlayingNextRound": null,
+            "status": "a",
+            "costChangeEvent": 0,
+            "transfersInEvent": 80785,
+            "transfersOutEvent": 6513,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "FUL"
+              },
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "HUL"
+              },
+              {
+                "event": 13,
+                "isHome": true,
+                "difficulty": 4,
+                "opponentShortName": "BHA"
+              },
+              {
+                "event": 15,
+                "isHome": false,
+                "difficulty": 5,
+                "opponentShortName": "ARS"
+              },
+              {
+                "event": 16,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "COV"
+              }
+            ]
+          },
+          "score": 9.49824360720752
+        },
+        {
+          "player": {
+            "id": 124,
+            "webName": "Groß",
+            "teamId": 5,
+            "teamShortName": "BHA",
+            "teamName": "Brighton",
+            "position": "MID",
+            "nowCost": 63,
+            "form": 4,
+            "pointsPerGame": 6.7,
+            "epNext": 4,
+            "projection": {
+              "event": 12,
+              "points": 8.448567486776193,
+              "chanceOfPlaying": 0.9518583449138907,
+              "pointsIfPlaying": 8.875866384866846,
+              "goalOrAssistChance": 0.6261859916205249,
+              "cleanSheetChance": null,
+              "horizonPoints": 12.177859117450387,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                8.448567486776193, 3.7292916306741932, 0, 4.282896875838228,
+                4.8191436367217095
+              ]
+            },
+            "totalPoints": 74,
+            "selectedByPercent": 49.5,
+            "chanceOfPlayingNextRound": null,
+            "status": "a",
+            "costChangeEvent": 0,
+            "transfersInEvent": 27677,
+            "transfersOutEvent": 9401,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "NEW"
+              },
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 2,
+                "opponentShortName": "NFO"
+              },
+              {
+                "event": 13,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "BOU"
+              },
+              {
+                "event": 15,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "EVE"
+              },
+              {
+                "event": 16,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "IPS"
+              }
+            ]
+          },
+          "score": 8.448567486776193
+        },
+        {
+          "player": {
+            "id": 94,
+            "webName": "Schade",
+            "teamId": 4,
+            "teamShortName": "BRE",
+            "teamName": "Brentford",
+            "position": "MID",
+            "nowCost": 61,
+            "form": 1.5,
+            "pointsPerGame": 4.6,
+            "epNext": 1.5,
+            "projection": {
+              "event": 12,
+              "points": 6.818570762264741,
+              "chanceOfPlaying": 0.9495745161458504,
+              "pointsIfPlaying": 7.180658964964724,
+              "goalOrAssistChance": 0.46888622198214935,
+              "cleanSheetChance": null,
+              "horizonPoints": 9.872822841813964,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                6.818570762264741, 3.0542520795492223, 0, 3.3643555043564257,
+                3.7271553260702475
+              ]
+            },
+            "totalPoints": 46,
+            "selectedByPercent": 12,
+            "chanceOfPlayingNextRound": 100,
+            "status": "a",
+            "costChangeEvent": 0,
+            "transfersInEvent": 2711,
+            "transfersOutEvent": 27401,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "MUN"
+              },
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 4,
+                "opponentShortName": "MCI"
+              },
+              {
+                "event": 13,
+                "isHome": true,
+                "difficulty": 4,
+                "opponentShortName": "ARS"
+              },
+              {
+                "event": 15,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "FUL"
+              },
+              {
+                "event": 16,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "NEW"
+              }
+            ]
+          },
+          "score": 6.818570762264741
+        },
+        {
+          "player": {
+            "id": 79,
+            "webName": "Evanilson",
+            "teamId": 3,
+            "teamShortName": "BOU",
+            "teamName": "Bournemouth",
+            "position": "FWD",
+            "nowCost": 66,
+            "form": 7.5,
+            "pointsPerGame": 6.1,
+            "epNext": 7.5,
+            "projection": {
+              "event": 12,
+              "points": 9.309755245997925,
+              "chanceOfPlaying": 0.9520799205443398,
+              "pointsIfPlaying": 9.778333777562695,
+              "goalOrAssistChance": 0.7051875961037655,
+              "cleanSheetChance": null,
+              "horizonPoints": 13.80205546530588,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                9.309755245997925, 4.492300219307955, 0, 3.5315867193040864,
+                4.983128786222108
+              ]
+            },
+            "totalPoints": 67,
+            "selectedByPercent": 26.9,
+            "chanceOfPlayingNextRound": null,
+            "status": "a",
+            "costChangeEvent": 1,
+            "transfersInEvent": 105333,
+            "transfersOutEvent": 4704,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "FUL"
+              },
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "HUL"
+              },
+              {
+                "event": 13,
+                "isHome": true,
+                "difficulty": 4,
+                "opponentShortName": "BHA"
+              },
+              {
+                "event": 15,
+                "isHome": false,
+                "difficulty": 5,
+                "opponentShortName": "ARS"
+              },
+              {
+                "event": 16,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "COV"
+              }
+            ]
+          },
+          "score": 9.309755245997925
+        },
+        {
+          "player": {
+            "id": 249,
+            "webName": "Barry",
+            "teamId": 9,
+            "teamShortName": "EVE",
+            "teamName": "Everton",
+            "position": "FWD",
+            "nowCost": 57,
+            "form": 6.8,
+            "pointsPerGame": 5.5,
+            "epNext": 6.8,
+            "projection": {
+              "event": 12,
+              "points": 8.578446038923083,
+              "chanceOfPlaying": 0.953983367545018,
+              "pointsIfPlaying": 8.992238576442762,
+              "goalOrAssistChance": 0.6685465092357443,
+              "cleanSheetChance": null,
+              "horizonPoints": 12.79079289244611,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                8.578446038923083, 4.212346853523027, 0, 3.879757159991285,
+                4.129464783313956
+              ]
+            },
+            "totalPoints": 55,
+            "selectedByPercent": 11.5,
+            "chanceOfPlayingNextRound": null,
+            "status": "a",
+            "costChangeEvent": 0,
+            "transfersInEvent": 16541,
+            "transfersOutEvent": 15663,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 4,
+                "opponentShortName": "LIV"
+              },
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "FUL"
+              },
+              {
+                "event": 13,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "AVL"
+              },
+              {
+                "event": 15,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "BHA"
+              },
+              {
+                "event": 16,
+                "isHome": false,
+                "difficulty": 2,
+                "opponentShortName": "NFO"
+              }
+            ]
+          },
+          "score": 8.578446038923083
+        },
+        {
+          "player": {
+            "id": 166,
+            "webName": "N.Jackson",
+            "teamId": 2,
+            "teamShortName": "AVL",
+            "teamName": "Aston Villa",
+            "position": "FWD",
+            "nowCost": 73,
+            "form": 8.8,
+            "pointsPerGame": 5.6,
+            "epNext": 8.8,
+            "projection": {
+              "event": 12,
+              "points": 7.812306423340896,
+              "chanceOfPlaying": 0.8084981677298251,
+              "pointsIfPlaying": 9.662738562880115,
+              "goalOrAssistChance": 0.7316541612374661,
+              "cleanSheetChance": null,
+              "horizonPoints": 11.391482708370166,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                7.812306423340896, 3.5791762850292703, 0, 3.54150273365369,
+                3.2886873687638865
+              ]
+            },
+            "totalPoints": 56,
+            "selectedByPercent": 36.2,
+            "chanceOfPlayingNextRound": null,
+            "status": "a",
+            "costChangeEvent": 1,
+            "transfersInEvent": 70937,
+            "transfersOutEvent": 13859,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 2,
+                "opponentShortName": "IPS"
+              },
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "CRY"
+              },
+              {
+                "event": 13,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "EVE"
+              },
+              {
+                "event": 15,
+                "isHome": false,
+                "difficulty": 2,
+                "opponentShortName": "COV"
+              },
+              {
+                "event": 16,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "CHE"
+              }
+            ]
+          },
+          "score": 7.812306423340896
+        }
+      ],
+      "bench": [
+        {
+          "player": {
+            "id": 399,
+            "webName": "Cherki",
+            "teamId": 15,
+            "teamShortName": "MCI",
+            "teamName": "Man City",
+            "position": "MID",
+            "nowCost": 78,
+            "form": 2.8,
+            "pointsPerGame": 5.5,
+            "epNext": 2.8,
+            "projection": {
+              "event": 12,
+              "points": 6.4155926590934715,
+              "chanceOfPlaying": 0.9335105374791519,
+              "pointsIfPlaying": 6.872544445420092,
+              "goalOrAssistChance": 0.46952021225880824,
+              "cleanSheetChance": null,
+              "horizonPoints": 10.18277200013113,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                6.4155926590934715, 3.76717934103766, 0, 3.8337564667097497,
+                4.164358105596698
+              ]
+            },
+            "totalPoints": 55,
+            "selectedByPercent": 32.4,
+            "chanceOfPlayingNextRound": null,
+            "status": "a",
+            "costChangeEvent": -1,
+            "transfersInEvent": 6338,
+            "transfersOutEvent": 142121,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 5,
+                "opponentShortName": "ARS"
+              },
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "BRE"
+              },
+              {
+                "event": 13,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "LEE"
+              },
+              {
+                "event": 15,
+                "isHome": true,
+                "difficulty": 4,
+                "opponentShortName": "CHE"
+              },
+              {
+                "event": 16,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "HUL"
+              }
+            ]
+          },
+          "score": 6.4155926590934715
+        },
+        {
+          "player": {
+            "id": 449,
+            "webName": "Hall",
+            "teamId": 17,
+            "teamShortName": "NEW",
+            "teamName": "Newcastle",
+            "position": "DEF",
+            "nowCost": 52,
+            "form": 3,
+            "pointsPerGame": 4.3,
+            "epNext": 2.2,
+            "projection": {
+              "event": 12,
+              "points": 4.279394241168388,
+              "chanceOfPlaying": 0.7035620426682205,
+              "pointsIfPlaying": 6.082468896330763,
+              "goalOrAssistChance": 0.2338781359197687,
+              "cleanSheetChance": 0.30325112878121496,
+              "horizonPoints": 6.513803038677274,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                4.279394241168388, 2.2344087975088858, 0, 2.4388830103423222,
+                1.8802649032767969
+              ]
+            },
+            "totalPoints": 47,
+            "selectedByPercent": 16.5,
+            "chanceOfPlayingNextRound": 75,
+            "status": "d",
+            "costChangeEvent": 0,
+            "transfersInEvent": 1523,
+            "transfersOutEvent": 47488,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "BHA"
+              },
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "SUN"
+              },
+              {
+                "event": 13,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "MUN"
+              },
+              {
+                "event": 15,
+                "isHome": false,
+                "difficulty": 2,
+                "opponentShortName": "IPS"
+              },
+              {
+                "event": 16,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "BRE"
+              }
+            ]
+          },
+          "score": 4.279394241168388
+        },
+        {
+          "player": {
+            "id": 101,
+            "webName": "Henderson",
+            "teamId": 6,
+            "teamShortName": "CHE",
+            "teamName": "Chelsea",
+            "position": "MID",
+            "nowCost": 49,
+            "form": 1.5,
+            "pointsPerGame": 4.8,
+            "epNext": 1.5,
+            "projection": {
+              "event": 12,
+              "points": 3.4365505115867103,
+              "chanceOfPlaying": 0.7157000423627995,
+              "pointsIfPlaying": 4.801663138430651,
+              "goalOrAssistChance": 0.20975922446382766,
+              "cleanSheetChance": null,
+              "horizonPoints": 5.406540769783275,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                3.4365505115867103, 1.9699902581965647, 0, 1.444952273014811,
+                1.8243898346327323
+              ]
+            },
+            "totalPoints": 29,
+            "selectedByPercent": 1.3,
+            "chanceOfPlayingNextRound": 100,
+            "status": "a",
+            "costChangeEvent": 0,
+            "transfersInEvent": 279,
+            "transfersOutEvent": 3583,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 2,
+                "opponentShortName": "NFO"
+              },
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 4,
+                "opponentShortName": "LIV"
+              },
+              {
+                "event": 13,
+                "isHome": true,
+                "difficulty": 2,
+                "opponentShortName": "CRY"
+              },
+              {
+                "event": 15,
+                "isHome": false,
+                "difficulty": 5,
+                "opponentShortName": "MCI"
+              },
+              {
+                "event": 16,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "AVL"
+              }
+            ]
+          },
+          "score": 3.4365505115867103
+        },
+        {
+          "player": {
+            "id": 1,
+            "webName": "Raya",
+            "teamId": 1,
+            "teamShortName": "ARS",
+            "teamName": "Arsenal",
+            "position": "GK",
+            "nowCost": 63,
+            "form": 4.8,
+            "pointsPerGame": 5.5,
+            "epNext": 3.6,
+            "projection": {
+              "event": 12,
+              "points": 5.73033832774802,
+              "chanceOfPlaying": 0.7153766749061707,
+              "pointsIfPlaying": 8.010239261015347,
+              "goalOrAssistChance": 0.0017723769372802733,
+              "cleanSheetChance": 0.5947577743125849,
+              "horizonPoints": 8.468701814024906,
+              "horizonEvents": 3,
+              "weeklyPoints": [
+                5.73033832774802, 2.738363486276885, 0, 2.9415635387845165,
+                2.9722578118493517
+              ]
+            },
+            "totalPoints": 61,
+            "selectedByPercent": 46.7,
+            "chanceOfPlayingNextRound": 75,
+            "status": "d",
+            "costChangeEvent": 0,
+            "transfersInEvent": 4862,
+            "transfersOutEvent": 115297,
+            "nextFixtures": [
+              {
+                "event": 12,
+                "isHome": true,
+                "difficulty": 4,
+                "opponentShortName": "MCI"
+              },
+              {
+                "event": 12,
+                "isHome": false,
+                "difficulty": 3,
+                "opponentShortName": "TOT"
+              },
+              {
+                "event": 13,
+                "isHome": false,
+                "difficulty": 4,
+                "opponentShortName": "BRE"
+              },
+              {
+                "event": 15,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "BOU"
+              },
+              {
+                "event": 16,
+                "isHome": true,
+                "difficulty": 3,
+                "opponentShortName": "MUN"
+              }
+            ]
+          },
+          "score": 5.73033832774802
+        }
+      ]
+    }
+  }
+}

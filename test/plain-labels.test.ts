@@ -372,7 +372,7 @@ describe('planOutlook', () => {
 
   it('says when nothing later is worth a transfer, and nothing without later weeks', () => {
     expect(planOutlook(planOf([week(11), week(12)]))).toBe(
-      'Looking ahead, the 2-week outlook has no transfer worth making after this week.',
+      'Looking ahead, the 2-week outlook has no transfer worth making in the weeks after.',
     );
     expect(planOutlook(planOf([week(11)]))).toBe('');
     expect(planOutlook(planOf([]))).toBe('');
