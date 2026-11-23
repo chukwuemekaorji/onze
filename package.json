@@ -26,7 +26,10 @@
     "eval:ensemble": "tsx scripts/eval/ensemble.ts && prettier --write results/ensemble.md",
     "eval:test:register": "tsx scripts/eval/test-season.ts register && prettier --write results/test-2025-26.md",
     "eval:test:rehearse": "tsx scripts/eval/test-season.ts rehearse",
-    "eval:test": "tsx scripts/eval/test-season.ts score && prettier --write results/test-2025-26.md"
+    "eval:test": "tsx scripts/eval/test-season.ts score && prettier --write results/test-2025-26.md",
+    "backtest:register": "tsx scripts/backtest/run.ts register && prettier --write results/decision-backtest.md",
+    "backtest:rehearse": "tsx scripts/backtest/run.ts rehearse",
+    "backtest": "tsx scripts/backtest/run.ts run && prettier --write results/decision-backtest.md"
   },
   "dependencies": {
     "@fontsource-variable/bricolage-grotesque": "^5.3.0",
