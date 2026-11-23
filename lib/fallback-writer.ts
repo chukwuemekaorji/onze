@@ -9,7 +9,6 @@ import type { TransferReasonCode } from './analysis/transfers.js';
 import type { ChipName } from './analysis/chips.js';
 import type { LineupPlayer } from './analysis/lineup.js';
 import { notableLeague } from './analysis/leagues.js';
-import { planDiffersFromAdvice } from './analysis/planner.js';
 import {
   captainSentence,
   labelSentence,
@@ -100,10 +99,7 @@ function describeSuggestion(
 }
 
 function writeTransfers(summary: AnalysisSummary): string {
-  const outlook = planOutlook(
-    summary.plan,
-    planDiffersFromAdvice(summary.plan, summary.transfers),
-  );
+  const outlook = planOutlook(summary.plan);
   const thisWeek = writeThisWeeksTransfers(summary);
   return outlook === '' ? thisWeek : `${thisWeek} ${outlook}`;
 }

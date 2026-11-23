@@ -6,7 +6,6 @@ import {
   isAvailableToBuy,
   nextFreeTransfers,
 } from './transfers.js';
-import type { TransfersAnalysis } from './transfers.js';
 import type { AnalysisPlayer, PlayerStatus, Position, SquadContext } from './types.js';
 
 /**
@@ -113,6 +112,12 @@ export interface PlanOptions {
   beamWidth?: number;
   /** protecting a lead beats marginal points, so no hits at all */
   isLeadingALeague?: boolean;
+  /**
+   * this week's swaps, already decided by the one-week advice. the plan
+   * starts from them and only searches the weeks after, so the outlook never
+   * contradicts this week's advice
+   */
+  firstWeek?: readonly { outId: number; inId: number }[];
 }
 
 export function weekWeights(weeks: number): number[] {
@@ -261,13 +266,22 @@ export function planTransfers(
   ];
   for (let week = 0; week < weeks; week += 1) {
     const next = new Map<string, Plan>();
+    const fixed = week === 0 ? options.firstWeek : undefined;
     for (const plan of beam) {
-      for (const swaps of swapSets(plan, week, rankedFor, remainingFrom)) {
+      const sets =
+        fixed === undefined
+          ? swapSets(plan, week, rankedFor, remainingFrom)
+          : [fixedSwaps(plan, fixed, pool, remainingFrom)];
+      for (const swaps of sets) {
         const child = applyWeek(plan, swaps, week, {
           allowHits,
           weight: weights[week] ?? 0,
           future: futureWithoutSwaps,
+          fixed: fixed !== undefined,
         });
+        if (child === null && fixed !== undefined) {
+          throw new Error("this week's advice breaks a squad rule the planner checks");
+        }
         if (child === null) continue;
         const key = planKey(child);
         const known = next.get(key);
@@ -329,12 +343,33 @@ function swapSets(
   return sets;
 }
 
+/** the given swaps as the search's own, valued the same way */
+function fixedSwaps(
+  plan: Plan,
+  given: readonly { outId: number; inId: number }[],
+  pool: readonly AnalysisPlayer[],
+  remainingFrom: (player: AnalysisPlayer, week: number) => number,
+): Swap[] {
+  return given.map(({ outId, inId }) => {
+    const out = plan.squad.find((player) => player.id === outId);
+    const into = pool.find((player) => player.id === inId);
+    if (out === undefined || into === undefined) {
+      throw new Error(
+        `this week's advice names a player the planner can't see: ${outId} or ${inId}`,
+      );
+    }
+    return { out, in: into, value: remainingFrom(into, 0) - remainingFrom(out, 0) };
+  });
+}
+
 function isSwap(swap: Swap | undefined): swap is Swap {
   return swap !== undefined;
 }
 
 interface WeekContext {
   allowHits: boolean;
+  /** swaps decided elsewhere: the squad rules still hold, the hit rules were applied there */
+  fixed: boolean;
   weight: number;
   future: (players: readonly AnalysisPlayer[], fromWeek: number) => number;
 }
@@ -352,7 +387,7 @@ function applyWeek(
   if (outs.size !== swaps.length || ins.size !== swaps.length) return null;
 
   const hits = Math.max(0, swaps.length - plan.freeTransfers);
-  if (hits > 0) {
+  if (hits > 0 && !context.fixed) {
     if (!context.allowHits || hits > MAX_HITS_PER_WEEK) return null;
     // the weakest swap is the one the hit pays for, so it alone must clear
     // the cost with the same margin as the one-week rule
@@ -552,28 +587,4 @@ function averageDifficulty(
   );
   if (games.length === 0) return null;
   return games.reduce((sum, fixture) => sum + fixture.difficulty, 0) / games.length;
-}
-
-/**
- * true when the plan's first week isn't the one-week advice: planning ahead
- * can pick a different swap, or save, where this week alone would spend
- */
-export function planDiffersFromAdvice(
-  plan: TransferPlan,
-  transfers: TransfersAnalysis,
-): boolean {
-  const key = (outId: number, inId: number | undefined) => `${outId}>${inId ?? 0}`;
-  const planned = new Set(
-    (plan.weeks[0]?.swaps ?? []).map((swap) => key(swap.out.id, swap.in.id)),
-  );
-  const advised = new Set(
-    transfers.suggestions
-      .slice(0, transfers.recommendedCount)
-      .map((suggestion) =>
-        key(suggestion.outPlayer.id, suggestion.inCandidates[0]?.id),
-      ),
-  );
-  return (
-    planned.size !== advised.size || [...planned].some((move) => !advised.has(move))
-  );
 }

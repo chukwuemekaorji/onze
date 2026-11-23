@@ -327,6 +327,33 @@ describe('planTransfers', () => {
     for (const swap of swaps) expect(swap.in.position).toBe(swap.out.position);
   });
 
+  it("starts from this week's advice when given, and plans only the weeks after", () => {
+    const parts = squad();
+    const best = player('DEF', 22, [11, 11, 11, 11, 11]);
+    const modest = player('MID', 23, [4.4, 4.4, 4.4, 4.4, 4.4]);
+    const [defender] = parts.defenders;
+    const [midfielder] = parts.midfielders;
+    if (defender === undefined || midfielder === undefined)
+      throw new Error('squad helper changed');
+    // left alone the planner buys the defender first; told otherwise, it follows
+    const result = planTransfers(
+      makeSquadContext({ squad: all(parts), freeTransfers: 1 }),
+      [...all(parts), best, modest],
+      { weeks: WEEKS, firstWeek: [{ outId: midfielder.id, inId: modest.id }] },
+    );
+    expect(result.weeks[0]?.swaps.map((swap) => swap.in.id)).toEqual([modest.id]);
+    expect(result.weeks[1]?.swaps.map((swap) => swap.in.id)).toEqual([best.id]);
+  });
+
+  it("fails loudly when this week's advice names a player it can't see", () => {
+    expect(() =>
+      planTransfers(makeSquadContext({ squad: all(squad()) }), all(squad()), {
+        weeks: WEEKS,
+        firstWeek: [{ outId: 1, inId: 999_999 }],
+      }),
+    ).toThrow("can't see");
+  });
+
   it('rejects a plan of no weeks or a beam of no plans', () => {
     const squadContext = makeSquadContext({ squad: all(squad()) });
     expect(() => planTransfers(squadContext, [], { weeks: 0 })).toThrow('at least one');

@@ -297,43 +297,28 @@ export function planReasonSentence(reason: PlanReason): string {
 }
 
 /**
- * one or two sentences on the plan, for the written report. when the plan
- * would do this week differently from the advice, it says so first:
- * "Planning 5 weeks ahead, Onze would rather make Ajayi → Van Hecke this
- * week, then Cherki → McGinn in GW12. Aston Villa have easy fixtures from GW12."
+ * at most one sentence on the weeks after this one, for the written report.
+ * it never speaks about this week, whose advice comes from the one-week logic:
+ * "Looking ahead, the 5-week outlook saves your transfer in GW12 and has
+ * Henderson → McGinn in GW13."
  */
-export function planOutlook(plan: TransferPlan, differsThisWeek: boolean): string {
-  const [thisWeek, ...later] = plan.weeks;
-  if (thisWeek === undefined) return '';
+export function planOutlook(plan: TransferPlan): string {
+  const later = plan.weeks.slice(1);
+  if (later.length === 0) return '';
+  const lead = `Looking ahead, the ${plan.weeks.length}-week outlook`;
   const firstMove = later.find((week) => week.swaps.length > 0);
-  const movesOf = (week: PlanWeek) =>
-    joinWithAnd(week.swaps.map((swap) => `${swap.out.webName} → ${swap.in.webName}`));
-  const saved = later.filter(
-    (week) => firstMove === undefined || week.event < firstMove.event,
-  );
-  const savedText = joinWithAnd(saved.map((week) => `GW${week.event}`));
-  const next =
-    firstMove === undefined
-      ? `then bank your transfers, as no swap is worth one in ${savedText}`
-      : saved.length === 0
-        ? `then ${movesOf(firstMove)} in GW${firstMove.event}`
-        : `then save your transfer in ${savedText} and make ${movesOf(firstMove)} in GW${firstMove.event}`;
-  const why = firstMove === undefined ? '' : ` ${planReasonSentence(firstMove.reason)}`;
-  if (differsThisWeek) {
-    const now =
-      thisWeek.swaps.length === 0 ? 'save your transfer' : `make ${movesOf(thisWeek)}`;
-    return `Planning ${plan.weeks.length} weeks ahead, Onze would rather ${now} this week, ${next}.${why}`;
-  }
   if (firstMove === undefined) {
-    return later.length === 0
-      ? ''
-      : 'Looking ahead, no swap is worth a transfer in the weeks after this one, so bank them.';
+    return `${lead} has no transfer worth making after this week.`;
   }
-  const lead =
+  const saved = later.filter((week) => week.event < firstMove.event);
+  const moves = joinWithAnd(
+    firstMove.swaps.map((swap) => `${swap.out.webName} → ${swap.in.webName}`),
+  );
+  const saving =
     saved.length === 0
-      ? `Looking ahead, Onze's next move is ${movesOf(firstMove)} in GW${firstMove.event}.`
-      : `Looking ahead, save your transfer in ${savedText}, then ${movesOf(firstMove)} in GW${firstMove.event}.`;
-  return `${lead}${why}`;
+      ? ''
+      : ` saves your transfer in ${joinWithAnd(saved.map((week) => `GW${week.event}`))} and`;
+  return `${lead}${saving} has ${moves} in GW${firstMove.event}.`;
 }
 
 function joinWithAnd(items: readonly string[]): string {

@@ -74,3 +74,15 @@ Season points per start squad, first policy minus second, on the same squads and
 ## Run
 
 All 3 seasons, 4 policies and every start squad took 1.3 minutes.
+
+## Decision
+
+_Added by hand after the run. Everything above is unchanged: the rule, its hash and the scored results are as the single run wrote them._
+
+**The rule passed, but we deviate from it: the one-week advice stays the app's single source of this week's advice, and the planner does not become the main advice.**
+
+Technically the planner passed. Averaged over the three seasons it was not clearly worse than the one-week advice (+28.8 points a season [-16.3, +72.8]), and the rule said that was enough. But the average hides the one result that matters most. 2025-26 is the only season played with the frozen weights the app actually runs, and the only one where the models had seen none of the season's data. There, the planner was clearly worse: -73.5 points a season [-131.2, -14.2]. Its advantage came entirely from the two tune seasons, played with weights fitted on the other season. We don't want to make the planner the app's answer on the strength of the seasons that resemble production least.
+
+What changes in the app: the planner is kept as a 5-week outlook only. It starts from this week's one-week advice and plans the weeks after, so it never contradicts it, and the app, the basic report and the coach present it as an outlook, never as this week's advice.
+
+**Lesson for future rules.** This rule averaged the seasons and so let the tune seasons outvote the one out-of-sample season. Future pre-registered rules should give the out-of-sample season priority: a change should not ship if it is clearly worse there, whatever the average says.

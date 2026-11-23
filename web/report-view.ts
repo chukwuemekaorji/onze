@@ -2,7 +2,6 @@ import type { AnalysisSummary } from '../lib/analysis-summary.js';
 import type { ChipName } from '../lib/analysis/chips.js';
 import type { PriceAlertStatus, PriceDirection } from '../lib/analysis/price-alerts.js';
 import type { AnalysisPlayer } from '../lib/analysis/types.js';
-import { planDiffersFromAdvice } from '../lib/analysis/planner.js';
 import { HIT_SAFETY_MARGIN, POINTS_PER_HIT } from '../lib/analysis/transfers.js';
 import {
   captainSentence,
@@ -356,11 +355,4 @@ export function planRows(plan: AnalysisSummary['plan']): PlanRow[] {
     reason: planReasonSentence(week.reason),
     hasHit: week.hits > 0,
   }));
-}
-
-/** true when the plan would do this week differently from the advice above it */
-export function planDiffersThisWeek(
-  summary: Pick<AnalysisSummary, 'plan' | 'transfers'>,
-): boolean {
-  return planDiffersFromAdvice(summary.plan, summary.transfers);
 }

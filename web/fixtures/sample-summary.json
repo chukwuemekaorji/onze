@@ -7,7 +7,7 @@
     "id": 12,
     "deadline": "2026-11-27T18:30:00Z"
   },
-  "generatedAt": "2026-11-23T09:23:53.863Z",
+  "generatedAt": "2026-11-23T10:14:26.404Z",
   "squad": {
     "currentEvent": 11,
     "bank": 11,
@@ -1736,24 +1736,6 @@
         "swaps": [
           {
             "out": {
-              "id": 279,
-              "webName": "Ajayi",
-              "teamName": "Hull City",
-              "position": "DEF",
-              "nowCost": 42
-            },
-            "in": {
-              "id": 112,
-              "webName": "Van Hecke",
-              "teamName": "Spurs",
-              "position": "DEF",
-              "nowCost": 51
-            },
-            "gain": 10.153997133495569,
-            "hit": false
-          },
-          {
-            "out": {
               "id": 464,
               "webName": "Wissa",
               "teamName": "Newcastle",
@@ -1761,20 +1743,38 @@
               "nowCost": 59
             },
             "in": {
-              "id": 249,
-              "webName": "Barry",
-              "teamName": "Everton",
+              "id": 79,
+              "webName": "Evanilson",
+              "teamName": "Bournemouth",
               "position": "FWD",
-              "nowCost": 57
+              "nowCost": 65
             },
-            "gain": 8.696860068264128,
+            "gain": 8.691620075653038,
+            "hit": false
+          },
+          {
+            "out": {
+              "id": 259,
+              "webName": "Diop",
+              "teamName": "Ipswich Town",
+              "position": "DEF",
+              "nowCost": 39
+            },
+            "in": {
+              "id": 502,
+              "webName": "Robertson",
+              "teamName": "Spurs",
+              "position": "DEF",
+              "nowCost": 43
+            },
+            "gain": 4.79290249127599,
             "hit": false
           }
         ],
         "freeTransfers": 2,
         "freeTransfersAfter": 1,
         "hits": 0,
-        "bankAfter": 4,
+        "bankAfter": 1,
         "captain": {
           "id": 411,
           "webName": "Haaland",
@@ -1782,12 +1782,13 @@
           "position": "FWD",
           "nowCost": 158
         },
-        "predictedPoints": 55.09052525444971,
+        "predictedPoints": 53.88664873633703,
         "reason": {
-          "kind": "easy_run",
-          "teamName": "Spurs",
-          "fromEvent": 11,
-          "startsHere": false
+          "kind": "outscores",
+          "inName": "Evanilson",
+          "outName": "Wissa",
+          "points": 8.691620075653038,
+          "weeks": 5
         }
       },
       {
@@ -1815,7 +1816,7 @@
         "freeTransfers": 1,
         "freeTransfersAfter": 1,
         "hits": 0,
-        "bankAfter": 28,
+        "bankAfter": 25,
         "captain": {
           "id": 411,
           "webName": "Haaland",
@@ -1823,7 +1824,7 @@
           "position": "FWD",
           "nowCost": 158
         },
-        "predictedPoints": 51.38295112799541,
+        "predictedPoints": 50.59750769869503,
         "reason": {
           "kind": "easy_run",
           "teamName": "Aston Villa",
@@ -1833,6 +1834,48 @@
       },
       {
         "event": 13,
+        "swaps": [
+          {
+            "out": {
+              "id": 330,
+              "webName": "Bogle",
+              "teamName": "Leeds",
+              "position": "DEF",
+              "nowCost": 48
+            },
+            "in": {
+              "id": 112,
+              "webName": "Van Hecke",
+              "teamName": "Spurs",
+              "position": "DEF",
+              "nowCost": 51
+            },
+            "gain": 4.646456427065051,
+            "hit": false
+          }
+        ],
+        "freeTransfers": 1,
+        "freeTransfersAfter": 1,
+        "hits": 0,
+        "bankAfter": 22,
+        "captain": {
+          "id": 411,
+          "webName": "Haaland",
+          "teamName": "Man City",
+          "position": "FWD",
+          "nowCost": 158
+        },
+        "predictedPoints": 52.84072141934734,
+        "reason": {
+          "kind": "outscores",
+          "inName": "Van Hecke",
+          "outName": "Bogle",
+          "points": 4.646456427065051,
+          "weeks": 3
+        }
+      },
+      {
+        "event": 14,
         "swaps": [
           {
             "out": {
@@ -1849,49 +1892,7 @@
               "position": "DEF",
               "nowCost": 81
             },
-            "gain": 4.466753676313201,
-            "hit": false
-          }
-        ],
-        "freeTransfers": 1,
-        "freeTransfersAfter": 1,
-        "hits": 0,
-        "bankAfter": 6,
-        "captain": {
-          "id": 411,
-          "webName": "Haaland",
-          "teamName": "Man City",
-          "position": "FWD",
-          "nowCost": 158
-        },
-        "predictedPoints": 54.24356801977078,
-        "reason": {
-          "kind": "outscores",
-          "inName": "Gabriel",
-          "outName": "Calafiori",
-          "points": 4.466753676313201,
-          "weeks": 3
-        }
-      },
-      {
-        "event": 14,
-        "swaps": [
-          {
-            "out": {
-              "id": 259,
-              "webName": "Diop",
-              "teamName": "Ipswich Town",
-              "position": "DEF",
-              "nowCost": 39
-            },
-            "in": {
-              "id": 332,
-              "webName": "Justin",
-              "teamName": "Leeds",
-              "position": "DEF",
-              "nowCost": 45
-            },
-            "gain": 2.8363168676924047,
+            "gain": 2.9909591241691533,
             "hit": false
           }
         ],
@@ -1906,12 +1907,12 @@
           "position": "FWD",
           "nowCost": 158
         },
-        "predictedPoints": 55.635703273029655,
+        "predictedPoints": 55.43986608617332,
         "reason": {
           "kind": "outscores",
-          "inName": "Justin",
-          "outName": "Diop",
-          "points": 2.8363168676924047,
+          "inName": "Gabriel",
+          "outName": "Calafiori",
+          "points": 2.9909591241691533,
           "weeks": 2
         }
       },
@@ -1929,7 +1930,7 @@
           "position": "FWD",
           "nowCost": 158
         },
-        "predictedPoints": 54.44665073465546,
+        "predictedPoints": 54.08322823351327,
         "reason": {
           "kind": "nothing_worth_it"
         }
@@ -1942,9 +1943,9 @@
       0.6141249999999999,
       0.5220062499999999
     ],
-    "weightedPoints": 200.54577985513674,
+    "weightedPoints": 197.35074242394782,
     "hitCost": 0,
-    "objective": 200.54577985513674,
+    "objective": 197.35074242394782,
     "beamWidth": 40
   },
   "captaincy": {

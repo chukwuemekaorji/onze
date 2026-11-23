@@ -344,36 +344,43 @@ describe('planOutlook', () => {
   const later = week(13, {
     freeTransfers: 2,
     swaps: [swap('Henderson', 'McGinn'), swap('Hall', 'Gabriel')],
-    reason: { kind: 'easy_run', teamName: 'Arsenal', fromEvent: 13, startsHere: true },
   });
 
-  it('names the saved weeks and the next move, with why', () => {
+  it('names the saved weeks and the next move, in one sentence', () => {
     const plan = planOf([
       week(11, { swaps: [swap('Dasilva', 'Gabriel')] }),
       week(12),
       later,
     ]);
-    expect(planOutlook(plan, false)).toBe(
-      "Looking ahead, save your transfer in GW12, then Henderson → McGinn and Hall → Gabriel in GW13. Arsenal's easy run starts in GW13.",
+    expect(planOutlook(plan)).toBe(
+      'Looking ahead, the 3-week outlook saves your transfer in GW12 and has Henderson → McGinn and Hall → Gabriel in GW13.',
+    );
+    expect(planOutlook(planOf([week(11), later]))).toBe(
+      'Looking ahead, the 2-week outlook has Henderson → McGinn and Hall → Gabriel in GW13.',
     );
   });
 
-  it('says first when planning ahead would do this week differently', () => {
-    const plan = planOf([week(11), week(12), later]);
-    expect(planOutlook(plan, true)).toBe(
-      "Planning 3 weeks ahead, Onze would rather save your transfer this week, then save your transfer in GW12 and make Henderson → McGinn and Hall → Gabriel in GW13. Arsenal's easy run starts in GW13.",
+  it('never speaks about this week, whatever the first week holds', () => {
+    const quiet = planOutlook(planOf([week(11), week(12), later]));
+    const busy = planOutlook(
+      planOf([week(11, { swaps: [swap('Dasilva', 'Gabriel')] }), week(12), later]),
     );
+    expect(busy).toBe(quiet);
+    expect(busy).not.toContain('this week');
+    expect(busy).not.toContain('Dasilva');
   });
 
-  it('says to bank them when nothing later is worth a transfer, and nothing without a plan', () => {
-    expect(planOutlook(planOf([week(11), week(12)]), false)).toBe(
-      'Looking ahead, no swap is worth a transfer in the weeks after this one, so bank them.',
+  it('says when nothing later is worth a transfer, and nothing without later weeks', () => {
+    expect(planOutlook(planOf([week(11), week(12)]))).toBe(
+      'Looking ahead, the 2-week outlook has no transfer worth making after this week.',
     );
-    expect(planOutlook(planOf([]), false)).toBe('');
+    expect(planOutlook(planOf([week(11)]))).toBe('');
+    expect(planOutlook(planOf([]))).toBe('');
   });
 
-  it('uses none of the jargon the ui avoids', () => {
-    const text = planOutlook(planOf([week(11), week(12), later]), true);
+  it('is one sentence with none of the jargon the ui avoids', () => {
+    const text = planOutlook(planOf([week(11), week(12), later]));
+    expect(text.match(/\. /g)).toBeNull();
     for (const word of JARGON) expect(text).not.toContain(word);
   });
 });

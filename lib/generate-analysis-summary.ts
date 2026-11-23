@@ -141,9 +141,19 @@ export async function generateAnalysisSummary(
   const transfers = analyzeTransfers(squad, playerPool, {
     isLeadingALeague: leagueStandings.some((l) => l.rank === 1),
   });
+  // the one-week advice is this week's answer (results/decision-backtest.md);
+  // the plan starts from it and only looks at the weeks after
   const plan = planTransfers(squad, playerPool, {
     weeks: PLAN_GAMEWEEKS,
     isLeadingALeague: leagueStandings.some((l) => l.rank === 1),
+    firstWeek: transfers.suggestions
+      .slice(0, transfers.recommendedCount)
+      .flatMap((suggestion) => {
+        const replacement = suggestion.inCandidates[0];
+        return replacement === undefined
+          ? []
+          : [{ outId: suggestion.outPlayer.id, inId: replacement.id }];
+      }),
   });
   const postTransferSquad = applyRecommendedTransfers(squad.squad, transfers);
   const lineup = analyzeLineup(postTransferSquad, planningEvent);
