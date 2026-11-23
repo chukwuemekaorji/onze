@@ -23,7 +23,12 @@ export function CoachContent({ shown, apiKey }: CoachContentProps) {
         {formationNote !== null && <CoachNote text={formationNote} />}
       </div>
       {/* keyed by report, so each new report starts a fresh conversation */}
-      <ChatPanel key={shown.version} summary={shown.summary} apiKey={apiKey} />
+      <ChatPanel
+        key={shown.version}
+        summary={shown.summary}
+        apiKey={apiKey}
+        managerId={shown.isExample ? null : shown.managerId}
+      />
     </div>
   );
 }

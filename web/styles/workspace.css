@@ -137,9 +137,27 @@
   border-top: var(--stroke) solid var(--hairline);
 }
 
-.chat-panel__title {
+/* the title, and "clear chat" once there's a conversation to clear */
+.chat-panel__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
   margin: 0 0 var(--space-4);
+}
+
+.chat-panel__title {
+  margin: 0;
   font-size: var(--text-md);
+}
+
+.chat-panel__clear {
+  color: var(--ink-muted);
+}
+
+.chat-panel__clear:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* the floating coach button below laptop width */
