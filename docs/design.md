@@ -4,7 +4,7 @@ This document describes how Onze is built, how its numbers are produced and chec
 
 ## The product in one paragraph
 
-A Fantasy Premier League manager enters their FPL ID. Onze fetches their team and the game's data, predicts every player's points for the coming gameweeks, decides the week's transfers, captain, lineup, chip timing and price risks, and returns all of it as one structured summary. Claude turns that summary into a short coaching report and answers follow-up questions about it. Users bring their own Anthropic key. Without one they still get the full analysis and a basic report written in code, but no chat.
+A Fantasy Premier League manager enters their FPL ID. Onze fetches their team and the game's data, predicts every player's points for the coming gameweeks, decides the week's transfers, captain, lineup, chip timing and price risks, and returns all of it as one structured summary. An AI model turns that summary into a short coaching report and answers follow-up questions about it. Users bring their own Anthropic key. Without one they still get the full analysis and a basic report written in code, but no chat.
 
 ## Architecture
 
@@ -12,7 +12,7 @@ A Fantasy Premier League manager enters their FPL ID. Onze fetches their team an
 flowchart TB
   subgraph browser["Browser"]
     flow["Report flow<br/>web/use-report-flow.ts"]
-    writer["Report writer<br/>Claude, or the basic writer"]
+    writer["Report writer<br/>AI, or the basic writer"]
     chat["Chat panel"]
     stores[("Browser storage<br/>key, report cache, chat")]
   end
@@ -61,7 +61,7 @@ Everything in `lib/analysis/` is pure: typed data in, typed data out, with no ne
 
 ### Browser: the writing
 
-- **With a key**, `web/report-writer.ts` sends the summary to Claude with the coach prompt (`lib/coach-prompt.ts`) and parses the reply into fixed sections: summary, transfers, captaincy, chips, price alerts and formation. If the call fails (bad key, rate limit, no credit, a reply cut off or unreadable), the user sees the error and the basic report, labelled "Basic report (no AI)". Nothing is swapped in silently.
+- **With a key**, `web/report-writer.ts` sends the summary to the AI model with the coach prompt (`lib/coach-prompt.ts`) and parses the reply into fixed sections: summary, transfers, captaincy, chips, price alerts and formation. If the call fails (bad key, rate limit, no credit, a reply cut off or unreadable), the user sees the error and the basic report, labelled "Basic report (no AI)". Nothing is swapped in silently.
 - **Without a key**, `lib/fallback-writer.ts` writes the basic report locally from the same summary.
 - **Chat** sends the summary, the latest 20 messages and the new question with the chat prompt (`lib/chat-prompt.ts`). The conversation is saved in local storage per manager and gameweek, and dropped when the deadline passes or the report is regenerated with new data.
 - **One voice.** The coach's persona lives in `lib/persona.ts` and both prompts import it.
@@ -139,7 +139,7 @@ Tune seasons are played with out-of-fold weights; 2025-26 with the frozen produc
 - **Wording:** no jargon from `plain-labels.ts`, no "expected points" or FPL's figures presented as Onze's, no closing question, and the outlook in one sentence at most and never as this week's advice.
 - **Structure:** the reply parses into the exact JSON shape.
 
-The golden set (`test/fixtures/golden/`) has 15 scenarios built from real FPL data by `npm run eval:golden`, with named edits and anonymised managers. CI checks the basic report for every scenario and every saved Claude reply. `npm run eval:live` asks Claude for fresh replies with the real prompt and model, after printing the most it can cost and asking to confirm. It is run by hand and never in CI.
+The golden set (`test/fixtures/golden/`) has 15 scenarios built from real FPL data by `npm run eval:golden`, with named edits and anonymised managers. CI checks the basic report for every scenario and every saved AI reply. `npm run eval:live` asks the model for fresh replies with the real prompt and model, after printing the most it can cost and asking to confirm. It is run by hand and never in CI.
 
 When a check finds a real problem in a reply, the prompt is fixed, not the check. When a check is wrong (a false positive), it is fixed with a test that the correct case passes and a matching wrong case still fails.
 
@@ -179,7 +179,7 @@ The lesson, recorded with the result: future rules give the out-of-sample season
 
 ### Code decides, the model explains
 
-Claude never computes a number or makes a call. Transfers, captaincy, lineup and hits are decided in tested code, and the prompt hands Claude the results, the plain labels and ready-made sentences. This keeps the advice reproducible and testable. It also makes the faithfulness check possible: if every number must come from the summary, any invented figure is caught.
+The model never computes a number or makes a call. Transfers, captaincy, lineup and hits are decided in tested code, and the prompt hands it the results, the plain labels and ready-made sentences. This keeps the advice reproducible and testable. It also makes the faithfulness check possible: if every number must come from the summary, any invented figure is caught.
 
 ## Testing
 

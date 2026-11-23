@@ -25,7 +25,7 @@
 - **Reads your team.** Enter your FPL ID and Onze pulls your squad, bank, free transfers, fixtures and mini-leagues from the official FPL API.
 - **Predicts every player's points** with its own model, tested on a full season it never saw, and uses FPL's injury news.
 - **Makes the calls:** which transfers to make (and whether a -4 hit is worth it), who to captain, your best eleven and bench order, when to play a chip, and which prices are about to move.
-- **Explains them like a coach.** Claude turns the numbers into a short written report in plain football language, with no stats jargon.
+- **Explains them like a coach.** An AI model turns the numbers into a short written report in plain football language, with no stats jargon.
 - **Answers follow-up questions** in a chat grounded in the same data, so "why not captain Salah?" gets an answer about your team, not a generic one.
 
 ## Results
@@ -90,20 +90,20 @@ flowchart LR
     plan["5-week planner<br/>(outlook only)"]
   end
   fpl[("FPL API")]
-  claude[("Anthropic API<br/>Claude")]
+  ai[("Anthropic API")]
 
   ui -- "manager ID" --> fetch
   fetch <--> fpl
   fetch --> blend --> decide --> plan
   decide -- "AnalysisSummary JSON" --> ui
   plan --> ui
-  ui -- "summary + your key" --> claude
+  ui -- "summary + your key" --> ai
   key -.-> ui
-  claude -- "report and chat replies" --> ui
+  ai -- "report and chat replies" --> ui
   ui -. "no key" .-> basic
 ```
 
-The server only does data. It takes a manager ID, fetches what it needs from FPL, predicts every player's points, runs the decision logic and returns one JSON summary. It never calls Anthropic. The browser does the writing: with your key it sends the summary straight to Claude, and without one it writes a basic report in code. Claude never computes anything; it explains decisions that were already made, and every number it may quote is in the summary.
+The server only does data. It takes a manager ID, fetches what it needs from FPL, predicts every player's points, runs the decision logic and returns one JSON summary. It never calls Anthropic. The browser does the writing: with your key it sends the summary straight to the AI model, and without one it writes a basic report in code. The model never computes anything; it explains decisions that were already made, and every number it may quote is in the summary.
 
 ### The two models, in plain words
 
@@ -135,7 +135,7 @@ Onze is bring-your-own-key. The site has no Anthropic key and no server that cou
 
 - **Browser to Anthropic, directly.** Your key is kept in your browser's session storage (cleared when the tab closes) or, if you tick "remember", local storage. It is sent only to `api.anthropic.com`. The server's one endpoint takes a manager ID and nothing else.
 - **Nothing stored server-side.** No database, no accounts, no logs of keys or chats. Your chat history lives in your browser and is sent with each question.
-- **A tight Content Security Policy.** Scripts and styles load only from the site itself, with no inline code. The page can connect only to itself and to Anthropic. So even if something injected markup into the page, it couldn't run a script or send your key anywhere else. Claude's replies are escaped before they're rendered.
+- **A tight Content Security Policy.** Scripts and styles load only from the site itself, with no inline code. The page can connect only to itself and to Anthropic. So even if something injected markup into the page, it couldn't run a script or send your key anywhere else. The model's replies are escaped before they're rendered.
 - **Guarded in CI.** A lint rule fails the build if the app's code ever reads an Anthropic key from the environment.
 
 **Why the request says "dangerous-direct-browser-access".** Anthropic's API refuses calls from a browser unless the request carries the header `anthropic-dangerous-direct-browser-access: true`. The name is a warning to developers not to put their own key in a public web page, where any visitor could read it and spend it. Onze does the opposite: the key belongs to the person using the page and goes from their browser to Anthropic only. That is the case the header is there for. For extra peace of mind, use a key from a separate workspace with a monthly spend limit.
@@ -147,7 +147,7 @@ Without a key you still get the full analysis and a basic written report; only t
 - **Language:** TypeScript everywhere, in strict mode.
 - **Frontend:** React 19 and Vite, with Motion for animation (respecting reduced-motion settings) and self-hosted fonts.
 - **Backend:** one Vercel serverless function (`api/summary.ts`) and a small in-memory cache of FPL responses.
-- **AI:** the Anthropic Messages API (Claude Sonnet 5.5), called from the browser.
+- **AI:** the Anthropic Messages API, called from the browser.
 - **Testing:** Vitest, ESLint and Prettier, run in GitHub Actions on every push.
 - **Data:** the official FPL API for the live app, plus the vaastav archive for past seasons.
 
@@ -193,7 +193,7 @@ npm run backtest:rehearse   # dry run of the decision backtest on one tune seaso
 
 The scripts that fit or score rewrite their files in `results/` and `lib/analysis/`, so `git diff` shows whether you got the same numbers. The final test (`npm run eval:test`) and the backtest (`npm run backtest`) refuse to run a second time: their results are already recorded.
 
-The AI evals run in every `npm test`, against Claude's saved replies in `test/fixtures/golden/replies/`. To ask Claude for fresh replies, set `ANTHROPIC_API_KEY` in your shell and run `npm run eval:live` (add `-- --failing` to redo only the replies that fail a check). It prints the most it can cost and asks before making any paid call.
+The AI evals run in every `npm test`, against the model's saved replies in `test/fixtures/golden/replies/`. To get fresh replies, set `ANTHROPIC_API_KEY` in your shell and run `npm run eval:live` (add `-- --failing` to redo only the replies that fail a check). It prints the most it can cost and asks before making any paid call.
 
 ## Limitations and what's next
 
