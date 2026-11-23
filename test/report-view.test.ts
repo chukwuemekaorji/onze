@@ -41,7 +41,13 @@ function player(
     transfersInEvent: 0,
     transfersOutEvent: 0,
     nextFixtures: [
-      { event: EVENT, opponentShortName: 'LIV', isHome: true, difficulty: 3 },
+      {
+        event: EVENT,
+        opponentShortName: 'LIV',
+        opponentName: 'LIV FC',
+        isHome: true,
+        difficulty: 3,
+      },
     ],
     ...overrides,
   };
@@ -287,7 +293,13 @@ describe('captainOptions', () => {
       form: 11,
       epNext: 11,
       nextFixtures: [
-        { event: EVENT, opponentShortName: 'BUR', isHome: true, difficulty: 2 },
+        {
+          event: EVENT,
+          opponentShortName: 'BUR',
+          opponentName: 'BUR FC',
+          isHome: true,
+          difficulty: 2,
+        },
       ],
       projection: makeProjection({
         event: EVENT,

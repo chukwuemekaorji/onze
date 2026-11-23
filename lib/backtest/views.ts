@@ -213,6 +213,7 @@ function nextFixtures(
         isHome: fixture.wasHome,
         difficulty: fixture.fixtureDifficulty,
         opponentShortName: fixture.opponentTeamName,
+        opponentName: fixture.opponentTeamName,
       });
     }
   }

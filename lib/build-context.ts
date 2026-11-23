@@ -59,7 +59,7 @@ function buildFixtureDifficulty(
   teamId: number,
   fromEvent: number,
   lookaheadEvents: number,
-  teamShortNameById: Map<number, string>,
+  teamById: ReadonlyMap<number, { short_name: string; name: string }>,
 ): FixtureDifficulty[] {
   const toEvent = fromEvent + lookaheadEvents - 1;
   return fixtures
@@ -78,7 +78,8 @@ function buildFixtureDifficulty(
         event: f.event as number,
         isHome,
         difficulty: isHome ? f.team_h_difficulty : f.team_a_difficulty,
-        opponentShortName: teamShortNameById.get(opponentId) ?? '???',
+        opponentShortName: teamById.get(opponentId)?.short_name ?? '???',
+        opponentName: teamById.get(opponentId)?.name ?? 'Unknown club',
       };
     });
 }
@@ -102,7 +103,7 @@ export function buildAnalysisPlayer(
   projection: PlayerProjection,
   options: BuildAnalysisPlayerOptions,
 ): AnalysisPlayer {
-  const teamShortNameById = new Map(bootstrap.teams.map((t) => [t.id, t.short_name]));
+  const teamById = new Map(bootstrap.teams.map((t) => [t.id, t]));
   const team = bootstrap.teams.find((t) => t.id === element.team);
   const lookaheadEvents = options.lookaheadEvents ?? 5;
 
@@ -130,7 +131,7 @@ export function buildAnalysisPlayer(
       element.team,
       options.fromEvent,
       lookaheadEvents,
-      teamShortNameById,
+      teamById,
     ),
   };
 }

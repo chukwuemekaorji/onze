@@ -4,7 +4,15 @@ import { makePlayer, makeProjection } from '../helpers/fixtures.js';
 import type { AnalysisPlayer } from '../../lib/analysis/types.js';
 
 function fixture(event: number, difficulty = 3) {
-  return [{ event, isHome: true, difficulty, opponentShortName: 'XXX' }];
+  return [
+    {
+      event,
+      isHome: true,
+      difficulty,
+      opponentShortName: 'XXX',
+      opponentName: 'XXX FC',
+    },
+  ];
 }
 
 function standardSquad(): AnalysisPlayer[] {
@@ -63,8 +71,20 @@ describe('analyzeLineup', () => {
       // the projection sums both fixtures: two lots of 2.5
       projection: makeProjection({ points: 5 }),
       nextFixtures: [
-        { event: 1, isHome: true, difficulty: 3, opponentShortName: 'AAA' },
-        { event: 1, isHome: false, difficulty: 3, opponentShortName: 'BBB' },
+        {
+          event: 1,
+          isHome: true,
+          difficulty: 3,
+          opponentShortName: 'AAA',
+          opponentName: 'AAA FC',
+        },
+        {
+          event: 1,
+          isHome: false,
+          difficulty: 3,
+          opponentShortName: 'BBB',
+          opponentName: 'BBB FC',
+        },
       ],
     });
     squad[11] = makePlayer({

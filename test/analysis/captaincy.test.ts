@@ -8,14 +8,26 @@ describe('analyzeCaptaincy', () => {
       id: 1,
       projection: makeProjection({ points: 8 }),
       nextFixtures: [
-        { event: 1, isHome: true, difficulty: 2, opponentShortName: 'BBB' },
+        {
+          event: 1,
+          isHome: true,
+          difficulty: 2,
+          opponentShortName: 'BBB',
+          opponentName: 'BBB FC',
+        },
       ],
     });
     const weak = makePlayer({
       id: 2,
       projection: makeProjection({ points: 3 }),
       nextFixtures: [
-        { event: 1, isHome: false, difficulty: 5, opponentShortName: 'CCC' },
+        {
+          event: 1,
+          isHome: false,
+          difficulty: 5,
+          opponentShortName: 'CCC',
+          opponentName: 'CCC FC',
+        },
       ],
     });
 

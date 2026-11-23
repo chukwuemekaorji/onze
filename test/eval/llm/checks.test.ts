@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 import type { AnalysisSummary } from '../../../lib/analysis-summary.js';
 import type { CoachReport } from '../../../lib/coach-prompt.js';
 import { checkReport } from '../../../lib/eval/llm/check-report.js';
+import { summaryFacts } from '../../../lib/eval/llm/faithfulness.js';
 import { parseReport, sentencesOf } from '../../../lib/eval/llm/report-text.js';
 
 const golden = JSON.parse(
@@ -109,6 +110,56 @@ describe('numbers', () => {
     expect(
       failing({ summary: `You have £${horizon.toFixed(1)}m in the bank.` })[0]?.detail,
     ).toBe(`£${horizon.toFixed(1)} isn't a price or bank in the summary`);
+  });
+});
+
+// false positives found by the second eval:live run. each fix keeps its
+// wrong case failing, so it fixes the check without loosening it
+describe('checker fixes from the second eval:live run', () => {
+  const sold = summary.squad.squad.find((player) => player.transfersOutEvent >= 1_000);
+  if (sold === undefined) throw new Error('no heavily sold player in the golden week');
+  const twoWordClub = summaryFacts(summary).otherNames.find((name) => / /.test(name));
+  if (twoWordClub === undefined) throw new Error('no two-word club in the golden week');
+
+  it('reads a count with thousands separators as one number', () => {
+    const right = sold.transfersOutEvent.toLocaleString('en-GB');
+    expect(
+      failing({ priceAlerts: `${sold.webName} was sold by ${right} managers.` }),
+    ).toEqual([]);
+  });
+
+  it('still fails a wrong count written with separators', () => {
+    const wrong = (sold.transfersOutEvent + 12_345).toLocaleString('en-GB');
+    const [violation] = failing({
+      priceAlerts: `${sold.webName} was sold by ${wrong} managers.`,
+    });
+    expect(violation?.check).toBe('numbers');
+    expect(violation?.detail).toBe(`${wrong} isn't a number in the summary`);
+  });
+
+  it('accepts a two-word club in the data opening a sentence', () => {
+    expect(failing({ chips: `${twoWordClub} play twice soon.` })).toEqual([]);
+  });
+
+  it('still fails a two-word club that is not in the data', () => {
+    const [violation] = failing({ chips: 'Real Madrid play twice soon.' });
+    expect(violation?.check).toBe('names');
+    expect(violation?.detail).toBe(
+      '"Madrid" isn\'t a player, club or league in the summary',
+    );
+  });
+
+  it(`reads "I'm" as a word, not a name`, () => {
+    expect(failing({ transfers: `I'm watching ${captain.webName} closely.` })).toEqual(
+      [],
+    );
+  });
+
+  it(`still fails an invented name after "I'm"`, () => {
+    const [violation] = failing({ transfers: "I'm watching Zinedinho closely." });
+    expect(violation?.detail).toBe(
+      '"Zinedinho" isn\'t a player, club or league in the summary',
+    );
   });
 });
 

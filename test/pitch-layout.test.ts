@@ -43,7 +43,13 @@ function context(
 }
 
 function fixture(event: number, opponent: string, isHome: boolean): FixtureDifficulty {
-  return { event, opponentShortName: opponent, isHome, difficulty: 3 };
+  return {
+    event,
+    opponentShortName: opponent,
+    opponentName: opponent,
+    isHome,
+    difficulty: 3,
+  };
 }
 
 let nextId = 1;

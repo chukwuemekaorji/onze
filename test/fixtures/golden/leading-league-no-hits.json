@@ -55,31 +55,36 @@
               "event": 12,
               "isHome": true,
               "difficulty": 4,
-              "opponentShortName": "MCI"
+              "opponentShortName": "MCI",
+              "opponentName": "Man City"
             },
             {
               "event": 12,
               "isHome": false,
               "difficulty": 3,
-              "opponentShortName": "TOT"
+              "opponentShortName": "TOT",
+              "opponentName": "Spurs"
             },
             {
               "event": 13,
               "isHome": false,
               "difficulty": 4,
-              "opponentShortName": "BRE"
+              "opponentShortName": "BRE",
+              "opponentName": "Brentford"
             },
             {
               "event": 15,
               "isHome": true,
               "difficulty": 3,
-              "opponentShortName": "BOU"
+              "opponentShortName": "BOU",
+              "opponentName": "Bournemouth"
             },
             {
               "event": 16,
               "isHome": true,
               "difficulty": 3,
-              "opponentShortName": "MUN"
+              "opponentShortName": "MUN",
+              "opponentName": "Man Utd"
             }
           ]
         },
@@ -120,31 +125,36 @@
               "event": 12,
               "isHome": true,
               "difficulty": 3,
-              "opponentShortName": "BOU"
+              "opponentShortName": "BOU",
+              "opponentName": "Bournemouth"
             },
             {
               "event": 12,
               "isHome": false,
               "difficulty": 3,
-              "opponentShortName": "EVE"
+              "opponentShortName": "EVE",
+              "opponentName": "Everton"
             },
             {
               "event": 13,
               "isHome": false,
               "difficulty": 3,
-              "opponentShortName": "TOT"
+              "opponentShortName": "TOT",
+              "opponentName": "Spurs"
             },
             {
               "event": 15,
               "isHome": true,
               "difficulty": 3,
-              "opponentShortName": "BRE"
+              "opponentShortName": "BRE",
+              "opponentName": "Brentford"
             },
             {
               "event": 16,
               "isHome": false,
               "difficulty": 3,
-              "opponentShortName": "LEE"
+              "opponentShortName": "LEE",
+              "opponentName": "Leeds"
             }
           ]
         },
@@ -185,31 +195,36 @@
               "event": 12,
               "isHome": true,
               "difficulty": 4,
-              "opponentShortName": "MCI"
+              "opponentShortName": "MCI",
+              "opponentName": "Man City"
             },
             {
               "event": 12,
               "isHome": false,
               "difficulty": 3,
-              "opponentShortName": "TOT"
+              "opponentShortName": "TOT",
+              "opponentName": "Spurs"
             },
             {
               "event": 13,
               "isHome": false,
               "difficulty": 4,
-              "opponentShortName": "BRE"
+              "opponentShortName": "BRE",
+              "opponentName": "Brentford"
             },
             {
               "event": 15,
               "isHome": true,
               "difficulty": 3,
-              "opponentShortName": "BOU"
+              "opponentShortName": "BOU",
+              "opponentName": "Bournemouth"
             },
             {
               "event": 16,
               "isHome": true,
               "difficulty": 3,
-              "opponentShortName": "MUN"
+              "opponentShortName": "MUN",
+              "opponentName": "Man Utd"
             }
           ]
         },
@@ -250,31 +265,36 @@
               "event": 12,
               "isHome": true,
               "difficulty": 3,
-              "opponentShortName": "NEW"
+              "opponentShortName": "NEW",
+              "opponentName": "Newcastle"
             },
             {
               "event": 12,
               "isHome": false,
               "difficulty": 2,
-              "opponentShortName": "NFO"
+              "opponentShortName": "NFO",
+              "opponentName": "Nott'm Forest"
             },
             {
               "event": 13,
               "isHome": false,
               "difficulty": 4,
-              "opponentShortName": "BOU"
+              "opponentShortName": "BOU",
+              "opponentName": "Bournemouth"
             },
             {
               "event": 15,
               "isHome": true,
               "difficulty": 3,
-              "opponentShortName": "EVE"
+              "opponentShortName": "EVE",
+              "opponentName": "Everton"
             },
             {
               "event": 16,
               "isHome": true,
               "difficulty": 2,
-              "opponentShortName": "IPS"
+              "opponentShortName": "IPS",
+              "opponentName": "Ipswich Town"
             }
           ]
         },
@@ -315,31 +335,36 @@
               "event": 12,
               "isHome": true,
               "difficulty": 2,
-              "opponentShortName": "COV"
+              "opponentShortName": "COV",
+              "opponentName": "Coventry City"
             },
             {
               "event": 12,
               "isHome": true,
               "difficulty": 2,
-              "opponentShortName": "IPS"
+              "opponentShortName": "IPS",
+              "opponentName": "Ipswich Town"
             },
             {
               "event": 13,
               "isHome": false,
               "difficulty": 5,
-              "opponentShortName": "MCI"
+              "opponentShortName": "MCI",
+              "opponentName": "Man City"
             },
             {
               "event": 15,
               "isHome": false,
               "difficulty": 4,
-              "opponentShortName": "LIV"
+              "opponentShortName": "LIV",
+              "opponentName": "Liverpool"
             },
             {
               "event": 16,
               "isHome": true,
               "difficulty": 2,
-              "opponentShortName": "FUL"
+              "opponentShortName": "FUL",
+              "opponentName": "Fulham"
             }
           ]
         },
@@ -380,31 +405,36 @@
               "event": 12,
               "isHome": true,
               "difficulty": 4,
-              "opponentShortName": "MCI"
+              "opponentShortName": "MCI",
+              "opponentName": "Man City"
             },
             {
               "event": 12,
               "isHome": false,
               "difficulty": 3,
-              "opponentShortName": "TOT"
+              "opponentShortName": "TOT",
+              "opponentName": "Spurs"
             },
             {
               "event": 13,
               "isHome": false,
               "difficulty": 4,
-              "opponentShortName": "BRE"
+              "opponentShortName": "BRE",
+              "opponentName": "Brentford"
             },
             {
               "event": 15,
               "isHome": true,
               "difficulty": 3,
-              "opponentShortName": "BOU"
+              "opponentShortName": "BOU",
+              "opponentName": "Bournemouth"
             },
             {
               "event": 16,
               "isHome": true,
               "difficulty": 3,
-              "opponentShortName": "MUN"
+              "opponentShortName": "MUN",
+              "opponentName": "Man Utd"
             }
           ]
         },
@@ -445,31 +475,36 @@
               "event": 12,
               "isHome": false,
               "difficulty": 4,
-              "opponentShortName": "BHA"
+              "opponentShortName": "BHA",
+              "opponentName": "Brighton"
             },
             {
               "event": 12,
               "isHome": true,
               "difficulty": 2,
-              "opponentShortName": "SUN"
+              "opponentShortName": "SUN",
+              "opponentName": "Sunderland"
             },
             {
               "event": 13,
               "isHome": true,
               "difficulty": 3,
-              "opponentShortName": "MUN"
+              "opponentShortName": "MUN",
+              "opponentName": "Man Utd"
             },
             {
               "event": 15,
               "isHome": false,
               "difficulty": 2,
-              "opponentShortName": "IPS"
+              "opponentShortName": "IPS",
+              "opponentName": "Ipswich Town"
             },
             {
               "event": 16,
               "isHome": false,
               "difficulty": 4,
-              "opponentShortName": "BRE"
+              "opponentShortName": "BRE",
+              "opponentName": "Brentford"
             }
           ]
         },
@@ -510,31 +545,36 @@
               "event": 12,
               "isHome": false,
               "difficulty": 5,
-              "opponentShortName": "ARS"
+              "opponentShortName": "ARS",
+              "opponentName": "Arsenal"
             },
             {
               "event": 12,
               "isHome": false,
               "difficulty": 4,
-              "opponentShortName": "BRE"
+              "opponentShortName": "BRE",
+              "opponentName": "Brentford"
             },
             {
               "event": 13,
               "isHome": true,
               "difficulty": 3,
-              "opponentShortName": "LEE"
+              "opponentShortName": "LEE",
+              "opponentName": "Leeds"
             },
             {
               "event": 15,
               "isHome": true,
               "difficulty": 4,
-              "opponentShortName": "CHE"
+              "opponentShortName": "CHE",
+              "opponentName": "Chelsea"
             },
             {
               "event": 16,
               "isHome": true,
               "difficulty": 2,
-              "opponentShortName": "HUL"
+              "opponentShortName": "HUL",
+              "opponentName": "Hull City"
             }
           ]
         },
@@ -572,31 +612,36 @@
               "event": 12,
               "isHome": false,
               "difficulty": 2,
-              "opponentShortName": "NFO"
+              "opponentShortName": "NFO",
+              "opponentName": "Nott'm Forest"
             },
             {
               "event": 12,
               "isHome": true,
               "difficulty": 4,
-              "opponentShortName": "LIV"
+              "opponentShortName": "LIV",
+              "opponentName": "Liverpool"
             },
             {
               "event": 13,
               "isHome": true,
               "difficulty": 2,
-              "opponentShortName": "CRY"
+              "opponentShortName": "CRY",
+              "opponentName": "Crystal Palace"
             },
             {
               "event": 15,
               "isHome": false,
               "difficulty": 5,
-              "opponentShortName": "MCI"
+              "opponentShortName": "MCI",
+              "opponentName": "Man City"
             },
             {
               "event": 16,
               "isHome": true,
               "difficulty": 3,
-              "opponentShortName": "AVL"
+              "opponentShortName": "AVL",
+              "opponentName": "Aston Villa"
             }
           ]
         },
@@ -637,31 +682,36 @@
               "event": 12,
               "isHome": true,
               "difficulty": 3,
-              "opponentShortName": "NEW"
+              "opponentShortName": "NEW",
+              "opponentName": "Newcastle"
             },
             {
               "event": 12,
               "isHome": false,
               "difficulty": 2,
-              "opponentShortName": "NFO"
+              "opponentShortName": "NFO",
+              "opponentName": "Nott'm Forest"
             },
             {
               "event": 13,
               "isHome": false,
               "difficulty": 4,
-              "opponentShortName": "BOU"
+              "opponentShortName": "BOU",
+              "opponentName": "Bournemouth"
             },
             {
               "event": 15,
               "isHome": true,
               "difficulty": 3,
-              "opponentShortName": "EVE"
+              "opponentShortName": "EVE",
+              "opponentName": "Everton"
             },
             {
               "event": 16,
               "isHome": true,
               "difficulty": 2,
-              "opponentShortName": "IPS"
+              "opponentShortName": "IPS",
+              "opponentName": "Ipswich Town"
             }
           ]
         },
@@ -702,31 +752,36 @@
               "event": 12,
               "isHome": false,
               "difficulty": 2,
-              "opponentShortName": "NFO"
+              "opponentShortName": "NFO",
+              "opponentName": "Nott'm Forest"
             },
             {
               "event": 12,
               "isHome": true,
               "difficulty": 4,
-              "opponentShortName": "LIV"
+              "opponentShortName": "LIV",
+              "opponentName": "Liverpool"
             },
             {
               "event": 13,
               "isHome": true,
               "difficulty": 2,
-              "opponentShortName": "CRY"
+              "opponentShortName": "CRY",
+              "opponentName": "Crystal Palace"
             },
             {
               "event": 15,
               "isHome": false,
               "difficulty": 5,
-              "opponentShortName": "MCI"
+              "opponentShortName": "MCI",
+              "opponentName": "Man City"
             },
             {
               "event": 16,
               "isHome": true,
               "difficulty": 3,
-              "opponentShortName": "AVL"
+              "opponentShortName": "AVL",
+              "opponentName": "Aston Villa"
             }
           ]
         },
@@ -767,31 +822,36 @@
               "event": 12,
               "isHome": false,
               "difficulty": 3,
-              "opponentShortName": "MUN"
+              "opponentShortName": "MUN",
+              "opponentName": "Man Utd"
             },
             {
               "event": 12,
               "isHome": true,
               "difficulty": 4,
-              "opponentShortName": "MCI"
+              "opponentShortName": "MCI",
+              "opponentName": "Man City"
             },
             {
               "event": 13,
               "isHome": true,
               "difficulty": 4,
-              "opponentShortName": "ARS"
+              "opponentShortName": "ARS",
+              "opponentName": "Arsenal"
             },
             {
               "event": 15,
               "isHome": false,
               "difficulty": 3,
-              "opponentShortName": "FUL"
+              "opponentShortName": "FUL",
+              "opponentName": "Fulham"
             },
             {
               "event": 16,
               "isHome": true,
               "difficulty": 3,
-              "opponentShortName": "NEW"
+              "opponentShortName": "NEW",
+              "opponentName": "Newcastle"
             }
           ]
         },
@@ -832,31 +892,36 @@
               "event": 12,
               "isHome": false,
               "difficulty": 2,
-              "opponentShortName": "IPS"
+              "opponentShortName": "IPS",
+              "opponentName": "Ipswich Town"
             },
             {
               "event": 12,
               "isHome": true,
               "difficulty": 2,
-              "opponentShortName": "CRY"
+              "opponentShortName": "CRY",
+              "opponentName": "Crystal Palace"
             },
             {
               "event": 13,
               "isHome": true,
               "difficulty": 3,
-              "opponentShortName": "EVE"
+              "opponentShortName": "EVE",
+              "opponentName": "Everton"
             },
             {
               "event": 15,
               "isHome": false,
               "difficulty": 2,
-              "opponentShortName": "COV"
+              "opponentShortName": "COV",
+              "opponentName": "Coventry City"
             },
             {
               "event": 16,
               "isHome": false,
               "difficulty": 4,
-              "opponentShortName": "CHE"
+              "opponentShortName": "CHE",
+              "opponentName": "Chelsea"
             }
           ]
         },
@@ -894,31 +959,36 @@
               "event": 12,
               "isHome": false,
               "difficulty": 5,
-              "opponentShortName": "ARS"
+              "opponentShortName": "ARS",
+              "opponentName": "Arsenal"
             },
             {
               "event": 12,
               "isHome": false,
               "difficulty": 4,
-              "opponentShortName": "BRE"
+              "opponentShortName": "BRE",
+              "opponentName": "Brentford"
             },
             {
               "event": 13,
               "isHome": true,
               "difficulty": 3,
-              "opponentShortName": "LEE"
+              "opponentShortName": "LEE",
+              "opponentName": "Leeds"
             },
             {
               "event": 15,
               "isHome": true,
               "difficulty": 4,
-              "opponentShortName": "CHE"
+              "opponentShortName": "CHE",
+              "opponentName": "Chelsea"
             },
             {
               "event": 16,
               "isHome": true,
               "difficulty": 2,
-              "opponentShortName": "HUL"
+              "opponentShortName": "HUL",
+              "opponentName": "Hull City"
             }
           ]
         },
@@ -959,31 +1029,36 @@
               "event": 12,
               "isHome": false,
               "difficulty": 3,
-              "opponentShortName": "FUL"
+              "opponentShortName": "FUL",
+              "opponentName": "Fulham"
             },
             {
               "event": 12,
               "isHome": true,
               "difficulty": 2,
-              "opponentShortName": "HUL"
+              "opponentShortName": "HUL",
+              "opponentName": "Hull City"
             },
             {
               "event": 13,
               "isHome": true,
               "difficulty": 4,
-              "opponentShortName": "BHA"
+              "opponentShortName": "BHA",
+              "opponentName": "Brighton"
             },
             {
               "event": 15,
               "isHome": false,
               "difficulty": 5,
-              "opponentShortName": "ARS"
+              "opponentShortName": "ARS",
+              "opponentName": "Arsenal"
             },
             {
               "event": 16,
               "isHome": true,
               "difficulty": 2,
-              "opponentShortName": "COV"
+              "opponentShortName": "COV",
+              "opponentName": "Coventry City"
             }
           ]
         }
@@ -1177,31 +1252,36 @@
                 "event": 12,
                 "isHome": false,
                 "difficulty": 2,
-                "opponentShortName": "NFO"
+                "opponentShortName": "NFO",
+                "opponentName": "Nott'm Forest"
               },
               {
                 "event": 12,
                 "isHome": true,
                 "difficulty": 4,
-                "opponentShortName": "LIV"
+                "opponentShortName": "LIV",
+                "opponentName": "Liverpool"
               },
               {
                 "event": 13,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "CRY"
+                "opponentShortName": "CRY",
+                "opponentName": "Crystal Palace"
               },
               {
                 "event": 15,
                 "isHome": false,
                 "difficulty": 5,
-                "opponentShortName": "MCI"
+                "opponentShortName": "MCI",
+                "opponentName": "Man City"
               },
               {
                 "event": 16,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "AVL"
+                "opponentShortName": "AVL",
+                "opponentName": "Aston Villa"
               }
             ]
           },
@@ -1244,31 +1324,36 @@
                   "event": 12,
                   "isHome": false,
                   "difficulty": 3,
-                  "opponentShortName": "FUL"
+                  "opponentShortName": "FUL",
+                  "opponentName": "Fulham"
                 },
                 {
                   "event": 12,
                   "isHome": true,
                   "difficulty": 2,
-                  "opponentShortName": "HUL"
+                  "opponentShortName": "HUL",
+                  "opponentName": "Hull City"
                 },
                 {
                   "event": 13,
                   "isHome": true,
                   "difficulty": 4,
-                  "opponentShortName": "BHA"
+                  "opponentShortName": "BHA",
+                  "opponentName": "Brighton"
                 },
                 {
                   "event": 15,
                   "isHome": false,
                   "difficulty": 5,
-                  "opponentShortName": "ARS"
+                  "opponentShortName": "ARS",
+                  "opponentName": "Arsenal"
                 },
                 {
                   "event": 16,
                   "isHome": true,
                   "difficulty": 2,
-                  "opponentShortName": "COV"
+                  "opponentShortName": "COV",
+                  "opponentName": "Coventry City"
                 }
               ]
             }
@@ -1310,31 +1395,36 @@
                 "event": 12,
                 "isHome": false,
                 "difficulty": 5,
-                "opponentShortName": "ARS"
+                "opponentShortName": "ARS",
+                "opponentName": "Arsenal"
               },
               {
                 "event": 12,
                 "isHome": false,
                 "difficulty": 4,
-                "opponentShortName": "BRE"
+                "opponentShortName": "BRE",
+                "opponentName": "Brentford"
               },
               {
                 "event": 13,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "LEE"
+                "opponentShortName": "LEE",
+                "opponentName": "Leeds"
               },
               {
                 "event": 15,
                 "isHome": true,
                 "difficulty": 4,
-                "opponentShortName": "CHE"
+                "opponentShortName": "CHE",
+                "opponentName": "Chelsea"
               },
               {
                 "event": 16,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "HUL"
+                "opponentShortName": "HUL",
+                "opponentName": "Hull City"
               }
             ]
           },
@@ -1377,31 +1467,36 @@
                   "event": 12,
                   "isHome": true,
                   "difficulty": 4,
-                  "opponentShortName": "LIV"
+                  "opponentShortName": "LIV",
+                  "opponentName": "Liverpool"
                 },
                 {
                   "event": 12,
                   "isHome": true,
                   "difficulty": 2,
-                  "opponentShortName": "FUL"
+                  "opponentShortName": "FUL",
+                  "opponentName": "Fulham"
                 },
                 {
                   "event": 13,
                   "isHome": false,
                   "difficulty": 3,
-                  "opponentShortName": "AVL"
+                  "opponentShortName": "AVL",
+                  "opponentName": "Aston Villa"
                 },
                 {
                   "event": 15,
                   "isHome": false,
                   "difficulty": 4,
-                  "opponentShortName": "BHA"
+                  "opponentShortName": "BHA",
+                  "opponentName": "Brighton"
                 },
                 {
                   "event": 16,
                   "isHome": false,
                   "difficulty": 2,
-                  "opponentShortName": "NFO"
+                  "opponentShortName": "NFO",
+                  "opponentName": "Nott'm Forest"
                 }
               ]
             },
@@ -1442,31 +1537,36 @@
                   "event": 12,
                   "isHome": false,
                   "difficulty": 3,
-                  "opponentShortName": "EVE"
+                  "opponentShortName": "EVE",
+                  "opponentName": "Everton"
                 },
                 {
                   "event": 12,
                   "isHome": false,
                   "difficulty": 4,
-                  "opponentShortName": "CHE"
+                  "opponentShortName": "CHE",
+                  "opponentName": "Chelsea"
                 },
                 {
                   "event": 13,
                   "isHome": true,
                   "difficulty": 2,
-                  "opponentShortName": "SUN"
+                  "opponentShortName": "SUN",
+                  "opponentName": "Sunderland"
                 },
                 {
                   "event": 15,
                   "isHome": true,
                   "difficulty": 3,
-                  "opponentShortName": "LEE"
+                  "opponentShortName": "LEE",
+                  "opponentName": "Leeds"
                 },
                 {
                   "event": 16,
                   "isHome": true,
                   "difficulty": 3,
-                  "opponentShortName": "TOT"
+                  "opponentShortName": "TOT",
+                  "opponentName": "Spurs"
                 }
               ]
             },
@@ -1507,31 +1607,36 @@
                   "event": 12,
                   "isHome": true,
                   "difficulty": 2,
-                  "opponentShortName": "COV"
+                  "opponentShortName": "COV",
+                  "opponentName": "Coventry City"
                 },
                 {
                   "event": 12,
                   "isHome": true,
                   "difficulty": 2,
-                  "opponentShortName": "IPS"
+                  "opponentShortName": "IPS",
+                  "opponentName": "Ipswich Town"
                 },
                 {
                   "event": 13,
                   "isHome": false,
                   "difficulty": 5,
-                  "opponentShortName": "MCI"
+                  "opponentShortName": "MCI",
+                  "opponentName": "Man City"
                 },
                 {
                   "event": 15,
                   "isHome": false,
                   "difficulty": 4,
-                  "opponentShortName": "LIV"
+                  "opponentShortName": "LIV",
+                  "opponentName": "Liverpool"
                 },
                 {
                   "event": 16,
                   "isHome": true,
                   "difficulty": 2,
-                  "opponentShortName": "FUL"
+                  "opponentShortName": "FUL",
+                  "opponentName": "Fulham"
                 }
               ]
             }
@@ -1576,31 +1681,36 @@
                 "event": 12,
                 "isHome": false,
                 "difficulty": 2,
-                "opponentShortName": "NFO"
+                "opponentShortName": "NFO",
+                "opponentName": "Nott'm Forest"
               },
               {
                 "event": 12,
                 "isHome": true,
                 "difficulty": 4,
-                "opponentShortName": "LIV"
+                "opponentShortName": "LIV",
+                "opponentName": "Liverpool"
               },
               {
                 "event": 13,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "CRY"
+                "opponentShortName": "CRY",
+                "opponentName": "Crystal Palace"
               },
               {
                 "event": 15,
                 "isHome": false,
                 "difficulty": 5,
-                "opponentShortName": "MCI"
+                "opponentShortName": "MCI",
+                "opponentName": "Man City"
               },
               {
                 "event": 16,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "AVL"
+                "opponentShortName": "AVL",
+                "opponentName": "Aston Villa"
               }
             ]
           },
@@ -1643,31 +1753,36 @@
                   "event": 12,
                   "isHome": false,
                   "difficulty": 3,
-                  "opponentShortName": "EVE"
+                  "opponentShortName": "EVE",
+                  "opponentName": "Everton"
                 },
                 {
                   "event": 12,
                   "isHome": false,
                   "difficulty": 4,
-                  "opponentShortName": "CHE"
+                  "opponentShortName": "CHE",
+                  "opponentName": "Chelsea"
                 },
                 {
                   "event": 13,
                   "isHome": true,
                   "difficulty": 2,
-                  "opponentShortName": "SUN"
+                  "opponentShortName": "SUN",
+                  "opponentName": "Sunderland"
                 },
                 {
                   "event": 15,
                   "isHome": true,
                   "difficulty": 3,
-                  "opponentShortName": "LEE"
+                  "opponentShortName": "LEE",
+                  "opponentName": "Leeds"
                 },
                 {
                   "event": 16,
                   "isHome": true,
                   "difficulty": 3,
-                  "opponentShortName": "TOT"
+                  "opponentShortName": "TOT",
+                  "opponentName": "Spurs"
                 }
               ]
             },
@@ -1708,31 +1823,36 @@
                   "event": 12,
                   "isHome": false,
                   "difficulty": 2,
-                  "opponentShortName": "IPS"
+                  "opponentShortName": "IPS",
+                  "opponentName": "Ipswich Town"
                 },
                 {
                   "event": 12,
                   "isHome": true,
                   "difficulty": 2,
-                  "opponentShortName": "CRY"
+                  "opponentShortName": "CRY",
+                  "opponentName": "Crystal Palace"
                 },
                 {
                   "event": 13,
                   "isHome": true,
                   "difficulty": 3,
-                  "opponentShortName": "EVE"
+                  "opponentShortName": "EVE",
+                  "opponentName": "Everton"
                 },
                 {
                   "event": 15,
                   "isHome": false,
                   "difficulty": 2,
-                  "opponentShortName": "COV"
+                  "opponentShortName": "COV",
+                  "opponentName": "Coventry City"
                 },
                 {
                   "event": 16,
                   "isHome": false,
                   "difficulty": 4,
-                  "opponentShortName": "CHE"
+                  "opponentShortName": "CHE",
+                  "opponentName": "Chelsea"
                 }
               ]
             },
@@ -1773,31 +1893,36 @@
                   "event": 12,
                   "isHome": true,
                   "difficulty": 3,
-                  "opponentShortName": "BRE"
+                  "opponentShortName": "BRE",
+                  "opponentName": "Brentford"
                 },
                 {
                   "event": 12,
                   "isHome": true,
                   "difficulty": 2,
-                  "opponentShortName": "COV"
+                  "opponentShortName": "COV",
+                  "opponentName": "Coventry City"
                 },
                 {
                   "event": 13,
                   "isHome": false,
                   "difficulty": 3,
-                  "opponentShortName": "NEW"
+                  "opponentShortName": "NEW",
+                  "opponentName": "Newcastle"
                 },
                 {
                   "event": 15,
                   "isHome": false,
                   "difficulty": 2,
-                  "opponentShortName": "CRY"
+                  "opponentShortName": "CRY",
+                  "opponentName": "Crystal Palace"
                 },
                 {
                   "event": 16,
                   "isHome": false,
                   "difficulty": 5,
-                  "opponentShortName": "ARS"
+                  "opponentShortName": "ARS",
+                  "opponentName": "Arsenal"
                 }
               ]
             }
@@ -2064,31 +2189,36 @@
               "event": 12,
               "isHome": true,
               "difficulty": 4,
-              "opponentShortName": "MCI"
+              "opponentShortName": "MCI",
+              "opponentName": "Man City"
             },
             {
               "event": 12,
               "isHome": false,
               "difficulty": 3,
-              "opponentShortName": "TOT"
+              "opponentShortName": "TOT",
+              "opponentName": "Spurs"
             },
             {
               "event": 13,
               "isHome": false,
               "difficulty": 4,
-              "opponentShortName": "BRE"
+              "opponentShortName": "BRE",
+              "opponentName": "Brentford"
             },
             {
               "event": 15,
               "isHome": true,
               "difficulty": 3,
-              "opponentShortName": "BOU"
+              "opponentShortName": "BOU",
+              "opponentName": "Bournemouth"
             },
             {
               "event": 16,
               "isHome": true,
               "difficulty": 3,
-              "opponentShortName": "MUN"
+              "opponentShortName": "MUN",
+              "opponentName": "Man Utd"
             }
           ]
         },
@@ -2132,31 +2262,36 @@
               "event": 12,
               "isHome": false,
               "difficulty": 3,
-              "opponentShortName": "FUL"
+              "opponentShortName": "FUL",
+              "opponentName": "Fulham"
             },
             {
               "event": 12,
               "isHome": true,
               "difficulty": 2,
-              "opponentShortName": "HUL"
+              "opponentShortName": "HUL",
+              "opponentName": "Hull City"
             },
             {
               "event": 13,
               "isHome": true,
               "difficulty": 4,
-              "opponentShortName": "BHA"
+              "opponentShortName": "BHA",
+              "opponentName": "Brighton"
             },
             {
               "event": 15,
               "isHome": false,
               "difficulty": 5,
-              "opponentShortName": "ARS"
+              "opponentShortName": "ARS",
+              "opponentName": "Arsenal"
             },
             {
               "event": 16,
               "isHome": true,
               "difficulty": 2,
-              "opponentShortName": "COV"
+              "opponentShortName": "COV",
+              "opponentName": "Coventry City"
             }
           ]
         },
@@ -2201,31 +2336,36 @@
                 "event": 12,
                 "isHome": true,
                 "difficulty": 4,
-                "opponentShortName": "MCI"
+                "opponentShortName": "MCI",
+                "opponentName": "Man City"
               },
               {
                 "event": 12,
                 "isHome": false,
                 "difficulty": 3,
-                "opponentShortName": "TOT"
+                "opponentShortName": "TOT",
+                "opponentName": "Spurs"
               },
               {
                 "event": 13,
                 "isHome": false,
                 "difficulty": 4,
-                "opponentShortName": "BRE"
+                "opponentShortName": "BRE",
+                "opponentName": "Brentford"
               },
               {
                 "event": 15,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "BOU"
+                "opponentShortName": "BOU",
+                "opponentName": "Bournemouth"
               },
               {
                 "event": 16,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "MUN"
+                "opponentShortName": "MUN",
+                "opponentName": "Man Utd"
               }
             ]
           },
@@ -2269,31 +2409,36 @@
                 "event": 12,
                 "isHome": false,
                 "difficulty": 3,
-                "opponentShortName": "FUL"
+                "opponentShortName": "FUL",
+                "opponentName": "Fulham"
               },
               {
                 "event": 12,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "HUL"
+                "opponentShortName": "HUL",
+                "opponentName": "Hull City"
               },
               {
                 "event": 13,
                 "isHome": true,
                 "difficulty": 4,
-                "opponentShortName": "BHA"
+                "opponentShortName": "BHA",
+                "opponentName": "Brighton"
               },
               {
                 "event": 15,
                 "isHome": false,
                 "difficulty": 5,
-                "opponentShortName": "ARS"
+                "opponentShortName": "ARS",
+                "opponentName": "Arsenal"
               },
               {
                 "event": 16,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "COV"
+                "opponentShortName": "COV",
+                "opponentName": "Coventry City"
               }
             ]
           },
@@ -2337,31 +2482,36 @@
                 "event": 12,
                 "isHome": false,
                 "difficulty": 3,
-                "opponentShortName": "FUL"
+                "opponentShortName": "FUL",
+                "opponentName": "Fulham"
               },
               {
                 "event": 12,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "HUL"
+                "opponentShortName": "HUL",
+                "opponentName": "Hull City"
               },
               {
                 "event": 13,
                 "isHome": true,
                 "difficulty": 4,
-                "opponentShortName": "BHA"
+                "opponentShortName": "BHA",
+                "opponentName": "Brighton"
               },
               {
                 "event": 15,
                 "isHome": false,
                 "difficulty": 5,
-                "opponentShortName": "ARS"
+                "opponentShortName": "ARS",
+                "opponentName": "Arsenal"
               },
               {
                 "event": 16,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "COV"
+                "opponentShortName": "COV",
+                "opponentName": "Coventry City"
               }
             ]
           },
@@ -2405,31 +2555,36 @@
                 "event": 12,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "NEW"
+                "opponentShortName": "NEW",
+                "opponentName": "Newcastle"
               },
               {
                 "event": 12,
                 "isHome": false,
                 "difficulty": 2,
-                "opponentShortName": "NFO"
+                "opponentShortName": "NFO",
+                "opponentName": "Nott'm Forest"
               },
               {
                 "event": 13,
                 "isHome": false,
                 "difficulty": 4,
-                "opponentShortName": "BOU"
+                "opponentShortName": "BOU",
+                "opponentName": "Bournemouth"
               },
               {
                 "event": 15,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "EVE"
+                "opponentShortName": "EVE",
+                "opponentName": "Everton"
               },
               {
                 "event": 16,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "IPS"
+                "opponentShortName": "IPS",
+                "opponentName": "Ipswich Town"
               }
             ]
           },
@@ -2473,31 +2628,36 @@
                 "event": 12,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "NEW"
+                "opponentShortName": "NEW",
+                "opponentName": "Newcastle"
               },
               {
                 "event": 12,
                 "isHome": false,
                 "difficulty": 2,
-                "opponentShortName": "NFO"
+                "opponentShortName": "NFO",
+                "opponentName": "Nott'm Forest"
               },
               {
                 "event": 13,
                 "isHome": false,
                 "difficulty": 4,
-                "opponentShortName": "BOU"
+                "opponentShortName": "BOU",
+                "opponentName": "Bournemouth"
               },
               {
                 "event": 15,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "EVE"
+                "opponentShortName": "EVE",
+                "opponentName": "Everton"
               },
               {
                 "event": 16,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "IPS"
+                "opponentShortName": "IPS",
+                "opponentName": "Ipswich Town"
               }
             ]
           },
@@ -2541,31 +2701,36 @@
                 "event": 12,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "COV"
+                "opponentShortName": "COV",
+                "opponentName": "Coventry City"
               },
               {
                 "event": 12,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "IPS"
+                "opponentShortName": "IPS",
+                "opponentName": "Ipswich Town"
               },
               {
                 "event": 13,
                 "isHome": false,
                 "difficulty": 5,
-                "opponentShortName": "MCI"
+                "opponentShortName": "MCI",
+                "opponentName": "Man City"
               },
               {
                 "event": 15,
                 "isHome": false,
                 "difficulty": 4,
-                "opponentShortName": "LIV"
+                "opponentShortName": "LIV",
+                "opponentName": "Liverpool"
               },
               {
                 "event": 16,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "FUL"
+                "opponentShortName": "FUL",
+                "opponentName": "Fulham"
               }
             ]
           },
@@ -2609,31 +2774,36 @@
                 "event": 12,
                 "isHome": false,
                 "difficulty": 2,
-                "opponentShortName": "IPS"
+                "opponentShortName": "IPS",
+                "opponentName": "Ipswich Town"
               },
               {
                 "event": 12,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "CRY"
+                "opponentShortName": "CRY",
+                "opponentName": "Crystal Palace"
               },
               {
                 "event": 13,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "EVE"
+                "opponentShortName": "EVE",
+                "opponentName": "Everton"
               },
               {
                 "event": 15,
                 "isHome": false,
                 "difficulty": 2,
-                "opponentShortName": "COV"
+                "opponentShortName": "COV",
+                "opponentName": "Coventry City"
               },
               {
                 "event": 16,
                 "isHome": false,
                 "difficulty": 4,
-                "opponentShortName": "CHE"
+                "opponentShortName": "CHE",
+                "opponentName": "Chelsea"
               }
             ]
           },
@@ -2677,31 +2847,36 @@
                 "event": 12,
                 "isHome": true,
                 "difficulty": 4,
-                "opponentShortName": "MCI"
+                "opponentShortName": "MCI",
+                "opponentName": "Man City"
               },
               {
                 "event": 12,
                 "isHome": false,
                 "difficulty": 3,
-                "opponentShortName": "TOT"
+                "opponentShortName": "TOT",
+                "opponentName": "Spurs"
               },
               {
                 "event": 13,
                 "isHome": false,
                 "difficulty": 4,
-                "opponentShortName": "BRE"
+                "opponentShortName": "BRE",
+                "opponentName": "Brentford"
               },
               {
                 "event": 15,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "BOU"
+                "opponentShortName": "BOU",
+                "opponentName": "Bournemouth"
               },
               {
                 "event": 16,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "MUN"
+                "opponentShortName": "MUN",
+                "opponentName": "Man Utd"
               }
             ]
           },
@@ -2745,31 +2920,36 @@
                 "event": 12,
                 "isHome": false,
                 "difficulty": 3,
-                "opponentShortName": "MUN"
+                "opponentShortName": "MUN",
+                "opponentName": "Man Utd"
               },
               {
                 "event": 12,
                 "isHome": true,
                 "difficulty": 4,
-                "opponentShortName": "MCI"
+                "opponentShortName": "MCI",
+                "opponentName": "Man City"
               },
               {
                 "event": 13,
                 "isHome": true,
                 "difficulty": 4,
-                "opponentShortName": "ARS"
+                "opponentShortName": "ARS",
+                "opponentName": "Arsenal"
               },
               {
                 "event": 15,
                 "isHome": false,
                 "difficulty": 3,
-                "opponentShortName": "FUL"
+                "opponentShortName": "FUL",
+                "opponentName": "Fulham"
               },
               {
                 "event": 16,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "NEW"
+                "opponentShortName": "NEW",
+                "opponentName": "Newcastle"
               }
             ]
           },
@@ -2813,31 +2993,36 @@
                 "event": 12,
                 "isHome": false,
                 "difficulty": 5,
-                "opponentShortName": "ARS"
+                "opponentShortName": "ARS",
+                "opponentName": "Arsenal"
               },
               {
                 "event": 12,
                 "isHome": false,
                 "difficulty": 4,
-                "opponentShortName": "BRE"
+                "opponentShortName": "BRE",
+                "opponentName": "Brentford"
               },
               {
                 "event": 13,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "LEE"
+                "opponentShortName": "LEE",
+                "opponentName": "Leeds"
               },
               {
                 "event": 15,
                 "isHome": true,
                 "difficulty": 4,
-                "opponentShortName": "CHE"
+                "opponentShortName": "CHE",
+                "opponentName": "Chelsea"
               },
               {
                 "event": 16,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "HUL"
+                "opponentShortName": "HUL",
+                "opponentName": "Hull City"
               }
             ]
           },
@@ -2881,31 +3066,36 @@
                 "event": 12,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "BOU"
+                "opponentShortName": "BOU",
+                "opponentName": "Bournemouth"
               },
               {
                 "event": 12,
                 "isHome": false,
                 "difficulty": 3,
-                "opponentShortName": "EVE"
+                "opponentShortName": "EVE",
+                "opponentName": "Everton"
               },
               {
                 "event": 13,
                 "isHome": false,
                 "difficulty": 3,
-                "opponentShortName": "TOT"
+                "opponentShortName": "TOT",
+                "opponentName": "Spurs"
               },
               {
                 "event": 15,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "BRE"
+                "opponentShortName": "BRE",
+                "opponentName": "Brentford"
               },
               {
                 "event": 16,
                 "isHome": false,
                 "difficulty": 3,
-                "opponentShortName": "LEE"
+                "opponentShortName": "LEE",
+                "opponentName": "Leeds"
               }
             ]
           },
@@ -2986,31 +3176,36 @@
                 "event": 12,
                 "isHome": true,
                 "difficulty": 4,
-                "opponentShortName": "MCI"
+                "opponentShortName": "MCI",
+                "opponentName": "Man City"
               },
               {
                 "event": 12,
                 "isHome": false,
                 "difficulty": 3,
-                "opponentShortName": "TOT"
+                "opponentShortName": "TOT",
+                "opponentName": "Spurs"
               },
               {
                 "event": 13,
                 "isHome": false,
                 "difficulty": 4,
-                "opponentShortName": "BRE"
+                "opponentShortName": "BRE",
+                "opponentName": "Brentford"
               },
               {
                 "event": 15,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "BOU"
+                "opponentShortName": "BOU",
+                "opponentName": "Bournemouth"
               },
               {
                 "event": 16,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "MUN"
+                "opponentShortName": "MUN",
+                "opponentName": "Man Utd"
               }
             ]
           },
@@ -3055,31 +3250,36 @@
                 "event": 12,
                 "isHome": false,
                 "difficulty": 5,
-                "opponentShortName": "ARS"
+                "opponentShortName": "ARS",
+                "opponentName": "Arsenal"
               },
               {
                 "event": 12,
                 "isHome": false,
                 "difficulty": 4,
-                "opponentShortName": "BRE"
+                "opponentShortName": "BRE",
+                "opponentName": "Brentford"
               },
               {
                 "event": 13,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "LEE"
+                "opponentShortName": "LEE",
+                "opponentName": "Leeds"
               },
               {
                 "event": 15,
                 "isHome": true,
                 "difficulty": 4,
-                "opponentShortName": "CHE"
+                "opponentShortName": "CHE",
+                "opponentName": "Chelsea"
               },
               {
                 "event": 16,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "HUL"
+                "opponentShortName": "HUL",
+                "opponentName": "Hull City"
               }
             ]
           },
@@ -3121,31 +3321,36 @@
                 "event": 12,
                 "isHome": false,
                 "difficulty": 2,
-                "opponentShortName": "NFO"
+                "opponentShortName": "NFO",
+                "opponentName": "Nott'm Forest"
               },
               {
                 "event": 12,
                 "isHome": true,
                 "difficulty": 4,
-                "opponentShortName": "LIV"
+                "opponentShortName": "LIV",
+                "opponentName": "Liverpool"
               },
               {
                 "event": 13,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "CRY"
+                "opponentShortName": "CRY",
+                "opponentName": "Crystal Palace"
               },
               {
                 "event": 15,
                 "isHome": false,
                 "difficulty": 5,
-                "opponentShortName": "MCI"
+                "opponentShortName": "MCI",
+                "opponentName": "Man City"
               },
               {
                 "event": 16,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "AVL"
+                "opponentShortName": "AVL",
+                "opponentName": "Aston Villa"
               }
             ]
           },
@@ -3190,31 +3395,36 @@
                 "event": 12,
                 "isHome": false,
                 "difficulty": 2,
-                "opponentShortName": "IPS"
+                "opponentShortName": "IPS",
+                "opponentName": "Ipswich Town"
               },
               {
                 "event": 12,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "CRY"
+                "opponentShortName": "CRY",
+                "opponentName": "Crystal Palace"
               },
               {
                 "event": 13,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "EVE"
+                "opponentShortName": "EVE",
+                "opponentName": "Everton"
               },
               {
                 "event": 15,
                 "isHome": false,
                 "difficulty": 2,
-                "opponentShortName": "COV"
+                "opponentShortName": "COV",
+                "opponentName": "Coventry City"
               },
               {
                 "event": 16,
                 "isHome": false,
                 "difficulty": 4,
-                "opponentShortName": "CHE"
+                "opponentShortName": "CHE",
+                "opponentName": "Chelsea"
               }
             ]
           },
@@ -3259,31 +3469,36 @@
                 "event": 12,
                 "isHome": false,
                 "difficulty": 3,
-                "opponentShortName": "FUL"
+                "opponentShortName": "FUL",
+                "opponentName": "Fulham"
               },
               {
                 "event": 12,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "HUL"
+                "opponentShortName": "HUL",
+                "opponentName": "Hull City"
               },
               {
                 "event": 13,
                 "isHome": true,
                 "difficulty": 4,
-                "opponentShortName": "BHA"
+                "opponentShortName": "BHA",
+                "opponentName": "Brighton"
               },
               {
                 "event": 15,
                 "isHome": false,
                 "difficulty": 5,
-                "opponentShortName": "ARS"
+                "opponentShortName": "ARS",
+                "opponentName": "Arsenal"
               },
               {
                 "event": 16,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "COV"
+                "opponentShortName": "COV",
+                "opponentName": "Coventry City"
               }
             ]
           },
@@ -3333,31 +3548,36 @@
                 "event": 12,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "BOU"
+                "opponentShortName": "BOU",
+                "opponentName": "Bournemouth"
               },
               {
                 "event": 12,
                 "isHome": false,
                 "difficulty": 3,
-                "opponentShortName": "EVE"
+                "opponentShortName": "EVE",
+                "opponentName": "Everton"
               },
               {
                 "event": 13,
                 "isHome": false,
                 "difficulty": 3,
-                "opponentShortName": "TOT"
+                "opponentShortName": "TOT",
+                "opponentName": "Spurs"
               },
               {
                 "event": 15,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "BRE"
+                "opponentShortName": "BRE",
+                "opponentName": "Brentford"
               },
               {
                 "event": 16,
                 "isHome": false,
                 "difficulty": 3,
-                "opponentShortName": "LEE"
+                "opponentShortName": "LEE",
+                "opponentName": "Leeds"
               }
             ]
           },
@@ -3401,31 +3621,36 @@
                 "event": 12,
                 "isHome": true,
                 "difficulty": 4,
-                "opponentShortName": "MCI"
+                "opponentShortName": "MCI",
+                "opponentName": "Man City"
               },
               {
                 "event": 12,
                 "isHome": false,
                 "difficulty": 3,
-                "opponentShortName": "TOT"
+                "opponentShortName": "TOT",
+                "opponentName": "Spurs"
               },
               {
                 "event": 13,
                 "isHome": false,
                 "difficulty": 4,
-                "opponentShortName": "BRE"
+                "opponentShortName": "BRE",
+                "opponentName": "Brentford"
               },
               {
                 "event": 15,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "BOU"
+                "opponentShortName": "BOU",
+                "opponentName": "Bournemouth"
               },
               {
                 "event": 16,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "MUN"
+                "opponentShortName": "MUN",
+                "opponentName": "Man Utd"
               }
             ]
           },
@@ -3469,31 +3694,36 @@
                 "event": 12,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "NEW"
+                "opponentShortName": "NEW",
+                "opponentName": "Newcastle"
               },
               {
                 "event": 12,
                 "isHome": false,
                 "difficulty": 2,
-                "opponentShortName": "NFO"
+                "opponentShortName": "NFO",
+                "opponentName": "Nott'm Forest"
               },
               {
                 "event": 13,
                 "isHome": false,
                 "difficulty": 4,
-                "opponentShortName": "BOU"
+                "opponentShortName": "BOU",
+                "opponentName": "Bournemouth"
               },
               {
                 "event": 15,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "EVE"
+                "opponentShortName": "EVE",
+                "opponentName": "Everton"
               },
               {
                 "event": 16,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "IPS"
+                "opponentShortName": "IPS",
+                "opponentName": "Ipswich Town"
               }
             ]
           },
@@ -3537,31 +3767,36 @@
                 "event": 12,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "COV"
+                "opponentShortName": "COV",
+                "opponentName": "Coventry City"
               },
               {
                 "event": 12,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "IPS"
+                "opponentShortName": "IPS",
+                "opponentName": "Ipswich Town"
               },
               {
                 "event": 13,
                 "isHome": false,
                 "difficulty": 5,
-                "opponentShortName": "MCI"
+                "opponentShortName": "MCI",
+                "opponentName": "Man City"
               },
               {
                 "event": 15,
                 "isHome": false,
                 "difficulty": 4,
-                "opponentShortName": "LIV"
+                "opponentShortName": "LIV",
+                "opponentName": "Liverpool"
               },
               {
                 "event": 16,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "FUL"
+                "opponentShortName": "FUL",
+                "opponentName": "Fulham"
               }
             ]
           },
@@ -3605,31 +3840,36 @@
                 "event": 12,
                 "isHome": true,
                 "difficulty": 4,
-                "opponentShortName": "MCI"
+                "opponentShortName": "MCI",
+                "opponentName": "Man City"
               },
               {
                 "event": 12,
                 "isHome": false,
                 "difficulty": 3,
-                "opponentShortName": "TOT"
+                "opponentShortName": "TOT",
+                "opponentName": "Spurs"
               },
               {
                 "event": 13,
                 "isHome": false,
                 "difficulty": 4,
-                "opponentShortName": "BRE"
+                "opponentShortName": "BRE",
+                "opponentName": "Brentford"
               },
               {
                 "event": 15,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "BOU"
+                "opponentShortName": "BOU",
+                "opponentName": "Bournemouth"
               },
               {
                 "event": 16,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "MUN"
+                "opponentShortName": "MUN",
+                "opponentName": "Man Utd"
               }
             ]
           },
@@ -3673,31 +3913,36 @@
                 "event": 12,
                 "isHome": false,
                 "difficulty": 3,
-                "opponentShortName": "FUL"
+                "opponentShortName": "FUL",
+                "opponentName": "Fulham"
               },
               {
                 "event": 12,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "HUL"
+                "opponentShortName": "HUL",
+                "opponentName": "Hull City"
               },
               {
                 "event": 13,
                 "isHome": true,
                 "difficulty": 4,
-                "opponentShortName": "BHA"
+                "opponentShortName": "BHA",
+                "opponentName": "Brighton"
               },
               {
                 "event": 15,
                 "isHome": false,
                 "difficulty": 5,
-                "opponentShortName": "ARS"
+                "opponentShortName": "ARS",
+                "opponentName": "Arsenal"
               },
               {
                 "event": 16,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "COV"
+                "opponentShortName": "COV",
+                "opponentName": "Coventry City"
               }
             ]
           },
@@ -3741,31 +3986,36 @@
                 "event": 12,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "NEW"
+                "opponentShortName": "NEW",
+                "opponentName": "Newcastle"
               },
               {
                 "event": 12,
                 "isHome": false,
                 "difficulty": 2,
-                "opponentShortName": "NFO"
+                "opponentShortName": "NFO",
+                "opponentName": "Nott'm Forest"
               },
               {
                 "event": 13,
                 "isHome": false,
                 "difficulty": 4,
-                "opponentShortName": "BOU"
+                "opponentShortName": "BOU",
+                "opponentName": "Bournemouth"
               },
               {
                 "event": 15,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "EVE"
+                "opponentShortName": "EVE",
+                "opponentName": "Everton"
               },
               {
                 "event": 16,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "IPS"
+                "opponentShortName": "IPS",
+                "opponentName": "Ipswich Town"
               }
             ]
           },
@@ -3809,31 +4059,36 @@
                 "event": 12,
                 "isHome": false,
                 "difficulty": 3,
-                "opponentShortName": "MUN"
+                "opponentShortName": "MUN",
+                "opponentName": "Man Utd"
               },
               {
                 "event": 12,
                 "isHome": true,
                 "difficulty": 4,
-                "opponentShortName": "MCI"
+                "opponentShortName": "MCI",
+                "opponentName": "Man City"
               },
               {
                 "event": 13,
                 "isHome": true,
                 "difficulty": 4,
-                "opponentShortName": "ARS"
+                "opponentShortName": "ARS",
+                "opponentName": "Arsenal"
               },
               {
                 "event": 15,
                 "isHome": false,
                 "difficulty": 3,
-                "opponentShortName": "FUL"
+                "opponentShortName": "FUL",
+                "opponentName": "Fulham"
               },
               {
                 "event": 16,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "NEW"
+                "opponentShortName": "NEW",
+                "opponentName": "Newcastle"
               }
             ]
           },
@@ -3877,31 +4132,36 @@
                 "event": 12,
                 "isHome": false,
                 "difficulty": 5,
-                "opponentShortName": "ARS"
+                "opponentShortName": "ARS",
+                "opponentName": "Arsenal"
               },
               {
                 "event": 12,
                 "isHome": false,
                 "difficulty": 4,
-                "opponentShortName": "BRE"
+                "opponentShortName": "BRE",
+                "opponentName": "Brentford"
               },
               {
                 "event": 13,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "LEE"
+                "opponentShortName": "LEE",
+                "opponentName": "Leeds"
               },
               {
                 "event": 15,
                 "isHome": true,
                 "difficulty": 4,
-                "opponentShortName": "CHE"
+                "opponentShortName": "CHE",
+                "opponentName": "Chelsea"
               },
               {
                 "event": 16,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "HUL"
+                "opponentShortName": "HUL",
+                "opponentName": "Hull City"
               }
             ]
           },
@@ -3945,31 +4205,36 @@
                 "event": 12,
                 "isHome": false,
                 "difficulty": 3,
-                "opponentShortName": "FUL"
+                "opponentShortName": "FUL",
+                "opponentName": "Fulham"
               },
               {
                 "event": 12,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "HUL"
+                "opponentShortName": "HUL",
+                "opponentName": "Hull City"
               },
               {
                 "event": 13,
                 "isHome": true,
                 "difficulty": 4,
-                "opponentShortName": "BHA"
+                "opponentShortName": "BHA",
+                "opponentName": "Brighton"
               },
               {
                 "event": 15,
                 "isHome": false,
                 "difficulty": 5,
-                "opponentShortName": "ARS"
+                "opponentShortName": "ARS",
+                "opponentName": "Arsenal"
               },
               {
                 "event": 16,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "COV"
+                "opponentShortName": "COV",
+                "opponentName": "Coventry City"
               }
             ]
           },
@@ -4013,31 +4278,36 @@
                 "event": 12,
                 "isHome": false,
                 "difficulty": 2,
-                "opponentShortName": "IPS"
+                "opponentShortName": "IPS",
+                "opponentName": "Ipswich Town"
               },
               {
                 "event": 12,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "CRY"
+                "opponentShortName": "CRY",
+                "opponentName": "Crystal Palace"
               },
               {
                 "event": 13,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "EVE"
+                "opponentShortName": "EVE",
+                "opponentName": "Everton"
               },
               {
                 "event": 15,
                 "isHome": false,
                 "difficulty": 2,
-                "opponentShortName": "COV"
+                "opponentShortName": "COV",
+                "opponentName": "Coventry City"
               },
               {
                 "event": 16,
                 "isHome": false,
                 "difficulty": 4,
-                "opponentShortName": "CHE"
+                "opponentShortName": "CHE",
+                "opponentName": "Chelsea"
               }
             ]
           },
@@ -4083,31 +4353,36 @@
                 "event": 12,
                 "isHome": false,
                 "difficulty": 4,
-                "opponentShortName": "BHA"
+                "opponentShortName": "BHA",
+                "opponentName": "Brighton"
               },
               {
                 "event": 12,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "SUN"
+                "opponentShortName": "SUN",
+                "opponentName": "Sunderland"
               },
               {
                 "event": 13,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "MUN"
+                "opponentShortName": "MUN",
+                "opponentName": "Man Utd"
               },
               {
                 "event": 15,
                 "isHome": false,
                 "difficulty": 2,
-                "opponentShortName": "IPS"
+                "opponentShortName": "IPS",
+                "opponentName": "Ipswich Town"
               },
               {
                 "event": 16,
                 "isHome": false,
                 "difficulty": 4,
-                "opponentShortName": "BRE"
+                "opponentShortName": "BRE",
+                "opponentName": "Brentford"
               }
             ]
           },
@@ -4151,31 +4426,36 @@
                 "event": 12,
                 "isHome": false,
                 "difficulty": 2,
-                "opponentShortName": "NFO"
+                "opponentShortName": "NFO",
+                "opponentName": "Nott'm Forest"
               },
               {
                 "event": 12,
                 "isHome": true,
                 "difficulty": 4,
-                "opponentShortName": "LIV"
+                "opponentShortName": "LIV",
+                "opponentName": "Liverpool"
               },
               {
                 "event": 13,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "CRY"
+                "opponentShortName": "CRY",
+                "opponentName": "Crystal Palace"
               },
               {
                 "event": 15,
                 "isHome": false,
                 "difficulty": 5,
-                "opponentShortName": "MCI"
+                "opponentShortName": "MCI",
+                "opponentName": "Man City"
               },
               {
                 "event": 16,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "AVL"
+                "opponentShortName": "AVL",
+                "opponentName": "Aston Villa"
               }
             ]
           },
@@ -4216,31 +4496,36 @@
                 "event": 12,
                 "isHome": false,
                 "difficulty": 5,
-                "opponentShortName": "ARS"
+                "opponentShortName": "ARS",
+                "opponentName": "Arsenal"
               },
               {
                 "event": 12,
                 "isHome": false,
                 "difficulty": 4,
-                "opponentShortName": "BRE"
+                "opponentShortName": "BRE",
+                "opponentName": "Brentford"
               },
               {
                 "event": 13,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "LEE"
+                "opponentShortName": "LEE",
+                "opponentName": "Leeds"
               },
               {
                 "event": 15,
                 "isHome": true,
                 "difficulty": 4,
-                "opponentShortName": "CHE"
+                "opponentShortName": "CHE",
+                "opponentName": "Chelsea"
               },
               {
                 "event": 16,
                 "isHome": true,
                 "difficulty": 2,
-                "opponentShortName": "HUL"
+                "opponentShortName": "HUL",
+                "opponentName": "Hull City"
               }
             ]
           },
@@ -4284,31 +4569,36 @@
                 "event": 12,
                 "isHome": true,
                 "difficulty": 4,
-                "opponentShortName": "MCI"
+                "opponentShortName": "MCI",
+                "opponentName": "Man City"
               },
               {
                 "event": 12,
                 "isHome": false,
                 "difficulty": 3,
-                "opponentShortName": "TOT"
+                "opponentShortName": "TOT",
+                "opponentName": "Spurs"
               },
               {
                 "event": 13,
                 "isHome": false,
                 "difficulty": 4,
-                "opponentShortName": "BRE"
+                "opponentShortName": "BRE",
+                "opponentName": "Brentford"
               },
               {
                 "event": 15,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "BOU"
+                "opponentShortName": "BOU",
+                "opponentName": "Bournemouth"
               },
               {
                 "event": 16,
                 "isHome": true,
                 "difficulty": 3,
-                "opponentShortName": "MUN"
+                "opponentShortName": "MUN",
+                "opponentName": "Man Utd"
               }
             ]
           },

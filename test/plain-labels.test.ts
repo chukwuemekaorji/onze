@@ -25,7 +25,13 @@ import { makePlayer, makeProjection } from './helpers/fixtures.js';
 const EVENT = 1;
 
 function fixture(event: number, difficulty: number): FixtureDifficulty {
-  return { event, difficulty, isHome: true, opponentShortName: 'OPP' };
+  return {
+    event,
+    difficulty,
+    isHome: true,
+    opponentShortName: 'OPP',
+    opponentName: 'OPP FC',
+  };
 }
 
 function player(overrides: Partial<AnalysisPlayer> = {}): AnalysisPlayer {

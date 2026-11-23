@@ -48,7 +48,15 @@ export function makePlayer(overrides: Partial<AnalysisPlayer> = {}): AnalysisPla
     costChangeEvent: 0,
     transfersInEvent: 0,
     transfersOutEvent: 0,
-    nextFixtures: [{ event: 1, isHome: true, difficulty: 3, opponentShortName: 'BBB' }],
+    nextFixtures: [
+      {
+        event: 1,
+        isHome: true,
+        difficulty: 3,
+        opponentShortName: 'BBB',
+        opponentName: 'BBB FC',
+      },
+    ],
     ...overrides,
   };
 }

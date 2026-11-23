@@ -216,6 +216,45 @@ describe('buildAnalysisPlayer', () => {
     }
   });
 
+  it("gives each fixture the opponent's short and full club name", () => {
+    const bootstrap = {
+      ...BOOTSTRAP,
+      teams: [
+        { id: 1, name: 'Aston Villa', short_name: 'AVL' },
+        { id: 2, name: 'Crystal Palace', short_name: 'CRY' },
+      ],
+    } as unknown as FplBootstrapStatic;
+    const fixture = {
+      id: 1,
+      event: 11,
+      team_h: 2,
+      team_a: 1,
+      team_h_difficulty: 3,
+      team_a_difficulty: 4,
+      finished: false,
+      finished_provisional: false,
+      kickoff_time: null,
+    };
+    const player = buildAnalysisPlayer(
+      makeElement(),
+      bootstrap,
+      [fixture],
+      PROJECTION,
+      {
+        fromEvent: 11,
+      },
+    );
+    expect(player.nextFixtures).toEqual([
+      {
+        event: 11,
+        isHome: false,
+        difficulty: 4,
+        opponentShortName: 'CRY',
+        opponentName: 'Crystal Palace',
+      },
+    ]);
+  });
+
   it('treats an unknown status as unavailable and junk numbers as 0', () => {
     const player = buildAnalysisPlayer(
       makeElement({ status: 'x', points_per_game: 'n/a' }),

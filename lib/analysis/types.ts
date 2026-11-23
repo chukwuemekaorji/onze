@@ -13,6 +13,8 @@ export interface FixtureDifficulty {
   isHome: boolean;
   difficulty: number;
   opponentShortName: string;
+  /** fpl's club name, like "Crystal Palace", so prose can name the club in full */
+  opponentName: string;
 }
 
 export interface AnalysisPlayer {

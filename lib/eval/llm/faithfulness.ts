@@ -74,7 +74,12 @@ export function summaryFacts(summary: AnalysisSummary): SummaryFacts {
     if (typeof record.name === 'string' && 'webName' in record === false) {
       otherNames.add(record.name);
     }
-    for (const nameKey of ['teamName', 'teamShortName', 'opponentShortName']) {
+    for (const nameKey of [
+      'teamName',
+      'teamShortName',
+      'opponentShortName',
+      'opponentName',
+    ]) {
       const name = record[nameKey];
       if (typeof name === 'string') otherNames.add(name);
     }
@@ -154,13 +159,15 @@ const RULE_NUMBERS: readonly { value: number; context: RegExp }[] = [
 const FORMATION = /\b[1-5]-[1-5]-[1-5](?:-[1-5])?\b/g;
 const CLOCK = /\b(\d{1,2}):(\d{2})\b/g;
 // "£5.5m", "45%", "+2.7", "GW12", "3rd", "-4": a number never starts inside another
-const NUMBER = /(?<![\d.,])[-+]?\d+(?:[.,]\d+)?(?=%|m\b|st\b|nd\b|rd\b|th\b|\b)/g;
+// "115,297" is one number: a comma only ever separates thousands
+const NUMBER =
+  /(?<![\d.,])[-+]?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?(?=%|m\b|st\b|nd\b|rd\b|th\b|\b)/g;
 
 /** within the rounding a reader would use for a number written this way */
 function matches(written: string, value: number): boolean {
   const target = Math.abs(value);
-  const parsed = Math.abs(Number.parseFloat(written.replace(',', '.')));
-  const decimals = written.split(/[.,]/)[1]?.length ?? 0;
+  const parsed = Math.abs(Number.parseFloat(written.replace(/,/g, '')));
+  const decimals = written.split('.')[1]?.length ?? 0;
   if (decimals === 0) return Math.abs(parsed - target) < 1;
   return Math.abs(parsed - target) <= 0.5 * 10 ** -decimals + 1e-9;
 }
@@ -255,13 +262,26 @@ export function checkNames(
     // a sentence's first word is capitalised anyway, so it only counts as a
     // name when it's possessive ("Zinedinho's form"); mid-sentence names are
     // always checked. an invented name used only to open a sentence slips by
-    let text = sentence.text.replace(SENTENCE_OPENER, (word) =>
-      /['’]s$/u.test(word) ? word : ' ',
+    // a known name opening the sentence ("Man City play twice") is masked
+    // whole below; only an unknown first word is set aside
+    const opensWithName = known.some((name) =>
+      sentence.text.replace(/^[^\p{L}]+/u, '').startsWith(name),
     );
+    let text = opensWithName
+      ? sentence.text
+      : sentence.text.replace(SENTENCE_OPENER, (word) =>
+          /['’]s$/u.test(word) ? word : ' ',
+        );
     for (const name of known) text = text.split(name).join(' ');
     const unknown = (text.match(CAPITALISED) ?? [])
       .map((word) => word.replace(/['’.-]+$/u, ''))
-      .filter((word) => word.length > 1 && !NOT_NAMES.has(baseWord(word)));
+      // "I'm" is on the list as written; "You're" only once reduced to "you"
+      .filter(
+        (word) =>
+          word.length > 1 &&
+          !NOT_NAMES.has(word.toLowerCase()) &&
+          !NOT_NAMES.has(baseWord(word)),
+      );
     for (const word of new Set(unknown)) {
       violations.push({
         check: 'names',
