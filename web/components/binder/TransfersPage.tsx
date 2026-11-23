@@ -6,6 +6,7 @@ import { CoachNote } from '../report/CoachNote.js';
 import { DealtCard } from '../report/DealtCard.js';
 import { PaperCard } from '../ui/PaperCard.js';
 import { BinderPage } from './BinderPage.js';
+import { PlanTimeline } from './PlanTimeline.js';
 import { PlayerCardDetails } from './PlayerCardDetails.js';
 import { aiNote } from './page-props.js';
 import type { BinderPageProps } from './page-props.js';
@@ -121,6 +122,7 @@ export function TransfersPage({ shown, focusTitle }: BinderPageProps) {
           {note !== null && <CoachNote text={note} />}
         </PaperCard>
       </DealtCard>
+      <PlanTimeline summary={shown.summary} />
       {/* fpl's public api doesn't share selling prices, which only pay half of any rise */}
       <p className="budget-note">
         Budgets assume you sell at today's price. FPL only pays you half of any rise

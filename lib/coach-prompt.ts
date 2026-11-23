@@ -2,12 +2,16 @@ import type Anthropic from '@anthropic-ai/sdk';
 import { ONZE_PERSONA } from './persona.js';
 import type { AnalysisSummary } from './analysis-summary.js';
 import { notableLeague } from './analysis/leagues.js';
+import { planDiffersFromAdvice } from './analysis/planner.js';
 import {
   CLEAN_SHEET_THRESHOLDS,
   GOAL_THREAT_THRESHOLDS,
   JARGON,
   PLAYING_THRESHOLDS,
   captainSentence,
+  planOutlook,
+  planReasonSentence,
+  planWeekHeadline,
   plainPlayers,
   transferSentence,
 } from './plain-labels.js';
@@ -45,11 +49,27 @@ fit. The labels mean:
 
 Never use these words unless the user asks for stats in chat: ${JARGON.join(', ')}, expected points. If they do ask, the numbers behind the labels are in each player's "projection", which is Onze's own and never FPL's: "points", "chanceOfPlaying", "pointsIfPlaying", "goalOrAssistChance", "cleanSheetChance", and "horizonPoints" over "horizonEvents" gameweeks. Never invent a number that isn't in the data. "epNext" is FPL's own figure: never base advice on it, and only mention it, named as FPL's, if asked.
 
+The plan: "plan" is Onze's transfer plan for the next few gameweeks
+(this one first), worked out together so a transfer can be saved for a
+better week. Mention it in one or two plain sentences at the end of the
+transfers section, using "plainSentences.planOutlook" and
+"plainSentences.planWeeks"; don't list every week. This week's advice
+still comes from "transfers". Where the plan's first week differs,
+"planOutlook" already says so; keep that wording rather than picking
+one side.
+
 Transfer gains ("expectedPointsGain", "projectedNetGain") are how many more points Onze predicts for the gameweek being planned, and the captaincy and lineup follow the same predictions. Weak links are picked over the next few gameweeks, so a swap can suit the coming run while its gain is shown for this week.`;
 
 export interface PlainContext {
   plainPlayers: PlainPlayer[];
-  plainSentences: { captain: string | null; transfers: string[] };
+  plainSentences: {
+    captain: string | null;
+    transfers: string[];
+    /** the weeks after this one, in one or two sentences */
+    planOutlook: string;
+    /** each week of the plan: "GW12: Dasilva → Gabriel (free)" and why */
+    planWeeks: string[];
+  };
 }
 
 /** the labels and ready-made sentences sent alongside the summary */
@@ -75,6 +95,13 @@ export function plainContext(summary: AnalysisSummary): PlainContext {
               ),
             ];
       }),
+      planOutlook: planOutlook(
+        summary.plan,
+        planDiffersFromAdvice(summary.plan, summary.transfers),
+      ),
+      planWeeks: summary.plan.weeks.map(
+        (week) => `${planWeekHeadline(week)}. ${planReasonSentence(week.reason)}`,
+      ),
     },
   };
 }

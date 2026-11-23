@@ -20,6 +20,8 @@ export interface AnalysisPlayer {
   webName: string;
   teamId: number;
   teamShortName: string;
+  /** fpl's short club name, like "Man City", for plain sentences */
+  teamName: string;
   position: Position;
   /** fpl cost units: 55 means £5.5m */
   nowCost: number;
@@ -67,6 +69,11 @@ export interface PlayerProjection {
   /** predicted points over the next horizonEvents gameweeks, for weighing transfers */
   horizonPoints: number;
   horizonEvents: number;
+  /**
+   * predicted points for each gameweek from `event` on, one entry per week
+   * (index 0 is `event`): doubles summed, blanks 0. the transfer planner reads it
+   */
+  weeklyPoints: number[];
 }
 
 export interface SquadPick {

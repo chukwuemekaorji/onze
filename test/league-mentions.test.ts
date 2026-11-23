@@ -1,3 +1,4 @@
+import { EMPTY_PLAN } from './helpers/fixtures.js';
 import { describe, expect, it } from 'vitest';
 import type { AnalysisSummary } from '../lib/analysis-summary.js';
 import type { LeagueStanding } from '../lib/analysis/types.js';
@@ -23,6 +24,7 @@ function summaryWith(leagueStandings: LeagueStanding[]): AnalysisSummary {
       pointsHitCost: 0,
       projectedNetGain: 0,
     },
+    plan: EMPTY_PLAN,
     captaincy: { captain: null, viceCaptain: null, candidates: [] },
     chips: { doubleGameweeks: [], blankGameweeks: [], suggestions: [] },
     priceAlerts: { alerts: [] },

@@ -26,6 +26,7 @@ function player(
     webName,
     teamId: 1,
     teamShortName: 'TST',
+    teamName: 'Test FC',
     position: 'MID',
     nowCost: 80,
     form: 5,

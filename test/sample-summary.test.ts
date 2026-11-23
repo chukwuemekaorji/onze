@@ -13,6 +13,7 @@ import {
   captainHeadline,
   captainOptions,
   hitAdvice,
+  planRows,
   transferRows,
 } from '../web/report-view.js';
 import { SAMPLE_DEADLINE_LEAD_MS, withFreshDates } from '../web/sample-summary.js';
@@ -91,6 +92,7 @@ describe('withFreshDates', () => {
       ]),
       ...options.flatMap((option) => [option.card.line, ...option.card.exact]),
       hitAdvice(sample),
+      ...planRows(sample.plan).flatMap((row) => [row.headline, row.reason]),
       captainHeadline(sample) ?? '',
       HOW_ONZE_PREDICTS_TITLE,
       HOW_ONZE_PREDICTS,

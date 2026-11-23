@@ -370,6 +370,47 @@
   margin-top: var(--space-1);
 }
 
+/* the transfer plan: one week per row, a line for the move and one for why */
+.plan-timeline__title {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-lg);
+}
+
+.plan-timeline__lede {
+  max-width: var(--measure);
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+}
+
+.plan-timeline {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.plan-timeline__week {
+  padding-left: var(--space-4);
+  border-left: var(--stroke) solid var(--hairline-strong);
+}
+
+.plan-timeline__week--hit {
+  border-left-color: var(--marker-red);
+}
+
+.plan-timeline__headline {
+  margin: 0;
+  font-weight: 600;
+}
+
+.plan-timeline__reason {
+  margin: var(--space-1) 0 0;
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+}
+
 /* "how does onze predict?", once under every page */
 .binder__how {
   margin-top: var(--space-6);

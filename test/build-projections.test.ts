@@ -158,6 +158,7 @@ const OPTIONS = {
   event: 11,
   deadline: '2026-11-21T11:00:00Z',
   horizonEvents: 3,
+  planEvents: 5,
   history: { players: new Map(), teamMatches: [] },
   prior: PRIOR,
   weights: {
@@ -233,6 +234,24 @@ describe('buildPlayerProjections', () => {
         (1 - TWO_PART_SHARE) * event.chanceOfPlaying,
       10,
     );
+  });
+
+  it('predicts each of the next five weeks: the double summed, the blank 0', () => {
+    const projection = buildPlayerProjections(
+      bootstrap([element(1)]),
+      FIXTURES,
+      () => 'a',
+      OPTIONS,
+    ).get(1);
+    const [eleven, twelve, thirteen, fourteen, fifteen] =
+      projection?.weeklyPoints ?? [];
+
+    expect(projection?.weeklyPoints).toHaveLength(5);
+    expect(eleven).toBeCloseTo(projection?.points ?? -1, 10);
+    // gameweek 12 is a double, 13 to 15 have no fixtures at all
+    expect(twelve).toBeGreaterThan((eleven ?? 0) * 1.5);
+    expect([thirteen, fourteen, fifteen]).toEqual([0, 0, 0]);
+    expect(projection?.horizonPoints).toBeCloseTo((eleven ?? 0) + (twelve ?? 0), 10);
   });
 
   it('refuses a share outside 0 to 1', () => {

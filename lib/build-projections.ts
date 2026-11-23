@@ -124,6 +124,8 @@ export interface ProjectionOptions {
   deadline: string;
   /** gameweeks summed into horizonPoints, the planned one first */
   horizonEvents: number;
+  /** gameweeks predicted one by one for the planner, the planned one first */
+  planEvents: number;
   /** this season's matches before the deadline */
   history: MatchHistory;
   prior: LastSeasonPrior;
@@ -224,17 +226,19 @@ export function buildPlayerProjections(
     };
 
     const planned = predict(options.event);
-    let horizonPoints = planned.points;
-    for (let offset = 1; offset < options.horizonEvents; offset += 1) {
-      // team news is applied to every week of the horizon: an injury rarely
-      // lasts exactly one gameweek, and a doubt is still a doubt next week
-      horizonPoints += predict(options.event + offset).points;
+    // team news is applied to every later week too: an injury rarely lasts
+    // exactly one gameweek, and a doubt is still a doubt next week
+    const weeklyPoints = [planned.points];
+    const weeks = Math.max(options.horizonEvents, options.planEvents);
+    for (let offset = 1; offset < weeks; offset += 1) {
+      weeklyPoints.push(predict(options.event + offset).points);
     }
     projections.set(element.id, {
       event: options.event,
       ...planned,
-      horizonPoints,
+      horizonPoints: sum(weeklyPoints.slice(0, options.horizonEvents)),
       horizonEvents: options.horizonEvents,
+      weeklyPoints: weeklyPoints.slice(0, options.planEvents),
     });
   }
   return projections;

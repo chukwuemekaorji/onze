@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import type { PlanWeek, PlannedSwap, TransferPlan } from '../lib/analysis/planner.js';
 import type { AnalysisPlayer, FixtureDifficulty } from '../lib/analysis/types.js';
 import {
   HOW_ONZE_PREDICTS,
@@ -11,6 +12,9 @@ import {
   fixtureEase,
   goalThreatLevel,
   labelSentence,
+  planOutlook,
+  planReasonSentence,
+  planWeekHeadline,
   plainPlayer,
   playingLabel,
   predictsPoints,
@@ -202,5 +206,174 @@ describe('transfer and captain sentences', () => {
 describe('the explainer', () => {
   it('uses none of the jargon the ui avoids', () => {
     for (const word of JARGON) expect(HOW_ONZE_PREDICTS).not.toContain(word);
+  });
+});
+
+function swap(outName: string, inName: string, hit = false): PlannedSwap {
+  const planPlayer = (webName: string, id: number) => ({
+    id,
+    webName,
+    teamName: 'Arsenal',
+    position: 'DEF' as const,
+    nowCost: 50,
+  });
+  return {
+    out: planPlayer(outName, outName.length),
+    in: planPlayer(inName, inName.length + 100),
+    gain: 3,
+    hit,
+  };
+}
+
+function week(event: number, overrides: Partial<PlanWeek> = {}): PlanWeek {
+  return {
+    event,
+    swaps: [],
+    freeTransfers: 1,
+    freeTransfersAfter: 2,
+    hits: 0,
+    bankAfter: 0,
+    captain: null,
+    predictedPoints: 50,
+    reason: { kind: 'nothing_worth_it' },
+    ...overrides,
+  };
+}
+
+function planOf(weeks: PlanWeek[]): TransferPlan {
+  return {
+    weeks,
+    weekWeights: weeks.map(() => 1),
+    weightedPoints: 0,
+    hitCost: 0,
+    objective: 0,
+    beamWidth: 40,
+  };
+}
+
+describe('plan headlines', () => {
+  it('reads like the example timeline', () => {
+    expect(planWeekHeadline(week(12, { swaps: [swap('Dasilva', 'Gabriel')] }))).toBe(
+      'GW12: Dasilva → Gabriel (free)',
+    );
+    expect(planWeekHeadline(week(13))).toBe("GW13: Save your transfer (you'll have 2)");
+    expect(
+      planWeekHeadline(
+        week(14, {
+          freeTransfers: 2,
+          swaps: [swap('Henderson', 'McGinn'), swap('Hall', 'Gabriel')],
+        }),
+      ),
+    ).toBe('GW14: Henderson → McGinn and Hall → Gabriel (free, free)');
+  });
+
+  it('marks a hit, and says when the bank is already full', () => {
+    expect(
+      planWeekHeadline(
+        week(12, { swaps: [swap('A', 'B'), swap('C', 'D', true)], hits: 1 }),
+      ),
+    ).toBe('GW12: A → B and C → D (free, -4)');
+    expect(
+      planWeekHeadline(week(15, { freeTransfers: 5, freeTransfersAfter: 5 })),
+    ).toBe("GW15: Save your transfers (you'll stay on 5, the most you can bank)");
+  });
+});
+
+describe('plan reasons', () => {
+  it('has one plain sentence for every kind of reason', () => {
+    expect(
+      planReasonSentence({
+        kind: 'replaces_absent',
+        outName: 'Saka',
+        status: 'injured',
+      }),
+    ).toBe('Saka is injured.');
+    expect(planReasonSentence({ kind: 'double', teamName: 'Arsenal', event: 14 })).toBe(
+      'Arsenal play twice in GW14.',
+    );
+    expect(
+      planReasonSentence({
+        kind: 'easy_run',
+        teamName: 'Arsenal',
+        fromEvent: 14,
+        startsHere: true,
+      }),
+    ).toBe("Arsenal's easy run starts in GW14.");
+    expect(
+      planReasonSentence({
+        kind: 'easy_run',
+        teamName: 'Arsenal',
+        fromEvent: 14,
+        startsHere: false,
+      }),
+    ).toBe('Arsenal have easy fixtures from GW14.');
+    expect(
+      planReasonSentence({
+        kind: 'outscores',
+        inName: 'Gabriel',
+        outName: 'Dasilva',
+        points: 13.8,
+        weeks: 5,
+      }),
+    ).toBe(
+      'Onze thinks Gabriel will score about 14 more points than Dasilva over the next 5 weeks.',
+    );
+    expect(
+      planReasonSentence({
+        kind: 'save_for',
+        nextEvent: 14,
+        freeTransfersThen: 2,
+        swapsThen: 2,
+      }),
+    ).toBe('Saving lets you make 2 moves in GW14.');
+    expect(
+      planReasonSentence({
+        kind: 'save_for',
+        nextEvent: 14,
+        freeTransfersThen: 2,
+        swapsThen: 1,
+      }),
+    ).toBe('No swap is worth a transfer until GW14.');
+    expect(planReasonSentence({ kind: 'nothing_worth_it' })).toBe(
+      'No swap gains enough to be worth a transfer.',
+    );
+  });
+});
+
+describe('planOutlook', () => {
+  const later = week(13, {
+    freeTransfers: 2,
+    swaps: [swap('Henderson', 'McGinn'), swap('Hall', 'Gabriel')],
+    reason: { kind: 'easy_run', teamName: 'Arsenal', fromEvent: 13, startsHere: true },
+  });
+
+  it('names the saved weeks and the next move, with why', () => {
+    const plan = planOf([
+      week(11, { swaps: [swap('Dasilva', 'Gabriel')] }),
+      week(12),
+      later,
+    ]);
+    expect(planOutlook(plan, false)).toBe(
+      "Looking ahead, save your transfer in GW12, then Henderson → McGinn and Hall → Gabriel in GW13. Arsenal's easy run starts in GW13.",
+    );
+  });
+
+  it('says first when planning ahead would do this week differently', () => {
+    const plan = planOf([week(11), week(12), later]);
+    expect(planOutlook(plan, true)).toBe(
+      "Planning 3 weeks ahead, Onze would rather save your transfer this week, then save your transfer in GW12 and make Henderson → McGinn and Hall → Gabriel in GW13. Arsenal's easy run starts in GW13.",
+    );
+  });
+
+  it('says to bank them when nothing later is worth a transfer, and nothing without a plan', () => {
+    expect(planOutlook(planOf([week(11), week(12)]), false)).toBe(
+      'Looking ahead, no swap is worth a transfer in the weeks after this one, so bank them.',
+    );
+    expect(planOutlook(planOf([]), false)).toBe('');
+  });
+
+  it('uses none of the jargon the ui avoids', () => {
+    const text = planOutlook(planOf([week(11), week(12), later]), true);
+    for (const word of JARGON) expect(text).not.toContain(word);
   });
 });

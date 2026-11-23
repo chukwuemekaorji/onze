@@ -1,3 +1,4 @@
+import type { TransferPlan } from '../../lib/analysis/planner.js';
 import type {
   AnalysisPlayer,
   PlayerProjection,
@@ -21,6 +22,7 @@ export function makeProjection(
     // the same every week unless a test says otherwise
     horizonPoints: points * 3,
     horizonEvents: 3,
+    weeklyPoints: [points, points, points, points, points],
     ...overrides,
   };
 }
@@ -32,6 +34,7 @@ export function makePlayer(overrides: Partial<AnalysisPlayer> = {}): AnalysisPla
     webName: `Player${id}`,
     teamId: 1,
     teamShortName: 'AAA',
+    teamName: 'Alpha',
     position: 'MID',
     nowCost: 50,
     form: 5,
@@ -66,3 +69,13 @@ export function makeSquadContext(overrides: Partial<SquadContext> = {}): SquadCo
     ...overrides,
   };
 }
+
+/** a plan with no weeks, for summaries a test doesn't plan */
+export const EMPTY_PLAN: TransferPlan = {
+  weeks: [],
+  weekWeights: [],
+  weightedPoints: 0,
+  hitCost: 0,
+  objective: 0,
+  beamWidth: 1,
+};

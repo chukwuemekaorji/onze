@@ -8,6 +8,7 @@ import type { CaptaincyAnalysis } from './analysis/captaincy.js';
 import type { ChipsAnalysis, ChipName } from './analysis/chips.js';
 import type { PriceAlertsAnalysis } from './analysis/price-alerts.js';
 import type { LineupAnalysis } from './analysis/lineup.js';
+import type { TransferPlan } from './analysis/planner.js';
 import type { LeagueStanding, SquadContext } from './analysis/types.js';
 
 export interface AnalysisSummary {
@@ -25,6 +26,8 @@ export interface AnalysisSummary {
   leagueStandings: LeagueStanding[];
   chipsUsed: ChipName[];
   transfers: TransfersAnalysis;
+  /** the next few gameweeks' transfers, planned together; this week's advice stays in transfers */
+  plan: TransferPlan;
   captaincy: CaptaincyAnalysis;
   chips: ChipsAnalysis;
   priceAlerts: PriceAlertsAnalysis;

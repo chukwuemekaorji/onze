@@ -52,6 +52,8 @@ describe('how the prose talks about the numbers', () => {
         /Onze thinks .+ will score (about \d+|slightly) (more|fewer) points? than .+ this week\./,
       );
     }
+    // the plan gets one or two plain sentences at the end of the transfers section
+    expect(report.transfers).toMatch(/(Looking ahead|Planning \d weeks ahead)/);
     for (const section of Object.values(report)) {
       for (const word of JARGON) expect(section).not.toContain(word);
       expect(section).not.toContain('expected points');

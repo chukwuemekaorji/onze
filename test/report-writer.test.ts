@@ -1,3 +1,4 @@
+import { EMPTY_PLAN } from './helpers/fixtures.js';
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import type { AnalysisSummary } from '../lib/analysis-summary.js';
 import { writeReport } from '../web/report-writer.js';
@@ -30,6 +31,7 @@ function makeSummary(): AnalysisSummary {
       pointsHitCost: 0,
       projectedNetGain: 0,
     },
+    plan: EMPTY_PLAN,
     captaincy: { captain: null, viceCaptain: null, candidates: [] },
     chips: { doubleGameweeks: [], blankGameweeks: [], suggestions: [] },
     priceAlerts: { alerts: [] },

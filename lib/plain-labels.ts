@@ -5,6 +5,7 @@
  */
 
 import type { AnalysisSummary } from './analysis-summary.js';
+import type { PlanReason, PlanWeek, TransferPlan } from './analysis/planner.js';
 import type {
   AnalysisPlayer,
   FixtureDifficulty,
@@ -253,4 +254,89 @@ function assertChance(chance: number): void {
   if (!Number.isFinite(chance) || chance < 0 || chance > 1) {
     throw new Error(`a chance must be from 0 to 1, got ${chance}`);
   }
+}
+
+/** "GW12: Dasilva → Gabriel (free)", or "GW13: Save your transfer (you'll have 2)" */
+export function planWeekHeadline(week: PlanWeek): string {
+  if (week.swaps.length === 0) {
+    const noun = week.freeTransfers === 1 ? 'transfer' : 'transfers';
+    const after =
+      week.freeTransfersAfter === week.freeTransfers
+        ? `you'll stay on ${week.freeTransfersAfter}, the most you can bank`
+        : `you'll have ${week.freeTransfersAfter}`;
+    return `GW${week.event}: Save your ${noun} (${after})`;
+  }
+  const moves = week.swaps.map((swap) => `${swap.out.webName} → ${swap.in.webName}`);
+  const costs = week.swaps.map((swap) => (swap.hit ? '-4' : 'free'));
+  return `GW${week.event}: ${joinWithAnd(moves)} (${costs.join(', ')})`;
+}
+
+/** one plain sentence on why a week of the plan does what it does */
+export function planReasonSentence(reason: PlanReason): string {
+  switch (reason.kind) {
+    case 'replaces_absent':
+      return `${reason.outName} is ${reason.status}.`;
+    case 'double':
+      return `${reason.teamName} play twice in GW${reason.event}.`;
+    case 'easy_run':
+      return reason.startsHere
+        ? `${reason.teamName}'s easy run starts in GW${reason.fromEvent}.`
+        : `${reason.teamName} have easy fixtures from GW${reason.fromEvent}.`;
+    case 'outscores': {
+      const span =
+        reason.weeks === 1 ? 'this week' : `over the next ${reason.weeks} weeks`;
+      return `Onze thinks ${reason.inName} will score ${aboutPoints(reason.points)} than ${reason.outName} ${span}.`;
+    }
+    case 'save_for':
+      return reason.swapsThen >= 2
+        ? `Saving lets you make ${reason.swapsThen} moves in GW${reason.nextEvent}.`
+        : `No swap is worth a transfer until GW${reason.nextEvent}.`;
+    case 'nothing_worth_it':
+      return 'No swap gains enough to be worth a transfer.';
+  }
+}
+
+/**
+ * one or two sentences on the plan, for the written report. when the plan
+ * would do this week differently from the advice, it says so first:
+ * "Planning 5 weeks ahead, Onze would rather make Ajayi → Van Hecke this
+ * week, then Cherki → McGinn in GW12. Aston Villa have easy fixtures from GW12."
+ */
+export function planOutlook(plan: TransferPlan, differsThisWeek: boolean): string {
+  const [thisWeek, ...later] = plan.weeks;
+  if (thisWeek === undefined) return '';
+  const firstMove = later.find((week) => week.swaps.length > 0);
+  const movesOf = (week: PlanWeek) =>
+    joinWithAnd(week.swaps.map((swap) => `${swap.out.webName} → ${swap.in.webName}`));
+  const saved = later.filter(
+    (week) => firstMove === undefined || week.event < firstMove.event,
+  );
+  const savedText = joinWithAnd(saved.map((week) => `GW${week.event}`));
+  const next =
+    firstMove === undefined
+      ? `then bank your transfers, as no swap is worth one in ${savedText}`
+      : saved.length === 0
+        ? `then ${movesOf(firstMove)} in GW${firstMove.event}`
+        : `then save your transfer in ${savedText} and make ${movesOf(firstMove)} in GW${firstMove.event}`;
+  const why = firstMove === undefined ? '' : ` ${planReasonSentence(firstMove.reason)}`;
+  if (differsThisWeek) {
+    const now =
+      thisWeek.swaps.length === 0 ? 'save your transfer' : `make ${movesOf(thisWeek)}`;
+    return `Planning ${plan.weeks.length} weeks ahead, Onze would rather ${now} this week, ${next}.${why}`;
+  }
+  if (firstMove === undefined) {
+    return later.length === 0
+      ? ''
+      : 'Looking ahead, no swap is worth a transfer in the weeks after this one, so bank them.';
+  }
+  const lead =
+    saved.length === 0
+      ? `Looking ahead, Onze's next move is ${movesOf(firstMove)} in GW${firstMove.event}.`
+      : `Looking ahead, save your transfer in ${savedText}, then ${movesOf(firstMove)} in GW${firstMove.event}.`;
+  return `${lead}${why}`;
+}
+
+function joinWithAnd(items: readonly string[]): string {
+  if (items.length <= 1) return items[0] ?? '';
+  return `${items.slice(0, -1).join(', ')} and ${items.at(-1) ?? ''}`;
 }

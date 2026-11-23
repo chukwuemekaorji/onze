@@ -28,11 +28,14 @@ import { analyzeChips } from './analysis/chips.js';
 import type { ChipName } from './analysis/chips.js';
 import { analyzePriceAlerts } from './analysis/price-alerts.js';
 import { analyzeLineup } from './analysis/lineup.js';
+import { planTransfers } from './analysis/planner.js';
 import type { AnalysisSummary } from './analysis-summary.js';
 
 const LOOKAHEAD_EVENTS = 5;
 // transfers are weighed over this many gameweeks, the planned one first
 const PROJECTION_HORIZON_EVENTS = 3;
+// the transfer planner looks this many gameweeks ahead, the planned one first
+const PLAN_GAMEWEEKS = 5;
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
 
 // fpl's chip codes as they appear in /entry/{id}/history/
@@ -105,6 +108,7 @@ export async function generateAnalysisSummary(
       event: planningEvent,
       deadline: planningEventInfo?.deadline_time ?? new Date(now).toISOString(),
       horizonEvents: PROJECTION_HORIZON_EVENTS,
+      planEvents: PLAN_GAMEWEEKS,
       history: buildMatchHistory(pastLive, fixtures, bootstrap),
       prior: LAST_SEASON_PRIOR,
       weights: {
@@ -137,6 +141,10 @@ export async function generateAnalysisSummary(
   const transfers = analyzeTransfers(squad, playerPool, {
     isLeadingALeague: leagueStandings.some((l) => l.rank === 1),
   });
+  const plan = planTransfers(squad, playerPool, {
+    weeks: PLAN_GAMEWEEKS,
+    isLeadingALeague: leagueStandings.some((l) => l.rank === 1),
+  });
   const postTransferSquad = applyRecommendedTransfers(squad.squad, transfers);
   const lineup = analyzeLineup(postTransferSquad, planningEvent);
   // use the recommended xi; squad.picks may be an already-played gameweek's
@@ -158,6 +166,7 @@ export async function generateAnalysisSummary(
     leagueStandings,
     chipsUsed,
     transfers,
+    plan,
     captaincy,
     chips: analyzeChips(fixtures, allTeamIds, squad, chipsUsed),
     priceAlerts: analyzePriceAlerts(squad.squad, {

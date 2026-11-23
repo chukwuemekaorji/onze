@@ -21,6 +21,7 @@ import type {
   SquadContext,
   SquadPick,
 } from './analysis/types.js';
+import { nextFreeTransfers } from './analysis/transfers.js';
 import type { TransfersAnalysis } from './analysis/transfers.js';
 
 const POSITION_BY_ELEMENT_TYPE: Record<number, Position> = {
@@ -110,6 +111,7 @@ export function buildAnalysisPlayer(
     webName: element.web_name,
     teamId: element.team,
     teamShortName: team?.short_name ?? '???',
+    teamName: team?.name ?? 'Unknown club',
     position: toPosition(element.element_type),
     nowCost: element.now_cost,
     form: parseFplFloat(element.form),
@@ -190,9 +192,8 @@ export function buildLeagueStandings(entry: FplEntry): LeagueStanding[] {
     }));
 }
 
-// fpl rule since 2024/25: 1 free transfer for gw2, +1 per week not fully used,
-// capped at 5, back to 1 after a hit. wildcard and free hit weeks don't count.
-const FREE_TRANSFER_CAP = 5;
+// 1 free transfer for gw2, then nextFreeTransfers week by week. wildcard
+// and free hit weeks don't count.
 const CHIPS_EXEMPT_FROM_TRANSFER_COUNT = new Set(['wildcard', 'freehit']);
 
 /** the public api never exposes free transfers, so replay them from history */
@@ -212,10 +213,7 @@ export function computeFreeTransfers(
   for (const gw of history.current) {
     if (gw.event < 2 || gw.event >= planningEvent) continue;
     const transfersMade = chipExemptEvents.has(gw.event) ? 0 : gw.event_transfers;
-    freeTransfers = Math.min(
-      FREE_TRANSFER_CAP,
-      Math.max(0, freeTransfers - transfersMade) + 1,
-    );
+    freeTransfers = nextFreeTransfers(freeTransfers, transfersMade);
   }
 
   return freeTransfers;

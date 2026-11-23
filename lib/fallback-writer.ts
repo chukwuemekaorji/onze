@@ -9,7 +9,13 @@ import type { TransferReasonCode } from './analysis/transfers.js';
 import type { ChipName } from './analysis/chips.js';
 import type { LineupPlayer } from './analysis/lineup.js';
 import { notableLeague } from './analysis/leagues.js';
-import { captainSentence, labelSentence, transferSentence } from './plain-labels.js';
+import { planDiffersFromAdvice } from './analysis/planner.js';
+import {
+  captainSentence,
+  labelSentence,
+  planOutlook,
+  transferSentence,
+} from './plain-labels.js';
 
 const REASON_CODE_TEXT: Record<TransferReasonCode, string> = {
   poor_form: 'poor recent form',
@@ -94,6 +100,15 @@ function describeSuggestion(
 }
 
 function writeTransfers(summary: AnalysisSummary): string {
+  const outlook = planOutlook(
+    summary.plan,
+    planDiffersFromAdvice(summary.plan, summary.transfers),
+  );
+  const thisWeek = writeThisWeeksTransfers(summary);
+  return outlook === '' ? thisWeek : `${thisWeek} ${outlook}`;
+}
+
+function writeThisWeeksTransfers(summary: AnalysisSummary): string {
   const { suggestions, recommendedCount, freeTransfers, pointsHitCost } =
     summary.transfers;
 

@@ -30,9 +30,28 @@ export interface TransfersAnalysis {
 
 export const POINTS_PER_HIT = 4;
 
+// fpl rule since 2024/25: +1 free transfer per week, banked up to 5; any
+// week's transfers use the bank first and a hit leaves 1 for the next week
+export const FREE_TRANSFER_CAP = 5;
+
+/** free transfers going into next week, after making `made` this week */
+export function nextFreeTransfers(available: number, made: number): number {
+  if (
+    !Number.isInteger(available) ||
+    !Number.isInteger(made) ||
+    available < 0 ||
+    made < 0
+  ) {
+    throw new Error(
+      `free transfers must be whole numbers from 0, got ${available} and ${made}`,
+    );
+  }
+  return Math.min(FREE_TRANSFER_CAP, Math.max(0, available - made) + 1);
+}
+
 // the gain is next gameweek's projection, so stacking hits stacks risk. allow
 // one hit at most, and only when the gain clears the cost by a margin.
-const MAX_HITS_PER_WEEK = 1;
+export const MAX_HITS_PER_WEEK = 1;
 export const HIT_SAFETY_MARGIN = 2;
 
 function avgFixtureDifficulty(player: AnalysisPlayer): number {

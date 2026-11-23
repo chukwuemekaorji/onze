@@ -2,11 +2,14 @@ import type { AnalysisSummary } from '../lib/analysis-summary.js';
 import type { ChipName } from '../lib/analysis/chips.js';
 import type { PriceAlertStatus, PriceDirection } from '../lib/analysis/price-alerts.js';
 import type { AnalysisPlayer } from '../lib/analysis/types.js';
+import { planDiffersFromAdvice } from '../lib/analysis/planner.js';
 import { HIT_SAFETY_MARGIN, POINTS_PER_HIT } from '../lib/analysis/transfers.js';
 import {
   captainSentence,
   cardLine,
   exactNumbers,
+  planReasonSentence,
+  planWeekHeadline,
   transferSentence,
 } from '../lib/plain-labels.js';
 import { fixtureLabel } from './pitch-layout.js';
@@ -333,4 +336,31 @@ export function priceRows(
     direction,
     note: PRICE_NOTE[status][direction],
   }));
+}
+
+/** one week of the transfer plan, ready for the timeline */
+export interface PlanRow {
+  event: number;
+  /** "GW12: Dasilva → Gabriel (free)" */
+  headline: string;
+  /** "Arsenal's easy run starts in GW14." */
+  reason: string;
+  /** a week with a -4 in it, so the row can stand out */
+  hasHit: boolean;
+}
+
+export function planRows(plan: AnalysisSummary['plan']): PlanRow[] {
+  return plan.weeks.map((week) => ({
+    event: week.event,
+    headline: planWeekHeadline(week),
+    reason: planReasonSentence(week.reason),
+    hasHit: week.hits > 0,
+  }));
+}
+
+/** true when the plan would do this week differently from the advice above it */
+export function planDiffersThisWeek(
+  summary: Pick<AnalysisSummary, 'plan' | 'transfers'>,
+): boolean {
+  return planDiffersFromAdvice(summary.plan, summary.transfers);
 }
