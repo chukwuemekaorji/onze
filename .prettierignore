@@ -8,7 +8,7 @@ web/fixtures/sample-summary.json
 
 # prose documents are written and formatted by hand
 README.md
-MASTER.md
+docs/design.md
 CLAUDE.md
 
 # a slice of real fpl data cut by npm run data:fixture; regenerated, not hand formatted

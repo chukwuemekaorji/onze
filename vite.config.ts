@@ -4,8 +4,9 @@ import { defineConfig } from 'vite';
 // csp blocks (vercel dev applies it too). without it, edits do a full page reload
 export default defineConfig({
   root: 'web',
-  // vite treats a public dir as raw static files; the app has none
-  publicDir: false,
+  // raw static files served at the site root; only the link preview image, which
+  // linkedin and others fetch by absolute url, so it can't be a hashed asset
+  publicDir: 'public',
   oxc: {
     jsx: { runtime: 'automatic' },
   },
