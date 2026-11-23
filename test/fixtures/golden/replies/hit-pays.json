@@ -1,0 +1,11 @@
+{
+  "scenario": "hit-pays",
+  "model": "claude-sonnet-5-5",
+  "generatedAt": "2026-11-23T11:25:08.814Z",
+  "stopReason": "end_turn",
+  "usage": {
+    "inputTokens": 36633,
+    "outputTokens": 736
+  },
+  "text": "{\"summary\": \"Gameweek 12 is a double for every team, and the deadline is Friday. Rogers and Haaland are both injured and score nothing, so this week is about replacing them. You have 1 free transfer and 30 in the bank.\", \"transfers\": \"Make two transfers. Transfer Rogers (8.3m) for Tavernier (6.7m). He is nailed on with a high goal threat, and Onze predicts 9.5 pts. Then transfer Haaland (15.8m) for Barry (5.7m). He is also nailed on with a high goal threat, and Onze predicts 8.6 pts. The second move costs a 4-point hit, and it's worth taking. Both of your injured players would score nothing, and after the hit the pair is worth about 14 more points this week. Looking further ahead, Henderson to B.Fernandes in GW13 is on the radar.\", \"captaincy\": \"Captain Gabriel. Onze predicts 9.5 pts, the highest in your team, and he is nailed on with a good clean sheet chance. Tavernier is a near-identical alternative, but Gabriel gets the armband.\", \"chips\": \"Every team plays twice in GW12, so Bench Boost and Triple Captain both show as worth considering now. Your bench is weak this week though, with Hall and Henderson both on it and Raya at risk of missing out, so Triple Captain on Gabriel is the better use. Free Hit is one to hold, and Wildcard is worth considering soon because of an upcoming fixture swing.\", \"priceAlerts\": \"Raya is at risk of a fall, with heavy transfers out this week. Cherki has already dropped, and is also at risk of falling further. Evanilson and N.Jackson have already risen, while Rogers has risen too, but he is leaving your squad. Tavernier is not flagged for a price change, so there is no rush on price grounds.\", \"formation\": \"Play a 4-3-3. Leno starts in goal. The defence is Gabriel, De Cuyper, Bogle and Konsa. The midfield is Tavernier, Groß and Schade. The attack is Evanilson, Barry and N.Jackson. Bench: Cherki, Hall, Henderson and Raya.\"}"
+}

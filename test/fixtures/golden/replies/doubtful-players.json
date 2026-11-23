@@ -1,0 +1,11 @@
+{
+  "scenario": "doubtful-players",
+  "model": "claude-sonnet-5-5",
+  "generatedAt": "2026-11-23T11:52:09.419Z",
+  "stopReason": "end_turn",
+  "usage": {
+    "inputTokens": 42098,
+    "outputTokens": 669
+  },
+  "text": "{\"summary\": \"Gameweek 12 is a one-transfer week. The deadline is Friday, so you have a few days. Your team has a few fitness doubts (Gabriel, Cherki, Raya, N.Jackson), but only Cherki is worth acting on now.\", \"transfers\": \"Transfer out Cherki (£7.8m) for Tavernier (£6.7m). Cherki is a rotation risk with a tough fixture, while Tavernier is nailed on with a high goal threat. Onze predicts 4.4 pts for Tavernier against 1.5 for Cherki, about 3 more points this week, and it uses your free transfer so there's no hit. It fits your budget. Looking ahead, the 5-week outlook has Gabriel → Hill in GW13. Gabriel is the weak link I'm watching, but there's no need to move on him this week.\", \"captaincy\": \"Captain Haaland. He's nailed on with a medium goal threat, and Onze predicts 4.8 pts, the highest in your team, even with a tough fixture. Groß is the vice-captain at 4.4 pts.\", \"chips\": \"Hold everything. There are no double or blank gameweeks in the data, so no chip has a good reason to be played right now.\", \"priceAlerts\": \"Raya is at risk of falling in price this gameweek, with heavy selling against him, but he's not a transfer target so it doesn't change anything. Cherki has already dropped, and Tavernier is being heavily bought, so making the swap now also gets ahead of a possible rise. Rogers, N.Jackson and Evanilson have all already risen.\", \"formation\": \"Play a 3-4-3. Starting XI: Leno in goal; De Cuyper, Bogle and Konsa in defence; Groß, Tavernier, Rogers and Schade in midfield; Haaland, Evanilson and N.Jackson up front. Bench in order: Gabriel, Henderson, Hall, Raya. This assumes the Cherki to Tavernier swap is made.\"}"
+}

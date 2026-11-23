@@ -1,0 +1,11 @@
+{
+  "scenario": "real-normal-week",
+  "model": "claude-sonnet-5-5",
+  "generatedAt": "2026-11-23T11:52:27.213Z",
+  "stopReason": "end_turn",
+  "usage": {
+    "inputTokens": 39442,
+    "outputTokens": 626
+  },
+  "text": "{\"summary\":\"The deadline is Friday, so you have a few days. Your squad is in decent shape, with one clear weak spot in Henderson, who is on your bench and barely predicted to score. One free transfer fixes it and nothing else needs doing.\",\"transfers\":\"Transfer out Henderson (£4.9m) for Gomez (£5.1m). Gomez is nailed on with a medium goal threat, and Onze thinks he'll score about 2 more points than Henderson this week. The swap fits your budget and costs no hit, since you're using your free transfer. Looking ahead, the 5-week outlook has Cherki → Tavernier in GW13.\",\"captaincy\":\"Captain Haaland. Onze predicts 4.8 pts, the highest in your team, even with a tough fixture against Arsenal. He's nailed on with a medium goal threat. Make Gabriel your vice-captain, as he's Onze's next best at 4.6 pts.\",\"chips\":\"Hold everything. There are no double or blank gameweeks in the data, so no chip has a strong case this week.\",\"priceAlerts\":\"Raya is at risk of a fall, as he's being heavily sold and is flagged as a doubt. Cherki has already dropped this gameweek and could slip again. On the rise side, Rogers, N.Jackson and Evanilson have already gone up this gameweek, and Evanilson is being heavily bought. Nothing here changes the transfer above.\",\"formation\":\"Play a 3-4-3. Starting XI: Leno in goal, Gabriel, De Cuyper and Bogle in defence, Groß, Rogers, Gomez and Schade in midfield, and Haaland, Evanilson and N.Jackson up front. Bench: Konsa, Cherki, Hall and Raya. Raya is on the bench because he's only likely to play and is a doubt, with Leno the better pick between the posts.\"}"
+}

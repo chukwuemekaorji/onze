@@ -1,0 +1,11 @@
+{
+  "scenario": "money-to-spend",
+  "model": "claude-sonnet-5-5",
+  "generatedAt": "2026-11-23T11:52:15.397Z",
+  "stopReason": "end_turn",
+  "usage": {
+    "inputTokens": 40120,
+    "outputTokens": 728
+  },
+  "text": "{\"summary\":\"The deadline is Friday, and you have two free transfers banked, so nothing here costs you a hit. Two weak spots are worth fixing now: Dubravka, who is unlikely to play, and Diop, who is in poor form. Haaland stays your captain. The rest of the squad is in decent shape.\",\"transfers\":\"Transfer out Dubravka (3.9m) for Verbruggen (4.7m). Dubravka is unlikely to play, while Verbruggen is nailed on at Brighton, and Onze thinks he'll score about 3 more points this week. Transfer out Diop (3.9m) for Hill (5.6m). Hill is nailed on at Bournemouth, and Onze thinks he'll score about 2 more points than Diop this week. Both fit your budget and use your two free transfers, so there's no points hit. Robertson for van Ewijk is a smaller gain, so I'm leaving it for now. Looking ahead, the 5-week outlook has N.Jackson to Barry in GW13.\",\"captaincy\":\"Captain Haaland. Onze predicts 4.8 pts, the highest in your team, and he's nailed on. The fixture at Arsenal is tough, but no one else in your squad beats that number. Groß is the vice-captain, with Onze predicting 4.4 pts and a high goal threat.\",\"chips\":\"Hold all your chips. There are no double or blank gameweeks in the data, so nothing makes this a good week to use one.\",\"priceAlerts\":\"Rogers, N.Jackson and Evanilson have already risen this gameweek, so there's nothing left to catch on them. Cherki has already dropped and is being heavily sold, so he's at risk of falling again. He's on your bench with a tough fixture at Arsenal, so I'd leave him for now.\",\"formation\":\"Play a 3-4-3. Starting XI: Verbruggen in goal; De Cuyper, Hill and Calafiori in defence; Groß, Tavernier, Rogers and Palmer in midfield; Haaland, Evanilson and N.Jackson up front. Bench order: Cherki, O'Nien, van Ewijk, then Kinsky as the spare keeper.\"}"
+}

@@ -1,0 +1,11 @@
+{
+  "scenario": "leading-league-no-hits",
+  "model": "claude-sonnet-5-5",
+  "generatedAt": "2026-11-23T11:25:21.922Z",
+  "stopReason": "end_turn",
+  "usage": {
+    "inputTokens": 37638,
+    "outputTokens": 791
+  },
+  "text": "{\"summary\":\"GW12 is a double gameweek for your squad and the deadline is Friday. Rogers and Haaland are both injured and will score nothing, so you have two dead slots in the XI, but you only have one free transfer. You lead Mini-league 1, so protect that spot by fixing the biggest hole first.\",\"transfers\":\"Transfer Rogers (£8.3m) for Tavernier (£6.7m). Rogers is injured, and Tavernier is nailed on with a high goal threat, a Medium fixture and Onze predicts 9.5 pts. That is about 9 more points this week at no cost, and it frees up bank. Haaland is also injured and Barry looks like a good replacement, but with one free transfer a -4 hit is not part of the plan. Haaland sits on your bench, so the cost is limited. Looking ahead, the outlook has Henderson to Wirtz in GW13.\",\"captaincy\":\"Captain Gabriel. He is nailed on with a medium goal threat, a good clean sheet chance and a medium fixture, and Onze predicts 9.5 pts. Tavernier is almost level at 9.5 if you want a differently shaped pick, but Gabriel is the call. Evanilson is your current captain at 9.3, so the switch is a small gain.\",\"chips\":\"Both Bench Boost and Triple Captain are worth considering now because this is a double gameweek for your squad. Your bench is weak though, with Haaland injured, Hall a doubt and Henderson a rotation type, so Bench Boost is not attractive yet. If you want to use a chip, Triple Captain on Gabriel is the better fit this week. Free Hit is best held. Wildcard is worth considering soon because a fixture swing is coming.\",\"priceAlerts\":\"Raya is at risk of falling this gameweek, with heavy transfers out and a doubt tag. He is a bench option anyway, so it matters little. Cherki has already dropped. Rogers, N.Jackson and Evanilson have already risen, so there is nothing to chase there.\",\"formation\":\"Play a 4-4-2. Starting XI: Leno in goal; Gabriel, De Cuyper, Bogle and Konsa at the back; Tavernier, Groß, Schade and Cherki in midfield; Evanilson and N.Jackson up front. Bench: Hall, Henderson, Haaland and Raya.\"}"
+}

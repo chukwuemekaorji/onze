@@ -1,0 +1,11 @@
+{
+  "scenario": "real-template-team",
+  "model": "claude-sonnet-5-5",
+  "generatedAt": "2026-11-23T12:04:02.132Z",
+  "stopReason": "end_turn",
+  "usage": {
+    "inputTokens": 42106,
+    "outputTokens": 708
+  },
+  "text": "{\"summary\": \"Golden XI is in decent shape for gameweek 12, and the deadline is Friday. Haaland leads your team on Onze's predicted points, and nothing in the data says you need to change anything big this week. Hold your chips and save the free transfer.\", \"transfers\": \"No transfer needed this week. Every swap on the list would leave you with fewer points than the player you already have, since the replacements are mostly rotation-risk or unlikely-to-play options. Dubravka is the weak link I'm watching, as he's unlikely to play and sits on your bench, but the keepers available don't improve on that, so there's nothing worth doing. Saving the transfer is the right call. Looking ahead, the 5-week outlook has Cherki to Wirtz and N.Jackson to Barry in GW13.\", \"captaincy\": \"Captain Haaland. Onze predicts 4.8 pts, the highest in your team, and he's nailed on despite a tough fixture away at Arsenal. Groß is the vice-captain, nailed on at home to Newcastle with a high goal threat and Onze predicting 4.4 pts. Keep Evanilson in the XI but he doesn't need the armband, with Onze predicting 4.3 pts.\", \"chips\": \"Hold everything. There are no double or blank gameweeks in the data, so Bench Boost, Triple Captain, Free Hit and Wildcard all come back as hold this week.\", \"priceAlerts\": \"Rogers, N.Jackson and Evanilson have already risen this gameweek, so there's no price to beat on those three. Evanilson is being heavily bought, so he's worth having. Cherki has already dropped and is being heavily sold, but he's on your bench, so that's no reason to act now.\", \"formation\": \"Play a 3-4-3. Starting XI: Kinsky in goal; De Cuyper, Calafiori and O'Nien in defence; Groß, Tavernier, Rogers and Palmer in midfield; Haaland, Evanilson and N.Jackson up front. Bench in order: Cherki, van Ewijk, Diop, with Dubravka as the backup keeper.\"}"
+}

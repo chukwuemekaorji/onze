@@ -1,0 +1,11 @@
+{
+  "scenario": "injured-captain",
+  "model": "claude-sonnet-5-5",
+  "generatedAt": "2026-11-23T11:25:14.343Z",
+  "stopReason": "end_turn",
+  "usage": {
+    "inputTokens": 35778,
+    "outputTokens": 686
+  },
+  "text": "{\"summary\":\"Gameweek 12 is mostly about one problem: Haaland is injured and scores nothing for you this week, and he's your captain. You have one free transfer and the deadline is Friday, so fix it now. Raya and Hall are both flagged as doubtful, which is worth watching before the deadline.\",\"transfers\":\"Transfer Haaland (£15.8m) for Barry (£5.7m). Haaland is injured, so he gives you nothing this week, while Onze predicts 4.1 pts from Barry, who is nailed on with a high goal threat. It uses your free transfer, so there's no points hit, and it frees up a lot of money in the bank. The other candidate, B.Fernandes for Henderson, would add about 3 points, but the Haaland move is the clear priority. Looking ahead, the 5-week outlook has Schade to B.Fernandes in GW13.\",\"captaincy\":\"Captain Gabriel. Onze predicts 4.6 pts, the highest in your team, and he's nailed on. Groß is the vice-captain at 4.4 pts. Gabriel faces a tough fixture against Man City, but nobody else in your squad beats his number this week.\",\"chips\":\"Hold everything. There are no double or blank gameweeks in the data, so none of the chips has a good reason to be played right now.\",\"priceAlerts\":\"Raya is at risk of a price fall, as he's being heavily transferred out, and he's also a doubt for this week. Cherki already dropped this gameweek, and Rogers, N.Jackson and Evanilson have all risen. Evanilson is a starter for you, so his rise is already banked. Nothing here changes the transfer call, and the deadline is Friday.\",\"formation\":\"Play a 4-3-3. Starting: Leno in goal; Gabriel, De Cuyper, Bogle and Konsa in defence; Groß, Rogers and Schade in midfield; Evanilson, Barry and N.Jackson up front. Bench: Cherki, Henderson, Hall and Raya. This assumes the Barry transfer is made.\"}"
+}

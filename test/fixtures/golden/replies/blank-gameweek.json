@@ -1,0 +1,11 @@
+{
+  "scenario": "blank-gameweek",
+  "model": "claude-sonnet-5-5",
+  "generatedAt": "2026-11-23T11:24:17.411Z",
+  "stopReason": "end_turn",
+  "usage": {
+    "inputTokens": 34521,
+    "outputTokens": 763
+  },
+  "text": "{\"summary\": \"GW12 is a blank for Arsenal, Chelsea, Man City and one other team, so Raya, Konsa, Gabriel, Cherki, Rogers, Henderson and Haaland have no match this week. The deadline is Friday, and you have one free transfer banked. The best use of it is Cherki for Tavernier.\", \"transfers\": \"Transfer Cherki (7.8m) for Tavernier (6.7m). Cherki has no match this week and has fallen in price, while Tavernier is nailed on with a high goal threat and Onze predicts 4.4 pts. That is about 4 more points this week, and it costs nothing because it uses your free transfer. It also frees up cash. Henderson is the weak link I'm watching, but you only have one free transfer, so a hit isn't worth it.\", \"captaincy\": \"Captain Groß. He is nailed on with a high goal threat, and Onze predicts 4.4 pts, the highest in your team this week. Tavernier is almost identical at 4.4 pts, so he is a fine vice-captain. Looking ahead, the 5-week outlook has Schade → Wirtz in GW13.\", \"chips\": \"Hold bench boost, triple captain and free hit. Free hit is tempting with four teams blanking, but with seven of your players missing out the signal isn't strong enough to burn it this week. The wildcard is worth considering soon because of an upcoming fixture swing, though not this week.\", \"priceAlerts\": \"Raya is at risk of falling in price this week. He is flagged as a doubt and is being heavily transferred out, and he has no match anyway. Cherki has already dropped, which is one more reason to move him on. Rogers, N.Jackson and Evanilson have already gone up, so there is nothing to chase there.\", \"formation\": \"Go 3-4-3. Starting XI: Leno in goal; De Cuyper, Bogle and Hall in defence; Groß, Tavernier (once he arrives), Schade and Rogers in midfield; Evanilson, N.Jackson and Haaland up front. Rogers and Haaland have no match, so they are placeholders, and Cherki's slot is taken by Tavernier after the transfer. Bench: Konsa, Gabriel, Henderson and Raya, none of whom play this week.\"}"
+}

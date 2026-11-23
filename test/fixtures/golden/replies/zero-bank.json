@@ -1,0 +1,11 @@
+{
+  "scenario": "zero-bank",
+  "model": "claude-sonnet-5-5",
+  "generatedAt": "2026-11-23T11:25:57.465Z",
+  "stopReason": "end_turn",
+  "usage": {
+    "inputTokens": 35915,
+    "outputTokens": 727
+  },
+  "text": "{\"summary\": \"Gameweek 12 is a quiet one for Golden XI. You have one free transfer and no points hit needed. The deadline is Friday, so you have a few days. Haaland is the captain pick, and the chips stay in your pocket.\", \"transfers\": \"Transfer Henderson (£4.9m) for Rudoni (£4.9m). It's a like-for-like swap in price, so your bank stays at zero. Henderson is a rotation-flavoured bench filler with low goal threat and Onze predicts just 1.8 pts, while Rudoni has a medium goal threat and Onze predicts 3 pts. That's about 1 more point this week, and Onze thinks Rudoni outscores him by about 7 points over the next five weeks. It costs nothing, so make it. Schade is the next weak link I'm watching, but he doesn't justify a move yet.\", \"captaincy\": \"Captain Haaland. Onze predicts 4.8 pts, the highest in your team, and he's nailed on. The fixture at Arsenal is tough, but nobody else in your squad beats him, so there's no reason to overthink it. Gabriel is vice-captain at 4.6 pts.\", \"chips\": \"Hold everything. There are no double or blank gameweeks in the data, so there's no reason to spend Bench Boost, Triple Captain, Free Hit or Wildcard right now.\", \"priceAlerts\": \"Raya is the one to act on. He's at risk of a price fall this gameweek, with heavy transfers out and a 75% chance of playing flagged by FPL. He's on your bench and not in your plan to start, so it's not urgent. Cherki has already dropped this gameweek. Rogers, N.Jackson and Evanilson have risen, so the price changes there are already banked.\", \"formation\": \"Play a 4-3-3. Starting XI: Leno in goal; Gabriel, De Cuyper, Bogle and Konsa in defence; Groß, Rogers and Schade in midfield; Haaland, Evanilson and N.Jackson up front. Bench in order: Rudoni, Cherki, Hall, Raya. This lineup already assumes the Rudoni transfer is made.\"}"
+}

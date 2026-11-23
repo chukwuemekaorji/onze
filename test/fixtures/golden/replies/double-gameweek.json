@@ -1,0 +1,11 @@
+{
+  "scenario": "double-gameweek",
+  "model": "claude-sonnet-5-5",
+  "generatedAt": "2026-11-23T11:24:50.790Z",
+  "stopReason": "end_turn",
+  "usage": {
+    "inputTokens": 35890,
+    "outputTokens": 811
+  },
+  "text": "{\"summary\":\"Golden XI is in decent shape for GW12, and the deadline is Friday, so you have a few days. Haaland is the headline: Man City have a double gameweek, and Onze predicts 10.4 pts for him. One free transfer is worth using, and the rest of the squad mostly holds up.\",\"transfers\":\"Transfer Henderson (£4.9m) for Gomez (£5.1m). Henderson has had poor form and Onze predicts 1.8 pts for him, while Gomez is nailed on with a medium goal threat and Onze predicts 4 pts. That is about 2 more points this week, and it uses your free transfer, so there is no hit. It also leaves £0.1m in the bank. The other suggestion, Schade to McGinn, is not worth making. Schade has a double gameweek and Onze predicts 6.8 pts for him, about 3 more than McGinn. Keep him.\",\"captaincy\":\"Captain Haaland. Onze predicts 10.4 pts, the highest in your team, and he is nailed on with a high goal threat across two Man City fixtures. Schade is the vice-captain at 6.8 pts.\",\"chips\":\"Triple captain is worth considering now. Man City have a double gameweek in GW12 and Haaland is your captain, so this is the strongest spot the data shows. Hold the bench boost, free hit and wildcard, as nothing in the data points to using them yet. Man City also blank in GW14, so that week will need attention later.\",\"priceAlerts\":\"Raya is at risk of falling in price. He is a doubt, and 115,297 managers have sold him this gameweek. Cherki has already dropped and is also heavily sold, with 142,121 transfers out. Rogers, N.Jackson and Evanilson have all already risen. None of this changes your transfer, but if you plan to bring in Evanilson-type players later, they are getting pricier.\",\"formation\":\"Play a 3-5-2. Starting XI: Leno in goal. Defence: Gabriel, De Cuyper, Bogle. Midfield: Schade, Cherki, Groß, Rogers, plus Gomez if you make the transfer. Attack: Haaland and Evanilson. Bench, in order: N.Jackson, Konsa, Hall, Raya. Hall and Raya are both doubts, so they are fine at the back of the bench. Looking ahead, the 5-week outlook has Cherki to Tavernier in GW13.\"}"
+}

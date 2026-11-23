@@ -1,0 +1,11 @@
+{
+  "scenario": "real-sample-team",
+  "model": "claude-sonnet-5-5",
+  "generatedAt": "2026-11-23T11:52:33.210Z",
+  "stopReason": "end_turn",
+  "usage": {
+    "inputTokens": 39663,
+    "outputTokens": 741
+  },
+  "text": "{\"summary\": \"Gameweek 12 is a clean, free-transfer week. The deadline is Friday, so you have a few days. Your weak spot is the forward line, where Wissa and Thomas-Asante are both rotation-free but low on threat. Two swaps there lift your team by about 4 points at no cost.\",\"transfers\": \"Transfer out Wissa (5.9m) for Barry (5.7m). Barry is nailed on with a high goal threat, and Onze predicts 4.1 pts against 2.0 for Wissa, about 2 more points this week. Transfer out Thomas-Asante (5.0m) for McBurnie (5.5m). Onze predicts 3.6 pts for McBurnie against 1.8, about 2 more points, with an easy fixture against Crystal Palace. Both fit your budget and use your two free transfers, so there's no points hit. Together they're worth about 4 more points. Diop is a weak link I'm watching, but van Ewijk is only a slight upgrade, so leave him for now.\",\"captaincy\": \"Captain Haaland. Onze predicts 4.8 pts, the highest in your team, even with a tough fixture against Arsenal. Groß is the vice-captain, with a high goal threat and Onze predicting 4.4 pts. Your current armband is on Wissa, so move it before the deadline.\",\"chips\":\"Hold everything. There are no double or blank gameweeks in the data, so no chip has a strong case this week.\",\"priceAlerts\":\"Raya is at risk of falling, as he's being heavily sold, and he's also a doubt with a 75% chance of playing, so he's on your bench. Cherki is being heavily sold too, and he already dropped this week. Rogers has already risen. Looking further ahead, the outlook has Cherki to Wirtz in GW13, which fits with Cherki's falling price.\",\"formation\":\"Play a 3-4-3. Starting XI: Verbruggen in goal; De Cuyper, Bogle and Calafiori at the back; Groß, Tavernier, Rogers and Mbeumo in midfield; Haaland, Barry and McBurnie up front. Bench: Cherki, Ajayi, Diop, then Raya as the reserve keeper.\"}"
+}

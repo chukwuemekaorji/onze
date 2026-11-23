@@ -1,0 +1,11 @@
+{
+  "scenario": "five-free-transfers",
+  "model": "claude-sonnet-5-5",
+  "generatedAt": "2026-11-23T11:25:02.843Z",
+  "stopReason": "end_turn",
+  "usage": {
+    "inputTokens": 34983,
+    "outputTokens": 763
+  },
+  "text": "{\"summary\":\"You're in good shape for Gameweek 12, with five free transfers banked and no hit needed. The deadline is Friday, so you have a few days. Two small midfield upgrades are worth making, and the rest of the squad can stay as it is.\",\"transfers\":\"Make two transfers, both free. Transfer Henderson (£4.9m) for Gomez (£5.1m). Onze thinks Gomez will score about 2 more points than Henderson this week. Henderson is only likely to play, with a low goal threat, while Gomez is nailed on with a medium goal threat. Then transfer Schade (£6.1m) for McGinn (£5.5m). McGinn is nailed on with a high goal threat and an easy fixture, and Onze thinks he'll score about 1 more point than Schade. Together that's about 3 more points this week with no hit, and it frees up some money. Looking ahead, the 5-week outlook has Hall to Van Hecke and Cherki to Wirtz in GW13.\",\"captaincy\":\"Captain Haaland. Onze predicts 4.8 pts, the highest in your team, and he's nailed on. The fixture is tough, but nobody else in your squad beats him. Gabriel is the vice-captain at 4.6 pts.\",\"chips\":\"Hold everything. There are no double or blank gameweeks in the data, so no chip has a strong case this week.\",\"priceAlerts\":\"Raya is at risk of a price fall this gameweek. He's flagged as a doubt and a lot of managers are moving him out, but he's on your bench, so it's not urgent. Cherki is also at risk of falling. He's already dropped once and heavy selling continues, and he's another bench player. Rogers, N.Jackson and Evanilson have already risen, so there's nothing to gain by acting on them now.\",\"formation\":\"Play a 3-4-3. Starting XI: Leno in goal, Gabriel, De Cuyper and Bogle at the back, Groß, McGinn, Rogers and Gomez in midfield, and Haaland, Evanilson and N.Jackson up front. This assumes both transfers above are made. The bench is Konsa, Cherki, Hall and Raya. Raya is the doubt and Hall is also a doubt with a tough fixture, so neither is worth a starting spot.\"}"
+}
