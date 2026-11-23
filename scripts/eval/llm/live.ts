@@ -1,4 +1,4 @@
-import { mkdirSync } from 'node:fs';
+import { existsSync, mkdirSync } from 'node:fs';
 import { readFile, readdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { createInterface } from 'node:readline/promises';
@@ -103,6 +103,13 @@ async function confirmed(question: string): Promise<boolean> {
   return /^y(es)?$/i.test(answer.trim());
 }
 
+/** the reply eval:live last saved for a scenario, or null if there isn't one */
+async function savedReply(id: string): Promise<SavedReply | null> {
+  const path = join(REPLIES_DIR, `${id}.json`);
+  if (!existsSync(path)) return null;
+  return JSON.parse(await readFile(path, 'utf8')) as SavedReply;
+}
+
 const dollars = (value: number) => `$${value.toFixed(3)}`;
 
 async function main(): Promise<void> {
@@ -117,7 +124,31 @@ async function main(): Promise<void> {
     throw new Error(`no price recorded for ${model}; add it to PRICES first`);
   const client = new Anthropic();
   const golden = await goldenSet();
-  const requests = golden.map((scenario) => ({
+  // --failing: only scenarios whose saved reply fails a check (or has none)
+  // are called again; passing replies are kept as they are, to save credit
+  const onlyFailing = process.argv.includes('--failing');
+  const kept: { scenario: Golden; check: ReportCheck; reply: SavedReply }[] = [];
+  const toRun: Golden[] = [];
+  for (const scenario of golden) {
+    const saved = onlyFailing ? await savedReply(scenario.id) : null;
+    const check = saved === null ? null : checkReport(saved.text, scenario.summary);
+    if (saved !== null && check !== null && check.violations.length === 0) {
+      kept.push({ scenario, check, reply: saved });
+    } else {
+      toRun.push(scenario);
+    }
+  }
+  if (onlyFailing) {
+    console.log(
+      `--failing: keeping ${kept.length} passing replies, re-running ${toRun.length}:`,
+    );
+    for (const scenario of toRun) console.log(`  ${scenario.id}`);
+    if (toRun.length === 0) {
+      console.log('every saved reply passes; nothing to call');
+      return;
+    }
+  }
+  const requests = toRun.map((scenario) => ({
     scenario,
     request: buildCoachRequest(scenario.summary, model),
   }));
@@ -178,7 +209,13 @@ async function main(): Promise<void> {
     );
   }
 
-  console.log(`\nscorecard (${results.length} replies, ${dollars(spent)} spent):`);
+  const fresh = results.length;
+  // the scorecard covers the whole golden set, kept replies included
+  results.push(...kept);
+  results.sort((a, b) => a.scenario.id.localeCompare(b.scenario.id));
+  console.log(
+    `\nscorecard (${results.length} replies${onlyFailing ? `, ${fresh} re-run, ${kept.length} kept` : ''}, ${dollars(spent)} spent):`,
+  );
   for (const check of CHECKS) {
     const passes = results.filter((result) => result.check.passed[check]).length;
     console.log(
