@@ -1,3 +1,4 @@
+import { trackExampleOpened, trackGetStarted } from '../../analytics.js';
 import { EXAMPLE_PATH, HOME_ROUTE } from '../../router.js';
 import { FindMyIdHelp } from '../FindMyIdHelp.js';
 import { Button } from '../ui/Button.js';
@@ -25,8 +26,10 @@ export function Hero() {
           works out the moves in plain code, then explains them like a coach.
         </p>
         <div className="hero__actions">
-          <Button href={HOME_ROUTE.path}>Get started</Button>
-          <Button href={EXAMPLE_PATH} variant="outline">
+          <Button href={HOME_ROUTE.path} onClick={() => trackGetStarted('hero')}>
+            Get started
+          </Button>
+          <Button href={EXAMPLE_PATH} variant="outline" onClick={trackExampleOpened}>
             See an example
           </Button>
         </div>

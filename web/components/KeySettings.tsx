@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import type { FormEvent } from 'react';
 import { flushSync } from 'react-dom';
+import { trackKeySaved } from '../analytics.js';
 import { forgetKey, KeyStoreError, saveKey } from '../key-store.js';
 import type { StoredKey } from '../key-store.js';
 import { NO_STATUS } from '../status-line.js';
@@ -30,6 +31,8 @@ export function KeySettings({ storedKey, onChange }: KeySettingsProps) {
     event.preventDefault();
     try {
       const stored = saveKey(keyText, remember);
+      // only that a key was saved and where; the key itself never leaves storage
+      trackKeySaved(remember);
       // the entry row hides once a key is saved, so focus would be lost with it
       flushSync(() => {
         // don't leave the key sitting in the dom once it's stored

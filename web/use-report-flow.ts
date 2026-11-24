@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import type { AnalysisSummary } from '../lib/analysis-summary.js';
 import type { CoachReport } from '../lib/coach-prompt.js';
+import { trackReportLoaded } from './analytics.js';
 import { loadKey } from './key-store.js';
 import type { StoredKey } from './key-store.js';
 import { INVALID_MANAGER_ID_MESSAGE, managerIdFromInput } from './manager-id-input.js';
@@ -81,6 +82,8 @@ export function useReportFlow(): ReportFlow {
     setStatus('');
     setResultsHidden(false);
     setFormHidden(true);
+    // which kind of report, never whose: no manager id goes to analytics
+    trackReportLoaded(cached.source, isExample);
     setShown((previous) => ({
       managerId,
       summary: cached.analysisSummary,

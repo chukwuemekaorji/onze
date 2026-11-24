@@ -5,6 +5,7 @@ import type { AnalysisSummary } from '../../lib/analysis-summary.js';
 import { buildChatRequest } from '../../lib/chat-prompt.js';
 import type { ChatMessage } from '../../lib/chat-prompt.js';
 import { DEFAULT_ANTHROPIC_MODEL } from '../../lib/model.js';
+import { trackChatMessageSent } from '../analytics.js';
 import { AnthropicCallError, sendMessage } from '../anthropic-client.js';
 import { clearChat, loadChat, pruneStaleChats, saveChat } from '../chat-store.js';
 import { renderMarkdownLite } from '../markdown.js';
@@ -60,6 +61,8 @@ export function ChatPanel({ summary, apiKey, managerId }: ChatPanelProps) {
     if (!apiKey || !asked) return;
 
     appendMessage('user', asked);
+    // the event only: the question stays between the browser and anthropic
+    trackChatMessageSent();
     setQuestion('');
     setSending(true);
 

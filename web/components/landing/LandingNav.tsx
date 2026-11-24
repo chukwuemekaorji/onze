@@ -1,3 +1,4 @@
+import { trackGetStarted } from '../../analytics.js';
 import { HOME_ROUTE, LANDING_PATH } from '../../router.js';
 import { GITHUB_URL } from '../../site-links.js';
 import { BrandLogo } from '../BrandLogo.js';
@@ -23,7 +24,9 @@ export function LandingNav() {
             </a>
           </li>
           <li>
-            <Button href={HOME_ROUTE.path}>Get started</Button>
+            <Button href={HOME_ROUTE.path} onClick={() => trackGetStarted('nav')}>
+              Get started
+            </Button>
           </li>
         </ul>
       </nav>

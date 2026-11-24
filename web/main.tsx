@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react';
 import { MotionConfig } from 'motion/react';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
@@ -18,5 +19,9 @@ createRoot(rootEl).render(
       {/* "/" is the landing page; every /app path is the coaching app */}
       {isLandingPath(window.location.pathname) ? <Landing /> : <App />}
     </MotionConfig>
+    {/* production only: in dev the package loads its debug script from
+        va.vercel-scripts.com, which the csp rightly blocks. in production it
+        loads /_vercel/insights/script.js from our own domain, cookieless */}
+    {import.meta.env.PROD && <Analytics />}
   </StrictMode>,
 );

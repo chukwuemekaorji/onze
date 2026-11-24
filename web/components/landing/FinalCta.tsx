@@ -1,3 +1,4 @@
+import { trackGetStarted } from '../../analytics.js';
 import { HOME_ROUTE } from '../../router.js';
 import { Button } from '../ui/Button.js';
 import { Reveal } from './Reveal.js';
@@ -9,7 +10,9 @@ export function FinalCta() {
         Deadline's coming.
       </h2>
       <p className="final-cta__lede">Your report takes about a minute.</p>
-      <Button href={HOME_ROUTE.path}>Get started</Button>
+      <Button href={HOME_ROUTE.path} onClick={() => trackGetStarted('final')}>
+        Get started
+      </Button>
     </Reveal>
   );
 }
