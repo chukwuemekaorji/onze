@@ -69,7 +69,7 @@ export function FindMyIdHelp({ className }: FindMyIdHelpProps) {
           On a phone? Same steps in your browser, not the FPL app.
         </p>
         <p className="id-help__paste">
-          You can paste the whole address in. Onze picks out the number.
+          You can paste the whole address in. onze picks out the number.
         </p>
       </div>
     </div>

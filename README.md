@@ -1,4 +1,4 @@
-# Onze
+# onze
 
 **An AI coach for Fantasy Premier League that does the maths in code and explains it like a coach.**
 
@@ -7,7 +7,7 @@
 
 **Live:** [onze.chukwuemekaorji.xyz](https://onze.chukwuemekaorji.xyz) · [See an example](https://onze.chukwuemekaorji.xyz/app?example) (no FPL team needed)
 
-![Onze's dashboard: the squad on a tactics board, with the coach's notes and chat beside it](docs/images/hero.jpg)
+![onze's dashboard: the squad on a tactics board, with the coach's notes and chat beside it](docs/images/hero.jpg)
 
 <table>
   <tr>
@@ -22,7 +22,7 @@
 
 ## What it does
 
-- **Reads your team.** Enter your FPL ID and Onze pulls your squad, bank, free transfers, fixtures and mini-leagues from the official FPL API.
+- **Reads your team.** Enter your FPL ID and onze pulls your squad, bank, free transfers, fixtures and mini-leagues from the official FPL API.
 - **Predicts every player's points** with its own model, tested on a full season it never saw, and uses FPL's injury news.
 - **Makes the calls:** which transfers to make (and whether a -4 hit is worth it), who to captain, your best eleven and bench order, when to play a chip, and which prices are about to move.
 - **Explains them like a coach.** An AI model turns the numbers into a short written report in plain football language, with no stats jargon.
@@ -38,7 +38,7 @@ The model was built on 2023-24 and 2024-25. Then it was frozen and scored on all
 
 | How players are picked     | Top-5 picks, average points | Captain, average points | Share of 10+ point hauls on its top-20 shortlist |
 | -------------------------- | --------------------------- | ----------------------- | ------------------------------------------------ |
-| **Onze (the blend)**       | **5.23** [4.67, 5.87]       | **6.21** [4.76, 7.76]   | **19%** [16%, 22%]                               |
+| **onze (the blend)**       | **5.23** [4.67, 5.87]       | **6.21** [4.76, 7.76]   | **19%** [16%, 22%]                               |
 | Form (last 30 days)        | 4.08 [3.44, 4.76]           | 4.75 [3.47, 6.20]       | 13% [10%, 15%]                                   |
 | Points per game            | 4.12 [3.54, 4.72]           | 5.06 [3.44, 6.83]       | 13% [10%, 16%]                                   |
 | Last 3 gameweeks           | 4.28 [3.68, 4.92]           | 4.34 [3.02, 5.78]       | 13% [10%, 16%]                                   |
@@ -51,18 +51,18 @@ A backtest played three whole seasons (2023-24 to 2025-26) deadline by deadline,
 
 | Strategy, season points after hits | Average a season | Hits a season |
 | ---------------------------------- | ---------------- | ------------- |
-| Onze's one-week advice             | 2104             | 0.1           |
+| onze's one-week advice             | 2104             | 0.1           |
 | Chasing form                       | 1966             | 14.7          |
 | No transfers                       | 1576             | 0             |
 
-Onze's advice finished **+138 points a season ahead of chasing form, 95% interval [+63, +215]**, and +529 [+461, +598] ahead of making no transfers. A big part of the gap is discipline: chasing form took 14.7 hits a season, which cost about 58 points; Onze took 0.1. Full tables: [`results/decision-backtest.md`](./results/decision-backtest.md).
+onze's advice finished **+138 points a season ahead of chasing form, 95% interval [+63, +215]**, and +529 [+461, +598] ahead of making no transfers. A big part of the gap is discipline: chasing form took 14.7 hits a season, which cost about 58 points; onze took 0.1. Full tables: [`results/decision-backtest.md`](./results/decision-backtest.md).
 
 ### The AI writing is checked against the data
 
 Fifteen golden scenarios, built from real FPL data (a blank gameweek, a double gameweek, an injured captain, a hit that pays, five banked transfers and more), run through the real prompt. Every reply is checked in code:
 
 - **Faithfulness:** every number and every player name in the reply must trace back to the data the coach was given.
-- **Wording:** plain language, no jargon, no FPL figures passed off as Onze's, and the 5-week outlook in one sentence at most, never as this week's advice.
+- **Wording:** plain language, no jargon, no FPL figures passed off as onze's, and the 5-week outlook in one sentence at most, never as this week's advice.
 - **Structure:** the reply parses into the exact shape the app renders.
 
 **15 of 15 pass every check**, and CI rechecks the saved replies on every push. The evals also found a real production bug: the first live run showed every report was being cut off at the token limit. The app now asks for less hidden reasoning, has room for a full report, and shows a clear error instead of a truncated one.
@@ -107,7 +107,7 @@ The server only does data. It takes a manager ID, fetches what it needs from FPL
 
 ### The two models, in plain words
 
-Onze predicts a player's points as **the chance he plays, times the points he'd score if he does**, using two different methods and averaging them.
+onze predicts a player's points as **the chance he plays, times the points he'd score if he does**, using two different methods and averaging them.
 
 - **The two-part model** looks at how often a player has started and come on lately, then predicts his points if he plays from his points this season, his recent form, his goal involvement, his price, whether he's at home and how strong the opponent is.
 - **The event model** predicts each way of scoring separately (goals, assists, clean sheets, goals conceded, saves, bonus, defensive contributions), based on his own rates, his team's and the opponent's expected goals, and then adds them up with FPL's scoring rules.
@@ -131,14 +131,14 @@ The aim was numbers that hold up, not numbers that look good.
 
 ## Your key stays yours
 
-Onze is bring-your-own-key. The site has no Anthropic key and no server that could see yours.
+onze is bring-your-own-key. The site has no Anthropic key and no server that could see yours.
 
 - **Browser to Anthropic, directly.** Your key is kept in your browser's session storage (cleared when the tab closes) or, if you tick "remember", local storage. It is sent only to `api.anthropic.com`. The server's one endpoint takes a manager ID and nothing else.
 - **Nothing stored server-side.** No database, no accounts, no logs of keys or chats. Your chat history lives in your browser and is sent with each question.
 - **A tight Content Security Policy.** Scripts and styles load only from the site itself, with no inline code. The page can connect only to itself and to Anthropic. So even if something injected markup into the page, it couldn't run a script or send your key anywhere else. The model's replies are escaped before they're rendered.
 - **Guarded in CI.** A lint rule fails the build if the app's code ever reads an Anthropic key from the environment.
 
-**Why the request says "dangerous-direct-browser-access".** Anthropic's API refuses calls from a browser unless the request carries the header `anthropic-dangerous-direct-browser-access: true`. The name is a warning to developers not to put their own key in a public web page, where any visitor could read it and spend it. Onze does the opposite: the key belongs to the person using the page and goes from their browser to Anthropic only. That is the case the header is there for. For extra peace of mind, use a key from a separate workspace with a monthly spend limit.
+**Why the request says "dangerous-direct-browser-access".** Anthropic's API refuses calls from a browser unless the request carries the header `anthropic-dangerous-direct-browser-access: true`. The name is a warning to developers not to put their own key in a public web page, where any visitor could read it and spend it. onze does the opposite: the key belongs to the person using the page and goes from their browser to Anthropic only. That is the case the header is there for. For extra peace of mind, use a key from a separate workspace with a monthly spend limit.
 
 Without a key you still get the full analysis and a basic written report; only the AI report and chat need one.
 
@@ -204,7 +204,7 @@ The AI evals run in every `npm test`, against the model's saved replies in `test
 - The backtest plays no chips, and three seasons is a small sample: the intervals cover week-to-week luck, not how different another season might be.
 - Defensive contribution points started in 2025-26 with no history behind them, so the model underrated them in that season.
 - The chat only knows what is in your report's summary. It can't look up a player outside it.
-- Onze relies on FPL's unofficial public API, which can change without notice.
+- onze relies on FPL's unofficial public API, which can change without notice.
 
 **What's next**
 
@@ -218,7 +218,7 @@ The AI evals run in every `npm test`, against the model's saved replies in `test
 - Live data comes from the official Fantasy Premier League API.
 - The data belongs to the Premier League / Fantasy Premier League and to Understat.
 
-Onze is not affiliated with the Premier League or Fantasy Premier League.
+onze is not affiliated with the Premier League or Fantasy Premier League.
 
 ## Author
 

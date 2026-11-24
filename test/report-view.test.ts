@@ -96,11 +96,11 @@ describe('transferRows', () => {
       EVENT,
     );
     expect(row?.sentence).toBe(
-      'Onze thinks Mbeumo will score about 3 more points than Mitoma this week.',
+      'onze thinks Mbeumo will score about 3 more points than Mitoma this week.',
     );
     expect(row?.incoming).toEqual({
       name: 'Mbeumo',
-      line: 'Onze predicts 5.0 pts · Nailed on · Medium goal threat · Medium fixture',
+      line: 'onze predicts 5.0 pts · Nailed on · Medium goal threat · Medium fixture',
       exact: [
         '90% chance of playing',
         '5.6 pts if he plays',
@@ -318,7 +318,7 @@ describe('captainOptions', () => {
       EVENT,
     );
     expect(option?.card.line).toBe(
-      'Onze predicts 4.2 pts · Likely to play · High goal threat · Easy fixture',
+      'onze predicts 4.2 pts · Likely to play · High goal threat · Easy fixture',
     );
     expect(option?.card.exact).toEqual([
       '80% chance of playing',

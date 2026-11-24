@@ -1,6 +1,6 @@
 {
-  "name": "Onze",
-  "short_name": "Onze",
+  "name": "onze",
+  "short_name": "onze",
   "icons": [
     { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }

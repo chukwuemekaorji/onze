@@ -101,7 +101,7 @@ export function useReportFlow(): ReportFlow {
     const apiKey = loadKey()?.key ?? null;
     // the status line lives in the id form, which is hidden once a report is showing
     if (apiKey) {
-      setStatus('Onze is writing your report...');
+      setStatus('onze is writing your report...');
       setWriting(true);
     }
 

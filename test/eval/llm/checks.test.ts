@@ -25,7 +25,7 @@ function report(overrides: Partial<CoachReport> = {}): CoachReport {
   return {
     summary: `Gameweek ${event} for ${summary.teamName}, with £${bankMillions}m in the bank.`,
     transfers: 'No transfer needed this week.',
-    captaincy: `Captain ${captain?.webName ?? ''}: Onze predicts ${predicted.toFixed(1)} pts.`,
+    captaincy: `Captain ${captain?.webName ?? ''}: onze predicts ${predicted.toFixed(1)} pts.`,
     chips: 'Hold every chip this week.',
     priceAlerts: 'No price moves to worry about.',
     formation: `Play a ${summary.lineup.formation}.`,
@@ -83,7 +83,7 @@ describe('numbers', () => {
 
   it('flags a number the summary never had, with its sentence', () => {
     const [violation] = failing({
-      captaincy: `Captain ${captain.webName}: Onze predicts 47.3 pts.`,
+      captaincy: `Captain ${captain.webName}: onze predicts 47.3 pts.`,
     });
     expect(violation).toMatchObject({ check: 'numbers', section: 'captaincy' });
     expect(violation?.detail).toBe("47.3 isn't a number in the summary");

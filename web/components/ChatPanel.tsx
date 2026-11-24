@@ -101,7 +101,7 @@ export function ChatPanel({ summary, apiKey, managerId }: ChatPanelProps) {
     <section id="chat-panel" className="chat-panel" aria-labelledby="chat-heading">
       <div className="chat-panel__header">
         <h3 id="chat-heading" className="chat-panel__title">
-          Ask Onze
+          Ask onze
         </h3>
         {messages.length > 0 && (
           <button
@@ -116,7 +116,7 @@ export function ChatPanel({ summary, apiKey, managerId }: ChatPanelProps) {
       </div>
       <div id="chat-disabled" className="chat-disabled" hidden={available}>
         Add your Anthropic API key with the AI coaching button at the top to chat with
-        Onze about this report.
+        onze about this report.
       </div>
       <div id="chat-messages" className="chat-messages" ref={messagesRef}>
         {messages.map((message) => (

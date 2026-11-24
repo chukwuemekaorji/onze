@@ -44,7 +44,7 @@ export function TransfersPage({ shown, focusTitle }: BinderPageProps) {
       <p className="page-lede">
         {free} free transfer{free === 1 ? '' : 's'}
         {transfers.recommendedCount > 0 &&
-          ` · Onze predicts ${formatGain(transfers.projectedNetGain)} this week from the recommended moves`}
+          ` · onze predicts ${formatGain(transfers.projectedNetGain)} this week from the recommended moves`}
       </p>
       <p className="hit-advice">{hitAdvice(shown.summary)}</p>
 

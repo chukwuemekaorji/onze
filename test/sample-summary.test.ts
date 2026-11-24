@@ -25,7 +25,7 @@ const NOW = Date.parse('2026-11-18T12:00:00Z');
 describe('the bundled sample summary', () => {
   it('is a fictional manager, never a real one', () => {
     expect(sample.managerName).toBe('Sample Coach');
-    expect(sample.teamName).toBe('Onze Sample XI');
+    expect(sample.teamName).toBe('onze Sample XI');
   });
 
   it('has a full, legal squad and lineup', () => {
@@ -99,7 +99,7 @@ describe('withFreshDates', () => {
       ...Object.values(writeFallbackReport(sample)),
     ].join('\n');
 
-    expect(shown).toContain('Onze predicts');
+    expect(shown).toContain('onze predicts');
     for (const word of JARGON) expect(shown).not.toContain(word);
   });
 });

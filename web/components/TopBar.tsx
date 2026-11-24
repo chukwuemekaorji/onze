@@ -2,7 +2,7 @@ import type { RefObject } from 'react';
 import type { AnalysisSummary } from '../../lib/analysis-summary.js';
 import { DeadlineStamp } from './DeadlineStamp.js';
 import { LANDING_PATH } from '../router.js';
-import { BrandMark } from './BrandMark.js';
+import { BrandLogo } from './BrandLogo.js';
 
 interface TopBarProps {
   // null until the first report is shown
@@ -32,8 +32,8 @@ export function TopBar({
     <header className="masthead">
       {/* the wordmark leads back to the landing page, like most sites */}
       <a href={LANDING_PATH} className="masthead__brand">
-        <BrandMark className="masthead__mark" />
-        <span className="masthead__wordmark">Onze</span>
+        <BrandLogo className="masthead__mark" />
+        <span className="masthead__wordmark">onze</span>
       </a>
 
       {summary && (

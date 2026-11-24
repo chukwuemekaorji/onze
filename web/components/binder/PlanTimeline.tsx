@@ -19,7 +19,7 @@ export function PlanTimeline({ summary }: PlanTimelineProps) {
           Looking ahead
         </h3>
         <p className="plan-timeline__lede">
-          A {rows.length}-week outlook. This week's advice above is what Onze
+          A {rows.length}-week outlook. This week's advice above is what onze
           recommends.
         </p>
         <ol className="plan-timeline">

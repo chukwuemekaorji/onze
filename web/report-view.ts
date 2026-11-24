@@ -21,7 +21,7 @@ export type TransferVerdict = 'free' | 'hit' | 'skip';
 /** one player's plain card: the line shown, and the exact numbers behind it on tap */
 export interface PlayerCard {
   name: string;
-  /** "Onze predicts 5.4 pts · Nailed on · High goal threat · Easy fixture" */
+  /** "onze predicts 5.4 pts · Nailed on · High goal threat · Easy fixture" */
   line: string;
   exact: string[];
 }
@@ -37,7 +37,7 @@ export interface TransferRow {
   verdict: TransferVerdict;
   /** the other replacements, best first, with prices */
   alternatives: string[];
-  /** "Onze thinks Gabriel will score about 3 more points than Dasilva this week." */
+  /** "onze thinks Gabriel will score about 3 more points than Dasilva this week." */
   sentence: string | null;
   /** the incoming player's card, null with no replacement */
   incoming: PlayerCard | null;
@@ -192,7 +192,7 @@ export function hitAdvice(
 
   const leadingALeague = summary.leagueStandings.some((league) => league.rank === 1);
   if (next.gain > HIT_THRESHOLD && leadingALeague) {
-    return `${next.outName} for ${next.inName ?? 'a replacement'} would gain about ${next.gain.toFixed(1)} points, but you lead a league, so Onze skips hits to protect it.`;
+    return `${next.outName} for ${next.inName ?? 'a replacement'} would gain about ${next.gain.toFixed(1)} points, but you lead a league, so onze skips hits to protect it.`;
   }
   // a swap onze predicts no gain for needs no maths about margins
   if (next.gain <= 0) {
@@ -222,7 +222,7 @@ export function captainOptions(
   });
 }
 
-/** "Captain Haaland: Onze predicts 7.3 pts, the highest in your team.", or null */
+/** "Captain Haaland: onze predicts 7.3 pts, the highest in your team.", or null */
 export function captainHeadline(
   summary: Pick<AnalysisSummary, 'captaincy' | 'lineup'>,
 ): string | null {

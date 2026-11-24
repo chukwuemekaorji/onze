@@ -13,6 +13,8 @@
   --marker-red: #c8371f;
   /* the marker red is 4.4:1 on paper, just under aa, so red text uses this */
   --marker-red-text: #a92f1a;
+  /* the logo's blue, from web/assets/brand/onze-logo.png; only on the "11" mark */
+  --brand-blue: #0054d1;
   /* only on the notepad's page */
   --highlighter: #f6d94a;
   --tape: rgba(226, 214, 178, 0.82);

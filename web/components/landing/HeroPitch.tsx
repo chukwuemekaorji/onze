@@ -26,7 +26,7 @@ export function HeroPitch() {
         <div className="hero-pitch__placeholder" aria-hidden="true" />
       )}
       <figcaption className="hero-pitch__caption">
-        An example lineup, worked out by Onze from real FPL data.
+        An example lineup, worked out by onze from real FPL data.
       </figcaption>
     </figure>
   );

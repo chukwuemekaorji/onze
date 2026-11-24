@@ -39,7 +39,7 @@ describe('how the prose talks about the numbers', () => {
     expect(Array.isArray(sent.plainPlayers)).toBe(true);
     expect(sent.plainSentences).toMatchObject({
       captain: expect.stringMatching(
-        /^Captain .+: Onze predicts \d+\.\d pts, the highest/,
+        /^Captain .+: onze predicts \d+\.\d pts, the highest/,
       ),
     });
   });
@@ -47,11 +47,11 @@ describe('how the prose talks about the numbers', () => {
   it('writes the basic report in plain words, with no stats jargon', () => {
     const report = writeFallbackReport(sample);
     expect(report.captaincy).toMatch(
-      /^Captain .+: Onze predicts \d+\.\d pts, the highest in your (team|starting eleven)\./,
+      /^Captain .+: onze predicts \d+\.\d pts, the highest in your (team|starting eleven)\./,
     );
     if (sample.transfers.recommendedCount > 0) {
       expect(report.transfers).toMatch(
-        /Onze thinks .+ will score (about \d+|slightly) (more|fewer) points? than .+ this week\./,
+        /onze thinks .+ will score (about \d+|slightly) (more|fewer) points? than .+ this week\./,
       );
     }
     // the outlook gets one sentence at the end, never advice for this week

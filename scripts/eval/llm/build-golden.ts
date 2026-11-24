@@ -359,7 +359,7 @@ const SCENARIOS: readonly Scenario[] = [
     id: 'no-transfer-needed',
     title: 'No transfer worth making',
     description:
-      "The strongest legal squad by Onze's own predictions over the next three weeks, 1 free transfer.",
+      "The strongest legal squad by onze's own predictions over the next three weeks, 1 free transfer.",
     build: (base, tools) =>
       withEntry(
         base,
@@ -398,7 +398,7 @@ const SCENARIOS: readonly Scenario[] = [
     id: 'leading-league-no-hits',
     title: 'Leading a league: no hits',
     description:
-      'The hit scenario (two injuries, most clubs playing twice), but top of a private league, so Onze takes no hit.',
+      'The hit scenario (two injuries, most clubs playing twice), but top of a private league, so onze takes no hit.',
     build: (base, tools) => {
       const data = clone(base);
       setStatus(data, outfieldByPrice(data, tools.realSquad).slice(0, 2), 'i', 0);

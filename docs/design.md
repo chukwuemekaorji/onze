@@ -1,10 +1,10 @@
-# Onze: design
+# onze: design
 
-This document describes how Onze is built, how its numbers are produced and checked, and why the main decisions went the way they did. The [README](../README.md) covers what it does and the headline results.
+This document describes how onze is built, how its numbers are produced and checked, and why the main decisions went the way they did. The [README](../README.md) covers what it does and the headline results.
 
 ## The product in one paragraph
 
-A Fantasy Premier League manager enters their FPL ID. Onze fetches their team and the game's data, predicts every player's points for the coming gameweeks, decides the week's transfers, captain, lineup, chip timing and price risks, and returns all of it as one structured summary. An AI model turns that summary into a short coaching report and answers follow-up questions about it. Users bring their own Anthropic key. Without one they still get the full analysis and a basic report written in code, but no chat.
+A Fantasy Premier League manager enters their FPL ID. onze fetches their team and the game's data, predicts every player's points for the coming gameweeks, decides the week's transfers, captain, lineup, chip timing and price risks, and returns all of it as one structured summary. An AI model turns that summary into a short coaching report and answers follow-up questions about it. Users bring their own Anthropic key. Without one they still get the full analysis and a basic report written in code, but no chat.
 
 ## Architecture
 
@@ -65,13 +65,13 @@ Everything in `lib/analysis/` is pure: typed data in, typed data out, with no ne
 - **Without a key**, `lib/fallback-writer.ts` writes the basic report locally from the same summary.
 - **Chat** sends the summary, the latest 20 messages and the new question with the chat prompt (`lib/chat-prompt.ts`). The conversation is saved in local storage per manager and gameweek, and dropped when the deadline passes or the report is regenerated with new data.
 - **One voice.** The coach's persona lives in `lib/persona.ts` and both prompts import it.
-- **One vocabulary.** Every label a user reads ("Onze predicts 5.4 pts", "Nailed on", "High goal threat", "Easy fixture") and its threshold comes from `lib/plain-labels.ts`. The UI, the basic report and both prompts use it, so the coach and the screen never disagree on what "likely to play" means.
+- **One vocabulary.** Every label a user reads ("onze predicts 5.4 pts", "Nailed on", "High goal threat", "Easy fixture") and its threshold comes from `lib/plain-labels.ts`. The UI, the basic report and both prompts use it, so the coach and the screen never disagree on what "likely to play" means.
 
 The finished report is cached in the browser per manager and dropped once the gameweek deadline passes.
 
 ## The prediction
 
-Onze predicts each player's points as the chance he plays times the points he'd score if he plays, summed over his fixtures in the gameweek (a double gameweek has two, a blank none).
+onze predicts each player's points as the chance he plays times the points he'd score if he plays, summed over his fixtures in the gameweek (a double gameweek has two, a blank none).
 
 - **Two-part model** (`lib/analysis/projection.ts`): a logistic regression for the chance of playing (recent starts and appearances, season appearances, price) times a ridge-penalised linear model for points per appearance (position, season points, form, last three, attacking returns, price, fixture difficulty, home or away). It has few weights on purpose, so each can be read and explained.
 - **Event model** (`lib/analysis/event-projection.ts`): the same chance of playing, times each scoring event's expected count (goals, assists, clean sheets, goals conceded, saves, bonus, defensive contributions) run through FPL's scoring rules. Rates are per 90 minutes and shrunk toward a league prior; team attack and defence strength come from expected goals (`team-strength.ts`).
@@ -126,7 +126,7 @@ It compares transfer strategies built from the app's own code, from the same 20 
 
 - no transfers;
 - chasing form;
-- Onze's one-week advice;
+- onze's one-week advice;
 - the planner.
 
 Tune seasons are played with out-of-fold weights; 2025-26 with the frozen production weights. The rule is registered by hash (`npm run backtest:register`), a rehearsal runs on one tune season only, and `npm run backtest` plays every season once and refuses to run again.
@@ -136,7 +136,7 @@ Tune seasons are played with out-of-fold weights; 2025-26 with the frozen produc
 `lib/eval/llm/` checks a coach reply against the summary it was given:
 
 - **Faithfulness:** each number and player or club name must appear in the summary, within the rounding the prompt allows.
-- **Wording:** no jargon from `plain-labels.ts`, no "expected points" or FPL's figures presented as Onze's, no closing question, and the outlook in one sentence at most and never as this week's advice.
+- **Wording:** no jargon from `plain-labels.ts`, no "expected points" or FPL's figures presented as onze's, no closing question, and the outlook in one sentence at most and never as this week's advice.
 - **Structure:** the reply parses into the exact JSON shape.
 
 The golden set (`test/fixtures/golden/`) has 15 scenarios built from real FPL data by `npm run eval:golden`, with named edits and anonymised managers. CI checks the basic report for every scenario and every saved AI reply. `npm run eval:live` asks the model for fresh replies with the real prompt and model, after printing the most it can cost and asking to confirm. It is run by hand and never in CI.

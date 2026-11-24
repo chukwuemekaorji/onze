@@ -26,21 +26,11 @@
 }
 
 .landing-nav__mark {
-  width: 1.75rem;
-  height: 1.75rem;
-}
-
-.landing-nav__mark circle,
-.landing-nav__mark path {
-  fill: none;
-  stroke: var(--ink);
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.landing-nav__mark .brand-mark__arrow {
-  stroke: var(--ink-muted);
+  /* the "11" is taller than wide; sized to the wordmark's cap height plus a little */
+  height: 1.6rem;
+  width: auto;
+  color: var(--brand-blue);
+  flex-shrink: 0;
 }
 
 .landing-nav__wordmark {

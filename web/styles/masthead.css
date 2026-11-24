@@ -21,22 +21,11 @@
 }
 
 .masthead__mark {
-  width: 1.75rem;
-  height: 1.75rem;
-  color: var(--ink);
-}
-
-.masthead__mark circle,
-.masthead__mark path {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.masthead__mark .brand-mark__arrow {
-  stroke: var(--ink-muted);
+  /* the "11" is taller than wide; sized to the wordmark's cap height plus a little */
+  height: 1.6rem;
+  width: auto;
+  color: var(--brand-blue);
+  flex-shrink: 0;
 }
 
 .masthead__wordmark {

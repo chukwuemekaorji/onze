@@ -47,9 +47,9 @@ export const JARGON = [
   'per 90',
 ] as const;
 
-export const HOW_ONZE_PREDICTS_TITLE = 'How does Onze predict?';
+export const HOW_ONZE_PREDICTS_TITLE = 'How does onze predict?';
 export const HOW_ONZE_PREDICTS =
-  "Onze looks at who's been playing, how often they score, assist and keep clean sheets, how tough the next match is, and the latest injury news, then predicts each player's points. It was tested on a full past season it had never seen.";
+  "onze looks at who's been playing, how often they score, assist and keep clean sheets, how tough the next match is, and the latest injury news, then predicts each player's points. It was tested on a full past season it had never seen.";
 
 /** fpl's injury and suspension news wins; otherwise the chance decides */
 export function playingLabel(chance: number, status: PlayerStatus): PlayingLabel {
@@ -92,9 +92,9 @@ export function fixtureEase(
   return 'Medium';
 }
 
-/** "Onze predicts 5.4 pts" */
+/** "onze predicts 5.4 pts" */
 export function predictsPoints(points: number): string {
-  return `Onze predicts ${points.toFixed(1)} pts`;
+  return `onze predicts ${points.toFixed(1)} pts`;
 }
 
 /** "about 3 more points", rounded to a whole number as people say it */
@@ -159,7 +159,7 @@ export function labelLine(player: AnalysisPlayer, event: number): string {
     .join(' · ');
 }
 
-/** "Onze predicts 5.4 pts · Nailed on · High goal threat · Easy fixture" */
+/** "onze predicts 5.4 pts · Nailed on · High goal threat · Easy fixture" */
 export function cardLine(player: AnalysisPlayer, event: number): string {
   return `${predictsPoints(player.projection.points)} · ${labelLine(player, event)}`;
 }
@@ -209,17 +209,17 @@ export function exactNumbers(player: AnalysisPlayer): string[] {
   ].filter((line): line is string => line !== null);
 }
 
-/** "Onze thinks Gabriel will score about 3 more points than Dasilva this week." */
+/** "onze thinks Gabriel will score about 3 more points than Dasilva this week." */
 export function transferSentence(
   incoming: AnalysisPlayer,
   outgoing: AnalysisPlayer,
   gain: number,
 ): string {
-  return `Onze thinks ${incoming.webName} will score ${aboutPoints(gain)} than ${outgoing.webName} this week.`;
+  return `onze thinks ${incoming.webName} will score ${aboutPoints(gain)} than ${outgoing.webName} this week.`;
 }
 
 /**
- * "Captain Haaland: Onze predicts 7.3 pts, the highest in your team." the
+ * "Captain Haaland: onze predicts 7.3 pts, the highest in your team." the
  * claim is only made when it's true of the whole squad, not just the eleven
  */
 export function captainSentence(
@@ -285,7 +285,7 @@ export function planReasonSentence(reason: PlanReason): string {
     case 'outscores': {
       const span =
         reason.weeks === 1 ? 'this week' : `over the next ${reason.weeks} weeks`;
-      return `Onze thinks ${reason.inName} will score ${aboutPoints(reason.points)} than ${reason.outName} ${span}.`;
+      return `onze thinks ${reason.inName} will score ${aboutPoints(reason.points)} than ${reason.outName} ${span}.`;
     }
     case 'save_for':
       return reason.swapsThen >= 2

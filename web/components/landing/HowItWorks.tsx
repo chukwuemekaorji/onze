@@ -8,7 +8,7 @@ const STEPS = [
     body: 'The number in your FPL points page address. No password, no account.',
   },
   {
-    title: 'Onze does the maths',
+    title: 'onze does the maths',
     body: "Transfers, captaincy, your best eleven and chip timing, worked out in plain code from FPL's own data.",
   },
   {

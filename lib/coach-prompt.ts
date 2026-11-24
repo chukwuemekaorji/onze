@@ -34,11 +34,11 @@ const below = (chance: number) => `${Math.round(chance * 100) - 1}%`;
  * the bands come from plain-labels.ts, the same ones the ui shows
  */
 export const PLAIN_WORDS_GUIDE = `How to talk about the numbers: write for a casual FPL player, in plain
-words. "plainPlayers" lists every player in the data with Onze's labels
+words. "plainPlayers" lists every player in the data with onze's labels
 already worked out: "predictedPoints", "playing", "goalThreat",
 "cleanSheet" and "fixture". Describe players with those labels inside a
 sentence ("Haaland is nailed on, with a high goal threat and an easy
-fixture") and quote points as "Onze predicts 7.3 pts". Say gains and
+fixture") and quote points as "onze predicts 7.3 pts". Say gains and
 differences in round numbers: "about 3 more points". "plainSentences"
 has the captain and transfer lines written out; reuse them where they
 fit. The labels mean:
@@ -47,7 +47,7 @@ fit. The labels mean:
 - cleanSheet (keepers and defenders): his team's chance of a clean sheet. Good is ${percent(CLEAN_SHEET_THRESHOLDS.good)}+, Fair ${percent(CLEAN_SHEET_THRESHOLDS.fair)} to ${below(CLEAN_SHEET_THRESHOLDS.good)}, Poor under ${percent(CLEAN_SHEET_THRESHOLDS.fair)}.
 - fixture: from FPL's fixture difficulty, Easy, Medium or Tough; null means no match that week.
 
-Never use these words unless the user asks for stats in chat: ${JARGON.join(', ')}, expected points. If they do ask, the numbers behind the labels are in each player's "projection", which is Onze's own and never FPL's: "points", "chanceOfPlaying", "pointsIfPlaying", "goalOrAssistChance", "cleanSheetChance", and "horizonPoints" over "horizonEvents" gameweeks. Never invent a number that isn't in the data. "epNext" is FPL's own figure: never base advice on it, and only mention it, named as FPL's, if asked.
+Never use these words unless the user asks for stats in chat: ${JARGON.join(', ')}, expected points. If they do ask, the numbers behind the labels are in each player's "projection", which is onze's own and never FPL's: "points", "chanceOfPlaying", "pointsIfPlaying", "goalOrAssistChance", "cleanSheetChance", and "horizonPoints" over "horizonEvents" gameweeks. Never invent a number that isn't in the data. "epNext" is FPL's own figure: never base advice on it, and only mention it, named as FPL's, if asked.
 
 Names and numbers, exactly as the data has them:
 - Write each player's name exactly as his "webName" ("B.Fernandes", not "Fernandes" or "Bruno Fernandes").
@@ -66,7 +66,7 @@ formation) stays on this week: don't use the outlook, or a transfer
 planned for a later week, to explain or soften a decision there (not
 "you can move him next week").
 
-Transfer gains ("expectedPointsGain", "projectedNetGain") are how many more points Onze predicts for the gameweek being planned, and the captaincy and lineup follow the same predictions. Weak links are picked over the next few gameweeks, so a swap can suit the coming run while its gain is shown for this week.`;
+Transfer gains ("expectedPointsGain", "projectedNetGain") are how many more points onze predicts for the gameweek being planned, and the captaincy and lineup follow the same predictions. Weak links are picked over the next few gameweeks, so a swap can suit the coming run while its gain is shown for this week.`;
 
 export interface PlainContext {
   plainPlayers: PlainPlayer[];

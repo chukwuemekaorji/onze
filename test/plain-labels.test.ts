@@ -102,8 +102,8 @@ describe('fixtureEase', () => {
 
 describe('points in words', () => {
   it('quotes a prediction to one decimal place', () => {
-    expect(predictsPoints(5.36)).toBe('Onze predicts 5.4 pts');
-    expect(predictsPoints(0)).toBe('Onze predicts 0.0 pts');
+    expect(predictsPoints(5.36)).toBe('onze predicts 5.4 pts');
+    expect(predictsPoints(0)).toBe('onze predicts 0.0 pts');
   });
 
   it('rounds a difference to a whole number, as people say it', () => {
@@ -140,10 +140,10 @@ describe('player cards', () => {
 
   it('reads like the example card', () => {
     expect(cardLine(haaland, EVENT)).toBe(
-      'Onze predicts 7.3 pts · Nailed on · High goal threat · Easy fixture',
+      'onze predicts 7.3 pts · Nailed on · High goal threat · Easy fixture',
     );
     expect(cardLine(gabriel, EVENT)).toBe(
-      'Onze predicts 5.6 pts · Nailed on · Low goal threat · Good chance of a clean sheet · Medium fixture',
+      'onze predicts 5.6 pts · Nailed on · Low goal threat · Good chance of a clean sheet · Medium fixture',
     );
   });
 
@@ -190,7 +190,7 @@ describe('transfer and captain sentences', () => {
 
   it('reads like the example transfer line', () => {
     expect(transferSentence(gabriel, dasilva, 2.97)).toBe(
-      'Onze thinks Gabriel will score about 3 more points than Dasilva this week.',
+      'onze thinks Gabriel will score about 3 more points than Dasilva this week.',
     );
   });
 
@@ -201,10 +201,10 @@ describe('transfer and captain sentences', () => {
     });
     const benched = player({ projection: makeProjection({ points: 8 }) });
     expect(captainSentence(haaland, [haaland, gabriel])).toBe(
-      'Captain Haaland: Onze predicts 7.3 pts, the highest in your team.',
+      'Captain Haaland: onze predicts 7.3 pts, the highest in your team.',
     );
     expect(captainSentence(haaland, [haaland, benched])).toBe(
-      'Captain Haaland: Onze predicts 7.3 pts, the highest in your starting eleven.',
+      'Captain Haaland: onze predicts 7.3 pts, the highest in your starting eleven.',
     );
   });
 });
@@ -322,7 +322,7 @@ describe('plan reasons', () => {
         weeks: 5,
       }),
     ).toBe(
-      'Onze thinks Gabriel will score about 14 more points than Dasilva over the next 5 weeks.',
+      'onze thinks Gabriel will score about 14 more points than Dasilva over the next 5 weeks.',
     );
     expect(
       planReasonSentence({
